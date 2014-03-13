@@ -1,4 +1,4 @@
-package com.GD.dao.impl;
+package com.GD.dao.mysql;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
