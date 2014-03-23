@@ -10,6 +10,7 @@
 
 	<context:component-scan base-package="com.GD.dao" />
 	<context:component-scan base-package="com.GD.redis" />
+	<context:component-scan base-package="com.GD.mysql" />
 
 	<!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
 		<property name="dataSource"> <ref local="dataSource" /> </property> </bean> 
