@@ -22,15 +22,13 @@
         } else { 
             url = url + "?timestamp=" + timestamp; 
         }
-        alert(url);
         return url; 
     } 
 </script>
 </head>
 <body>
 	<form action="/validate" method="post">
-		<h1>hello world</h1>
-		<input type="text" name="code"><img id="imgObj" src="getCode?codeId=1" /><input type="button" value="change" onclick="changeImg()">
+		<input type="text" name="code"><img id="imgObj" src="/getCode" /><input type="button" value="change" onclick="changeImg()">
 		<br/>
 		<input type="submit">
 	</form>
