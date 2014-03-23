@@ -16,11 +16,11 @@ public class TestServiceImpl implements TestService {
 	private TestDao testDao;
 
 	public void test() {
-//		System.out.println("service");
-//		testDao.count();
+		System.out.println("service");
+		testDao.count();
 		
-		System.out.println(testRedisDao.get("key"));
-		testRedisDao.set("key1", "test1");
+//		System.out.println(testRedisDao.get("key"));
+//		testRedisDao.set("key1", "test1");
 	}
 
 }

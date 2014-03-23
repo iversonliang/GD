@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 public class JdbcDaoSupport {
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	/**

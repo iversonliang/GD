@@ -19,6 +19,7 @@ public class TestDaoMysqlImpl implements TestDao {
 		System.out.println("dao");
 		String sql = "select count(*) from user_clock";
 //		int result = this.jdbcTemplate.queryForInt(sql);
+		System.out.println("jdbc: ------------------ " + jdbc);
 		int result = this.jdbc.queryForInt(sql);
 		System.out.println(result);
 		this.get(50004297);
