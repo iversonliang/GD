@@ -17,11 +17,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Component;
 
-
-/**
- * 
- */
+@Component
 public class JdbcMysqlImpl extends JdbcDaoSupport implements Jdbc {
 	// protected Log logger = LogFactory.getLog(this.getClass());
 
