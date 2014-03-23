@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.GD.dao.TestDao;
 import com.GD.model.UserClock;
-import com.duowan.mysql.Jdbc;
+import com.GD.mysql.Jdbc;
 
 @Repository
 public class TestDaoMysqlImpl implements TestDao {

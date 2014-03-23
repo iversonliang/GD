@@ -1,4 +1,4 @@
-package com.duowan.mysql;
+package com.GD.mysql;
 
 import java.util.Date;
 
