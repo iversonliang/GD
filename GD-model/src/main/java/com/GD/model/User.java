@@ -6,7 +6,7 @@ public class User {
 	private int userId;
 	private String username;
 	private String password;
-	private String nickName;
+	private String nickname;
 	private String email;
 	private String question;
 	private String answer;
@@ -60,12 +60,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public Date getPosttime() {

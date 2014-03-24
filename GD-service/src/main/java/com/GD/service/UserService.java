@@ -1,12 +1,10 @@
-package com.GD.dao;
+package com.GD.service;
 
 import com.GD.model.User;
 
-public interface UserDao {
+public interface UserService {
 
 	public boolean add(User user);
 	
 	public User get(String username, String password);
-	
-	public boolean update(User user);
 }

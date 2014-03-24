@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,18 +16,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.GD.interceptor.LoginRequired;
+import com.GD.model.User;
 import com.GD.service.TestService;
+import com.GD.service.UserService;
 import com.GD.util.AuthCodeUtil;
 
 @Controller
-public class TestController {
+public class UserController {
 	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private TestService testService;
 	
@@ -80,11 +83,62 @@ public class TestController {
 		session.setAttribute("actualCode", null);
 		System.out.println("result:" + result);
 		return result;
-
 	}
-
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView register(User user) {
+		System.out.println(user.getUsername() + " " + user.getPassword());
+		boolean result = userService.add(user);
+		ModelAndView model = new ModelAndView("login");
+		if (result) {
+			model.setViewName("success");
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
+	public ModelAndView registerPage() {
+		ModelAndView model = new ModelAndView("registerPage");
+		return model;
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(String username, String password, HttpSession session) {
+		User user = userService.get(username, password);
+		ModelAndView model = new ModelAndView("login");
+		if (user != null) {
+			session.setAttribute("username", username);
+			session.setMaxInactiveInterval(10);
+			model.setViewName("success");
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	public ModelAndView loginPage() {
+		ModelAndView model = new ModelAndView("loginPage");
+		return model;
+	}
+	
+	@LoginRequired
+	@RequestMapping(value = "/testLogin", method = RequestMethod.POST)
+	public ModelAndView testLogin(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("------testLogin----------");
+		ModelAndView model = new ModelAndView("success");
+//		if (StringUtils.isEmpty(result) || !result.equals("logined")) {
+//			model.setViewName("loginPage");
+//		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/testLoginPage", method = RequestMethod.GET)
+	public ModelAndView testLoginPage() {
+		ModelAndView model = new ModelAndView("testLoginPage");
+		return model;
+	}
 	
 	@RequestMapping(value = "test")
+	@LoginRequired
 	public ModelAndView test() {
 		System.out.println("------------test--------------");
 		System.out.println("testService:" + testService);
@@ -92,4 +146,5 @@ public class TestController {
 		ModelAndView view = new ModelAndView("index");
 		return view;
 	}
+	
 }
