@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
@@ -103,13 +105,25 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login(String username, String password, HttpSession session) {
-		User user = userService.get(username, password);
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		User user = userService.get(username, password);
+		String username = (String) request.getParameter("username");
+		String password = (String) request.getParameter("password");
+		System.out.println("login username:" + username + "¡¡" + password);
+		User user = new User();
 		ModelAndView model = new ModelAndView("login");
 		if (user != null) {
 			session.setAttribute("username", username);
+			System.out.println("login ---- sessionId:" + session.getId() + " username:" + session.getAttribute("username"));
 			session.setMaxInactiveInterval(10);
-			model.setViewName("success");
+			String url = (String) session.getAttribute("jumpPage");
+			session.removeAttribute("jumpPage");
+			System.out.println("jump url:" + url);
+			if (StringUtils.isNotEmpty(url)) {
+				model.setViewName("redirect:" + url);
+			} else {
+				model.setViewName("success");
+			}
 		}
 		return model;
 	}
@@ -121,9 +135,9 @@ public class UserController {
 	}
 	
 	@LoginRequired
-	@RequestMapping(value = "/testLogin", method = RequestMethod.POST)
+	@RequestMapping(value = "/testLogin")
 	public ModelAndView testLogin(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("------testLogin----------");
+		System.out.println("------testLogin---------- " + request.getSession().getAttribute("test") + " " + request.getParameter("test"));
 		ModelAndView model = new ModelAndView("success");
 //		if (StringUtils.isEmpty(result) || !result.equals("logined")) {
 //			model.setViewName("loginPage");
