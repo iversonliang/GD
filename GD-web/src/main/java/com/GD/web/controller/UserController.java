@@ -3,6 +3,7 @@ package com.GD.web.controller;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -21,17 +22,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
+import com.GD.email.MailInfo;
+import com.GD.email.MailSender;
+import com.GD.handler.UserHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
 import com.GD.service.TestService;
 import com.GD.service.UserService;
 import com.GD.util.AuthCodeUtil;
+import com.GD.util.CodeUtil;
+import com.GD.util.EmailUtil;
+import com.GD.web.form.UserForm;
 
 @Controller
 public class UserController {
 	
+	@Autowired
+	private UserHandler userHandler;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -88,7 +96,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView register(User user) {
+	public ModelAndView register(UserForm form) throws UnsupportedEncodingException {
+		User user = userHandler.form2User(form);
 		System.out.println(user.getUsername() + " " + user.getPassword());
 		boolean result = userService.add(user);
 		ModelAndView model = new ModelAndView("login");
@@ -96,6 +105,13 @@ public class UserController {
 			model.setViewName("success");
 		}
 		return model;
+	}
+	
+	@RequestMapping(value = "/activate", method = RequestMethod.GET) 
+	public ModelAndView activate(String code) {
+		boolean result = userService.activate(code);
+		System.out.println("¼¤»î£º" + result);
+		return null;
 	}
 	
 	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)

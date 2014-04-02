@@ -10,6 +10,7 @@ public class User {
 	private String email;
 	private String question;
 	private String answer;
+	private int status;
 	private Date posttime;
 
 	public int getUserId() {
@@ -74,6 +75,14 @@ public class User {
 
 	public void setPosttime(Date posttime) {
 		this.posttime = posttime;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

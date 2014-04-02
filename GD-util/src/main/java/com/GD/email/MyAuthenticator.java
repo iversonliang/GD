@@ -1,4 +1,4 @@
-package com.GD.util;
+package com.GD.email;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

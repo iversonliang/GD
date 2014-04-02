@@ -1,4 +1,4 @@
-package com.GD.dao.mysql;
+package com.GD.email;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class TestEmail {
 		// props.setProperty("mail.smtp.personal", "ÉýÁúÏµÍ³");
 
 		props.setProperty("mail.transport.protocol", "smtp");
-		props.setProperty("mail.smtp.host", "smtp.game.yy.com");
+		props.setProperty("mail.smtp.host", "smtp.goodancer.com");
 		props.setProperty("mail.smtp.port", "25");
 		props.setProperty("mail.smtp.auth", "false");
 		return props;

@@ -1,5 +1,6 @@
-package com.GD.util;
+package com.GD.email;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -15,14 +16,15 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-public class SimpleMailSender {
+public class MailSender {
 	/**
 	 * 以文本格式发送邮件
 	 * 
 	 * @param mailInfo
 	 *            待发送的邮件的信息
+	 * @throws UnsupportedEncodingException 
 	 */
-	public boolean sendTextMail(MailSenderInfo mailInfo) {
+	public static boolean sendTextMail(MailInfo mailInfo) throws UnsupportedEncodingException {
 		// 判断是否需要身份认证
 		MyAuthenticator authenticator = null;
 		Properties pro = mailInfo.getProperties();
@@ -36,7 +38,7 @@ public class SimpleMailSender {
 			// 根据session创建一个邮件消息
 			Message mailMessage = new MimeMessage(sendMailSession);
 			// 创建邮件发送者地址
-			Address from = new InternetAddress(mailInfo.getFromAddress());
+			Address from = new InternetAddress(mailInfo.getFromAddress(), mailInfo.getPersonal());
 			// 设置邮件消息的发送者
 			mailMessage.setFrom(from);
 			// 创建邮件的接收者地址，并设置到邮件消息中
@@ -64,7 +66,7 @@ public class SimpleMailSender {
 	 * @param mailInfo
 	 *            待发送的邮件信息
 	 */
-	public static boolean sendHtmlMail(MailSenderInfo mailInfo) {
+	public static boolean sendHtmlMail(MailInfo mailInfo) {
 		// 判断是否需要身份认证
 		MyAuthenticator authenticator = null;
 		Properties pro = mailInfo.getProperties();

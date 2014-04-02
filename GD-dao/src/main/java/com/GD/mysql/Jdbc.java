@@ -562,7 +562,6 @@ public interface Jdbc {
 	 *            参数对象
 	 * @return 执行成功后的id.
 	 */
-	@Deprecated
 	long insertForLastId(String sql, StatementParameter param);
 
 	/**

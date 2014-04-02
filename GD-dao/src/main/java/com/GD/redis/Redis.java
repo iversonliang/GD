@@ -241,9 +241,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Long expire(String key, int seconds) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long expire(final String key, final int seconds) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.expire(key, seconds);
+			}
+		});
 	}
 
 	@Override
@@ -763,9 +767,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Long del(String key) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long del(final String key) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.del(key);
+			}
+		});
 	}
 
 	@Override

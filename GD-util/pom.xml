@@ -11,6 +11,10 @@
 	<artifactId>GD-util</artifactId>
 	<dependencies>
 		<dependency>
+			<artifactId>GD-model</artifactId>
+			<groupId>com.GD</groupId>
+		</dependency>
+		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
