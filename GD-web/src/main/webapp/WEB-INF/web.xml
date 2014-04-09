@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
-    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<servlet>
 		<servlet-name>gd</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<multipart-config>
+            <max-file-size>52428800</max-file-size>
+            <max-request-size>52428800</max-request-size>
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
 	</servlet>
 
 	<servlet-mapping>
@@ -18,6 +24,23 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
+	<!-- 上传 -->
+	<!-- <servlet>
+		<servlet-name>upload</servlet-name>
+		<servlet-class>com.GD.web.servlet.FileUploadServlet</servlet-class>
+		<multipart-config>
+            <max-file-size>52428800</max-file-size>
+            <max-request-size>52428800</max-request-size>
+            <file-size-threshold>10</file-size-threshold>
+            <location>D:\upload</location>
+        </multipart-config>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>upload</servlet-name>
+		<url-pattern>/upload.do</url-pattern>
+	</servlet-mapping>
+ -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
