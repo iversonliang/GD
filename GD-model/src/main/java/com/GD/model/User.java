@@ -11,7 +11,16 @@ public class User {
 	private String question;
 	private String answer;
 	private int status;
+	private int sex;
 	private Date posttime;
+
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
 
 	public int getUserId() {
 		return userId;

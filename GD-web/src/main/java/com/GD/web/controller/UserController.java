@@ -45,6 +45,7 @@ import com.GD.util.AuthCodeUtil;
 import com.GD.web.form.UserForm;
 
 @Controller
+@RequestMapping(value = UserController.DIR)
 public class UserController {
 
 	@Autowired
@@ -54,16 +55,11 @@ public class UserController {
 	@Autowired
 	private TestService testService;
 
+	public static final String DIR = "/user";
+	
 	final private String format = "image/png";
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView("index");
-		System.out.println("index");
-		return view;
-	}
-
-	@RequestMapping(value = "/getCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/getCode.do", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getCode(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		MediaType mtype = MediaType.valueOf(format);
@@ -79,7 +75,7 @@ public class UserController {
 
 		System.out.println("getCodeId:" + request.getParameter("codeId"));
 		IOUtils.closeQuietly(out);
-		// ��ֹͼ�񻺴档
+		//禁止图像缓存
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
@@ -99,7 +95,7 @@ public class UserController {
 			result = true;
 		}
 		System.out.println("actualCode:" + actualCode.toString());
-		session.setAttribute("actualCode", null);
+		session.removeAttribute("actualCode");
 		System.out.println("result:" + result);
 		return result;
 	}
@@ -123,18 +119,20 @@ public class UserController {
 		return null;
 	}
 
-	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
-	public ModelAndView registerPage() {
-		ModelAndView model = new ModelAndView("registerPage");
-		return model;
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// User user = userService.get(username, password);
 		String username = (String) request.getParameter("username");
 		String password = (String) request.getParameter("password");
-		System.out.println("login username:" + username + "��" + password);
+		String code = (String) request.getParameter("code");
+		System.out.println("login username:" + username + " password:" + password + " code:" + code);
+		Object actualCode = session.getAttribute("actualCode");
+		boolean result = false;
+		if (code != null && actualCode != null && code.equalsIgnoreCase(actualCode.toString())) {
+			result = true;
+		}
+		session.removeAttribute("actualCode");
+		System.out.println("actualCode:" + actualCode.toString() + " result:" + result);
 		User user = new User();
 		ModelAndView model = new ModelAndView("login");
 		if (user != null) {
@@ -150,12 +148,6 @@ public class UserController {
 				model.setViewName("success");
 			}
 		}
-		return model;
-	}
-
-	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
-	public ModelAndView loginPage() {
-		ModelAndView model = new ModelAndView("loginPage");
 		return model;
 	}
 
@@ -176,16 +168,6 @@ public class UserController {
 		return model;
 	}
 
-	@RequestMapping(value = "test")
-	@LoginRequired
-	public ModelAndView test() {
-		System.out.println("------------test--------------");
-		System.out.println("testService:" + testService);
-		testService.test();
-		ModelAndView view = new ModelAndView("index");
-		return view;
-	}
-
 	/**
 	 * 文件上传
 	 * 
@@ -194,7 +176,7 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/upload.do", method = RequestMethod.POST)
 	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String SAVE_PATH = "D:\\upload";
 		List<String> fileNames = new LinkedList<String>();

@@ -20,7 +20,7 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public long add(User user) {
-		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status) VALUES(?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status,sex) VALUES(?,?,?,?,?,?,?,?,?);";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
@@ -30,6 +30,7 @@ public class UserDaoMysqlImpl implements UserDao {
 		param.setString(StringUtils.defaultIfEmpty(user.getAnswer(), ""));
 		param.setDate(new Date());
 		param.setInt(user.getStatus());
+		param.setInt(user.getSex());
 		return jdbc.insertForLastId(sql, param);
 	}
 
