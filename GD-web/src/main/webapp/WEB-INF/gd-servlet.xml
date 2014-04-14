@@ -14,8 +14,8 @@
     <mvc:annotation-driven />
     <!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 需要更改 -->
     <context:component-scan base-package="com.GD" />
-	<!--启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->  
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<!--启动Spring MVC的注解功能，完成请求和注解POJO的映射 (driven里面干了这事情)-->  
+    <!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
@@ -37,12 +37,26 @@
     
     <mvc:resources mapping="/js/**" location="/js/" />
     
-    <aop:config> 
-    	<!--切入点--> 
+    <!-- <aop:config> 
+    	切入点 
         <aop:pointcut id="loginPoint" expression="execution(* com.GD.web.controller.*.*(..)) "/>
-        <!--在该切入点使用自定义拦截器--> 
+        在该切入点使用自定义拦截器 
         <aop:advisor pointcut-ref="loginPoint" advice-ref="loginRequiredInterceptor"/>
-    </aop:config> 
+    </aop:config>  -->
+    
+    <bean id="autoPorxyFactoryBean1"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>loginRequiredInterceptor</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>*</value>
+			</list>
+		</property>
+	</bean>
     
     <mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/css/**" location="/css/" />

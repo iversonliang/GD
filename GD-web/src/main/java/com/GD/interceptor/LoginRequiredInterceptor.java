@@ -18,7 +18,7 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		System.out.println("methodName: " + invocation.getMethod().getName());
 		boolean isInvoke = true;
-		// 判断该方法是否加了@LoginRequired 注解
+        // 判断该方法是否加了@LoginRequired 注解
 		if (invocation.getMethod().isAnnotationPresent(LoginRequired.class)) {
 			Object[] args = invocation.getArguments();
 			HttpServletRequest request = null;
@@ -47,7 +47,7 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 				isInvoke = false;
 			}
 		}
-		// 执行被拦截的方法，切记，如果此方法不调用，则被拦截的方法不会被执行。
+        // 执行被拦截的方法，切记，如果此方法不调用，则被拦截的方法不会被执行。
 		if (isInvoke) {
 			return invocation.proceed();
 		}
