@@ -1,31 +1,32 @@
 package com.GD.util;
 
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
- * ²ÎÊýÑéÖ¤
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
  * 
- * @author °¢º£
+ * @author ï¿½ï¿½ï¿½ï¿½
  * 
  */
 public class AssertUtil {
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö×Ö·û´®ÊÇ·ñ³¬¹ý×î´ó³¤¶È</br>
-	 * ×¢Òâ£ºÈç¹û×Ö·û´®Îª¿Õ£¬Å×java.lang.IllegalArgumentExceptionÒì³£</br> ²ÎÊý²»ÔÊÐíÎª¿Õ</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ç·ñ³¬¹ï¿½ï¿½ï¿½ó³¤¶ï¿½</br>
+	 * ×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ö·ï¿½Îªï¿½Õ£ï¿½ï¿½ï¿½java.lang.IllegalArgumentExceptionï¿½ì³£</br> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½</br>
 	 * 
 	 * @param str
-	 *            ×Ö·û´®
+	 *            ï¿½Ö·ï¿½
 	 * @param maxLength
-	 *            ×î´ó³¤¶È
+	 *            ï¿½ï¿½ó³¤¶ï¿½
 	 * @param message
-	 *            Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void maxLength(String str, int maxLength, String message) {
 		if (StringUtils.isEmpty(str)) {
-			throw new IllegalArgumentException("²ÎÊý²»ÔÊÐíÎª¿Õ.");
+			throw new IllegalArgumentException("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½.");
 		}
 		if (str.length() > maxLength) {
 			throw new IllegalArgumentException(message);
@@ -33,12 +34,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö×Ö¶ÎÊÇ·ñºÏ·¨µÄ×Ö¶ÎÃû³Æ</br> ºÏ·¨µÄ×Ö¶ÎÃû³Æ±ØÐèÒÔa-z»òÕßA-Z¿ªÍ·
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½Ç·ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½</br> ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½a-zï¿½ï¿½ï¿½ï¿½A-Zï¿½ï¿½Í·
 	 * 
 	 * @param fieldName
-	 *            ×Ö¶ÎÃû³Æ
+	 *            ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½
 	 * @param message
-	 *            Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void assertFieldName(String fieldName, String message) {
 		if (StringUtils.isEmpty(fieldName)) {
@@ -51,12 +52,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö¶ÔÏóÊÇ·ñÎª¿Õ</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½</br>
 	 * 
 	 * @param obj
-	 *            ¶ÔÏó
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * @param message
-	 *            Èç¹ûÎª¿Õ,Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½Îªï¿½ï¿½,ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void notNull(Object obj, String message) {
 		if (obj == null) {
@@ -65,12 +66,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö¶ÔÏóÊÇ·ñÎª¿Õ</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½</br>
 	 * 
 	 * @param obj
-	 *            ¶ÔÏó
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * @param message
-	 *            Èç¹ûÎª¿Õ,Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½Îªï¿½ï¿½,ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void assertNotNull(Object obj, String message) {
 		if (obj == null) {
@@ -79,26 +80,32 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö×Ö·û´®ÊÇ·ñÎª¿Õ</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½</br>
 	 * 
 	 * @param str
-	 *            ×Ö·û´®
+	 *            ï¿½Ö·ï¿½
 	 * @param message
-	 *            Èç¹ûÎª¿Õ,Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½Îªï¿½ï¿½,ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void assertNotEmpty(String str, String message) {
 		if (StringUtils.isEmpty(str)) {
 			throw new IllegalArgumentException(message);
 		}
 	}
+	
+	public static void assertNotEmpty(List<?> list, String message) {
+		if (list == null || list.size() == 0) {
+			throw new IllegalArgumentException(message);
+		}
+	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö×Ö·û´®ÊÇ·ñÎª¿Õ</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½</br>
 	 * 
 	 * @param str
-	 *            ×Ö·û´®
+	 *            ï¿½Ö·ï¿½
 	 * @param message
-	 *            Èç¹ûÎª¿Õ,Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½Îªï¿½ï¿½,ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void empty(String str, String message) {
 		if (StringUtils.isEmpty(str)) {
@@ -107,12 +114,12 @@ public class AssertUtil {
 	}
 
 //	/**
-//	 * ÁÐ±í²»Îª¿ÕÔòÕý³££¬Îª¿ÕÔòÅ×Òì³£</br>
+//	 * ï¿½Ð±?Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£</br>
 //	 * 
 //	 * @param list
-//	 *            ÁÐ±í
+//	 *            ï¿½Ð±ï¿½
 //	 * @param message
-//	 *            Èç¹ûÁÐ±íÎª¿Õ£¬Å×³öµÄÒì³£ÐÅÏ¢
+//	 *            ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Îªï¿½Õ£ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 //	 */
 //	public static void isEmpty(List<?> list, String message) {
 //		if (ListUtil.isNotEmpty(list)) {
@@ -122,12 +129,12 @@ public class AssertUtil {
 //	}
 //
 //	/**
-//	 * ÅÐ¶ÏÁÐ±íÊÇ·ñÎª¿Õ£¬Îª¿ÕÔòÅ×Òì³£</br>
+//	 * ï¿½Ð¶ï¿½ï¿½Ð±ï¿½ï¿½Ç·ï¿½Îªï¿½Õ£ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£</br>
 //	 * 
 //	 * @param list
-//	 *            ÁÐ±í
+//	 *            ï¿½Ð±ï¿½
 //	 * @param message
-//	 *            Èç¹ûÁÐ±íÎª¿Õ£¬Å×³öµÄÒì³£ÐÅÏ¢
+//	 *            ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Îªï¿½Õ£ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 //	 */
 //	public static void assertNotEmpty(List<?> list, String message) {
 //		if (ListUtil.isEmpty(list)) {
@@ -136,12 +143,12 @@ public class AssertUtil {
 //	}
 
 	/**
-	 * ÅÐ¶ÏsetÊÇ·ñÎª¿Õ£¬Îª¿ÕÔòÅ×Òì³£</br>
+	 * ï¿½Ð¶ï¿½setï¿½Ç·ï¿½Îªï¿½Õ£ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£</br>
 	 * 
 	 * @param set
-	 *            ÁÐ±í
+	 *            ï¿½Ð±ï¿½
 	 * @param message
-	 *            Èç¹ûsetÎª¿Õ£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½setÎªï¿½Õ£ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void assertNotEmpty(Set<?> set, String message) {
 		if (set == null || set.isEmpty()) {
@@ -150,12 +157,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸ö²¼¶ûÖµÊÇ·ñÎªÕæ,²»ÎªÕæÅ×Òì³£ </br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ç·ï¿½Îªï¿½ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ì³£ </br>
 	 * 
 	 * @param flag
-	 *            ÁÐ±í
+	 *            ï¿½Ð±ï¿½
 	 * @param message
-	 *            Èç¹ûflagÎª¿Õ£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½flagÎªï¿½Õ£ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 
 	public static void assertTrue(boolean flag, String message) {
@@ -165,12 +172,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸öÕûÊý£¬ÊÇ·ñ´óÓÚ0</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½0</br>
 	 * 
 	 * @param num
-	 *            ÕûÊý
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * @param message
-	 *            Îª¿Õ£¬»òÕßÐ¡ÓÚ0£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            Îªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½0ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void greatZero(Integer num, String message) {
 		if (num == null || num <= 0) {
@@ -179,12 +186,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸öLong£¬ÊÇ·ñ´óÓÚ0</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½Longï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½0</br>
 	 * 
 	 * @param num
 	 *            Long
 	 * @param message
-	 *            Îª¿Õ£¬»òÕßÐ¡ÓÚ0£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            Îªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½0ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 
 	public static void greatZero(Long num, String message) {
@@ -194,26 +201,26 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸öÕûÊýÊÇ·ñ´óÓÚ0</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½0</br>
 	 * 
 	 * @param num
-	 *            ÕûÊý
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * @param message
-	 *            Îª¿Õ£¬»òÕßÐ¡ÓÚ0£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            Îªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½0ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void isGreaterZero(Integer num, String message) {
 		AssertUtil.greatZero(num, message);
 	}
 
 	/**
-	 * ÅÐ¶Ï¶þ¸öÕûÊýÊÇ·ñÏàµÈ </br>
+	 * ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ </br>
 	 * 
 	 * @param num1
-	 *            ÕûÊý1
+	 *            ï¿½ï¿½ï¿½ï¿½1
 	 * @param num2
-	 *            ÕûÊý2
+	 *            ï¿½ï¿½ï¿½ï¿½2
 	 * @param message
-	 *            ²»ÏàµÈÊ±£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void isEquals(int num1, int num2, String message) {
 		if (num1 == num2) {
@@ -223,14 +230,14 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶Ï¶þ¸ö×Ö·û´®ÊÇ·ñÏàµÈ£¬ºöÂÔ´óÐ¡Ð´</br>
+	 * ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ð¡Ð´</br>
 	 * 
 	 * @param str1
-	 *            ×Ö·û´®1
+	 *            ï¿½Ö·ï¿½1
 	 * @param str2
-	 *            ×Ö·û´®2
+	 *            ï¿½Ö·ï¿½2
 	 * @param message
-	 *            ²»ÏàµÈÊ±£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void equalsIgnoreCase(String str1, String str2, String message) {
 		if (str1.equalsIgnoreCase(str2)) {
@@ -240,12 +247,12 @@ public class AssertUtil {
 	}
 
 	/**
-	 * ÅÐ¶ÏÒ»¸öÕûÊýÊÇ·ñ´óÓÚµÈÓÚ0,Èç¹û²»ÊÇÔòÅ×Òì³£</br>
+	 * ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½0,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£</br>
 	 * 
 	 * @param str
-	 *            ÕûÊý
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * @param message
-	 *            ²»ÏàµÈÊ±£¬Å×³öµÄÒì³£ÐÅÏ¢
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
 	 */
 	public static void isGreaterEqualZero(Integer num, String message) {
 		if (num >= 0) {
