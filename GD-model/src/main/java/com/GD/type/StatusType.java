@@ -1,15 +1,14 @@
 package com.GD.type;
 
-
-public enum UserStatusType implements Inum{
-	UNACTIVATED(0, "未激活"),
-	ACTIVATED(1, "已激活")
+public enum StatusType implements Inum{
+	NORMAL(1, "正常"),
+	SHIELDING(2, "屏蔽")
 	;
 
 	private int key;
 	private String desc;
 	
-	private UserStatusType(int key, String desc) {
+	private StatusType(int key, String desc) {
 		this.key = key;
 		this.desc = desc;
 	}
@@ -24,7 +23,7 @@ public enum UserStatusType implements Inum{
 		return this.key;
 	}
 
-	public static UserStatusType toType(Integer key) {
-		return EnumUtil.toEnum(key, UserStatusType.class);
+	public static StatusType toType(Integer key) {
+		return EnumUtil.toEnum(key, StatusType.class);
 	}
 }
