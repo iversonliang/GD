@@ -6,13 +6,14 @@
 </head>
 <body>
 	<p>上传文件</p>
-	<form action="/upload.do" method="post" enctype="multipart/form-data">
+	<form action="/user/upload.do" method="post" enctype="multipart/form-data">
 		<fieldset>
-			<label>File1:</label><input type="file" name="file1" /><br /> <label>File2:</label><input
-				type="file" name="file2" /><br /> <label>File3:</label><input
-				type="file" name="file3" /><br /> <label>File4:</label><input
-				type="file" name="file4" /><br /> <label>File5:</label><input
-				type="file" name="file5" />
+			<label>File1:</label>
+			<input type="file" name="file1" /><br /> <label>File2:</label>
+			<input type="file" name="file2" /><br /> <label>File3:</label>
+			<input type="file" name="file3" /><br /> <label>File4:</label>
+			<input type="file" name="file4" /><br /> <label>File5:</label>
+			<input type="file" name="file5" />
 		</fieldset>
 		<input type="submit" name="submit" value="upload" />
 	</form>

@@ -35,16 +35,14 @@
 	</bean> -->
 	<bean id="multipartResolver"  class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
     
-    <mvc:resources mapping="/js/**" location="/js/" />
-    
-    <!-- <aop:config> 
-    	切入点 
+    <aop:config> 
+    	<!-- 切入点  -->
         <aop:pointcut id="loginPoint" expression="execution(* com.GD.web.controller.*.*(..)) "/>
-        在该切入点使用自定义拦截器 
+        <!-- 在该切入点使用自定义拦截器  -->
         <aop:advisor pointcut-ref="loginPoint" advice-ref="loginRequiredInterceptor"/>
-    </aop:config>  -->
+    </aop:config> 
     
-    <bean id="autoPorxyFactoryBean1"
+    <!-- <bean id="autoPorxyFactoryBean1"
 		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
 		<property name="interceptorNames">
 			<list>
@@ -56,7 +54,7 @@
 				<value>*</value>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
     
     <mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/css/**" location="/css/" />

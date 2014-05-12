@@ -8,7 +8,7 @@ public class CodeUtil {
 	public static final String letterChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public static final String numberChar = "0123456789";
 
-	public static String generateString(int length) // ²ÎÊýÎª·µ»ØËæ»úÊýµÄ³¤¶È
+	public static String generateString(int length) // ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
 	{
 		StringBuffer sb = new StringBuffer();
 		Random random = new Random();
