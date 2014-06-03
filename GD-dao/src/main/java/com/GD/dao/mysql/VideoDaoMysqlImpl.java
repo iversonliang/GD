@@ -19,7 +19,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 
 	@Override
 	public boolean add(Video video) {
-		String sql = "INSERT INTO video(name,description,url,play,commonts,love,user_id,username,posttime,del,status,video_type,video_grade_type,label) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO video(name,description,url,play,commonts,love,user_id,nickname,posttime,del,status,video_type,video_grade_type,label) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		StatementParameter params = new StatementParameter();
 		params.setString(video.getName());
 		params.setString(video.getDescription());
@@ -28,7 +28,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		params.setInt(video.getComments());
 		params.setInt(video.getLove());
 		params.setInt(video.getUserId());
-		params.setString(video.getUsername());
+		params.setString(video.getNickname());
 		params.setDate(video.getPosttime());
 		params.setBool(video.isDel());
 		params.setInt(video.getStatus());
@@ -85,6 +85,30 @@ public class VideoDaoMysqlImpl implements VideoDao {
 			params.setString("%" + label + "%");
 		}
 		return sql;
+	}
+
+	@Override
+	public boolean play(int videoId) {
+		String sql = "UPDATE video SET play=play+1 WHERE video_id=?";
+		return jdbc.updateForBoolean(sql, videoId);
+	}
+
+	@Override
+	public boolean love(int videoId) {
+		String sql = "UPDATE video SET love=love+1 WHERE video_id=?";
+		return jdbc.updateForBoolean(sql, videoId);
+	}
+
+	@Override
+	public boolean commont(int videoId) {
+		String sql = "UPDATE video SET commont=commont+1 WHERE video_id=?";
+		return jdbc.updateForBoolean(sql, videoId);
+	}
+
+	@Override
+	public boolean del(int videoId) {
+		String sql = "UPDATE video SET del=1 WHERE video_id=?";
+		return jdbc.updateForBoolean(sql, videoId);
 	}
 	
 }

@@ -68,4 +68,17 @@ public class UserServiceImpl implements UserService {
 		return userActivateDao.add(userId, code);
 	}
 
+	@Override
+	public User get(int userId) {
+		return userDao.get(userId);
+	}
+
+	@Override
+	public void checkUser(int userId) {
+		User user = this.get(userId);
+		if (user == null) {
+			throw new RuntimeException("没有此用户[" + userId + "]");
+		}
+	}
+
 }

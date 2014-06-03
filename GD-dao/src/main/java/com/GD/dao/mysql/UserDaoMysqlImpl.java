@@ -20,7 +20,7 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public long add(User user) {
-		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status,sex) VALUES(?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
@@ -31,6 +31,14 @@ public class UserDaoMysqlImpl implements UserDao {
 		param.setDate(new Date());
 		param.setInt(user.getStatus());
 		param.setInt(user.getSex());
+		param.setInt(user.getRole());
+		param.setString(StringUtils.defaultIfEmpty(user.getCity(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getProvince(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getRealName(), ""));
+		param.setDate(user.getBirthday());
+		param.setString(StringUtils.defaultIfEmpty(user.getDanceType(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getDescription(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getSign(), ""));
 		return jdbc.insertForLastId(sql, param);
 	}
 

@@ -5,33 +5,33 @@ import java.util.Date;
 public class Video {
 
 	private int videoId;
-	/** ÊÓÆµÃû³Æ */
+	/** è§†é¢‘åç§° */
 	private String name;
-	/** ÊÓÆµÃèÊö */
+	/** æè¿° */
 	private String description;
-	/** ÊÓÆµµØÖ· */
+	/** è§†é¢‘åœ°å€ */
 	private String url;
-	/** ÊÓÆµ²¥·Å´ÎÊı */
+	/** æ’­æ”¾æ¬¡æ•° */
 	private int play;
-	/** ÊÓÆµÆÀÂÛ´ÎÊı */
+	/** è¯„è®ºæ¬¡æ•° */
 	private int comments;
-	/** ÊÓÆµÏ²°®ÈËÊı */
+	/** å–œçˆ±æ¬¡æ•° */
 	private int love;
-	/** ÊÓÆµ×÷ÕßID */
+	/** å‘è¡¨äººid */
 	private int userId;
-	/** ÊÓÆµ×÷ÕßÃû³Æ */
-	private String username;
-	/** ÊÓÆµ·¢±íÊ±¼ä */
+	/** å‘è¡¨ç”¨æˆ·æ˜µç§° */
+	private String nickname;
+	/** å‘è¡¨æ—¶é—´ */
 	private Date posttime;
-	/** ÊÓÆµÊÇ·ñÉ¾³ı */
+	/** æ˜¯å¦åˆ é™¤ */
 	private boolean del;
-	/** ÊÓÆµ×´Ì¬ */
+	/** çŠ¶æ€ */
 	private int status;
-	/** ÊÓÆµÀàĞÍ */
+	/** è§†é¢‘ç±»å‹ */
 	private int videoType;
-	/** ÊÓÆµµÈ¼¶ */
+	/** æ¨èç±»å‹ */
 	private int videoGradeType;
-	/** ÊÓÆµ±êÇ© */
+	/** æ ‡ç­¾ */
 	private String label;
 
 	public String getLabel() {
@@ -130,12 +130,12 @@ public class Video {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public Date getPosttime() {

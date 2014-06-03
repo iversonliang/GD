@@ -14,4 +14,8 @@ public interface UserService {
 	public boolean activate(String code);
 	
 	public User get(String username, String password);
+	
+	public User get(int userId);
+	
+	public void checkUser(int userId);
 }
