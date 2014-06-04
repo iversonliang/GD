@@ -13,9 +13,9 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import com.GD.util.AssertUtil;
 
 /**
- * SQL²ÎÊı.
+ * SQLå‚æ•°.
  * 
- * @author °¢º£
+ * @author é˜¿æµ·
  * 
  */
 public class StatementParameter {
@@ -32,7 +32,7 @@ public class StatementParameter {
 	/**
 	 * 
 	 * @param allowNull
-	 *            ²ÎÊıÖµÊÇ·ñÔÊĞí´«null.
+	 *            å‚æ•°å€¼æ˜¯å¦å…è®¸ä¼ null.
 	 */
 	public StatementParameter(boolean allowNull) {
 		this.allowNull = allowNull;
@@ -42,11 +42,11 @@ public class StatementParameter {
 		if (allowNull) {
 			return;
 		}
-		AssertUtil.assertNotNull(value, "²ÎÊıÖµ[" + list.size() + "]²»ÄÜÎªNULL.");
+		AssertUtil.assertNotNull(value, "å‚æ•°å€¼[" + list.size() + "]ä¸èƒ½ä¸ºNULL.");
 	}
 
 	/**
-	 * ÉèÖÃDateÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Dateç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -57,7 +57,7 @@ public class StatementParameter {
 	}
 
 //	/**
-//	 * ÉèÖÃOnlyDateÀàĞÍ²ÎÊı.
+//	 * è®¾ç½®OnlyDateç±»å‹å‚æ•°.
 //	 * 
 //	 * @param value
 //	 */
@@ -70,7 +70,7 @@ public class StatementParameter {
 //	}
 
 //	/**
-//	 * ÉèÖÃOnlyDateÀàĞÍ²ÎÊı.
+//	 * è®¾ç½®OnlyDateç±»å‹å‚æ•°.
 //	 * 
 //	 * @param value
 //	 */
@@ -81,7 +81,7 @@ public class StatementParameter {
 //	}
 
 	/**
-	 * ÉèÖÃTimestampÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Timestampç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -92,7 +92,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊı.
+	 * è®¾ç½®å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -143,12 +143,12 @@ public class StatementParameter {
 //			}
 //		}
 		else {
-			throw new IllegalArgumentException("Î´ÖªÀàĞÍ[" + type + "].");
+			throw new IllegalArgumentException("æœªçŸ¥ç±»å‹[" + type + "].");
 		}
 	}
 
 	/**
-	 * ÉèÖÃStringÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Stringç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -159,7 +159,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ÉèÖÃBooleanÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Booleanç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -170,7 +170,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ÉèÖÃIntegerÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Integerç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -181,7 +181,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ÉèÖÃLongÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Longç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -192,7 +192,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ÉèÖÃDoubleÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Doubleç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -203,7 +203,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ÉèÖÃFloatÀàĞÍ²ÎÊı.
+	 * è®¾ç½®Floatç±»å‹å‚æ•°.
 	 * 
 	 * @param value
 	 */
@@ -214,11 +214,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄDateÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„Dateç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public Date getDate(int index) {
 		Object value = this.getObject(index);
@@ -226,11 +226,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄTimestampÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„Timestampç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public Timestamp getTimestamp(int index) {
 		Object value = this.getObject(index);
@@ -238,11 +238,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄStringÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„Stringç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public String getString(int index) {
 		Object value = this.getObject(index);
@@ -250,11 +250,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄintÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„intç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public int getInt(int index) {
 		Object value = this.getObject(index);
@@ -262,11 +262,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄfloatÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„floatç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public float getFloat(int index) {
 		Object value = this.getObject(index);
@@ -274,11 +274,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄlongÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„longç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public long getLong(int index) {
 		Object value = this.getObject(index);
@@ -286,11 +286,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄdoubleÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„doubleç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public double getDouble(int index) {
 		Object value = this.getObject(index);
@@ -298,11 +298,11 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄbooleanÀàĞÍ²ÎÊıÖµ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„booleanç±»å‹å‚æ•°å€¼.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÖµ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°å€¼
 	 */
 	public Boolean getBool(int index) {
 		Object value = this.getObject(index);
@@ -310,11 +310,11 @@ public class StatementParameter {
 	}
 
 //	/**
-//	 * ·µ»ØË÷Òı¶ÔÓ¦µÄmonthÀàĞÍ²ÎÊıÖµ.
+//	 * è¿”å›ç´¢å¼•å¯¹åº”çš„monthç±»å‹å‚æ•°å€¼.
 //	 * 
 //	 * @param index
-//	 *            Ë÷Òı
-//	 * @return ²ÎÊıÖµ
+//	 *            ç´¢å¼•
+//	 * @return å‚æ•°å€¼
 //	 */
 //	public Month getMonth(int index) {
 //		Object value = this.getObject(index);
@@ -322,11 +322,11 @@ public class StatementParameter {
 //	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦µÄ²ÎÊı.
+	 * è¿”å›ç´¢å¼•å¯¹åº”çš„å‚æ•°.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊı
+	 *            ç´¢å¼•
+	 * @return å‚æ•°
 	 */
 	public Object getObject(int index) {
 		return list.get(index);
@@ -337,18 +337,18 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ·µ»ØË÷Òı¶ÔÓ¦²ÎÊıµÄÀàĞÍ.
+	 * è¿”å›ç´¢å¼•å¯¹åº”å‚æ•°çš„ç±»å‹.
 	 * 
 	 * @param index
-	 *            Ë÷Òı
-	 * @return ²ÎÊıÀàĞÍ
+	 *            ç´¢å¼•
+	 * @return å‚æ•°ç±»å‹
 	 */
 	// private int getTypes(int index) {
 	// Object value = list.get(index);
 	// return this.getTypes(value);
 	// }
 	/**
-	 * ½«²ÎÊıList×ª³É²ÎÊıÊı×é.
+	 * å°†å‚æ•°Listè½¬æˆå‚æ•°æ•°ç»„.
 	 * 
 	 * @return
 	 */
@@ -404,12 +404,12 @@ public class StatementParameter {
 		}
 
 		else {
-			throw new IllegalArgumentException("Î´ÖªÀàĞÍ[" + type.getName() + "].");
+			throw new IllegalArgumentException("æœªçŸ¥ç±»å‹[" + type.getName() + "].");
 		}
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÀàĞÍÊı×é .
+	 * è·å–å‚æ•°ç±»å‹æ•°ç»„ .
 	 * 
 	 * @return
 	 */
@@ -456,12 +456,12 @@ public class StatementParameter {
 //			return Types.VARCHAR;
 //		}
 		else {
-			throw new IllegalArgumentException("Î´ÖªÀàĞÍ[" + type.getName() + "].");
+			throw new IllegalArgumentException("æœªçŸ¥ç±»å‹[" + type.getName() + "].");
 		}
 	}
 
 	/**
-	 * ²ÎÊıÁĞ±í´óĞ¡.
+	 * å‚æ•°åˆ—è¡¨å¤§å°.
 	 * 
 	 * @return
 	 */
@@ -470,7 +470,7 @@ public class StatementParameter {
 	}
 
 	/**
-	 * Éú³ÉPreparedStatementSetter¶ÔÏó.
+	 * ç”ŸæˆPreparedStatementSetterå¯¹è±¡.
 	 * 
 	 * @return PreparedStatementSetter
 	 */
@@ -494,10 +494,10 @@ public class StatementParameter {
 	}
 
 	/**
-	 * ½«²ÎÊıÁĞ±íÌí¼Óµ½PreparedStatementSetter¶ÔÏóÖĞ.
+	 * å°†å‚æ•°åˆ—è¡¨æ·»åŠ åˆ°PreparedStatementSetterå¯¹è±¡ä¸­.
 	 * 
 	 * @param pstmt
-	 *            PreparedStatementSetter¶ÔÏó
+	 *            PreparedStatementSetterå¯¹è±¡
 	 * @throws SQLException
 	 */
 	public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -583,7 +583,7 @@ public class StatementParameter {
 			}
 		}
 		else {
-			throw new RuntimeException("Î´Öª²ÎÊıÀàĞÍ[" + i + ":" + type.getName() + "].");
+			throw new RuntimeException("æœªçŸ¥å‚æ•°ç±»å‹[" + i + ":" + type.getName() + "].");
 		}
 	}
 }

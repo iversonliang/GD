@@ -3,7 +3,7 @@ package com.GD.util;
 public class RedisKey {
 
 	/**
-	 * ÓÃ»§´ý¼¤»îKey
+	 * ç”¨æˆ·å¾…æ¿€æ´»Key
 	 * 
 	 * @param code
 	 * @return

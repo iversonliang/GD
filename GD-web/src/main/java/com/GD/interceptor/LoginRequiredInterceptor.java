@@ -18,7 +18,7 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		System.out.println("methodName: " + invocation.getMethod().getName());
 		boolean isInvoke = true;
-        // ÅĞ¶Ï¸Ã·½·¨ÊÇ·ñ¼ÓÁË@LoginRequired ×¢½â
+        // åˆ¤æ–­è¯¥æ–¹æ³•æ˜¯å¦åŠ äº†@LoginRequired æ³¨è§£
 		if (invocation.getMethod().isAnnotationPresent(LoginRequired.class)) {
 			Object[] args = invocation.getArguments();
 			HttpServletRequest request = null;
@@ -47,7 +47,7 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 				isInvoke = false;
 			}
 		}
-        // Ö´ĞĞ±»À¹½ØµÄ·½·¨£¬ÇĞ¼Ç£¬Èç¹û´Ë·½·¨²»µ÷ÓÃ£¬Ôò±»À¹½ØµÄ·½·¨²»»á±»Ö´ĞĞ¡£
+        // æ‰§è¡Œè¢«æ‹¦æˆªçš„æ–¹æ³•ï¼Œåˆ‡è®°ï¼Œå¦‚æœæ­¤æ–¹æ³•ä¸è°ƒç”¨ï¼Œåˆ™è¢«æ‹¦æˆªçš„æ–¹æ³•ä¸ä¼šè¢«æ‰§è¡Œã€‚
 		if (isInvoke) {
 			return invocation.proceed();
 		}

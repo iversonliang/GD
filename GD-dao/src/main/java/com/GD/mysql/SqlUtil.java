@@ -8,19 +8,19 @@ import com.GD.util.DateTime;
 public class SqlUtil {
 
 	/**
-	 * »ñÈ¡Æ´½Ó²ÎÊıºóµÄsql.
+	 * è·å–æ‹¼æ¥å‚æ•°åçš„sql.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return Æ´½ÓºóµÄsql
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æ‹¼æ¥åçš„sql
 	 */
 	public static String getSQL(String sql, StatementParameter param) {
 		int i = 0;
 		while (sql.indexOf('?') > -1) {
 			if (param == null) {
-				throw new RuntimeException("Ã»ÓĞÉèÖÃ²ÎÊı.");
+				throw new RuntimeException("æ²¡æœ‰è®¾ç½®å‚æ•°.");
 			}
 			if (i >= param.size()) {
 				return sql;
@@ -65,21 +65,21 @@ public class SqlUtil {
 			value = Long.toString(((Long) obj));
 		}
 		else {
-			throw new RuntimeException("Î´Öª²ÎÊıÀàĞÍ[" + type.getName() + "].");
-			// throw new InvalidParamDataAccessException("Î´ÖªÊı¾İÀàĞÍ[" + type +
+			throw new RuntimeException("æœªçŸ¥å‚æ•°ç±»å‹[" + type.getName() + "].");
+			// throw new InvalidParamDataAccessException("æœªçŸ¥æ•°æ®ç±»å‹[" + type +
 			// "]");
 		}
 		return value;
 	}
 
 	/**
-	 * ×ª»»³Éselect count(*)Óï¾ä.
+	 * è½¬æ¢æˆselect count(*)è¯­å¥.
 	 * 
 	 * @param sql
 	 * @return
 	 */
 	public static String toCountSql(String sql) {
-		// FIXME ahai Î´ÍêÕûÊµÏÖ
+		// FIXME ahai æœªå®Œæ•´å®ç°
 		sql = sql.replace("select * from", "select count(*) from");
 		sql = sql.replace("SELECT * FROM", "SELECT count(*) FROM");
 		sql = sql.replaceAll(" LIMIT.*", "");

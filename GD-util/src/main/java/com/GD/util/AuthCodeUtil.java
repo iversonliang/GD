@@ -9,19 +9,19 @@ import java.util.Random;
 
 public class AuthCodeUtil {
 
-	// ÑéÖ¤ÂëÍ¼Æ¬µÄ¿í¶È¡£
+	// éªŒè¯ç å›¾ç‰‡çš„å®½åº¦ã€‚
 	private static int WIDTH = 72;
 
-	// ÑéÖ¤ÂëÍ¼Æ¬µÄ¸ß¶È¡£
+	// éªŒè¯ç å›¾ç‰‡çš„é«˜åº¦ã€‚
 	private static int HEIGHT = 24;
 
-	// ÑéÖ¤Âë×Ö·û¸öÊý¡£
+	// éªŒè¯ç å­—ç¬¦ä¸ªæ•°ã€‚
 	private static int COUNT = 4;
 
-	// ¸ÉÈÅµãÊýÁ¿
+	// å¹²æ‰°ç‚¹æ•°é‡
 	private static int POINTS_COUNT = 120;
 
-	// ¸ÉÈÅÏßÊýÁ¿
+	// å¹²æ‰°çº¿æ•°é‡
 	private static int LINES_COUNT = 15;
 
 	private static Random random = new Random();
@@ -29,14 +29,14 @@ public class AuthCodeUtil {
 	public static BufferedImage drawIdentifyingCode(String code) {
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_BGR);
 		Graphics2D g = image.createGraphics();
-		// »æÖÆ±³¾°
+		// ç»˜åˆ¶èƒŒæ™¯
 		g.setColor(AuthCodeUtil.getRandomColor(180, 200));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		// »æÖÆ¸ÉÈÅÍ¼ÐÎ
+		// ç»˜åˆ¶å¹²æ‰°å›¾å½¢
 		AuthCodeUtil.drawRandomShapes(g, LINES_COUNT, (int) (POINTS_COUNT * 0.75));
 
-		// »æÖÆÑéÖ¤ÂëÎÄ±¾
+		// ç»˜åˆ¶éªŒè¯ç æ–‡æœ¬
 		Font myFont = new Font("Georgia", Font.BOLD, 16); // Arial Courier New
 															// Verdana
 		int len = code.length();
@@ -45,10 +45,10 @@ public class AuthCodeUtil {
 			String chr = code.charAt(i) + "";
 			Color color = new Color(20 + random.nextInt(50), 20 + random.nextInt(50), 20 + random.nextInt(50));
 			g.setColor(color);
-			// ÎÄ×ÖÐý×ª
+			// æ–‡å­—æ—‹è½¬
 			AffineTransform trans = new AffineTransform();
 			trans.rotate(random.nextInt(45) * Math.PI / 180, 15 * i + 8, 7);
-			// Ëõ·ÅÎÄ×Ö
+			// ç¼©æ”¾æ–‡å­—
 			float scaleSize = random.nextFloat() + 0.8f;
 			if (scaleSize > 1f)
 				scaleSize = 1f;
@@ -57,7 +57,7 @@ public class AuthCodeUtil {
 			g.drawString(chr, 16 * i + 10, 14);
 		}
 
-		// ÔÚÍ¼Æ¬×îÉÏ²ã»æÖÆ¸ÉÈÅÍ¼ÐÎ
+		// åœ¨å›¾ç‰‡æœ€ä¸Šå±‚ç»˜åˆ¶å¹²æ‰°å›¾å½¢
 		AuthCodeUtil.drawRandomShapes(g, 4, (int) (POINTS_COUNT * 0.75));
 		g.dispose();
 		return image;
@@ -72,11 +72,11 @@ public class AuthCodeUtil {
 		int itmp = 0;
 		for (int i = 0; i < length; i++) {
 			switch (random.nextInt(2)) {
-			case 1: // Éú³ÉA¡«ZµÄ×ÖÄ¸
+			case 1: // ç”ŸæˆAï½žZçš„å­—æ¯
 				itmp = random.nextInt(26) + 65;
 				str = String.valueOf((char) itmp);
 				break;
-			case 2: // Éú³Éa¡«aµÄ×ÖÄ¸
+			case 2: // ç”Ÿæˆaï½žaçš„å­—æ¯
 				itmp = random.nextInt(26) + 97;
 				str = String.valueOf((char) itmp);
 			default:
@@ -90,14 +90,14 @@ public class AuthCodeUtil {
 	}
 
 	/**
-	 * »æÖÆ¸ÉÈÅÍ¼ÐÎ
+	 * ç»˜åˆ¶å¹²æ‰°å›¾å½¢
 	 * 
 	 * @param g
-	 *            Graphics2D¶ÔÏó£¬ÓÃÀ´»æÖÆÍ¼Ïñ
+	 *            Graphics2Då¯¹è±¡ï¼Œç”¨æ¥ç»˜åˆ¶å›¾åƒ
 	 * 
 	 */
 	private static void drawRandomShapes(Graphics2D g, int ls, int ps) {
-		// »æÖÆ¸ÉÈÅÏß
+		// ç»˜åˆ¶å¹²æ‰°çº¿
 		int i = 0;
 		for (i = 0; i < ls; i++) {
 			g.setColor(AuthCodeUtil.getRandomColor(160, 200));
@@ -107,7 +107,7 @@ public class AuthCodeUtil {
 			int y2 = random.nextInt(HEIGHT);
 			g.drawLine(x1, y1, x2, y2);
 		}
-		// »æÖÆ¸ÉÈÅµã
+		// ç»˜åˆ¶å¹²æ‰°ç‚¹
 		for (i = 0; i < ps; i++) {
 			g.setColor(AuthCodeUtil.getRandomColor(160, 200));
 			int x1 = random.nextInt(WIDTH);
@@ -117,13 +117,13 @@ public class AuthCodeUtil {
 	}
 
 	/**
-	 * Éú³ÉËæ»úÑÕÉ«
+	 * ç”Ÿæˆéšæœºé¢œè‰²
 	 * 
 	 * @param fc
-	 *            Ç°¾°É«
+	 *            å‰æ™¯è‰²
 	 * @param bc
-	 *            ±³¾°É«
-	 * @return Color¶ÔÏó£¬RGB¡£
+	 *            èƒŒæ™¯è‰²
+	 * @return Colorå¯¹è±¡ï¼ŒRGBã€‚
 	 */
 	private static Color getRandomColor(int fc, int bc) {
 		if (fc > 255)

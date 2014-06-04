@@ -5,17 +5,17 @@ import java.io.UnsupportedEncodingException;
 public class Test {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		// Õâ¸öÀàÖ÷ÒªÊÇÉèÖÃÓÊ¼ş
+		// è¿™ä¸ªç±»ä¸»è¦æ˜¯è®¾ç½®é‚®ä»¶
 		MailInfo mailInfo = new MailInfo();
 		mailInfo.setUserName("test");
-		mailInfo.setPassword("test");// ÄúµÄÓÊÏäÃÜÂë
+		mailInfo.setPassword("test");// æ‚¨çš„é‚®ç®±å¯†ç 
 		mailInfo.setFromAddress("test@goodancer.com");
 		mailInfo.setToAddress("test@goodancer.com");
 		mailInfo.setSubject("TestSubject");
-		mailInfo.setContent("<html><body><h1>My First Heading</h1><p>My first paragraph.<br/>ÓÊ¼ş·şÎñÆ÷¸ãºÃÁË</p></body></html>");
-		// Õâ¸öÀàÖ÷ÒªÀ´·¢ËÍÓÊ¼ş
-		MailSender.sendTextMail(mailInfo);// ·¢ËÍÎÄÌå¸ñÊ½
-//		sms.sendHtmlMail(mailInfo);// ·¢ËÍhtml¸ñÊ½
+		mailInfo.setContent("<html><body><h1>My First Heading</h1><p>My first paragraph.<br/>é‚®ä»¶æœåŠ¡å™¨æå¥½äº†</p></body></html>");
+		// è¿™ä¸ªç±»ä¸»è¦æ¥å‘é€é‚®ä»¶
+		MailSender.sendTextMail(mailInfo);// å‘é€æ–‡ä½“æ ¼å¼
+//		sms.sendHtmlMail(mailInfo);// å‘é€htmlæ ¼å¼
 		System.out.println("done");
 	}
 }

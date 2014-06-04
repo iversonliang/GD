@@ -98,12 +98,12 @@ public class Redis implements JedisCommands {
 			this.initPool();
 		}
 		catch (Exception e) {
-			logger.error("³õÊ¼»¯redis[" + this.host + "]Á¬½ÓÊı³ö´í:" + e.getMessage());
+			logger.error("åˆå§‹åŒ–redis[" + this.host + "]è¿æ¥æ•°å‡ºé”™:" + e.getMessage());
 		}
 	}
 	
 	/**
-	 * ³õÊ¼»¯Ä¬ÈÏÁ¬½ÓÊıÁ¿.
+	 * åˆå§‹åŒ–é»˜è®¤è¿æ¥æ•°é‡.
 	 */
 	protected void initPool() {
 		// System.err.println("initPool server:" + this.server + " initialPoolSize:" + initialPoolSize + " start");
@@ -137,7 +137,7 @@ public class Redis implements JedisCommands {
 		try {
 			return this.pool.getResource();
 		}
-		// ahai 20131026 ĞÂ°æredisÁ¬½Ó³ØµÄÒì³£ĞÅÏ¢ÒÑ¾­°üº¬ÁËIPºÍ¶Ë¿ÚĞÅÏ¢.
+		// ahai 20131026 æ–°ç‰ˆredisè¿æ¥æ± çš„å¼‚å¸¸ä¿¡æ¯å·²ç»åŒ…å«äº†IPå’Œç«¯å£ä¿¡æ¯.
 		catch (JedisConnectionException e) {
 			String message = this.getErrorMessage(e);
 			throw new JedisConnectionException(message, e);
@@ -145,7 +145,7 @@ public class Redis implements JedisCommands {
 		}
 		finally {
 			long endTime = System.nanoTime();
-			long time = (endTime - startTime) / 1000L / 1000L; // time µ¥Î»:ºÁÃë
+			long time = (endTime - startTime) / 1000L / 1000L; // time å•ä½:æ¯«ç§’
 //			if (time >= 10) {
 				// GenericObjectPool internalPool = pool.getInternalPool();
 				String message = "host:" + host + " port:" + port;
@@ -160,7 +160,7 @@ public class Redis implements JedisCommands {
 	}
 	
 	/**
-	 * ·â×°´íÎóĞÅÏ¢.
+	 * å°è£…é”™è¯¯ä¿¡æ¯.
 	 * 
 	 * @param e
 	 * @return
@@ -172,10 +172,10 @@ public class Redis implements JedisCommands {
 	}
 
 	/**
-	 * Ö´ĞĞjedisµÄ²Ù×÷.
+	 * æ‰§è¡Œjedisçš„æ“ä½œ.
 	 * 
 	 * @param invoker
-	 *            µ÷¶È½Ó¿Ú
+	 *            è°ƒåº¦æ¥å£
 	 * @return
 	 */
 	protected Object execute(Invoker invoker) {

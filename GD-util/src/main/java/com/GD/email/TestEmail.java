@@ -38,7 +38,7 @@ public class TestEmail {
 		// props.setProperty("mail.smtp.user", "xxxx@163.com");
 		// props.setProperty("mail.smtp.pass", "xxxx");
 		// props.setProperty("mail.smtp.from", "xxxx@163.com");
-		// props.setProperty("mail.smtp.personal", "ÉıÁúÏµÍ³");
+		// props.setProperty("mail.smtp.personal", "å‡é¾™ç³»ç»Ÿ");
 
 		props.setProperty("mail.transport.protocol", "smtp");
 		props.setProperty("mail.smtp.host", "smtp.goodancer.com");
@@ -48,7 +48,7 @@ public class TestEmail {
 	}
 
 	/**
-	 * »ñÈ¡·¢ĞÅSession.
+	 * è·å–å‘ä¿¡Session.
 	 * 
 	 * @return
 	 */
@@ -60,14 +60,14 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍ¼òµ¥µÄTextÓÊ¼ş.
+	 * å‘é€ç®€å•çš„Texté‚®ä»¶.
 	 * 
 	 * @param email
-	 *            ÊÕ¼şÈË
+	 *            æ”¶ä»¶äºº
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param content
-	 *            ÓÊ¼şÄÚÈİ
+	 *            é‚®ä»¶å†…å®¹
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
@@ -76,18 +76,18 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍ¼òµ¥µÄTextÓÊ¼ş.
+	 * å‘é€ç®€å•çš„Texté‚®ä»¶.
 	 * 
 	 * @param session
-	 *            ·¢ËÍÓÊ¼şµÄ»á»°
+	 *            å‘é€é‚®ä»¶çš„ä¼šè¯
 	 * @param to
-	 *            ÊÕ¼şÈËÁĞ±í
+	 *            æ”¶ä»¶äººåˆ—è¡¨
 	 * @param cc
-	 *            ³­ËÍÈËÁĞ±í
+	 *            æŠ„é€äººåˆ—è¡¨
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param content
-	 *            ÓÊ¼şÄÚÈİ
+	 *            é‚®ä»¶å†…å®¹
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
@@ -145,16 +145,16 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍhtmlÓÊ¼ş
+	 * å‘é€htmlé‚®ä»¶
 	 * 
 	 * @param to
-	 *            ÊÕ¼şÈËÁĞ±í
+	 *            æ”¶ä»¶äººåˆ—è¡¨
 	 * @param cc
-	 *            ³­ËÍÈËÁĞ±í
+	 *            æŠ„é€äººåˆ—è¡¨
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param html
-	 *            ÓÊ¼şÄÚÈİ
+	 *            é‚®ä»¶å†…å®¹
 	 * @throws MessagingException
 	 * @throws UnsupportedEncodingException
 	 */
@@ -181,18 +181,18 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍ´ø¸½¼şµÄHtmlÓÊ¼ş
+	 * å‘é€å¸¦é™„ä»¶çš„Htmlé‚®ä»¶
 	 * 
 	 * @param recipient
-	 *            ÊÕ¼şÈË
+	 *            æ”¶ä»¶äºº
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param html
-	 *            ÓÊ¼şhtmlÄÚÈİ
+	 *            é‚®ä»¶htmlå†…å®¹
 	 * @param attachData
-	 *            ¸½¼şÄÚÈİ
+	 *            é™„ä»¶å†…å®¹
 	 * @param attachName
-	 *            ¸½¼şÃû³Æ
+	 *            é™„ä»¶åç§°
 	 * @throws UnsupportedEncodingException
 	 * @throws MessagingException
 	 */
@@ -201,20 +201,20 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍ´ø¸½¼şµÄhtmlÓÊ¼ş
+	 * å‘é€å¸¦é™„ä»¶çš„htmlé‚®ä»¶
 	 * 
 	 * @param to
-	 *            ·¢¼şÈËÁĞ±í
+	 *            å‘ä»¶äººåˆ—è¡¨
 	 * @param cc
-	 *            ³­ËÍÈËÁĞ±í
+	 *            æŠ„é€äººåˆ—è¡¨
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param html
-	 *            ÓÊ¼şhtmlÄÚÈİ
+	 *            é‚®ä»¶htmlå†…å®¹
 	 * @param attachData
-	 *            ¸½¼şÊı¾İ
+	 *            é™„ä»¶æ•°æ®
 	 * @param attachName
-	 *            ¸½¼şÃû³Æ
+	 *            é™„ä»¶åç§°
 	 * @throws MessagingException
 	 * @throws UnsupportedEncodingException
 	 */
@@ -236,20 +236,20 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍ´øÍ¼Æ¬µÄhtmlÓÊ¼ş. ×¢Òâ, Èç¹ûÊÕ¼şÈËÁĞ±íÓë³­ËÍÈËÁĞ±íÓĞ½»²æ,Ä³Ğ©ÓÊ¼ş·şÎñÆ÷½«±¨¸æ´íÎó.
+	 * å‘é€å¸¦å›¾ç‰‡çš„htmlé‚®ä»¶. æ³¨æ„, å¦‚æœæ”¶ä»¶äººåˆ—è¡¨ä¸æŠ„é€äººåˆ—è¡¨æœ‰äº¤å‰,æŸäº›é‚®ä»¶æœåŠ¡å™¨å°†æŠ¥å‘Šé”™è¯¯.
 	 * 
 	 * @param to
-	 *            ÊÕ¼şÈËÁĞ±í
+	 *            æ”¶ä»¶äººåˆ—è¡¨
 	 * @param cc
-	 *            ³­ËÍÈËÁĞ±í
+	 *            æŠ„é€äººåˆ—è¡¨
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param html
-	 *            ÓÊ¼şhtmlÄÚÈİ
+	 *            é‚®ä»¶htmlå†…å®¹
 	 * @param imgData
-	 *            Í¼Æ¬Êı¾İ
+	 *            å›¾ç‰‡æ•°æ®
 	 * @param cid
-	 *            Í¼Æ¬ÒıÓÃid,ÔÚhtmlÖĞÍ¨¹ı <img src="cid:IMG1" ...>ĞÎÊ½ÒıÓÃÍ¼Æ¬
+	 *            å›¾ç‰‡å¼•ç”¨id,åœ¨htmlä¸­é€šè¿‡ <img src="cid:IMG1" ...>å½¢å¼å¼•ç”¨å›¾ç‰‡
 	 * @throws MessagingException
 	 * @throws UnsupportedEncodingException
 	 */
@@ -269,20 +269,20 @@ public class TestEmail {
 	}
 
 	/**
-	 * ·¢ËÍ´øÍ¼Æ¬µÄhtmlÓÊ¼ş. ×¢Òâ, Èç¹ûÊÕ¼şÈËÁĞ±íÓë³­ËÍÈËÁĞ±íÓĞ½»²æ,Ä³Ğ©ÓÊ¼ş·şÎñÆ÷½«±¨¸æ´íÎó.
+	 * å‘é€å¸¦å›¾ç‰‡çš„htmlé‚®ä»¶. æ³¨æ„, å¦‚æœæ”¶ä»¶äººåˆ—è¡¨ä¸æŠ„é€äººåˆ—è¡¨æœ‰äº¤å‰,æŸäº›é‚®ä»¶æœåŠ¡å™¨å°†æŠ¥å‘Šé”™è¯¯.
 	 * 
 	 * @param to
-	 *            ÊÕ¼şÈËÁĞ±í
+	 *            æ”¶ä»¶äººåˆ—è¡¨
 	 * @param cc
-	 *            ³­ËÍÈËÁĞ±í
+	 *            æŠ„é€äººåˆ—è¡¨
 	 * @param subject
-	 *            ÓÊ¼şÖ÷Ìâ
+	 *            é‚®ä»¶ä¸»é¢˜
 	 * @param html
-	 *            ÓÊ¼şhtmlÄÚÈİ
+	 *            é‚®ä»¶htmlå†…å®¹
 	 * @param imgData
-	 *            Í¼Æ¬Êı¾İ
+	 *            å›¾ç‰‡æ•°æ®
 	 * @param cid
-	 *            Í¼Æ¬ÒıÓÃid,ÔÚhtmlÖĞÍ¨¹ı <img src="cid:IMG1" ...>ĞÎÊ½ÒıÓÃÍ¼Æ¬
+	 *            å›¾ç‰‡å¼•ç”¨id,åœ¨htmlä¸­é€šè¿‡ <img src="cid:IMG1" ...>å½¢å¼å¼•ç”¨å›¾ç‰‡
 	 * @throws MessagingException
 	 * @throws UnsupportedEncodingException
 	 */

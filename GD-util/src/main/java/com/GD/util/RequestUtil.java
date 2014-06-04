@@ -9,7 +9,6 @@ public class RequestUtil {
 
 	/** */
 	/**
-	 * 获取完整的Url
 	 * 
 	 * @param request
 	 * @return
@@ -30,7 +29,6 @@ public class RequestUtil {
                 url += key + "=" + value + "&";  
             }  
         }  
-        // 去掉最后一个"&"  
         url = url.substring(0, url.length() - 1);
         return URLDecoder.decode(url, "utf-8");
 //        return URLEncoder.encode(url, "utf-8");

@@ -10,43 +10,43 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- * Jdbc½Ó¿Ú(MySQL²Ù×÷).
+ * Jdbcæ¥å£(MySQLæ“ä½œ).
  * 
- * @author °¢º£
+ * @author é˜¿æµ·
  * 
  */
 public interface Jdbc {
 
 	// /**
-	// * ÊÂÎñ»Ø¹ö.
+	// * äº‹åŠ¡å›æ»š.
 	// *
-	// * @return ³É¹¦·µ»Øtrue,Ê§°Ü·µ»Øfalse.
+	// * @return æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false.
 	// */
 	// @Deprecated
 	// boolean rollback();
 	//
 	// /**
-	// * Ìá½».
+	// * æäº¤.
 	// *
-	// * @return ³É¹¦·µ»Øtrue,Ê§°Ü·µ»Øfalse.
+	// * @return æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false.
 	// */
 	// @Deprecated
 	// boolean commit();
 	//
 	// /**
-	// * µ±n¸ösql ÊÓÎªÒ»¸öÕûÌå£¨Ô­×ÓĞÔ£©£¬ÒªÃ´¶¼Ö´ĞĞ£¬ÒªÃ´Ò»¸ö²»Ö´ĞĞÊ±ºò.Í¨¹ı setAutoCommit ½øĞĞ¿ØÖÆ.
+	// * å½“nä¸ªsql è§†ä¸ºä¸€ä¸ªæ•´ä½“ï¼ˆåŸå­æ€§ï¼‰ï¼Œè¦ä¹ˆéƒ½æ‰§è¡Œï¼Œè¦ä¹ˆä¸€ä¸ªä¸æ‰§è¡Œæ—¶å€™.é€šè¿‡ setAutoCommit è¿›è¡Œæ§åˆ¶.
 	// *
 	// * @param autoCommit
-	// * ÊÇ·ñÖ§³ÖÊÂÎï
-	// * @return ³É¹¦·µ»Øtrue,Ê§°Ü·µ»Øfalse.
+	// * æ˜¯å¦æ”¯æŒäº‹ç‰©
+	// * @return æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false.
 	// */
 	// @Deprecated
 	// boolean setAutoCommit(boolean autoCommit);
 
 	/**
-	 * »ñÈ¡Êı¾İÔ´.
+	 * è·å–æ•°æ®æº.
 	 * 
-	 * @return »ñµÃµÄÊı¾İÔ´
+	 * @return è·å¾—çš„æ•°æ®æº
 	 */
 	DataSource getDataSource();
 	
@@ -56,94 +56,94 @@ public interface Jdbc {
 
 	
 	/**
-	 * Êä³ö×é×°×°ºÃµÄsql,log.info(sql).
+	 * è¾“å‡ºç»„è£…è£…å¥½çš„sql,log.info(sql).
 	 * 
 	 * @param sql
-	 *            Î´Ìæ»»²ÎÊıµÄsql
+	 *            æœªæ›¿æ¢å‚æ•°çš„sql
 	 * @param param
-	 *            ²ÎÊı¶ÔÏó
-	 * @return Ìæ»»²ÎÊıºóµÄsql
+	 *            å‚æ•°å¯¹è±¡
+	 * @return æ›¿æ¢å‚æ•°åçš„sql
 	 */
 	String printSQL(Log logger, String sql, StatementParameter param);
 
 	/**
-	 * »ñµÃÌæ»»²ÎÊıºóµÄsql.
+	 * è·å¾—æ›¿æ¢å‚æ•°åçš„sql.
 	 * 
 	 * @param sql
-	 *            Î´Ìæ»»²ÎÊıµÄsql
+	 *            æœªæ›¿æ¢å‚æ•°çš„sql
 	 * @param param
-	 *            ²ÎÊı¶ÔÏó
-	 * @return Ìæ»»²ÎÊıºóµÄsql
+	 *            å‚æ•°å¯¹è±¡
+	 * @return æ›¿æ¢å‚æ•°åçš„sql
 	 */
 	String getSQL(String sql, StatementParameter param);
 
 	/**
-	 * ÊÇ·ñ´æÔÚsqlÒª²éÑ¯µÄÊı¾İ.
+	 * æ˜¯å¦å­˜åœ¨sqlè¦æŸ¥è¯¢çš„æ•°æ®.
 	 * 
 	 * @param sql
 	 *            sql
-	 * @return Èç¹û´æÔÚ·µ»Øtrue,²»´æÔÚ·µ»Øfalse.
+	 * @return å¦‚æœå­˜åœ¨è¿”å›true,ä¸å­˜åœ¨è¿”å›false.
 	 */
 	boolean exist(String sql);
 
 	/**
-	 * ÊÇ·ñ´æÔÚsqlÒª²éÑ¯µÄÊı¾İ.
+	 * æ˜¯å¦å­˜åœ¨sqlè¦æŸ¥è¯¢çš„æ•°æ®.
 	 * 
 	 * @param sql
-	 *            Î´Ìæ»»²ÎÊıµÄsql
+	 *            æœªæ›¿æ¢å‚æ•°çš„sql
 	 * @param param
-	 *            ²ÎÊı¶ÔÏó
-	 * @return Èç¹û´æÔÚ·µ»Øtrue,²»´æÔÚ·µ»Øfalse.
+	 *            å‚æ•°å¯¹è±¡
+	 * @return å¦‚æœå­˜åœ¨è¿”å›true,ä¸å­˜åœ¨è¿”å›false.
 	 */
 	boolean exist(String sql, StatementParameter param);
 
 	/**
-	 * ÅúÁ¿Ö´ĞĞsql.
+	 * æ‰¹é‡æ‰§è¡Œsql.
 	 * 
 	 * @param sql
-	 *            sqlÓï¾ä
+	 *            sqlè¯­å¥
 	 * @param setter
-	 *            ĞèÒªÊµÏÖBatchPreparedStatementSetter½Ó¿Ú£¬ÓĞsetValues£¬getBatchSize¶ş¸ö½Ó¿Ú. ¾ßÌå¿ÉÒÔ²Î¿¼spring½Ó¿Ú.
-	 * @return Êı×é£¬·µ»ØĞÎÈç[1,0,1]ÕâÑùµÄÊı×é¡£1±íÊ¾³É¹¦£¬0±íÊ¾Ê§°Ü.
+	 *            éœ€è¦å®ç°BatchPreparedStatementSetteræ¥å£ï¼Œæœ‰setValuesï¼ŒgetBatchSizeäºŒä¸ªæ¥å£. å…·ä½“å¯ä»¥å‚è€ƒspringæ¥å£.
+	 * @return æ•°ç»„ï¼Œè¿”å›å½¢å¦‚[1,0,1]è¿™æ ·çš„æ•°ç»„ã€‚1è¡¨ç¤ºæˆåŠŸï¼Œ0è¡¨ç¤ºå¤±è´¥.
 	 */
 	int[] batchUpdate(String sql, BatchPreparedStatementSetter setter);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØelementType²ÎÊı¶ÔÏó.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›elementTypeå‚æ•°å¯¹è±¡.
 	 * 
 	 * @param sql
 	 * @param elementType
-	 *            ClassÀàĞÍ
-	 * @return ·µ»Ø²éÑ¯µÄµ¥¸ö¶ÔÏó
+	 *            Classç±»å‹
+	 * @return è¿”å›æŸ¥è¯¢çš„å•ä¸ªå¯¹è±¡
 	 */
 	<T> T query(String sql, Class<T> elementType);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØelementType²ÎÊı¶ÔÏó.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›elementTypeå‚æ•°å¯¹è±¡.
 	 * 
 	 * @param sql
 	 * @param elementType
-	 *            ClassÀàĞÍ
+	 *            Classç±»å‹
 	 * @param param
-	 *            ²ÎÊı¶ÔÏó
-	 * @return ·µ»Ø²éÑ¯µÄµ¥¸ö¶ÔÏó
+	 *            å‚æ•°å¯¹è±¡
+	 * @return è¿”å›æŸ¥è¯¢çš„å•ä¸ªå¯¹è±¡
 	 */
 	<T> T query(String sql, Class<T> elementType, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØelementType²ÎÊı¶ÔÏó.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›elementTypeå‚æ•°å¯¹è±¡.
 	 * 
 	 * @param sql
 	 * @param elementType
-	 *            ClassÀàĞÍ
+	 *            Classç±»å‹
 	 * @param params
-	 *            ²ÎÊıÁĞ±í
-	 * @return ·µ»Ø²éÑ¯µÄµ¥¸ö¶ÔÏó
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return è¿”å›æŸ¥è¯¢çš„å•ä¸ªå¯¹è±¡
 	 */
 	<T> T query(String sql, Class<T> elementType, Object... params);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØMap¶ÔÏóµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Mapå¯¹è±¡çš„List.
 	 * 
 	 * @param sql
 	 * @return List
@@ -151,318 +151,318 @@ public interface Jdbc {
 	List<Map<String, Object>> queryForMaps(String sql);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®.
 	 * 
 	 * @param sql
-	 *            ²éÑ¯Êı¾İµÄsql
+	 *            æŸ¥è¯¢æ•°æ®çš„sql
 	 * @param elementType
-	 *            Êı¾İ¶ÔÓ¦µÄmodel¶ÔÏó
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æ•°æ®å¯¹åº”çš„modelå¯¹è±¡
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 
 	<T> List<T> queryForList(String sql, Class<T> elementType);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®.
 	 * 
 	 * @param sql
-	 *            ²éÑ¯Êı¾İµÄsql
+	 *            æŸ¥è¯¢æ•°æ®çš„sql
 	 * @param elementType
-	 *            Êı¾İ¶ÔÓ¦µÄmodel¶ÔÏó
+	 *            æ•°æ®å¯¹åº”çš„modelå¯¹è±¡
 	 * @param start
-	 *            ²éÑ¯Æğµã
+	 *            æŸ¥è¯¢èµ·ç‚¹
 	 * @param size
-	 *            ²éÑ¯ÌõÊı
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æŸ¥è¯¢æ¡æ•°
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, int start, int size);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®.
 	 * 
 	 * @param sql
-	 *            ²éÑ¯Êı¾İµÄsql
+	 *            æŸ¥è¯¢æ•°æ®çš„sql
 	 * @param elementType
-	 *            Êı¾İ¶ÔÓ¦µÄmodel¶ÔÏó
+	 *            æ•°æ®å¯¹åº”çš„modelå¯¹è±¡
 	 * @param params
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, Object... params);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØelementType²ÎÊı¶ÔÏóµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›elementTypeå‚æ•°å¯¹è±¡çš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param elementType
-	 *            Êı¾İ¶ÔÓ¦µÄmodel¶ÔÏó
+	 *            æ•°æ®å¯¹åº”çš„modelå¯¹è±¡
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØelementType²ÎÊı¶ÔÏóµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›elementTypeå‚æ•°å¯¹è±¡çš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param elementType
-	 *            Êı¾İ¶ÔÓ¦µÄmodel¶ÔÏó
+	 *            æ•°æ®å¯¹åº”çš„modelå¯¹è±¡
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
+	 *            å‚æ•°åˆ—è¡¨
 	 * @param start
-	 *            ²éÑ¯Æğµã
+	 *            æŸ¥è¯¢èµ·ç‚¹
 	 * @param size
-	 *            ²éÑ¯ÌõÊı
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æŸ¥è¯¢æ¡æ•°
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param, int start, int size);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØLongµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Longçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<Long> queryForLongs(String sql, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØLongµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Longçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
+	 *            å‚æ•°åˆ—è¡¨
 	 * @param start
-	 *            ²éÑ¯Æğµã
+	 *            æŸ¥è¯¢èµ·ç‚¹
 	 * @param size
-	 *            ²éÑ¯ÌõÊı
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æŸ¥è¯¢æ¡æ•°
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<Long> queryForLongs(String sql, StatementParameter param, int start, int size);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØIntegerµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Integerçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<Integer> queryForInts(String sql, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØIntegerµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Integerçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
+	 *            å‚æ•°åˆ—è¡¨
 	 * @param start
-	 *            ²éÑ¯Æğµã
+	 *            æŸ¥è¯¢èµ·ç‚¹
 	 * @param size
-	 *            ²éÑ¯ÌõÊı
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æŸ¥è¯¢æ¡æ•°
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<Integer> queryForInts(String sql, StatementParameter param, int start, int size);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØStringµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Stringçš„List.
 	 * 
 	 * @param sql
 	 *            sql
-	 * @return ²éÑ¯µÄÊı¾İ
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<String> queryForStrings(String sql);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØStringµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Stringçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param start
-	 *            ²éÑ¯Æğµã
+	 *            æŸ¥è¯¢èµ·ç‚¹
 	 * @param size
-	 *            ²éÑ¯ÌõÊı
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æŸ¥è¯¢æ¡æ•°
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<String> queryForStrings(String sql, int start, int size);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØStringµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Stringçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<String> queryForStrings(String sql, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØStringµÄList.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Stringçš„List.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
+	 *            å‚æ•°åˆ—è¡¨
 	 * @param start
-	 *            ²éÑ¯Æğµã
+	 *            æŸ¥è¯¢èµ·ç‚¹
 	 * @param size
-	 *            ²éÑ¯ÌõÊı
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            æŸ¥è¯¢æ¡æ•°
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	List<String> queryForStrings(String sql, StatementParameter param, int start, int size);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØlongÖµ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›longå€¼.
 	 * 
 	 * @param sql
 	 *            sql
-	 * @return ²éÑ¯µÄÊı¾İ
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	Long queryForLong(String sql);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØlongÖµ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›longå€¼.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	Long queryForLong(String sql, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØlongÖµ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›longå€¼.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param params
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	Long queryForLong(String sql, Object... params);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØintÖµ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›intå€¼.
 	 * 
 	 * @param sql
 	 *            sql
-	 * @return ²éÑ¯µÄÊı¾İ
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	Integer queryForInt(String sql);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØintÖµ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›intå€¼.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            params ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            params å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	Integer queryForInt(String sql, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØintÖµ.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›intå€¼.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param params
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	Integer queryForInt(String sql, Object... params);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØDate¶ÔÏó.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Dateå¯¹è±¡.
 	 * 
 	 * @param sql
 	 *            sql
-	 * @return ²éÑ¯µÄÊı¾İ
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	java.util.Date queryForDate(String sql);
 
 	/**
 	 * 
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØDate¶ÔÏó.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›Dateå¯¹è±¡.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	java.util.Date queryForDate(String sql, StatementParameter param);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØString.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›String.
 	 * 
 	 * @param sql
 	 *            sql
-	 * @return ²éÑ¯µÄÊı¾İ
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	String queryForString(String sql);
 
 	/**
-	 * ¸ù¾İsql²éÑ¯Êı¾İ£¬·µ»ØString.
+	 * æ ¹æ®sqlæŸ¥è¯¢æ•°æ®ï¼Œè¿”å›String.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ²éÑ¯µÄÊı¾İ
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æŸ¥è¯¢çš„æ•°æ®
 	 */
 	String queryForString(String sql, StatementParameter param);
 
 //	/**
-//	 * Ö´ĞĞinsert£¬²»Å×³öDuplicateKeyException.
+//	 * æ‰§è¡Œinsertï¼Œä¸æŠ›å‡ºDuplicateKeyException.
 //	 * 
 //	 * @param builder
 //	 *            InsertBuilder
-//	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+//	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 //	 */
 //	@Deprecated
 //	boolean insertIgnoreForBoolean(InsertBuilder builder);
 
 //	/**
-//	 * Ö´ĞĞreplace into£¬²»Å×³öDuplicateKeyException.
+//	 * æ‰§è¡Œreplace intoï¼Œä¸æŠ›å‡ºDuplicateKeyException.
 //	 * 
 //	 * @param builder
 //	 *            ReplaceBuilder
-//	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+//	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 //	 */
 //	@Deprecated
 //	boolean insertIgnoreForBoolean(ReplaceBuilder builder);
 
 	/**
-	 * Ö´ĞĞinsert£¬²»Å×³öDuplicateKeyException.
+	 * æ‰§è¡Œinsertï¼Œä¸æŠ›å‡ºDuplicateKeyException.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 	 */
 	// @Deprecated
 	boolean insertIgnoreForBoolean(String sql, StatementParameter param);
 
 	/**
-	 * Ö´ĞĞinsert.
+	 * æ‰§è¡Œinsert.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 	 */
 	boolean insertForBoolean(String sql, StatementParameter param);
 
@@ -477,95 +477,95 @@ public interface Jdbc {
 	Long incr(String sql, StatementParameter param);
 
 //	/**
-//	 * Ö´ĞĞinsert.
+//	 * æ‰§è¡Œinsert.
 //	 * 
 //	 * @param builder
 //	 *            InsertBuilder
-//	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+//	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 //	 */
 //	boolean insertForBoolean(InsertBuilder builder);
 
 //	/**
-//	 * Ö´ĞĞreplace into.
+//	 * æ‰§è¡Œreplace into.
 //	 * 
 //	 * @param builder
 //	 *            ReplaceBuilder
-//	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+//	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 //	 */
 //	boolean insertForBoolean(ReplaceBuilder builder);
 
 	/**
-	 * Ö´ĞĞupdate.
+	 * æ‰§è¡Œupdate.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param params
-	 *            ²ÎÊıÁĞ±í
-	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 	 */
 	boolean updateForBoolean(String sql, Object... params);
 
 	/**
-	 * Ö´ĞĞupdate.
+	 * æ‰§è¡Œupdate.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 	 */
 	boolean updateForBoolean(String sql, StatementParameter param);
 
 //	/**
-//	 * Ö´ĞĞupdate.
+//	 * æ‰§è¡Œupdate.
 //	 * 
 //	 * @param builder
 //	 *            SqlBuilder
-//	 * @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+//	 * @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
 //	 */
 //	boolean updateForBoolean(SqlBuilder builder);
 
 //	/**
-//	 * Ö´ĞĞupdate.
+//	 * æ‰§è¡Œupdate.
 //	 * 
 //	 * @param builder
 //	 *            SqlBuilder
-//	 * @return ·µ»Ø¸üĞÂ³É¹¦µÄ¼ÇÂ¼Êı
+//	 * @return è¿”å›æ›´æ–°æˆåŠŸçš„è®°å½•æ•°
 //	 */
 //	int update(SqlBuilder builder);
 
 	/**
-	 * Ö´ĞĞupdate.
+	 * æ‰§è¡Œupdate.
 	 * 
 	 * @param sql
 	 *            sql
 	 * @param param
-	 *            ²ÎÊıÁĞ±í
-	 * @return ·µ»Ø¸üĞÂ³É¹¦µÄ¼ÇÂ¼Êı
+	 *            å‚æ•°åˆ—è¡¨
+	 * @return è¿”å›æ›´æ–°æˆåŠŸçš„è®°å½•æ•°
 	 */
 	int update(String sql, StatementParameter param);
 
 	/**
-	 * Ö´ĞĞ¸üĞÂsql.
+	 * æ‰§è¡Œæ›´æ–°sql.
 	 * 
 	 * @param sql
-	 * @return ³É¹¦·µ»Ø1,Ê§°Ü·µ»Ø0.
+	 * @return æˆåŠŸè¿”å›1,å¤±è´¥è¿”å›0.
 	 */
 	int update(String sql);
 
 	/**
-	 * Ö´ĞĞ²åÈësql,²¢·µ»Øid.
+	 * æ‰§è¡Œæ’å…¥sql,å¹¶è¿”å›id.
 	 * 
 	 * @param sql
-	 *            ÒªÖ´ĞĞµÄsql
+	 *            è¦æ‰§è¡Œçš„sql
 	 * @param param
-	 *            ²ÎÊı¶ÔÏó
-	 * @return Ö´ĞĞ³É¹¦ºóµÄid.
+	 *            å‚æ•°å¯¹è±¡
+	 * @return æ‰§è¡ŒæˆåŠŸåçš„id.
 	 */
 	long insertForLastId(String sql, StatementParameter param);
 
 	/**
-	 * ÅúÁ¿Ö´ĞĞsql.
+	 * æ‰¹é‡æ‰§è¡Œsql.
 	 * 
 	 * @param sqls
 	 * @return

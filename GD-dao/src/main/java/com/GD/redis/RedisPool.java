@@ -20,7 +20,7 @@ public class RedisPool {
 		GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
 		poolConfig.setMaxIdle(maxActive);
 		// poolConfig.setMinEvictableIdleTimeMillis(24 * 3600 * 1000);
-		poolConfig.setMinEvictableIdleTimeMillis(-1);// ahai 20131024 ÒÑ½¨Á¢µÄÁ¬½Ó²»»ØÊÕ£¬¸ß²¢·¢Ê±½¨Á¢Á¬½Ó»áºÜºÄ×ÊÔ´
+		poolConfig.setMinEvictableIdleTimeMillis(-1);// ahai 20131024 å·²å»ºç«‹çš„è¿æ¥ä¸å›æ”¶ï¼Œé«˜å¹¶å‘æ—¶å»ºç«‹è¿æ¥ä¼šå¾ˆè€—èµ„æº
 		// poolConfig.setTimeBetweenEvictionRunsMillis(-1);
 
 		this.pool = new JedisPool(poolConfig, host, port, timeout);

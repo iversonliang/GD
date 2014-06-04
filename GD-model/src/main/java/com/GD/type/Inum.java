@@ -1,8 +1,8 @@
 package com.GD.type;
 /**
- * 枚举接口(key类型为Integer，value类型为String).
+ * 鏋氫妇鎺ュ彛(key绫诲瀷涓篒nteger锛寁alue绫诲瀷涓篠tring).
  * 
- * @author 阿海
+ * @author 闃挎捣
  * 
  */
 public interface Inum extends Onum<Integer, String> {

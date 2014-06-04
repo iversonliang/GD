@@ -6,23 +6,23 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * ÈÕÆÚ¡¢Ê±¼ä³£ÓÃ·½·¨Àà.
+ * æ—¥æœŸã€æ—¶é—´å¸¸ç”¨æ–¹æ³•ç±».
  * <p>
  * 
- * @author °¢º£
+ * @author é˜¿æµ·
  * 
  */
 public class DateTime {
 	public static final long HOUR_MILLIS = 1000 * 60 * 60;
 	public static final long DAY_MILLIS = HOUR_MILLIS * 24;
-	public static final int EIGHT_HOUR_SECOND = 60 * 60 * 8;// 8Ğ¡Ê±
-	public static final int DAY_SECOND = 60 * 60 * 24;// 24Ğ¡Ê±
+	public static final int EIGHT_HOUR_SECOND = 60 * 60 * 8;// 8å°æ—¶
+	public static final int DAY_SECOND = 60 * 60 * 24;// 24å°æ—¶
 	public static final long EIGHT_HOUR_MILLI_SECOND = EIGHT_HOUR_SECOND * 1000L;
 
 	/**
-	 * »ñÈ¡´Ó1970Äê1ÔÂ1ÈÕ¾­ÀúµÄÌìÊı</br>
+	 * è·å–ä»1970å¹´1æœˆ1æ—¥ç»å†çš„å¤©æ•°</br>
 	 * 
-	 * @return ÌìÊı
+	 * @return å¤©æ•°
 	 */
 	public static int getDayCount() {
 		long daynum = System.currentTimeMillis() / DAY_MILLIS;
@@ -30,9 +30,9 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡Ğ¡Ê±ÊıÁ¿.</br>
+	 * è·å–å°æ—¶æ•°é‡.</br>
 	 * 
-	 * @return Ğ¡Ê±Êı
+	 * @return å°æ—¶æ•°
 	 */
 	public static int getHourCount() {
 		long daynum = System.currentTimeMillis() / HOUR_MILLIS;
@@ -40,11 +40,11 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡ÌìÊı
+	 * è·å–å¤©æ•°
 	 * 
 	 * @param date
-	 *            ÈÕÆÚ
-	 * @return ÌìÊı
+	 *            æ—¥æœŸ
+	 * @return å¤©æ•°
 	 */
 	public static int getDayCount(final Date date) {
 		long daynum = date.getTime() / DAY_MILLIS;
@@ -52,11 +52,11 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡ÌìÊı
+	 * è·å–å¤©æ•°
 	 * 
 	 * @param datetime
-	 *            ÈÕÆÚ
-	 * @return ÌìÊı
+	 *            æ—¥æœŸ
+	 * @return å¤©æ•°
 	 */
 	public static int getDayCount(final String datetime) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -71,7 +71,7 @@ public class DateTime {
 		System.out.println("daynum:" + daynum + " datetime:" + datetime);
 		return (int) daynum;
 
-		// // FIXME ahai »ñÈ¡ÌìÊı·½·¨ÓĞbug
+		// // FIXME ahai è·å–å¤©æ•°æ–¹æ³•æœ‰bug
 		// int[] arr = parseDatetimeToArray(datetime);
 		// int year = arr[0];
 		// int month = arr[1];
@@ -84,13 +84,13 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡Á½¸öÈÕÆÚÖ®¼äÏà²îµÄÌìÊı
+	 * è·å–ä¸¤ä¸ªæ—¥æœŸä¹‹é—´ç›¸å·®çš„å¤©æ•°
 	 * 
 	 * @param date1
-	 *            ¿ªÊ¼ÈÕÆÚ
+	 *            å¼€å§‹æ—¥æœŸ
 	 * @param date2
-	 *            ½áÊøÈÕÆÚ
-	 * @return ÌìÊı
+	 *            ç»“æŸæ—¥æœŸ
+	 * @return å¤©æ•°
 	 */
 	public static int getDayCount(final String date1, String date2) {
 
@@ -100,20 +100,20 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡µ±ÌìÈÕÆÚ£¬¸ñÊ½Îªyyyy-MM-dd
+	 * è·å–å½“å¤©æ—¥æœŸï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
-	 * @return µ±ÌìÈÕÆÚ×Ö·û´®
+	 * @return å½“å¤©æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static String getDate() {
 		return getDate(System.currentTimeMillis());
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ÌìÊıºóµÄÈÕÆÚ£¬¸ñÊ½Îªyyyy-MM-dd
+	 * è·å–æŒ‡å®šå¤©æ•°åçš„æ—¥æœŸï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param daynum
-	 *            ÌìÊı
-	 * @return ÈÕÆÚ×Ö·û´®
+	 *            å¤©æ•°
+	 * @return æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static String getDate(final int daynum) {
 		Calendar cal = Calendar.getInstance();
@@ -122,11 +122,11 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ÌìÊıºóµÄÈÕÆÚ£¬¸ñÊ½Îªyyyy-MM-dd
+	 * è·å–æŒ‡å®šå¤©æ•°åçš„æ—¥æœŸï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param daynum
-	 *            ÌìÊı
-	 * @return ÈÕÆÚ×Ö·û´®
+	 *            å¤©æ•°
+	 * @return æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static String addDate(final int daynum) {
 		Calendar cal = Calendar.getInstance();
@@ -137,13 +137,13 @@ public class DateTime {
 	}
 
 	/**
-	 * ·µ»Ø¸ø¶¨ÈÕÆÚÖ®ºóÖ¸¶¨ÌìÊıºóµÄÈÕÆÚ£¬¸ñÊ½Îªyyyy-MM-dd
+	 * è¿”å›ç»™å®šæ—¥æœŸä¹‹åæŒ‡å®šå¤©æ•°åçš„æ—¥æœŸï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param date
-	 *            ÈÕÆÚ
+	 *            æ—¥æœŸ
 	 * @param daynum
-	 *            ÌìÊı
-	 * @return ÈÕÆÚ×Ö·û´®
+	 *            å¤©æ•°
+	 * @return æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static String addDate(final String date, final int daynum) {
 		int[] arr = parseDatetimeToArray(date);
@@ -157,11 +157,11 @@ public class DateTime {
 	}
 
 	/**
-	 * ½«Ê±¼ä»òÕßÈÕÆÚ×ª»»³ÉintÊı×é
+	 * å°†æ—¶é—´æˆ–è€…æ—¥æœŸè½¬æ¢æˆintæ•°ç»„
 	 * 
 	 * @param datetime
-	 *            Ê±¼ä
-	 * @return intÊı×é
+	 *            æ—¶é—´
+	 * @return intæ•°ç»„
 	 */
 	public static int[] parseDatetimeToArray(final String datetime) {
 		int year = Integer.parseInt(datetime.substring(0, 4));
@@ -174,11 +174,11 @@ public class DateTime {
 	private static final SimpleDateFormat GET_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
-	 * ºÁÃëÊı×ª»»³ÉÈÕÆÚ£¬¸ñÊ½Îªyyyy-MM-dd
+	 * æ¯«ç§’æ•°è½¬æ¢æˆæ—¥æœŸï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param millis
-	 *            ºÁÃëÊı
-	 * @return ÈÕÆÚ×Ö·û´®
+	 *            æ¯«ç§’æ•°
+	 * @return æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static synchronized String getDate(final long millis) {
 		Date date = new Date();
@@ -189,9 +189,9 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Ğ¡Ê±
+	 * è·å–å½“å‰å°æ—¶
 	 * 
-	 * @return Ğ¡Ê±
+	 * @return å°æ—¶
 	 */
 	public static int getHour() {
 		Calendar cld = Calendar.getInstance();
@@ -199,9 +199,9 @@ public class DateTime {
 	}
 
 	/**
-	 * ·µ»Øµ±ÌìÎªÔÂÖĞµÄÄ³Ò»Ìì
+	 * è¿”å›å½“å¤©ä¸ºæœˆä¸­çš„æŸä¸€å¤©
 	 * 
-	 * @return Ìì
+	 * @return å¤©
 	 */
 	public static int getDay() {
 		Calendar cld = Calendar.getInstance();
@@ -209,9 +209,9 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÔÂ·İ
+	 * è·å–å½“å‰æœˆä»½
 	 * 
-	 * @return ÔÂ·İ
+	 * @return æœˆä»½
 	 */
 	public static int getMonth() {
 		Calendar cld = Calendar.getInstance();
@@ -219,9 +219,9 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°·ÖÖÓ
+	 * è·å–å½“å‰åˆ†é’Ÿ
 	 * 
-	 * @return ·ÖÖÓ
+	 * @return åˆ†é’Ÿ
 	 */
 	public static int getMinute() {
 		Calendar cld = Calendar.getInstance();
@@ -229,20 +229,20 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ºÁÃëÊı£¬¸ñÊ½Îªyyyy-MM-dd HH:mm:ss
+	 * è·å–å½“å‰æ¯«ç§’æ•°ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd HH:mm:ss
 	 * 
-	 * @return ºÁÃë
+	 * @return æ¯«ç§’
 	 */
 	public static String getTime() {
 		return getTime(0);
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Ê±ºòºóÖ¸¶¨·ÖÖÓÊıµÄºÁÃëÊı long millis¼ÓÉÏint minute ÈçintºÜ´ó»á³öÏÖ±»ÔØ¶ÏÇé¿ö£¬µÃ³öµÄ½á¹û´íÎó£¬ ÏÖ½«int×ª»»³ÉlongºóÔÙ½øĞĞ¼ÆËã. Èç¼ÆËãÒ»ÄêºóµÄÊ±¼ä24*60*365*60*1000´ËÊıÒÑ³¬³öint·¶Î§,½Ø¶Ïºó¼ÆËã³ö´í¡£
+	 * è·å–å½“å‰æ—¶å€™åæŒ‡å®šåˆ†é’Ÿæ•°çš„æ¯«ç§’æ•° long millisåŠ ä¸Šint minute å¦‚intå¾ˆå¤§ä¼šå‡ºç°è¢«è½½æ–­æƒ…å†µï¼Œå¾—å‡ºçš„ç»“æœé”™è¯¯ï¼Œ ç°å°†intè½¬æ¢æˆlongåå†è¿›è¡Œè®¡ç®—. å¦‚è®¡ç®—ä¸€å¹´åçš„æ—¶é—´24*60*365*60*1000æ­¤æ•°å·²è¶…å‡ºintèŒƒå›´,æˆªæ–­åè®¡ç®—å‡ºé”™ã€‚
 	 * 
 	 * @param minute
-	 *            Ö¸¶¨µÄ·ÖÖÓÊı
-	 * @return ºÁÃëÊı
+	 *            æŒ‡å®šçš„åˆ†é’Ÿæ•°
+	 * @return æ¯«ç§’æ•°
 	 */
 	public static String addTime(final int minute) {
 		long millis = System.currentTimeMillis();
@@ -251,13 +251,13 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡¸ø¶¨Ê±¼äºóÖ¸¶¨·ÖÖÓÊıµÄºÁÃëÊı£¬¸ñÊ½Îªyyyy-MM-dd HH:mm:ss
+	 * è·å–ç»™å®šæ—¶é—´åæŒ‡å®šåˆ†é’Ÿæ•°çš„æ¯«ç§’æ•°ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd HH:mm:ss
 	 * 
 	 * @param time
-	 *            ¸ø¶¨µÄÊ±¼ä
+	 *            ç»™å®šçš„æ—¶é—´
 	 * @param minute
-	 *            Ö¸¶¨µÄ·ÖÖÓÊı
-	 * @return ºÁÃëÊı
+	 *            æŒ‡å®šçš„åˆ†é’Ÿæ•°
+	 * @return æ¯«ç§’æ•°
 	 */
 	public static String addTime(String time, int minute) {
 		long millis = getTimestamp(time);
@@ -268,11 +268,11 @@ public class DateTime {
 	private static final SimpleDateFormat GET_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
-	 * ¸ù¾İÃëÊı»ñÈ¡ºÁÃëÊı£¬¸ñÊ½Îªyyyy-MM-dd HH:mm:ss
+	 * æ ¹æ®ç§’æ•°è·å–æ¯«ç§’æ•°ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd HH:mm:ss
 	 * 
 	 * @param second
-	 *            ÃëÊı
-	 * @return ºÁÃëÊı
+	 *            ç§’æ•°
+	 * @return æ¯«ç§’æ•°
 	 */
 	public static String getTime(int second) {
 		long millis = second * 1000L;
@@ -280,11 +280,11 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İÈÕÆÚ·µ»ØºÁÃëÊı£¬¸ñÊ½Îªyyyy-MM-dd HH:mm:ss
+	 * æ ¹æ®æ—¥æœŸè¿”å›æ¯«ç§’æ•°ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd HH:mm:ss
 	 * 
 	 * @param date
-	 *            ÈÕÆÚ
-	 * @return ºÁÃëÊı
+	 *            æ—¥æœŸ
+	 * @return æ¯«ç§’æ•°
 	 */
 	public static String getTime(Date date) {
 		long millis = date.getTime();
@@ -292,7 +292,7 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö·û´®ÀàĞÍÈÕÆÚ·µ»ØºÁÃëÊı
+	 * æ ¹æ®å­—ç¬¦ä¸²ç±»å‹æ—¥æœŸè¿”å›æ¯«ç§’æ•°
 	 * 
 	 * @param time
 	 * @return
@@ -307,11 +307,11 @@ public class DateTime {
 	}
 
 	/**
-	 * longĞÍºÁÃëÊı×ª³Éyyyy-MM-dd HH:mm:ssÀàĞÍµÄ×Ö·û´®ĞÍÈÕÆÚ
+	 * longå‹æ¯«ç§’æ•°è½¬æˆyyyy-MM-dd HH:mm:ssç±»å‹çš„å­—ç¬¦ä¸²å‹æ—¥æœŸ
 	 * 
 	 * @param millis
-	 *            ºÁÃëÊı
-	 * @return ÈÕÆÚ
+	 *            æ¯«ç§’æ•°
+	 * @return æ—¥æœŸ
 	 */
 	public static synchronized String getTime(final long millis) {
 		Date date = new Date();
@@ -322,11 +322,11 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö·û´®»ñÈ¡Ê±¼ä´Á
+	 * æ ¹æ®å­—ç¬¦ä¸²è·å–æ—¶é—´æˆ³
 	 * 
 	 * 
 	 * @param datetime
-	 *            ×Ö·û´®Ê±¼ä
+	 *            å­—ç¬¦ä¸²æ—¶é—´
 	 * @return
 	 */
 	public static long getTimestamp(final String datetime) {
@@ -359,9 +359,9 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼ä´Á
+	 * è·å–å½“å‰æ—¶é—´æˆ³
 	 * 
-	 * @return µ±Ç°Ê±¼ä£¬ÒÔºÁÃëÎªµ¥Î»
+	 * @return å½“å‰æ—¶é—´ï¼Œä»¥æ¯«ç§’ä¸ºå•ä½
 	 */
 	public static long getTimestamp() {
 		Calendar cal = Calendar.getInstance();
@@ -369,9 +369,9 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡UnixÏÂµÄÊ±¼ä´Á
+	 * è·å–Unixä¸‹çš„æ—¶é—´æˆ³
 	 * 
-	 * @return µ±Ç°Ê±¼ä£¬ÒÔºÁÃëÎªµ¥Î»
+	 * @return å½“å‰æ—¶é—´ï¼Œä»¥æ¯«ç§’ä¸ºå•ä½
 	 */
 	public static int getUnixTimestamp() {
 		long timestamp = getTimestamp();
@@ -379,11 +379,11 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö·û´®Ê±¼ä»ñÈ¡UnixÏÂµÄÊ±¼ä´Á
+	 * æ ¹æ®å­—ç¬¦ä¸²æ—¶é—´è·å–Unixä¸‹çš„æ—¶é—´æˆ³
 	 * 
 	 * @param datetime
-	 *            ×Ö·û´®ÈÕÆÚ
-	 * @return Ê±¼äÖµ£¬ÒÔºÁÃëÎªµ¥Î»
+	 *            å­—ç¬¦ä¸²æ—¥æœŸ
+	 * @return æ—¶é—´å€¼ï¼Œä»¥æ¯«ç§’ä¸ºå•ä½
 	 */
 	public static int getUnixTimestamp(String datetime) {
 		long timestamp = getTimestamp(datetime);
@@ -394,11 +394,11 @@ public class DateTime {
 	private static final String IS_DATE_REGEX = "^[0-9]{4}\\-[0-9]{1,2}\\-[0-9]{1,2}$";
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÎªÕıÈ·µÄÈÕÆÚ¸ñÊ½
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦ä¸ºæ­£ç¡®çš„æ—¥æœŸæ ¼å¼
 	 * 
 	 * @param str
-	 *            ×Ö·û´®ÈÕÆÚ
-	 * @return ÊÇ·ñºÏ·¨ÈÕÆÚ¸ñÊ½
+	 *            å­—ç¬¦ä¸²æ—¥æœŸ
+	 * @return æ˜¯å¦åˆæ³•æ—¥æœŸæ ¼å¼
 	 */
 	public static boolean isDate(final String date) {
 		if (date == null) {
@@ -411,11 +411,11 @@ public class DateTime {
 	private static final String IS_TIME_REGEX = "^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$";
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÎªÕıÈ·µÄÊ±¼ä¸ñÊ½
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦ä¸ºæ­£ç¡®çš„æ—¶é—´æ ¼å¼
 	 * 
 	 * @param time
-	 *            ¸ñÊ½:10:10:10
-	 * @return ÊÇ·ñºÏ·¨Ê±¼ä¸ñÊ½
+	 *            æ ¼å¼:10:10:10
+	 * @return æ˜¯å¦åˆæ³•æ—¶é—´æ ¼å¼
 	 */
 	public static boolean isTime(final String time) {
 		if (time == null) {
@@ -427,11 +427,11 @@ public class DateTime {
 	private static final String IS_DATETIME_REGEX = "^[0-9]{4}\\-[0-9]{1,2}\\-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}(\\.[0-9]{1,3})?$";
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÎªÕıÈ·µÄÈÕÆÚ + Ê±¼ä¸ñÊ½
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦ä¸ºæ­£ç¡®çš„æ—¥æœŸ + æ—¶é—´æ ¼å¼
 	 * 
 	 * @param datetime
-	 *            ¸ñÊ½:2010-10-10 00:00:00
-	 * @return ÊÇ·ñºÏ·¨ÈÕÆÚ + Ê±¼ä¸ñÊ½
+	 *            æ ¼å¼:2010-10-10 00:00:00
+	 * @return æ˜¯å¦åˆæ³•æ—¥æœŸ + æ—¶é—´æ ¼å¼
 	 */
 	public static boolean isDateTime(final String datetime) {
 		if (datetime == null || datetime.length() == 0) {
@@ -441,11 +441,11 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö·û´®Ê±¼ä»ñÈ¡ÃëÊı
+	 * æ ¹æ®å­—ç¬¦ä¸²æ—¶é—´è·å–ç§’æ•°
 	 * 
 	 * @param datetime
-	 *            ×Ö·û´®Ê±¼ä
-	 * @return ÃëÊı
+	 *            å­—ç¬¦ä¸²æ—¶é—´
+	 * @return ç§’æ•°
 	 */
 	public static int getSecond(final String datetime) {
 		long time = getTimestamp(datetime);
@@ -453,7 +453,7 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö·û´®Ê±¼ä»ñÈ¡GMTÊ±¼ä
+	 * æ ¹æ®å­—ç¬¦ä¸²æ—¶é—´è·å–GMTæ—¶é—´
 	 * 
 	 * @param time
 	 * @return
@@ -466,12 +466,12 @@ public class DateTime {
 		return date.toGMTString();
 	}
 
-	private static final String[] CN_WEEK_NAMES = { "Ìì", "Ò»", "¶ş", "Èı", "ËÄ", "Îå", "Áù" };
+	private static final String[] CN_WEEK_NAMES = { "å¤©", "ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­" };
 
 	/**
-	 * ·µ»Øµ±Ç°ÈÕÆÚÊÇĞÇÆÚ¼¸£¬ÖĞÎÄ°æ
+	 * è¿”å›å½“å‰æ—¥æœŸæ˜¯æ˜ŸæœŸå‡ ï¼Œä¸­æ–‡ç‰ˆ
 	 * 
-	 * @return ĞÇÆÚ¼¸
+	 * @return æ˜ŸæœŸå‡ 
 	 */
 	public static String getWeekName() {
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -482,11 +482,11 @@ public class DateTime {
 	private static final String[] EN_WEEK_NAMES = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 
 	/**
-	 * ¸ù¾İ×Ö·û´®Ê±¼ä·µ»ØĞÇÆÚ¼¸
+	 * æ ¹æ®å­—ç¬¦ä¸²æ—¶é—´è¿”å›æ˜ŸæœŸå‡ 
 	 * 
 	 * @param datetime
-	 *            ×Ö·û´®Ê±¼ä
-	 * @return ĞÇÆÚ¼¸
+	 *            å­—ç¬¦ä¸²æ—¶é—´
+	 * @return æ˜ŸæœŸå‡ 
 	 */
 	public static String getWeekName(final String datetime) {
 		Calendar cld = Calendar.getInstance();
@@ -496,11 +496,11 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡ÔÂ·İµÄÌìÊı
+	 * è·å–æœˆä»½çš„å¤©æ•°
 	 * 
 	 * @param monthNum
-	 *            0:±íÊ¾µ±Ç°ÔÂ·İ ¸ºÊı£º±íÊ¾Ç°n¸öÔÂ·İ ÕûÊı£º±íÊ¾ºón¸öÔÂ·İ
-	 * @return ÌìÊı
+	 *            0:è¡¨ç¤ºå½“å‰æœˆä»½ è´Ÿæ•°ï¼šè¡¨ç¤ºå‰nä¸ªæœˆä»½ æ•´æ•°ï¼šè¡¨ç¤ºånä¸ªæœˆä»½
+	 * @return å¤©æ•°
 	 */
 	public static int getDayCountOfMonth(final int monthNum) {
 		Calendar cal = Calendar.getInstance();
@@ -511,11 +511,11 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡ÔÂ·İµÄµÚÒ»Ìì£¬¸ñÊ½Îªyyyy-MM-dd
+	 * è·å–æœˆä»½çš„ç¬¬ä¸€å¤©ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param monthNum
-	 *            0:±íÊ¾µ±Ç°ÔÂ·İ ¸ºÊı£º±íÊ¾Ç°n¸öÔÂ·İ ÕûÊı£º±íÊ¾ºón¸öÔÂ·İ
-	 * @return Ö¸¶¨ÔÂ·İµÚÒ»ÌìµÄÈÕÆÚ×Ö·û´®
+	 *            0:è¡¨ç¤ºå½“å‰æœˆä»½ è´Ÿæ•°ï¼šè¡¨ç¤ºå‰nä¸ªæœˆä»½ æ•´æ•°ï¼šè¡¨ç¤ºånä¸ªæœˆä»½
+	 * @return æŒ‡å®šæœˆä»½ç¬¬ä¸€å¤©çš„æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static String getFirstDayOfMonth(final int monthNum) {
 		Calendar cal = Calendar.getInstance();
@@ -525,13 +525,13 @@ public class DateTime {
 	}
 
 	/**
-	 * ¸ù¾İ¸ø¶¨µÄÈÕÆÚ£¬·µ»ØÖ¸¶¨monthNum¸öÔÂºóµÄÔÂ·İµÄµÚÒ»Ìì£¬¸ñÊ½Îªyyyy-MM-dd
+	 * æ ¹æ®ç»™å®šçš„æ—¥æœŸï¼Œè¿”å›æŒ‡å®šmonthNumä¸ªæœˆåçš„æœˆä»½çš„ç¬¬ä¸€å¤©ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param date
-	 *            ÈÕÆÚ
+	 *            æ—¥æœŸ
 	 * @param monthNum
-	 *            ÔÂÊı
-	 * @return dateÖ¸¶¨monthNum¸öÔÂºóµÄÔÂ·İµÚÒ»ÌìµÄÈÕÆÚ×Ö·û´®
+	 *            æœˆæ•°
+	 * @return dateæŒ‡å®šmonthNumä¸ªæœˆåçš„æœˆä»½ç¬¬ä¸€å¤©çš„æ—¥æœŸå­—ç¬¦ä¸²
 	 */
 	public static String getFirstDayOfMonth(final String date, final int monthNum) {
 		int[] arr = parseDatetimeToArray(date);
@@ -547,10 +547,10 @@ public class DateTime {
 	}
 
 	/**
-	 * »ñÈ¡ĞÇÆÚÒ»£¬¸ñÊ½Îªyyyy-MM-dd
+	 * è·å–æ˜ŸæœŸä¸€ï¼Œæ ¼å¼ä¸ºyyyy-MM-dd
 	 * 
 	 * @param date
-	 * @return ĞÇÆÚÒ»µÄ×Ö·û´®ÈÕÆÚ
+	 * @return æ˜ŸæœŸä¸€çš„å­—ç¬¦ä¸²æ—¥æœŸ
 	 */
 	public static String getMonday(final String date) {
 		int[] arr = parseDatetimeToArray(date);
@@ -567,11 +567,11 @@ public class DateTime {
 	}
 
 	/**
-	 * ÅĞ¶Ï´«ÈëµÄÈÕÆÚÊÇ·ñÎª½ñÌì
+	 * åˆ¤æ–­ä¼ å…¥çš„æ—¥æœŸæ˜¯å¦ä¸ºä»Šå¤©
 	 * 
 	 * @param time
-	 *            ×Ö·û´®ÈÕÆÚ
-	 * @return boolean ÈôÎª½ñÌìÔò·µ»Øtrue
+	 *            å­—ç¬¦ä¸²æ—¥æœŸ
+	 * @return boolean è‹¥ä¸ºä»Šå¤©åˆ™è¿”å›true
 	 */
 	public static boolean isToday(String time) {
 		if (time == null || time.length() < 10) {
@@ -588,9 +588,9 @@ public class DateTime {
 	private static final SimpleDateFormat GET_INT_TIME_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼ä£¬¸ñÊ½ÎªyyyyMMddHHmmss
+	 * è·å–å½“å‰æ—¶é—´ï¼Œæ ¼å¼ä¸ºyyyyMMddHHmmss
 	 * 
-	 * @return µ±Ç°Ê±¼ä
+	 * @return å½“å‰æ—¶é—´
 	 */
 	public static synchronized String getIntTime() {
 		Date date = new Date();

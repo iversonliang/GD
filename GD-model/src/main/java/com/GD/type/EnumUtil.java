@@ -24,7 +24,7 @@ public class EnumUtil {
 	}
 
 	/**
-	 * ¸ù¾İID×ª»»ÎªÃ¶¾Ù(ÔªËØ²»´æÔÚ»áÅ×Òì³£).
+	 * æ ¹æ®IDè½¬æ¢ä¸ºæšä¸¾(å…ƒç´ ä¸å­˜åœ¨ä¼šæŠ›å¼‚å¸¸).
 	 * 
 	 * @param id
 	 * @param clazz
@@ -33,13 +33,13 @@ public class EnumUtil {
 	public static <E extends Enum<E>> E toEnum(Object key, Class<E> clazz) {
 		E inum = get(key, clazz);
 		if (inum == null) {
-			throw new IllegalArgumentException("Ã¶¾ÙÔªËØ[" + key + "]²»´æÔÚ.");
+			throw new IllegalArgumentException("æšä¸¾å…ƒç´ [" + key + "]ä¸å­˜åœ¨.");
 		}
 		return inum;
 	}
 
 	/**
-	 * ¸ù¾İID×ª»»ÎªÃ¶¾Ù(ÔªËØ²»´æÔÚ·µ»Øonum).
+	 * æ ¹æ®IDè½¬æ¢ä¸ºæšä¸¾(å…ƒç´ ä¸å­˜åœ¨è¿”å›onum).
 	 * 
 	 * @param key
 	 * @param clazz
@@ -55,7 +55,7 @@ public class EnumUtil {
 	}
 
 	/**
-	 * ÅĞ¶ÏkeyÊÇ·ñ´æÔÚ.
+	 * åˆ¤æ–­keyæ˜¯å¦å­˜åœ¨.
 	 * 
 	 * @param key
 	 * @param clazz
@@ -71,7 +71,7 @@ public class EnumUtil {
 	}
 
 	/**
-	 * ¸ù¾İID×ª»»ÎªÃ¶¾Ù(ÔªËØ²»´æÔÚÔò·µ»Ønull£¬²»Å×Òì³£)
+	 * æ ¹æ®IDè½¬æ¢ä¸ºæšä¸¾(å…ƒç´ ä¸å­˜åœ¨åˆ™è¿”å›nullï¼Œä¸æŠ›å¼‚å¸¸)
 	 * 
 	 * @param id
 	 * @param clazz
@@ -109,7 +109,7 @@ public class EnumUtil {
 
 	protected static Object toLowerCase(Object key) {
 		if (key instanceof String) {
-			return ((String) key).toLowerCase();// Í³Ò»×ª³ÉĞ¡Ğ´±£´æ
+			return ((String) key).toLowerCase();// ç»Ÿä¸€è½¬æˆå°å†™ä¿å­˜
 		}
 		else {
 			return key;
