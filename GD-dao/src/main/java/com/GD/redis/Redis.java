@@ -148,7 +148,7 @@ public class Redis implements JedisCommands {
 			long time = (endTime - startTime) / 1000L / 1000L; // time 单位:毫秒
 //			if (time >= 10) {
 				// GenericObjectPool internalPool = pool.getInternalPool();
-				String message = "host:" + host + " port:" + port;
+				String message = "get redis resource host:" + host + " port:" + port;
 				message += " time:" + time;
 				logger.info(message);
 				// message += " maxActive:" + internalPool.getMaxActive();

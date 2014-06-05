@@ -112,10 +112,10 @@
  			-->
 			<!-- - If starting Resin as root on Unix, specify the user name - and 
 				group name for the web server user. -->
-			<resin:if test="${resin.userName == 'root'}">
+			<!-- <resin:if test="${resin.userName == 'root'}">
 				<user-name>www-data</user-name>
 				<group-name>www-data</group-name>
-			 </resin:if>
+			 </resin:if> -->
 			
 			<!-- <keepalive-max>800</keepalive-max>
 			<keepalive-timeout>15s</keepalive-timeout>
@@ -139,11 +139,11 @@
 		</server>
 		
 		<!-- log output -->
-		<log-handler name="" level="all" path="/data2/log/resin/stdout.log"
+		<log-handler name="" level="all" path="/data/log/resin/stdout.log"
 		timestamp="[%y-%m-%d %H:%M:%S.%s] {%{thread}} " rollover-size="1g"  />			
 		
 		<!-- HOST配置,主要修改这里 change it -->
-		<host id=''>
+		<host id='' root-directory="/data/webapps">
 			<web-app id="/" document-directory="/data/webapps/GD/web"
 				archive-path="/data/app/GD/web/GD-web.war">
 			</web-app>
