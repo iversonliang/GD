@@ -175,7 +175,7 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/user/upload.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String SAVE_PATH = "D:\\upload";
 		List<String> fileNames = new LinkedList<String>();

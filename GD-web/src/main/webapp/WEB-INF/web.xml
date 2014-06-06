@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" 
+<web-app version="3.1" 
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
@@ -41,6 +41,18 @@
 		<url-pattern>/upload.do</url-pattern>
 	</servlet-mapping>
  -->
+
+	<!-- 上传 -->
+	<servlet>
+		<servlet-name>async</servlet-name>
+		<servlet-class>com.GD.web.servlet.AsyncServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>async</servlet-name>
+		<url-pattern>/async.do</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
@@ -52,4 +64,8 @@
 
 	<!-- <context-param> <param-name>contextConfigLocation</param-name> <param-value>src/main/resources/applicationContext.xml 
 		</param-value> </context-param> -->
+		
+	<!-- <listener>
+		<listener-class>com.GD.web.servlet.SlowWebService</listener-class>
+	</listener> -->
 </web-app>
