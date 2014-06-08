@@ -10,7 +10,7 @@ public class GDJettryStart {
 		Server server = new Server();
 
 		SelectChannelConnector connector = new SelectChannelConnector();
-		connector.setPort(8080);
+		connector.setPort(80);
 		server.addConnector(connector);
 
 		WebAppContext context = new WebAppContext();

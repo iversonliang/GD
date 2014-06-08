@@ -1,6 +1,7 @@
 package com.GD.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,16 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			throw new RuntimeException("没有此用户[" + userId + "]");
 		}
+	}
+
+	@Override
+	public int count() {
+		return userDao.count();
+	}
+
+	@Override
+	public List<User> list(int start, int size) {
+		return userDao.list(start, size);
 	}
 
 }

@@ -3,19 +3,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Upload</title>
+<script type="text/javascript" src="/js/lib/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/js/lib/ajaxfileupload.js"></script>
+<script type="text/javascript">
+	function upload() {
+		$.ajaxFileUpload({
+			url : '/user/upload.do?',
+			secureuri : false,
+			fileElementId : 'file',
+			dataType : 'json',
+			data : {
+				docType : 1
+			},
+			success : function(data, status) {
+				alert(data);
+			},
+			error : function(data, status, e) {
+				alert("上传失败!");
+				return;
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<p>上传文件</p>
-	<form action="/user/upload.do" method="post" enctype="multipart/form-data">
+	<form action="/user/upload.do" method="post"
+		enctype="multipart/form-data">
 		<fieldset>
-			<label>File1:</label>
-			<input type="file" name="file1" /><br /> <label>File2:</label>
-			<input type="file" name="file2" /><br /> <label>File3:</label>
-			<input type="file" name="file3" /><br /> <label>File4:</label>
-			<input type="file" name="file4" /><br /> <label>File5:</label>
-			<input type="file" name="file5" />
+			<label>File1:</label> <input type="file" name="file1" /><br /> <label>File2:</label>
+			<input type="file" name="file2" /><br /> <label>File3:</label> <input
+				type="file" name="file3" /><br /> <label>File4:</label> <input
+				type="file" name="file4" /><br /> <label>File5:</label> <input
+				type="file" name="file5" />
 		</fieldset>
 		<input type="submit" name="submit" value="upload" />
 	</form>
+
+	<dir>
+		upload:
+		<input id="file" type="file" name="file" onchange="upload();" />
+	</dir>
 </body>
 </html>

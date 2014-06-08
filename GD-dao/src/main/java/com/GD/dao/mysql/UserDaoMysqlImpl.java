@@ -1,6 +1,7 @@
 package com.GD.dao.mysql;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
@@ -63,6 +64,18 @@ public class UserDaoMysqlImpl implements UserDao {
 	public User get(int userId) {
 		String sql = "SELECT * FROM user WHERE user_id=?";
 		return jdbc.query(sql, User.class, userId);
+	}
+
+	@Override
+	public int count() {
+		String sql = "SELECT COUNT(*) FROM user";
+		return jdbc.queryForInt(sql);
+	}
+
+	@Override
+	public List<User> list(int start, int size) {
+		String sql = "SELECT * FROM user";
+		return jdbc.queryForList(sql, User.class, start, size);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.GD.service;
 
+import java.util.List;
+
 import com.GD.model.User;
 import com.GD.type.UserStatusType;
 
@@ -18,4 +20,8 @@ public interface UserService {
 	public User get(int userId);
 	
 	public void checkUser(int userId);
+	
+	public int count();
+	
+	public List<User> list(int start, int size);
 }
