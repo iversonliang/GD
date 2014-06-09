@@ -36,14 +36,14 @@ public class AsyncServlet extends HttpServlet {
 		// 业务处理完成后的回应由AsyncContext管理
 		AsyncContext asyncContext = request.startAsync(request, response);
 		
-		ServletContext appScope = request.getServletContext();
-		System.out.println("-------------add contenxt to queue---------------");
-		Queue<AsyncContext> jobQueue = (Queue<AsyncContext>)appScope.getAttribute("slowWebServiceJobQueue");
-		jobQueue.add(asyncContext);
-		System.out.println("-------------queue size " + jobQueue.size() + " -----------------------");
+//		ServletContext appScope = request.getServletContext();
+//		System.out.println("-------------add contenxt to queue---------------");
+//		Queue<AsyncContext> jobQueue = (Queue<AsyncContext>)appScope.getAttribute("slowWebServiceJobQueue");
+//		jobQueue.add(asyncContext);
+//		System.out.println("-------------queue size " + jobQueue.size() + " -----------------------");
 		
 		
-		BusinessHandleThread businessHandleThread = new BusinessHandleThread(asyncContext, jobQueue);
+		BusinessHandleThread businessHandleThread = new BusinessHandleThread(asyncContext);
 		Thread thread = new Thread(businessHandleThread);
 		thread.start();
 		// asyncContext.start(businessHandleThread);
@@ -51,6 +51,5 @@ public class AsyncServlet extends HttpServlet {
 
 		out.println("Servlet end <br>");
 		out.flush();
-		asyncContext.complete();
 	}
 }
