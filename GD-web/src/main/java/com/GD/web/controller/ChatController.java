@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.jetty.util.ajax.JSON;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.GD.util.DateUtil;
 
 
 /**
@@ -36,6 +39,7 @@ public class ChatController {
  
     //存放所有的用户请求
     private final Map<String, DeferredResult<Message>> chatRequests = new ConcurrentHashMap<String, DeferredResult<Message>>();
+    private final Map<String, Message> LEFT_TALK = new ConcurrentHashMap<String, Message>();
     //时间格式化
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
  
@@ -87,6 +91,11 @@ public class ChatController {
                     chatRequests.remove(user);
                 }
             });
+            Message message = LEFT_TALK.get(user);
+            if (message != null) {
+            	dr.setResult(message);
+            	LEFT_TALK.remove(user);
+            }
             chatRequests.put(user, dr);
             return dr;
         }
@@ -102,12 +111,28 @@ public class ChatController {
     @RequestMapping(value = "/setMessage.do", method=RequestMethod.POST)
     @ResponseBody
     public Map<String, String> setMessage(HttpSession session, @RequestParam String content){
+    	String user = (String)session.getAttribute("user");
         Message msg = new Message();
-        msg.setContent(content);
+        msg.setContent(user + "：" + content);
         msg.setDate(sdf.format(new Date()));
-        msg.setUser((String)session.getAttribute("user"));
+        msg.setUser(user);
         //发布消息给所有用户
         processMessage(msg);
+        Map<String, String> map = new HashMap<String, String>(1);
+        map.put("success", "true");
+        return map;
+    }
+    
+    @RequestMapping(value = "/setPrivateMessage.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> setPrivateMessage(HttpSession session, @RequestParam String content, String toUser){
+    	String user = (String)session.getAttribute("user");
+        Message msg = new Message();
+        msg.setContent(user + " 对你说：" + content);
+        msg.setDate(sdf.format(new Date()));
+        msg.setUser(user);
+        //发布消息给所有用户
+        this.processPrivateMessage(msg, toUser);
         Map<String, String> map = new HashMap<String, String>(1);
         map.put("success", "true");
         return map;
@@ -146,5 +171,14 @@ public class ChatController {
         for(String key : keys){
             chatRequests.get(key).setResult(msg);
         }
+    }
+    
+    private void processPrivateMessage(Message msg, final String user) {
+    	DeferredResult<Message> dr = chatRequests.get(user);
+    	if (dr != null) {
+    		dr.setResult(msg);
+    	} else {
+    		LEFT_TALK.put(user, msg);
+    	}
     }
 }

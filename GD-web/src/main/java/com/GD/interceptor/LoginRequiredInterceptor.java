@@ -1,5 +1,7 @@
 package com.GD.interceptor;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
+import com.GD.util.DateUtil;
 import com.GD.util.RequestUtil;
 
 @Component
@@ -16,7 +19,7 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		System.out.println("methodName: " + invocation.getMethod().getName());
+		System.out.println(DateUtil.date2String(new Date()) + "  methodName: " + invocation.getMethod().getName());
 		boolean isInvoke = true;
         // 判断该方法是否加了@LoginRequired 注解
 		if (invocation.getMethod().isAnnotationPresent(LoginRequired.class)) {

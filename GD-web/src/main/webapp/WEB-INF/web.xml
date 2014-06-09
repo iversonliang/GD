@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" 
+<web-app version="3.0" 
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
@@ -12,6 +12,7 @@
 	<servlet>
 		<servlet-name>gd</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<async-supported>true</async-supported>
 		<multipart-config>
             <max-file-size>52428800</max-file-size>
             <max-request-size>52428800</max-request-size>
