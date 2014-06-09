@@ -144,9 +144,13 @@
 		
 		<!-- HOST配置,主要修改这里 change it -->
 		<host id='' root-directory="/data/webapps">
-			<web-app id="/" document-directory="/data/webapps/GD/web"
-				archive-path="/data/app/GD/web/GD-web.war">
+			<web-app id="/" document-directory="/data/webapps/GD/web" archive-path="/data/app/GD/web/GD-web.war">
+				<error-page   error-code="404"   location="/page/404.html"/>   
 			</web-app>
+			<stdout-log path="/data/log/resin/stdout.log" archive-format="stdout-%Y%m%d.log.gz"
+				timestamp="[%Y.%m.%d %H:%M:%S.%s]" rollover-size="10mb" rollover-period="1D" />
+			<stderr-log path="/data/log/resin/stderr.log" archive-format="stderr-%Y%m%d.log.gz"
+				timestamp="[%Y.%m.%d %H:%M:%S.%s]" rollover-size="10mb" rollover-period="1D" />
 		</host>
 		
 		

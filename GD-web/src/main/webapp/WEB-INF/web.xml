@@ -42,10 +42,11 @@
 	</servlet-mapping>
  -->
 
-	<!-- 上传 -->
+	<!-- async -->
 	<servlet>
 		<servlet-name>async</servlet-name>
 		<servlet-class>com.GD.web.servlet.AsyncServlet</servlet-class>
+		<async-supported>true</async-supported>
 	</servlet>
 	
 	<servlet-mapping>

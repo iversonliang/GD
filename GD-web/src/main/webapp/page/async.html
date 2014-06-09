@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>async</title>
+<script type="text/javascript" src="/js/lib/jquery-1.6.4.min.js"></script>
+<!-- <script type="text/javascript" src="/js/common.min-1.0.js"></script> -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		var url = '/user/async.do';
+		$('#comet-frame')[0].src = url;
+	});
+
+	function update(data) {
+		var resultArea = $('#result')[0];
+		resultArea.value = resultArea.value + data + '\n';
+	}
+</script>
+<style>
+.consoleFont {
+	font-size: 9;
+	color: #DDDDDD;
+	font-family: Fixedsys
+}
+
+.inputStyle {
+	font-size: 9;
+	color: #DDDDDD;
+	font-family: Fixedsys;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background-color: #000000;
+}
+</style>
+</head>
+<body style="margin: 0; overflow: hidden">
+	<table width="100%" height="100%" border="0" cellpadding="0"
+		cellspacing="0" bgcolor="#000000">
+		<tr>
+			<td colspan="2"><textarea name="result" id="result"
+					readonly="true" wrap="off" style="padding: 10; overflow: auto"
+					class="inputStyle"></textarea></td>
+		</tr>
+	</table>
+	<iframe id="comet-frame" style="display: none;"></iframe>
+</body>
+</html>

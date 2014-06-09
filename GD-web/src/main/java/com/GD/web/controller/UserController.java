@@ -7,15 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.servlet.AsyncContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,18 +34,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.handler.UserHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
-import com.GD.service.TestService;
 import com.GD.service.UserService;
 import com.GD.util.AuthCodeUtil;
+import com.GD.util.FileUtil;
 import com.GD.web.form.UserForm;
+import com.GD.web.servlet.BusinessHandleThread;
 
 @Controller
 @RequestMapping(value = UserController.DIR)
@@ -51,13 +58,20 @@ public class UserController {
 	private UserHandler userHandler;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private TestService testService;
 
 	public static final String DIR = "/user";
-	
+
 	final private String format = "image/png";
 
+	/**
+	 * 获取验证码
+	 * 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/getCode.do", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getCode(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -74,7 +88,7 @@ public class UserController {
 
 		System.out.println("getCodeId:" + request.getParameter("codeId"));
 		IOUtils.closeQuietly(out);
-		//禁止图像缓存
+		// 禁止图像缓存
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
@@ -83,6 +97,14 @@ public class UserController {
 		return new ResponseEntity<byte[]>(tileBytes, responseHeaders, HttpStatus.OK);
 	}
 
+	/**
+	 * 校验验证码
+	 * 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/validate", method = RequestMethod.POST)
 	public @ModelAttribute
 	Object validate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -111,11 +133,11 @@ public class UserController {
 		return model;
 	}
 
-	@RequestMapping(value = "/activate", method = RequestMethod.GET)
-	public ModelAndView activate(String code) {
+	@RequestMapping(value = "/activate.do", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean activate(String code) {
 		boolean result = userService.activate(code);
-		System.out.println("���" + result);
-		return null;
+		return result;
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
@@ -176,11 +198,18 @@ public class UserController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
-	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String SAVE_PATH = "D:\\upload";
-		List<String> fileNames = new LinkedList<String>();
-		request.setCharacterEncoding("UTF-8");
-		Collection<Part> parts = request.getParts();
+	@ResponseBody
+	public Map upload(HttpServletRequest request, HttpServletResponse response) {
+		String SAVE_PATH = "/data/wwwdata/img/";
+		FileUtil.checkFolderPath(SAVE_PATH);
+		List<String> urlList = new LinkedList<String>();
+		Collection<Part> parts = null;
+		try {
+			request.setCharacterEncoding("UTF-8");
+			parts = request.getParts();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		InputStream is = null;
 		FileOutputStream fos = null;
 		// 遍历所有的表单内容，将表单中的文件写入上传文件目录
@@ -189,30 +218,32 @@ public class UserController {
 			// 从Part的content-disposition中提取上传文件的文件名
 			String fileName = getFileName(part);
 			if (StringUtils.isNotEmpty(fileName)) {
+				fileName = FileUtil.parseFileName(fileName);
 				String savePath = SAVE_PATH + File.separator + fileName;
 				System.out.println("savePath:" + savePath);
-				fileNames.add(fileName);
-				
+				urlList.add("www.goodancer.com/img/" + fileName);
+
 				// inputStream转成outputStream并存储
-				is = part.getInputStream();
-
-				fos = new FileOutputStream(savePath);
-	            OutputStream optS = (OutputStream) fos;
-
-	            int c;
-	            while((c=is.read())!=-1)
-	            {
-	                optS.write(c);
-	            }
-	            optS.flush();
+				try {
+					is = part.getInputStream();
+					fos = new FileOutputStream(savePath);
+					OutputStream optS = (OutputStream) fos;
+					int c;
+					while ((c = is.read()) != -1) {
+						optS.write(c);
+					}
+					optS.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		is.close();
-		fos.close();
-		ModelAndView model = new ModelAndView("uploadSuccess");
-		model.addObject("fileNames", fileNames);
+		IOUtils.closeQuietly(is);
+		IOUtils.closeQuietly(fos);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fileNames", urlList);
 		// 显示上传的文件列表
-		return model;
+		return map;
 	}
 
 	/**
@@ -234,5 +265,34 @@ public class UserController {
 		}
 		return fileName;
 	}
+	
+	@RequestMapping(value = "/listUser.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> listUser() {
+		List<User> list = userService.list(0, 10);
+		return list;
+	}
 
+	@RequestMapping(value=" /async.do", method = RequestMethod.GET) 
+	public void async(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println("Servlet  begin <br>");
+		System.out.println("servlet start");
+
+		AsyncContext asyncContext = request.startAsync(request, response);
+		
+		
+		BusinessHandleThread businessHandleThread = new BusinessHandleThread(asyncContext);
+		Thread thread = new Thread(businessHandleThread);
+		thread.start();
+		// asyncContext.start(businessHandleThread);
+		// 也可以用这种方法启动异步线程
+
+		out.println("Servlet end <br>");
+		System.out.println("servlet done");
+		out.flush();
+	}
+	
 }

@@ -1,7 +1,6 @@
 package com.GD.web.servlet;
 
 import java.io.PrintWriter;
-import java.util.Queue;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.ServletResponse;
@@ -25,7 +24,7 @@ public class BusinessHandleThread implements Runnable {
 		try {
 			ServletResponse response = asyncContext.getResponse();
 			PrintWriter out = response.getWriter();
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 20; i++) {
 				String message = "test" + i;
 				Thread.sleep(1000);
 				out.println(htmlEscape(message));
@@ -40,8 +39,8 @@ public class BusinessHandleThread implements Runnable {
 	}
 
 	private String htmlEscape(String message) {
-//		return "<script type='text/javascript'>\nwindow.parent.update(\"" + message.replaceAll("\n", "").replaceAll("\r", "") + "\");</script>\n";
-		return "test";
+		return "<script type='text/javascript'>\nwindow.parent.update(\"" + message.replaceAll("\n", "").replaceAll("\r", "") + "\");</script>\n";
+//		return message;
 	}
 
 }
