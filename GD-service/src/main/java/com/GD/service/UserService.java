@@ -19,6 +19,8 @@ public interface UserService {
 	
 	public User get(int userId);
 	
+	public User getByUsername(String username);
+	
 	public void checkUser(int userId);
 	
 	public int count();

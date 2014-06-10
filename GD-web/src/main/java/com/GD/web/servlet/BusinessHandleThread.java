@@ -27,6 +27,7 @@ public class BusinessHandleThread implements Runnable {
 			for (int i = 0; i < 20; i++) {
 				String message = "test" + i;
 				Thread.sleep(1000);
+				System.out.println(message);
 				out.println(htmlEscape(message));
 				out.flush();
 			}

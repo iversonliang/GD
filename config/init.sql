@@ -16,8 +16,9 @@ CREATE TABLE user (
   status smallint(3) NOT NULL DEFAULT 0,
   role smallint(3) NOT NULL DEFAULT 0,
   posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
-  birhtday datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  birthday datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   real_name varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (user_id),
-  UNIQUE KEY uniq (email)
+  UNIQUE KEY uniq_email (email),
+  UNIQUE KEY uniq_username (username)
 );

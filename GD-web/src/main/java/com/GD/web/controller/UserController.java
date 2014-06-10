@@ -121,16 +121,17 @@ public class UserController {
 		return result;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView register(UserForm form) throws UnsupportedEncodingException {
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean register(HttpSession session, UserForm form) throws UnsupportedEncodingException {
 		User user = userHandler.form2User(form);
-		System.out.println(user.getUsername() + " " + user.getPassword());
 		boolean result = userService.add(user);
-		ModelAndView model = new ModelAndView("login");
 		if (result) {
-			model.setViewName("success");
+			user = userService.getByUsername(user.getUsername());
+			session.setAttribute("username", user.getUsername());
+			session.setAttribute("userId", user.getUserId());
 		}
-		return model;
+		return result;
 	}
 
 	@RequestMapping(value = "/activate.do", method = RequestMethod.GET)

@@ -21,7 +21,7 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public long add(User user) {
-		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
@@ -76,6 +76,12 @@ public class UserDaoMysqlImpl implements UserDao {
 	public List<User> list(int start, int size) {
 		String sql = "SELECT * FROM user";
 		return jdbc.queryForList(sql, User.class, start, size);
+	}
+
+	@Override
+	public User getByUsername(String username) {
+		String sql = "SELECT * FROM user WHERE username=?";
+		return jdbc.query(sql, User.class, username);
 	}
 
 }

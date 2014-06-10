@@ -7,75 +7,44 @@
 <title>优舞网</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-<%@include file="/WEB-INF/jsp/js.inc.jsp"%>
+<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript"> 
+    function changeImg() {
+        var imgSrc = $("#imgObj"); 
+        var src = imgSrc.attr("src");
+        imgSrc.attr("src", chgUrl(src)); 
+    } 
+      
+    function chgUrl(url) {
+        var timestamp = (new Date()).valueOf(); 
+        url = url.substring(0, 17); 
+        if ((url.indexOf("&") >= 0)) { 
+            url = url + "&tamp=" + timestamp; 
+        } else { 
+            url = url + "?timestamp=" + timestamp; 
+        }
+        return url; 
+    } 
+</script>
 </head>
-
 <body>
-<div id="topBar">
-	<div class="topContent">
-		<div class="topLogo">
-			<a href="/index.do"><img src="/images/logo.gif" /></a>
-		</div>
-		<div class="topNav">
-			<a href="/index.do" class="selected">首页</a>
-			<a href="#">作品</a>
-			<a href="#">灵感</a>
-			<a href="#">专题</a>
-			<a href="#">舞者</a>
-		</div>
-		<div class="topHeadeRight">
-			<c:if test="${isLogin == false }">
-				<div class="doLogBox"><a href="#">登录</a>|<a href="#">注册</a></div>
-			</c:if>
-			<c:if test="${isLogin == true }">
-				<div class="logedin">
-				<a href="#"><img src="/images/avatar.png" width="24" height="24"></a>
-				<div class="son">
-					<ul>
-						<li><a href="">我的主页</a></li>
-						<li><a href="">我上传的</a></li>
-						<li><a href="">我分享的</a></li>
-						<li><a href="">我喜欢的</a></li>
-						<li><a href="">我的消息</a></li>
-						<li><a href="">账号设置</a></li>
-						<li><a href="">退出</a></li>
-					</ul>
-				</div>
-			</div>
-			</c:if>
-			
-			<div class="searchBar">
-				<form action="" method="get">
-					<input name="search" type="text" value="" placeholder="关键字查找" autocomplete="off">
-					<input type="submit" value="" class="yy-icon yy-so">
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="header">
-	<div class="bannar">
-		<div class="bannar_pic">
-			<c:if test="${isLogin == false }">
-				<a href="/page/register.jsp" class="btn">立即注册</a>
-			</c:if>
-		</div>
-	</div>
-</div>
+	<!-- <form action="/validate" method="post">
+		<input type="text" name="code"><img id="imgObj" src="/getCode" /><input type="button" value="change" onclick="changeImg()">
+		<br/>
+		<input type="submit">
+	</form> -->
+	<jsp:include page="/WEB-INF/jsp/include/top.jsp"></jsp:include>
 <div id="wrapper">
 	<h2>推荐视频</h2>
 	<div class="main">
 		<div class="content">
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -87,14 +56,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -106,14 +72,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -125,14 +88,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -144,14 +104,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -163,14 +120,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -182,14 +136,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -201,14 +152,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -220,14 +168,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -239,14 +184,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -258,14 +200,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -277,14 +216,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -296,14 +232,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -315,14 +248,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -334,14 +264,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -353,14 +280,11 @@
 			</div>
 			<div class="citem">
 				<div class="cover">
-					<a href="#">
-					<img src="/images/cover.jpg" />
-					<div class="play_button"></div>
+					<a href="#"><img src="/images/cover.jpg" width="230" height="148" />
+						<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a><div class="citemtc"><span class="yy-icon yy-time">1月前</span></div></div>
 					</a>
 				</div>
-				<div class="citemtxt"><a class="citemtitle" target="_blank" href="#">MONTWALK男士皮具项目提案</a></div>
 				<div class="itemInfo">
-					<span class="yy-icon time">1月前</span>
 					<a href="#" class="yy-icon comment"><span>23</span></a>
 					<a href="#" class="yy-icon like"><span>42</span></a>
 					<a href="#" class="yy-icon views"><span>248</span></a>
@@ -372,17 +296,16 @@
 			</div>
 		</div>
 		<div id="pages">
-			<a href="#" id="pageactive">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
+			<a href="http://www.uehtml.com/?page=1" id="pageactive">1</a>
+			<a href="http://www.uehtml.com/?page=2">2</a>
+			<a href="http://www.uehtml.com/?page=3">3</a>
+			<a href="http://www.uehtml.com/?page=4">4</a>
+			<a href="http://www.uehtml.com/?page=5">5</a>
 			<span>...</span>
-			<a href="#">87</a>
-			<a href="#" id="pagenext"><span class="yy-icon pagenext"></span></a></div>
+			<a href="http://www.uehtml.com/?page=87">87</a>
+			<a href="http://www.uehtml.com/?page=2" id="pagenext"><span class="yy-icon pagenext"></span></a></div>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
-
 </body>
 </html>

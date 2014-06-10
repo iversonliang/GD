@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.GD.handler.UserHandler;
 import com.GD.model.User;
 import com.GD.type.UserStatusType;
+import com.GD.util.Static;
 import com.GD.web.form.UserForm;
 
 @Component
@@ -23,6 +24,12 @@ public class UserHandlerImpl implements UserHandler {
 		user.setQuestion(form.getQuestion());
 		user.setStatus(UserStatusType.UNACTIVATED.getKey());
 		user.setUsername(form.getUsername());
+		user.setSex(form.getSex());
+		Date birthday = form.getBirthday();
+		if (birthday == null) {
+			birthday = Static.DEFAULT_DATE;
+		}
+		user.setBirthday(birthday);
 		return user;
 	}
 

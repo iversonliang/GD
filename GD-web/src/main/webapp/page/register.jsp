@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>优舞网</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+<%@include file="/WEB-INF/jsp/js.inc.jsp"%>
 <script type="text/javascript"> 
     function changeImg() {
         var imgSrc = $("#imgObj"); 
@@ -43,26 +43,46 @@
 		<div class="content bg_w">
 			<div class="reg_title yy-icon">欢迎注册优舞网，以下各项均必填。</div>
 			<div class="contBody">
-				<form action="/user/register.do" method="post">
+				<form method="post">
 					<table width="100%" class="norTable register">
 					  <tbody><tr>
 						<th width="100">用户名</th>
-					    <td><input type="text" class="newTxt w180" name="username" id="username" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> <span id="usernameTip" class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"><span class="txtMsg alert f12 ml1">您输入的用户名不符合要求，请检查。</span></span></td>
+					    <td>
+					    	<input type="text" class="newTxt w180" name="username" id="username" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> 
+					    	<span class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+					    		<span id="usernameTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的用户名不符合要求，请检查。</span>
+					    	</span>
+					    </td>
                       </tr>
                      
                       <tr>
 	                	<th>密码</th>
-	                    <td><input type="password" class="newTxt w180" name="password" id="password" tabindex="2"> <span id="passwordTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
+	                    <td>
+	                    	<input type="password" class="newTxt w180" id="password" name="password" tabindex="2"> 
+	                    	<span class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+	                    		<span id="passwordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的密码不符合要求，请检查。</span>
+	                    	</span>
+	                    </td>
                       </tr>
                     
                       <tr>
 	                	<th>确认密码</th>
-	                    <td><input type="password" class="newTxt w180" name="repassword" id="repassword" tabindex="3"> <span id="repasswordTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
+	                    <td>
+	                    	<input type="password" class="newTxt w180" name="repassword" id="repassword" tabindex="3"> 
+	                    	<span class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+	                    		<span id="repasswordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您两次输入的密码不一致，请检查。</span>
+	                    	</span>
+	                    </td>
                       </tr>
                     
                       <tr>
 	                	<th>电子邮箱</th>
-	                    <td class="testing"><div class="relative" style="white-space:nowrap"><input type="text" name="email" id="email" tabindex="4" class="newTxt w250"> <span id="emailTip" style="position: absolute; left: 262px; margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow"></span></div></td>
+	                    <td>
+	                    	<input type="text" id="email" name="email" tabindex="4" class="newTxt w250"> 
+	                    	<span style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow">
+	                    		<span id="emailTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的邮箱不符合要求，请检查。</span>
+	                    	</span>	
+	                    </td>
                       </tr>
                      
                       <tr>
@@ -154,12 +174,17 @@
                       
                       <tr>
 	                	<th></th>
-	                    <td><label class="regCheckLink"><input type="checkbox" tabindex="9" name="checkbox" id="yuedu"> <span class="c999">我已阅读并接受</span> <a class="c4095ce" href="/service/copyright.html" target="_blank">版权声明</a> <span class="c999">和</span> <a class="c4095ce" href="/service/privacy.html" target="_blank">隐私保护</a> <span class="c999">条款</span></label> <span id="yueduTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
+	                    <td><label class="regCheckLink"><input type="checkbox" tabindex="9" name="checkbox" id="yuedu" onchange="Register.changeRead()"> <span class="c999">我已阅读并接受</span> <a class="c4095ce" href="/service/copyright.html" target="_blank">版权声明</a> <span class="c999">和</span> <a class="c4095ce" href="/service/privacy.html" target="_blank">隐私保护</a> <span class="c999">条款</span></label> <span id="yueduTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
                       </tr>
 					 
                       <tr>
                         <th scope="row"></th>
-                        <td class="vm"><input type="submit" id="regbtn" href="" tabindex="10" class="lBtn" btnmode="true" value="免费注册">&nbsp;&nbsp;&nbsp;<span class="caaa">已注册请</span> <a href="tologin.do" class="c009cff">登录</a></td>
+                        <td class="vm">
+                        	<span style="display:none" id="registerBtnDiv">
+                        		<input type="button" id="regbtn" onclick="Register.register()" tabindex="10" class="lBtn" btnmode="true" value="免费注册">&nbsp;&nbsp;&nbsp;
+                        	</span>
+                        	<span class="caaa">已注册请</span> <a href="tologin.do" class="c009cff">登录</a>
+                        </td>
                       </tr>
                     </tbody></table>
 				</form>

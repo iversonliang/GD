@@ -10,6 +10,8 @@ public interface UserDao {
 	
 	public User get(int userId);
 	
+	public User getByUsername(String username);
+	
 	public int count();
 	
 	public List<User> list(int start, int size);

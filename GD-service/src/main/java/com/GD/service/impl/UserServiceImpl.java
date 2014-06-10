@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
 			userActivateDao.add((int)result, code);
 			MailInfo mailInfo = EmailUtil.getMailInfo(user.getEmail(), code);
 			
-			try {
-				MailSender.sendTextMail(mailInfo);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				MailSender.sendTextMail(mailInfo);
+//			} catch (UnsupportedEncodingException e) {
+//				e.printStackTrace();
+//			}
 		}
 		return result > 0;
 	}
@@ -90,6 +90,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> list(int start, int size) {
 		return userDao.list(start, size);
+	}
+
+	@Override
+	public User getByUsername(String username) {
+		return userDao.getByUsername(username);
 	}
 
 }
