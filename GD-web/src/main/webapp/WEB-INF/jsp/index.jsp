@@ -11,52 +11,11 @@
 </head>
 
 <body>
-<div id="topBar">
-	<div class="topContent">
-		<div class="topLogo">
-			<a href="/index.do"><img src="/images/logo.gif" /></a>
-		</div>
-		<div class="topNav">
-			<a href="/index.do" class="selected">首页</a>
-			<a href="#">作品</a>
-			<a href="#">灵感</a>
-			<a href="#">专题</a>
-			<a href="#">舞者</a>
-		</div>
-		<div class="topHeadeRight">
-			<c:if test="${isLogin == false }">
-				<div class="doLogBox"><a href="#">登录</a>|<a href="#">注册</a></div>
-			</c:if>
-			<c:if test="${isLogin == true }">
-				<div class="logedin">
-				<a href="#"><img src="/images/avatar.png" width="24" height="24"></a>
-				<div class="son">
-					<ul>
-						<li><a href="">我的主页</a></li>
-						<li><a href="">我上传的</a></li>
-						<li><a href="">我分享的</a></li>
-						<li><a href="">我喜欢的</a></li>
-						<li><a href="">我的消息</a></li>
-						<li><a href="">账号设置</a></li>
-						<li><a href="">退出</a></li>
-					</ul>
-				</div>
-			</div>
-			</c:if>
-			
-			<div class="searchBar">
-				<form action="" method="get">
-					<input name="search" type="text" value="" placeholder="关键字查找" autocomplete="off">
-					<input type="submit" value="" class="yy-icon yy-so">
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+<jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
 <div id="header">
 	<div class="bannar">
 		<div class="bannar_pic">
-			<c:if test="${isLogin == false }">
+			<c:if test="${requestScope.isLogin == null || isLogin == false }">
 				<a href="/page/register.jsp" class="btn">立即注册</a>
 			</c:if>
 		</div>

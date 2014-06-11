@@ -43,10 +43,11 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 				long lastAccess = session.getLastAccessedTime();
 				int max = session.getMaxInactiveInterval();
 				System.out.println("last:" + lastAccess + " max:" + max);
+				request.setAttribute("isLogin", true);
 			} else {
 				String url = RequestUtil.getRequestURL(request);
 				session.setAttribute("jumpPage", url);
-				response.sendRedirect("loginPage.do");
+				response.sendRedirect("/page/login.jsp");
 				isInvoke = false;
 			}
 		}

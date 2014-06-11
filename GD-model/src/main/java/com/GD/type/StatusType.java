@@ -1,6 +1,7 @@
 package com.GD.type;
 
 public enum StatusType implements Inum{
+	UNACTIVATED(0, "未激活"),
 	NORMAL(1, "正常"),
 	SHIELDING(2, "屏蔽")
 	;

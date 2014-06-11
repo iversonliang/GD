@@ -47,6 +47,9 @@ import com.GD.model.User;
 import com.GD.service.UserService;
 import com.GD.util.AuthCodeUtil;
 import com.GD.util.FileUtil;
+import com.GD.util.RequestUtil;
+import com.GD.util.ViewUtil;
+import com.GD.web.form.LoginForm;
 import com.GD.web.form.UserForm;
 import com.GD.web.servlet.BusinessHandleThread;
 
@@ -73,7 +76,7 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getCode.do", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getCode(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+	public ResponseEntity<byte[]> getCode(HttpServletResponse response, HttpSession session) throws IOException {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		MediaType mtype = MediaType.valueOf(format);
 		responseHeaders.setContentType(mtype);
@@ -86,7 +89,6 @@ public class UserController {
 		ImageIO.write(tileImg, mtype.getSubtype(), out);
 		byte[] tileBytes = out.toByteArray();
 
-		System.out.println("getCodeId:" + request.getParameter("codeId"));
 		IOUtils.closeQuietly(out);
 		// 禁止图像缓存
 		response.setHeader("Pragma", "no-cache");
@@ -97,27 +99,35 @@ public class UserController {
 		return new ResponseEntity<byte[]>(tileBytes, responseHeaders, HttpStatus.OK);
 	}
 
+//	@RequestMapping(value = "/validate", method = RequestMethod.POST)
+//	public @ModelAttribute
+//	Object validate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		String code = request.getParameter("code");
+//		System.out.println("code:" + code);
+//		Object actualCode = session.getAttribute("actualCode");
+//		boolean result = false;
+//		if (code != null && actualCode != null && code.equalsIgnoreCase(actualCode.toString())) {
+//			result = true;
+//		}
+//		System.out.println("actualCode:" + actualCode.toString());
+//		session.removeAttribute("actualCode");
+//		System.out.println("result:" + result);
+//		return result;
+//	}
+	
 	/**
 	 * 校验验证码
 	 * 
-	 * @param request
-	 * @param response
+	 * @param code
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/validate", method = RequestMethod.POST)
-	public @ModelAttribute
-	Object validate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String code = request.getParameter("code");
-		System.out.println("code:" + code);
+	private boolean validate(String code, HttpSession session) {
 		Object actualCode = session.getAttribute("actualCode");
 		boolean result = false;
 		if (code != null && actualCode != null && code.equalsIgnoreCase(actualCode.toString())) {
 			result = true;
 		}
-		System.out.println("actualCode:" + actualCode.toString());
-		session.removeAttribute("actualCode");
-		System.out.println("result:" + result);
 		return result;
 	}
 
@@ -133,6 +143,28 @@ public class UserController {
 		}
 		return result;
 	}
+	
+	@LoginRequired
+	@RequestMapping(value = "/userInfo.do", method = RequestMethod.GET)
+	public ModelAndView userInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int userId = (Integer)session.getAttribute("userId");
+		User user = userService.get(userId);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("user", user);
+		return model;
+	}
+	
+	@LoginRequired
+	@RequestMapping(value = "/updatePersonalImg.do", method = RequestMethod.GET)
+	public ModelAndView updatePersonalImg(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		return ViewUtil.getView(DIR);
+	}
+	
+	@LoginRequired
+	@RequestMapping(value = "/updatePassword.do", method = RequestMethod.GET)
+	public ModelAndView updatePassword(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		return ViewUtil.getView(DIR);
+	}
 
 	@RequestMapping(value = "/activate.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -142,52 +174,48 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		// User user = userService.get(username, password);
-		String username = (String) request.getParameter("username");
-		String password = (String) request.getParameter("password");
-		String code = (String) request.getParameter("code");
-		System.out.println("login username:" + username + " password:" + password + " code:" + code);
-		Object actualCode = session.getAttribute("actualCode");
-		boolean result = false;
-		if (code != null && actualCode != null && code.equalsIgnoreCase(actualCode.toString())) {
-			result = true;
-		}
-		session.removeAttribute("actualCode");
-		System.out.println("actualCode:" + actualCode.toString() + " result:" + result);
-		User user = new User();
-		ModelAndView model = new ModelAndView("login");
-		if (user != null) {
-			session.setAttribute("username", username);
-			System.out.println("login ---- sessionId:" + session.getId() + " username:" + session.getAttribute("username"));
-			session.setMaxInactiveInterval(10);
-			String url = (String) session.getAttribute("jumpPage");
-			session.removeAttribute("jumpPage");
-			System.out.println("jump url:" + url);
-			if (StringUtils.isNotEmpty(url)) {
-				model.setViewName("redirect:" + url);
+	@ResponseBody
+	public Map<String, Object> login(HttpSession session, LoginForm form) {
+		String username = form.getUsername();
+		String password = form.getPassword();
+		String code = form.getCode();
+		boolean isCodeValid = this.validate(code, session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String tips = "";
+		String jumpUrl = "";
+		boolean result;
+		if (isCodeValid) {
+			User user = userService.get(username, password);
+			if (user != null) {
+				session.setAttribute("username", username);
+				session.setAttribute("userId", user.getUserId());
+				// 设置session过期时间（单位秒）
+				session.setMaxInactiveInterval(1800);
+				jumpUrl = (String) session.getAttribute("jumpPage");
+				session.removeAttribute("jumpPage");
+				jumpUrl = StringUtils.defaultIfEmpty(jumpUrl, "");
+				result = true;
+				session.removeAttribute("actualCode");
 			} else {
-				model.setViewName("success");
+				tips = "用户名或密码错误";
+				result = false;
 			}
+		} else {
+			tips = "验证码错误";
+			result = false;
 		}
-		return model;
+		map.put("tips", tips);
+		map.put("redirect", jumpUrl);
+		map.put("result", result);
+		return map;
 	}
-
+	
 	@LoginRequired
-	@RequestMapping(value = "/testLogin")
-	public ModelAndView testLogin(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("------testLogin---------- " + request.getSession().getAttribute("test") + " " + request.getParameter("test"));
-		ModelAndView model = new ModelAndView("success");
-		// if (StringUtils.isEmpty(result) || !result.equals("logined")) {
-		// model.setViewName("loginPage");
-		// }
-		return model;
-	}
-
-	@RequestMapping(value = "/testLoginPage", method = RequestMethod.GET)
-	public ModelAndView testLoginPage() {
-		ModelAndView model = new ModelAndView("testLoginPage");
-		return model;
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+		session.removeAttribute("userId");
+		session.removeAttribute("userName");
+		response.sendRedirect("/index.do");
 	}
 
 	/**
@@ -217,7 +245,7 @@ public class UserController {
 		for (Iterator<Part> iterator = parts.iterator(); iterator.hasNext();) {
 			Part part = iterator.next();
 			// 从Part的content-disposition中提取上传文件的文件名
-			String fileName = getFileName(part);
+			String fileName = RequestUtil.getFileName(part);
 			if (StringUtils.isNotEmpty(fileName)) {
 				fileName = FileUtil.parseFileName(fileName);
 				String savePath = SAVE_PATH + File.separator + fileName;
@@ -247,26 +275,6 @@ public class UserController {
 		return map;
 	}
 
-	/**
-	 * 从Part的Header信息中提取上传文件的文件名
-	 * 
-	 * @param part
-	 * @return 上传文件的文件名，如果如果没有则返回null
-	 */
-	private String getFileName(Part part) {
-		String fileNameExtractorRegex = "filename=\".+\"";
-		// 获取header信息中的content-disposition，如果为文件，则可以从其中提取出文件名
-		String header = part.getHeader("content-disposition");
-		String fileName = null;
-		Pattern pattern = Pattern.compile(fileNameExtractorRegex);
-		Matcher matcher = pattern.matcher(header);
-		if (matcher.find()) {
-			fileName = matcher.group();
-			fileName = fileName.substring(10, fileName.length() - 1);
-		}
-		return fileName;
-	}
-	
 	@RequestMapping(value = "/listUser.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> listUser() {
@@ -295,5 +303,6 @@ public class UserController {
 		System.out.println("servlet done");
 		out.flush();
 	}
+	
 	
 }

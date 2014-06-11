@@ -27,12 +27,7 @@
 </script>
 </head>
 <body>
-	<!-- <form action="/validate" method="post">
-		<input type="text" name="code"><img id="imgObj" src="/getCode" /><input type="button" value="change" onclick="changeImg()">
-		<br/>
-		<input type="submit">
-	</form> -->
-<jsp:include page="/WEB-INF/jsp/include/top.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
 <div id="wrapper">
 	<div class="main">
 		<ul class="tab">
@@ -84,7 +79,22 @@
 	                    	</span>	
 	                    </td>
                       </tr>
-                     
+                     <tr>
+							<th>验证码</th>
+							<td>
+								<div class="relative loginRx">
+									<input type="code" id="code" name="code" class="newTxt w250" tabindex="2"> 
+								</div>
+							</td>
+						</tr>
+                      <tr>
+							<th></th>
+							<td>
+								<div class="relative loginRx">
+									<img id="imgObj" src="/user/getCode.do" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="changeImg()">看不清，换一张</a>				
+								</div>
+							</td>
+					  </tr>
                       <tr>
 	                	<th>性别</th>
 	                    <td>
@@ -183,7 +193,7 @@
                         	<span style="display:none" id="registerBtnDiv">
                         		<input type="button" id="regbtn" onclick="Register.register()" tabindex="10" class="lBtn" btnmode="true" value="免费注册">&nbsp;&nbsp;&nbsp;
                         	</span>
-                        	<span class="caaa">已注册请</span> <a href="tologin.do" class="c009cff">登录</a>
+                        	<span class="caaa">已注册请</span> <a href="/page/login.jsp" class="c009cff">登录</a>
                         </td>
                       </tr>
                     </tbody></table>

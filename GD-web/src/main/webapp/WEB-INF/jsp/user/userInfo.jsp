@@ -1,0 +1,314 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>优舞网</title>
+<%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<%@include file="/WEB-INF/jsp/js.inc.jsp"%>
+</head>
+
+<body>
+<jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
+<div id="wrapper">
+	<div class="main">
+		<ul class="tab">
+			<li class="active"><a href="/user/userInfo.do">基本资料</a></li>
+			<li><a href="/user/updatePersonalImg.do">修改头像</a></li>
+			<li><a href="/user/updatePassword.do">修改密码</a></li>
+		</ul>
+		<div class="content bg_w">
+			<div class="reg_title yy-icon">请如实填写以下内容，让其他舞者可以找到和关注你。</div>
+			<div class="contBody">
+				<form method="get">
+					<table width="650px" cellspacing="0" cellpadding="0" class="norTable tpersonal">
+						<tbody>
+						<tr>
+							<th width="100">用户名</th>
+							<td>${user.username }</td>
+						</tr>
+						<tr>
+							<th>邮箱</th>
+							<td class="vm" id="emailArea">
+							${user.email }
+							<span style="color:red;margin-left:20px;"><c:if test="${user.status == 1 }"> 邮箱已验证</c:if><c:if test="${user.status == 0 }"> 邮箱未验证</c:if></span>
+							<span class="ml10 f12"><a class="grayBtn" href="#">修改邮箱</a></span>
+							</td>
+						</tr>					
+						<tr>
+							<th>个人签名</th>
+							<td><input maxlength="500" name="signature" type="text" value="" class="newTxt w530"><p class="f12 c999">还可以输入 <b class="cc20000 cf30 abc">38</b> 字符</p></td>
+						</tr>
+						<tr>
+							<th>真实姓名</th>
+							<td class="vm" colspan="2">
+								<input name="realname" type="text" value="" class="newTxt w350">
+								<!-- <span class="selectBox ml10">
+									<select name="realname_l" class="ml10">
+										<option value="1" selected="selected">所有人可见</option>
+										<option value="2">注册舞者可见</option>
+										<option value="3">粉丝可见</option>
+										<option value="4">保密</option>
+									</select>
+								</span> -->
+							</td>
+						</tr>
+						<tr>
+							<th>性别</th>
+							<td>
+							<span class="labelBox"><label><input type="radio" value="1" id="male" tabindex="5" name="maleChoose" checked=""> 男</label></span>
+							<span class="labelBox ml10"><label><input type="radio" value="2" id="female" tabindex="6" name="maleChoose"> 女</label></span> </td>
+                      	</tr>
+						<tr>
+							<th>生日</th>
+							<td class="vm" colspan="2">
+								<span class="selectBox">
+								<select name="birthday_y">
+									<option value="1960">1960</option>
+									<option value="1961">1961</option>
+									<option value="1962">1962</option>
+									<option value="1963">1963</option>
+									<option value="1964">1964</option>
+									<option value="1965">1965</option>
+									<option value="1966">1966</option>
+									<option value="1967">1967</option>
+									<option value="1968">1968</option>
+									<option value="1969">1969</option>
+									<option value="1970">1970</option>
+									<option value="1971">1971</option>
+									<option value="1972">1972</option>
+									<option value="1973">1973</option>
+									<option value="1974">1974</option>
+									<option value="1975">1975</option>
+									<option value="1976">1976</option>
+									<option value="1977">1977</option>
+									<option value="1978">1978</option>
+									<option value="1979">1979</option>
+									<option value="1980">1980</option>
+									<option value="1981">1981</option>
+									<option value="1982">1982</option>
+									<option value="1983">1983</option>
+									<option value="1984">1984</option>
+									<option value="1985">1985</option>
+									<option value="1986">1986</option>
+									<option value="1987">1987</option>
+									<option value="1988">1988</option>
+									<option value="1989" selected="selected">1989</option>
+									<option value="1990">1990</option>
+									<option value="1991">1991</option>
+									<option value="1992">1992</option>
+									<option value="1993">1993</option>
+									<option value="1994">1994</option>
+									<option value="1995">1995</option>
+									<option value="1996">1996</option>
+									<option value="1997">1997</option>
+									<option value="1998">1998</option>
+									<option value="1999">1999</option>
+									<option value="2000">2000</option>
+									<option value="2001">2001</option>
+									<option value="2002">2002</option>
+									<option value="2003">2003</option>
+									<option value="2004">2004</option>
+									<option value="2005">2005</option>
+								</select></span>
+								<span class="selectBox ml10">
+								<select name="birthday_m">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6" selected="selected">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select></span>
+								<span class="selectBox ml10">
+								<select name="birthday_d">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20" selected="selected">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+								</select></span>
+								<!-- <span class="selectBox ml10">
+									<select name="realname_l" class="ml10">
+										<option value="1" selected="selected">所有人可见</option>
+										<option value="2">注册舞者可见</option>
+										<option value="3">粉丝可见</option>
+										<option value="4">保密</option>
+									</select>
+								</span> -->
+							</td>
+						</tr>
+						<tr>
+							<th>所在地区</th>
+							<td class="vm" colspan="2"><span class="selectBox">
+								<select id="now_provice" name="now_provice" class="ml10" onchange="changeOption11(this)">
+									<option value="1">北京</option>
+									<option value="2">上海</option>
+									<option value="3">天津</option>
+									<option value="4">重庆</option>
+									<option value="5">黑龙江</option>
+									<option value="6">辽宁</option>
+									<option value="7">吉林</option>
+									<option value="8">河北</option>
+									<option value="9">内蒙古</option>
+									<option value="10">陕西</option>
+									<option value="11">山西</option>
+									<option value="12">甘肃</option>
+									<option value="13">宁夏</option>
+									<option value="14">新疆</option>
+									<option value="15">西藏</option>
+									<option value="16">青海</option>
+									<option value="17">四川</option>
+									<option value="18">云南</option>
+									<option value="19">贵州</option>
+									<option value="20">湖南</option>
+									<option value="21">湖北</option>
+									<option value="22">河南</option>
+									<option value="23">山东</option>
+									<option value="24">安徽</option>
+									<option value="25">江苏</option>
+									<option value="26">浙江</option>
+									<option value="27">台湾</option>
+									<option value="28">香港</option>
+									<option value="29">澳门</option>
+									<option value="30" selected="selected">广东</option>
+									<option value="31">广西</option>
+									<option value="32">江西</option>
+									<option value="33">福建</option>
+									<option value="34">海南</option>
+									<option value="35">其它</option>
+									<option value="36">美国</option>
+									<option value="37">欧洲</option>
+									<option value="38">日本</option>
+									<option value="39">韩国</option>
+									<option value="40">新加坡</option>
+									<option value="41">加拿大</option>
+									<option value="42">亚　洲</option>
+									<option value="43">非　洲</option>
+									<option value="44">澳　洲</option>
+									<option value="45">南美洲</option>
+									<option value="46">东南亚</option>
+								</select>
+								</span>
+								<span class="selectBox ml10">
+								<select name="now_city" id="now_city" class="ml10">
+									<option value="452">广州</option>
+									<option value="453">韶关</option>
+									<option value="454">深圳</option>
+									<option value="455" selected="selected">珠海</option>
+									<option value="456">汕头</option>
+									<option value="457">佛山</option>
+									<option value="458">江门</option>
+									<option value="459">湛江</option>
+									<option value="460">茂名</option>
+									<option value="461">海口</option>
+									<option value="462">肇庆</option>
+									<option value="463">惠州</option>
+									<option value="464">梅州</option>
+									<option value="465">汕尾</option>
+									<option value="466">河源</option>
+									<option value="467">阳江</option>
+									<option value="468">清远</option>
+									<option value="469">东莞</option>
+									<option value="470">中山</option>
+									<option value="471">梅县</option>
+									<option value="472">惠阳</option>
+									<option value="473">潮州</option>
+									<option value="474">揭阳</option>
+									<option value="475">云浮</option>
+								</select>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>擅长舞种</th>
+							<td class="vm" colspan="2">
+								<span class="selectBox">
+								<select name="style">
+									<option value="0" selected="selected" tabindex="7">选择舞种</option>
+									<option value="1">Breakin</option>
+									<option value="2">Hiphop</option>
+									<option value="3">Jazz</option>
+									<option value="4">Lockin</option>
+									<option value="5">Lyrical</option>
+									<option value="6">Krump</option>
+									<option value="7">Poppin</option>
+									<option value="7">Raggae</option>
+									<option value="7">现代舞</option>
+									<option value="7">鬼步</option>
+								</select></span>
+								<span><input type="submit" id="subutt" tabindex="3" value="添加" class="lBtn sBtn"></span>
+								<ul class="selectTags">
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
+									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>个人简介</th>
+							<td colspan="2"><textarea maxlength="2000" style="width:500px;height:100px;" name="desc" class="newArea w530 h150"></textarea><p class="f12 c999">还可以输入 <b class="cc20000 cf30 abc">2000</b> 字符</p></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td colspan="2"><input type="submit" value="保 存" class="lBtn"></td>
+						</tr>
+					</tbody></table>
+					<div class="per_avatar">
+						<a href="/user/updatePersonalImg.do"><img width="145" height="145" src="http://image.zcool.com.cn/avatar/43/84/1246341991846.jpg"></a>
+						<a class="change_avatar" href="/user/updatePersonalImg.do">修改头像</a>
+					</div>
+				</form>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
+
+</body>
+</html>

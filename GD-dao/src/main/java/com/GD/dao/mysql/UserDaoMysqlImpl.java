@@ -45,8 +45,8 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public User get(String username, String password) {
-		String sql = "SELECT * FROM user WHERE username=? AND password=?";
-		return jdbc.query(sql, User.class, username, password);
+		String sql = "SELECT * FROM user WHERE (username=? OR email=?) AND password=?";
+		return jdbc.query(sql, User.class, username, username, password);
 	}
 
 	@Override
@@ -82,6 +82,12 @@ public class UserDaoMysqlImpl implements UserDao {
 	public User getByUsername(String username) {
 		String sql = "SELECT * FROM user WHERE username=?";
 		return jdbc.query(sql, User.class, username);
+	}
+
+	@Override
+	public User getByEmail(String email) {
+		String sql = "SELECT * FROM user WHERE email=?";
+		return jdbc.query(sql, User.class, email);
 	}
 
 }
