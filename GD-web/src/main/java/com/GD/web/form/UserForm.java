@@ -24,13 +24,23 @@ public class UserForm {
 	/** 真实姓名 */
 	private String realName;
 	/** 生日 */
-	private Date birthday;
+	private String birthday;
 	/** 舞种 */
 	private String danceType;
 	/** 个人简介 */
 	private String description;
 	/** 个性签名 */
 	private String sign;
+	/** 验证码 */
+	private String code;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public String getUsername() {
 		return username;
@@ -112,11 +122,11 @@ public class UserForm {
 		this.realName = realName;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

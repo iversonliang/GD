@@ -15,7 +15,7 @@ var Login = {
 				}
 				window.location.href = url;
 			} else {
-				$("#tips").html(data.tips);
+				$("#tips").html(data.message);
 				$("#errorTips").show();
 			}
 		});

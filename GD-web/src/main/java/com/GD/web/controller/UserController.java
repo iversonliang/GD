@@ -9,18 +9,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.servlet.AsyncContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,8 +32,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,7 +41,9 @@ import com.GD.handler.UserHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
 import com.GD.service.UserService;
+import com.GD.type.ErrorTipsType;
 import com.GD.util.AuthCodeUtil;
+import com.GD.util.CheckUtil;
 import com.GD.util.FileUtil;
 import com.GD.util.RequestUtil;
 import com.GD.util.ViewUtil;
@@ -65,6 +63,9 @@ public class UserController {
 	public static final String DIR = "/user";
 
 	final private String format = "image/png";
+	
+	private static final String ACTUAL_CODE = "actualCode";
+	private static final String JUMP_PAGE = "jumpPage";
 
 	/**
 	 * 获取验证码
@@ -98,50 +99,48 @@ public class UserController {
 		response.setContentType("image/jpeg");
 		return new ResponseEntity<byte[]>(tileBytes, responseHeaders, HttpStatus.OK);
 	}
-
-//	@RequestMapping(value = "/validate", method = RequestMethod.POST)
-//	public @ModelAttribute
-//	Object validate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//		String code = request.getParameter("code");
-//		System.out.println("code:" + code);
-//		Object actualCode = session.getAttribute("actualCode");
-//		boolean result = false;
-//		if (code != null && actualCode != null && code.equalsIgnoreCase(actualCode.toString())) {
-//			result = true;
-//		}
-//		System.out.println("actualCode:" + actualCode.toString());
-//		session.removeAttribute("actualCode");
-//		System.out.println("result:" + result);
-//		return result;
-//	}
 	
-	/**
-	 * 校验验证码
-	 * 
-	 * @param code
-	 * @param session
-	 * @return
-	 */
-	private boolean validate(String code, HttpSession session) {
-		Object actualCode = session.getAttribute("actualCode");
-		boolean result = false;
-		if (code != null && actualCode != null && code.equalsIgnoreCase(actualCode.toString())) {
-			result = true;
-		}
-		return result;
-	}
-
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean register(HttpSession session, UserForm form) throws UnsupportedEncodingException {
-		User user = userHandler.form2User(form);
-		boolean result = userService.add(user);
-		if (result) {
-			user = userService.getByUsername(user.getUsername());
-			session.setAttribute("username", user.getUsername());
-			session.setAttribute("userId", user.getUserId());
+	public Map<String, Object> register(HttpSession session, UserForm form) throws UnsupportedEncodingException {
+		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
+		String message = "";
+		int errorCode = -1;
+		boolean result = false;
+		try {
+			CheckUtil.checkCode(form.getCode(), actualCode);
+			User user = userHandler.form2User(form);
+			CheckUtil.checkRegisterUser(user);
+			try {
+				userService.add(user);
+				user = userService.get(user.getUsername());
+				session.setAttribute("username", user.getUsername());
+				session.setAttribute("userId", user.getUserId());
+				result = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				if (e.getMessage().contains("uniq_email")) {
+					message = ErrorTipsType.EMAIL_IS_REGISTERED.getDesc();
+					errorCode = ErrorTipsType.EMAIL_IS_REGISTERED.getKey();
+				} else if (e.getMessage().contains("uniq_username")) {
+					message = ErrorTipsType.USER_IS_REGISTERED.getDesc();
+					errorCode = ErrorTipsType.USER_IS_REGISTERED.getKey();
+				} else {
+					message = ErrorTipsType.LOGIN_FAIL.getDesc();
+					errorCode = ErrorTipsType.LOGIN_FAIL.getKey();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = e.getMessage();
+			errorCode = ErrorTipsType.toType(message).getKey();
 		}
-		return result;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("message", message);
+		map.put("errorCode", errorCode);
+		return map;
 	}
 	
 	@LoginRequired
@@ -165,7 +164,29 @@ public class UserController {
 	public ModelAndView updatePassword(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		return ViewUtil.getView(DIR);
 	}
+	
+	@RequestMapping(value = "/checkUsername.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> checkUsername(String username, String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isValid = userService.checkUsername(username);
+		map.put("message", isValid ? "" : ErrorTipsType.USER_IS_REGISTERED.getDesc());
+		map.put("errorCode", isValid ? -1 : ErrorTipsType.USER_IS_REGISTERED.getKey());
+		map.put("result", isValid);
+		return map;
+	}
 
+	@RequestMapping(value = "/checkEmail.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> checkEmail(String username, String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isValid = userService.checkEmail(email);
+		map.put("message", isValid ? "" : ErrorTipsType.EMAIL_IS_REGISTERED.getDesc());
+		map.put("errorCode", isValid ? -1 : ErrorTipsType.EMAIL_IS_REGISTERED.getKey());
+		map.put("result", isValid);
+		return map;
+	}
+	
 	@RequestMapping(value = "/activate.do", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean activate(String code) {
@@ -178,12 +199,19 @@ public class UserController {
 	public Map<String, Object> login(HttpSession session, LoginForm form) {
 		String username = form.getUsername();
 		String password = form.getPassword();
-		String code = form.getCode();
-		boolean isCodeValid = this.validate(code, session);
+		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
 		Map<String, Object> map = new HashMap<String, Object>();
-		String tips = "";
+		String message = "";
 		String jumpUrl = "";
-		boolean result;
+		boolean result = false;
+		boolean isCodeValid;
+		try {
+			CheckUtil.checkCode(form.getCode(), actualCode);
+			isCodeValid = true;
+		} catch (Exception e) {
+			isCodeValid = false;
+			message = ErrorTipsType.CODE_ERROR.getDesc();
+		}
 		if (isCodeValid) {
 			User user = userService.get(username, password);
 			if (user != null) {
@@ -191,20 +219,16 @@ public class UserController {
 				session.setAttribute("userId", user.getUserId());
 				// 设置session过期时间（单位秒）
 				session.setMaxInactiveInterval(1800);
-				jumpUrl = (String) session.getAttribute("jumpPage");
-				session.removeAttribute("jumpPage");
+				jumpUrl = (String) session.getAttribute(JUMP_PAGE);
+				session.removeAttribute(JUMP_PAGE);
 				jumpUrl = StringUtils.defaultIfEmpty(jumpUrl, "");
 				result = true;
-				session.removeAttribute("actualCode");
+				session.removeAttribute(ACTUAL_CODE);
 			} else {
-				tips = "用户名或密码错误";
-				result = false;
+				message = ErrorTipsType.LOGIN_ERROR.getDesc();
 			}
-		} else {
-			tips = "验证码错误";
-			result = false;
 		}
-		map.put("tips", tips);
+		map.put("message", message);
 		map.put("redirect", jumpUrl);
 		map.put("result", result);
 		return map;
@@ -228,7 +252,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map upload(HttpServletRequest request, HttpServletResponse response) {
+	public Map<String, Object> upload(HttpServletRequest request, HttpServletResponse response) {
 		String SAVE_PATH = "/data/wwwdata/img/";
 		FileUtil.checkFolderPath(SAVE_PATH);
 		List<String> urlList = new LinkedList<String>();

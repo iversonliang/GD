@@ -43,9 +43,9 @@
 					  <tbody><tr>
 						<th width="100">用户名</th>
 					    <td>
-					    	<input type="text" class="newTxt w180" name="username" id="username" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> 
+					    	<input type="text" onblur="Register.checkUsername()" onfocus="Register.hideTips()" class="newTxt w180" name="username" id="username" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> 
 					    	<span class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
-					    		<span id="usernameTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的用户名不符合要求，请检查。</span>
+					    		<span id="usernameTip" name="tips" style="display:none" class="txtMsg alert f12 ml1"></span>
 					    	</span>
 					    </td>
                       </tr>
@@ -53,9 +53,9 @@
                       <tr>
 	                	<th>密码</th>
 	                    <td>
-	                    	<input type="password" class="newTxt w180" id="password" name="password" tabindex="2"> 
+	                    	<input type="password" onblur="Register.checkPassword()" onfocus="Register.hideTips()" class="newTxt w180" id="password" name="password" tabindex="2"> 
 	                    	<span class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
-	                    		<span id="passwordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的密码不符合要求，请检查。</span>
+	                    		<span id="passwordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1"></span>
 	                    	</span>
 	                    </td>
                       </tr>
@@ -63,9 +63,9 @@
                       <tr>
 	                	<th>确认密码</th>
 	                    <td>
-	                    	<input type="password" class="newTxt w180" name="repassword" id="repassword" tabindex="3"> 
+	                    	<input type="password" onblur="Register.checkRepassword()" onfocus="Register.hideTips()" class="newTxt w180" name="repassword" id="repassword" tabindex="3"> 
 	                    	<span class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
-	                    		<span id="repasswordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您两次输入的密码不一致，请检查。</span>
+	                    		<span id="repasswordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1"></span>
 	                    	</span>
 	                    </td>
                       </tr>
@@ -73,20 +73,21 @@
                       <tr>
 	                	<th>电子邮箱</th>
 	                    <td>
-	                    	<input type="text" id="email" name="email" tabindex="4" class="newTxt w250"> 
+	                    	<input type="text" onblur="Register.checkEmail()" onfocus="Register.hideTips()" id="email" name="email" tabindex="4" class="newTxt w250"> 
 	                    	<span style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow">
-	                    		<span id="emailTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的邮箱不符合要求，请检查。</span>
+	                    		<span id="emailTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">您输入的邮箱不符合要求，请检查</span>
 	                    	</span>	
 	                    </td>
                       </tr>
                      <tr>
-							<th>验证码</th>
-							<td>
-								<div class="relative loginRx">
-									<input type="code" id="code" name="code" class="newTxt w250" tabindex="2"> 
-								</div>
-							</td>
-						</tr>
+						<th>验证码</th>
+						<td>
+								<input type="code" onblur="Register.checkCode()" onfocus="Register.hideTips()" id="code" name="code" class="newTxt w250" tabindex="2"> 
+								<span style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow">
+	                    			<span id="codeTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">请输入验证码</span>
+	                    		</span>	
+						</td>
+					</tr>
                       <tr>
 							<th></th>
 							<td>

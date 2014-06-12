@@ -1,6 +1,5 @@
 package com.GD.service.impl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.GD.dao.UserActivateDao;
 import com.GD.dao.UserDao;
 import com.GD.email.MailInfo;
-import com.GD.email.MailSender;
 import com.GD.model.User;
 import com.GD.service.UserService;
 import com.GD.type.UserStatusType;
@@ -93,7 +91,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getByUsername(String username) {
+	public boolean checkUsername(String username) {
+		return userDao.getByUsername(username) == null;
+	}
+
+	@Override
+	public boolean checkEmail(String email) {
+		return userDao.getByEmail(email) == null;
+	}
+
+	@Override
+	public User get(String username) {
 		return userDao.getByUsername(username);
 	}
 

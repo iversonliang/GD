@@ -11,37 +11,34 @@ var Register = {
 			$("#registerBtnDiv").hide();
 		}
 	},
+	/**
+	 * 检查参数
+	 */
 	"check" : function() {
 		var username = $("#username").val();
-		if (Common.isEmpty(username)) {
-			$("#usernameTip").show();
+		if (!Register.checkUsernameReg(username)) {
 			return false;
 		}
-		var password = $("#password").val();
-		if (Common.isEmpty(password)) {
-			$("#passwordTip").show();
+		if (!Register.checkPassword()) {
 			return false;
 		}
-		var repassword = $("#repassword").val();
-		if (Common.isEmpty(repassword)) {
-			$("#repasswordTip").show();
-			return false;
-		}
-		if (repassword != password) {
-			$("#repasswordTip").show();
+		if (!Register.checkRepassword()) {
 			return false;
 		}
 		var email = $("#email").val();
-		if (Common.isEmpty(email)) {
-			$("#emailTip").show();
+		if (!Register.checkEmailReg(email)) {
+			return false;
+		}
+		if (!Register.checkCode()) {
 			return false;
 		}
 		return true;
 	},
+	/**
+	 * 注册
+	 */
 	"register" : function() {
-		$("span[name=tips]").each(function(index,element) {
-			$(this).hide();
-		});
+		Register.hideTips();
 		if (!Register.check()) {
 			return;
 		}
@@ -53,17 +50,143 @@ var Register = {
 			username : $("#username").val(),
 			password : $("#password").val(),
 			email : $("#email").val(),
+			code : $("#code").val(),
 			sex : sex
 		}
 		var url = "/user/register.do";
 		AjaxJson.post(url, param).done(function(data) {
-			alert(data);
-			if (data == "true") {
-				alert("注册失败");
+			if (data.result == true) {
+				window.location.href = "/user/userInfo.do";
 			} else {
-				alert("注册成功");
+				if (data.errorCode == 3) {
+					$("#codeTip").html(data.message);
+					$("#codeTip").show();
+				} else if (data.errorCode == 9) {
+					$("#emailTip").html(data.message);
+					$("#emailTip").show();
+				} else if (data.errorCode == 8) {
+					$("#usernameTip").html(data.message);
+					$("#usernameTip").show();
+				} else {
+					alert(data.message);
+				}
 			}
 		});
+	},
+	/**
+	 * 隐藏tips
+	 */
+	"hideTips" : function() {
+		$("span[name=tips]").each(function(index,element) {
+			$(this).hide();
+		});
+	},
+	/**
+	 * 检查用户名规则
+	 */
+	"checkUsernameReg" : function(username) {
+		var pattern = "^[0-9A-Za-z]{6,16}$";
+		var reg = new RegExp(pattern);
+		if (!username.match(reg)) {
+			$("#usernameTip").html("用户名需要在6-16位以内的字母或数字");
+			$("#usernameTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 检查用户名
+	 */
+	"checkUsername" : function() {
+		var username = $("#username").val();
+		if (!Register.checkUsernameReg(username)) {
+			return;
+		}
+		var url = "/user/checkUsername.do?username=" + username;
+		AjaxJson.get(url).done(function(data) {
+			if (data.result == false) {
+				$("#usernameTip").html(data.message);
+				$("#usernameTip").show();
+			}
+		});
+	},
+	/**
+	 * 检查邮箱规则
+	 */
+	"checkEmailReg" : function(email) {
+		var pattern = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+		var reg = new RegExp(pattern);
+		if (!email.match(reg)) {
+			$("#emailTip").html("邮箱格式错误");
+			$("#emailTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 检查邮箱
+	 */
+	"checkEmail" : function() {
+		var email = $("#email").val();
+		if (!Register.checkEmailReg(email)) {
+			return;
+		}
+		var url = "/user/checkEmail.do?email=" + email;
+		AjaxJson.get(url).done(function(data) {
+			if (data.result == false) {
+				$("#emailTip").html(data.message);
+				$("#emailTip").show();
+			}
+		});
+	},
+	/**
+	 * 检查密码
+	 */
+	"checkPassword" : function() {
+		var password = $("#password").val();
+		var pattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
+		var reg = new RegExp(pattern);
+		if (!password.match(reg)) {
+			$("#passwordTip").html("用户密码必须是数字和字母组合，在6-16位以内");
+			$("#passwordTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 检查重复确认密码
+	 */
+	"checkRepassword" : function() {
+		var repassword = $("#repassword").val();
+		if (Common.isEmpty(repassword)) {
+			$("#repasswordTip").html("请再次输入密码确认");
+			$("#repasswordTip").show();
+			return false;
+		}
+		var password = $("#password").val();
+		if (password != repassword) {
+			$("#repasswordTip").html("您两次输入的密码不一致，请检查");
+			$("#repasswordTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 检查验证码
+	 */
+	"checkCode" : function() {
+		var code = $("#code").val();
+		if (Common.isEmpty(code)) {
+			$("#codeTip").html("请输入验证码");
+			$("#codeTip").show();
+			return false;
+		}
+		if (code.length != 4) {
+			$("#codeTip").html("验证码长度为4位，请检查");
+			$("#codeTip").show();
+			return false;
+		}
+		return true;
 	},
 	"end" : null
 }
