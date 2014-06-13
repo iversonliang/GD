@@ -7,7 +7,7 @@ import com.GD.type.UserStatusType;
 
 public interface UserService {
 
-	public boolean add(User user);
+	public int add(User user);
 
 	public boolean waitActivate(int userId, String code);
 
@@ -21,6 +21,8 @@ public interface UserService {
 
 	public User get(int userId);
 
+	public boolean update(User user);
+	
 	/**
 	 * 注册时检查用户名是否合法
 	 * 

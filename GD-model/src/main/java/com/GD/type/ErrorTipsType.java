@@ -10,7 +10,10 @@ public enum ErrorTipsType implements Inum{
 	EMAIL_ERROR(7, "邮箱格式错误"),
 	USER_IS_REGISTERED(8, "用户名已经被注册"),
 	EMAIL_IS_REGISTERED(9, "邮箱已经被注册"),
-	LOGIN_FAIL(10, "注册失败，请稍后再试");
+	LOGIN_FAIL(10, "注册失败，请稍后再试"),
+	SIGN_ERROR(11, "签名长度需要在1-38位以内"),
+	DESCRIPTION_ERROR(12, "个人简介长度需要在1-200位以内"),
+	BIRTHDAY_ERROR(13, "错误生日时间");
 
 	private int key;
 	private String desc;

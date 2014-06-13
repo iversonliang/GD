@@ -3,10 +3,12 @@ package com.GD.handler.impl;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.GD.handler.UserHandler;
 import com.GD.model.User;
+import com.GD.service.UserService;
 import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
 import com.GD.util.DateUtil;
@@ -15,6 +17,9 @@ import com.GD.web.form.UserForm;
 
 @Component
 public class UserHandlerImpl implements UserHandler {
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public User form2User(UserForm form) {
@@ -40,6 +45,32 @@ public class UserHandlerImpl implements UserHandler {
 		user.setStatus(UserStatusType.UNACTIVATED.getKey());
 		user.setUsername(form.getUsername());
 		
+		return user;
+	}
+
+	@Override
+	public User getUpdateUser(int userId, UserForm form) {
+		User user = userService.get(userId);
+		if (StringUtils.isNotEmpty(form.getSign())) {
+			user.setSign(form.getSign());
+		}
+		if (StringUtils.isNotEmpty(form.getRealName())) {
+			user.setRealName(form.getRealName());
+		}
+		if (StringUtils.isNotEmpty(form.getDescription())) {
+			user.setDescription(form.getDescription());
+		}
+		if (StringUtils.isNotEmpty(form.getDanceType())) {
+			user.setDanceType(form.getDanceType());
+		}
+		if (form.getSex() == 0 || form.getSex() == 1) {
+			user.setSex(form.getSex());
+		}
+		Date birthday = Static.DEFAULT_DATE;
+		if (StringUtils.isNotEmpty(form.getBirthday())) {
+			birthday = DateUtil.str2Date(form.getBirthday());
+		}
+		user.setBirthday(birthday);
 		return user;
 	}
 

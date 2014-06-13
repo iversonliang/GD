@@ -1,6 +1,9 @@
 package com.GD.util;
 
 import java.security.InvalidParameterException;
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.GD.model.User;
 import com.GD.type.ErrorTipsType;
@@ -16,9 +19,25 @@ public class CheckUtil {
 		RegularUtil.checkEmail(user.getEmail());
 		RegularUtil.checkPassword(user.getPassword());
 		RegularUtil.checkUsername(user.getUsername());
-		if (!(user.getSex() == 0 || user.getSex() == 1)) {
-			throw new InvalidParameterException(ErrorTipsType.SEX_ERROR.getDesc());
+		CheckUtil.checkSex(user.getSex());
+	}
+
+	/**
+	 * 检查更新用户资料参数
+	 * 
+	 * @param user
+	 */
+	public static void checkUpdateUserInfo(User user) {
+		if (StringUtils.isNotEmpty(user.getSign())) {
+			CheckUtil.checkSign(user.getSign());
 		}
+		if (StringUtils.isNotEmpty(user.getDescription())) {
+			CheckUtil.checkDescription(user.getDescription());
+		}
+		if (user.getBirthday() != null) {
+			CheckUtil.checkBirthday(user.getBirthday());
+		}
+		CheckUtil.checkSex(user.getSex());
 	}
 
 	/**
@@ -37,6 +56,42 @@ public class CheckUtil {
 		}
 		if (!result) {
 			throw new InvalidParameterException(ErrorTipsType.CODE_ERROR.getDesc());
+		}
+	}
+
+	public static void checkSign(String sign) {
+		if (StringUtils.isEmpty(sign)) {
+			throw new InvalidParameterException(ErrorTipsType.SIGN_ERROR.getDesc());
+		}
+		String reg = "[^\\x00-\\xff]";
+		int length = sign.replaceAll(reg, "xx").length();
+		if (length > 38) {
+			throw new InvalidParameterException(ErrorTipsType.SIGN_ERROR.getDesc());
+		}
+	}
+
+	public static void checkDescription(String description) {
+		if (StringUtils.isEmpty(description)) {
+			throw new InvalidParameterException(ErrorTipsType.DESCRIPTION_ERROR.getDesc());
+		}
+		String reg = "[^\\x00-\\xff]";
+		int length = description.replaceAll(reg, "xx").length();
+		if (length > 200) {
+			throw new InvalidParameterException(ErrorTipsType.DESCRIPTION_ERROR.getDesc());
+		}
+	}
+
+	public static void checkBirthday(Date birthday) {
+		Date startDate = DateUtil.str2Date("1970-01-01 00:00:00");
+		Date endDate = DateUtil.str2Date("2010-12-31 23:59:59");
+		if (DateUtil.before(birthday, startDate) || DateUtil.before(endDate, birthday)) {
+			throw new InvalidParameterException(ErrorTipsType.BIRTHDAY_ERROR.getDesc());
+		}
+	}
+
+	public static void checkSex(int sex) {
+		if (!(sex == 0 || sex == 1)) {
+			throw new InvalidParameterException(ErrorTipsType.SEX_ERROR.getDesc());
 		}
 	}
 }

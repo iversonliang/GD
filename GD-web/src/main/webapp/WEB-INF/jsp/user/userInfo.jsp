@@ -8,6 +8,7 @@
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
+
 </head>
 
 <body>
@@ -22,7 +23,7 @@
 		<div class="content bg_w">
 			<div class="reg_title yy-icon">请如实填写以下内容，让其他舞者可以找到和关注你。</div>
 			<div class="contBody">
-				<form method="get">
+				<form>
 					<table width="650px" cellspacing="0" cellpadding="0" class="norTable tpersonal">
 						<tbody>
 						<tr>
@@ -39,12 +40,12 @@
 						</tr>					
 						<tr>
 							<th>个人签名</th>
-							<td><input maxlength="500" name="signature" type="text" value="" class="newTxt w530"><p class="f12 c999">还可以输入 <b class="cc20000 cf30 abc">38</b> 字符</p></td>
+							<td><input maxlength="500" id="sign" onkeyup="User.checkSignLength()" name="signature" type="text" value="${user.sign }" class="newTxt w530"><p class="f12 c999">还可以输入 <b id="leftSignLength" class="cc20000 cf30 abc">38</b> 字符</p></td>
 						</tr>
 						<tr>
 							<th>真实姓名</th>
 							<td class="vm" colspan="2">
-								<input name="realname" type="text" value="" class="newTxt w350">
+								<input id="realName" name="realName" type="text" value="${user.realName }" class="newTxt w350">
 								<!-- <span class="selectBox ml10">
 									<select name="realname_l" class="ml10">
 										<option value="1" selected="selected">所有人可见</option>
@@ -58,24 +59,15 @@
 						<tr>
 							<th>性别</th>
 							<td>
-							<span class="labelBox"><label><input type="radio" value="1" id="male" tabindex="5" name="maleChoose" checked=""> 男</label></span>
-							<span class="labelBox ml10"><label><input type="radio" value="2" id="female" tabindex="6" name="maleChoose"> 女</label></span> </td>
+							<span class="labelBox"><label><input type="radio" id="male" value="1" id="male" tabindex="5" name="maleChoose"<c:if test="${user.sex == 1 }">checked=""</c:if>> 男</label></span>
+							<span class="labelBox ml10"><label><input type="radio" id="female" value="2" id="female" tabindex="6" name="maleChoose" <c:if test="${user.sex == 0 }">checked=""</c:if>> 女</label></span> </td>
                       	</tr>
 						<tr>
 							<th>生日</th>
 							<td class="vm" colspan="2">
 								<span class="selectBox">
-								<select name="birthday_y">
-									<option value="1960">1960</option>
-									<option value="1961">1961</option>
-									<option value="1962">1962</option>
-									<option value="1963">1963</option>
-									<option value="1964">1964</option>
-									<option value="1965">1965</option>
-									<option value="1966">1966</option>
-									<option value="1967">1967</option>
-									<option value="1968">1968</option>
-									<option value="1969">1969</option>
+								<select name="birthday_y" id="year">
+									<option value="0" selected="selected">选择年份</option>
 									<option value="1970">1970</option>
 									<option value="1971">1971</option>
 									<option value="1972">1972</option>
@@ -95,7 +87,7 @@
 									<option value="1986">1986</option>
 									<option value="1987">1987</option>
 									<option value="1988">1988</option>
-									<option value="1989" selected="selected">1989</option>
+									<option value="1989">1989</option>
 									<option value="1990">1990</option>
 									<option value="1991">1991</option>
 									<option value="1992">1992</option>
@@ -112,33 +104,40 @@
 									<option value="2003">2003</option>
 									<option value="2004">2004</option>
 									<option value="2005">2005</option>
+									<option value="2006">2006</option>
+									<option value="2007">2007</option>
+									<option value="2008">2008</option>
+									<option value="2009">2009</option>
+									<option value="2010">2010</option>
 								</select></span>
 								<span class="selectBox ml10">
-								<select name="birthday_m">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6" selected="selected">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
+								<select name="birthday_m" id="month">
+									<option value="0" selected="selected">月份</option>
+									<option value="01">1</option>
+									<option value="02">2</option>
+									<option value="03">3</option>
+									<option value="04">4</option>
+									<option value="05">5</option>
+									<option value="06">6</option>
+									<option value="07">7</option>
+									<option value="08">8</option>
+									<option value="09">9</option>
 									<option value="10">10</option>
 									<option value="11">11</option>
 									<option value="12">12</option>
 								</select></span>
 								<span class="selectBox ml10">
-								<select name="birthday_d">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
+								<select name="birthday_d" id="day">
+									<option value="0" selected="selected">日期</option>
+									<option value="01">1</option>
+									<option value="02">2</option>
+									<option value="03">3</option>
+									<option value="04">4</option>
+									<option value="05">5</option>
+									<option value="06">6</option>
+									<option value="07">7</option>
+									<option value="08">8</option>
+									<option value="09">9</option>
 									<option value="10">10</option>
 									<option value="11">11</option>
 									<option value="12">12</option>
@@ -149,7 +148,7 @@
 									<option value="17">17</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
-									<option value="20" selected="selected">20</option>
+									<option value="20">20</option>
 									<option value="21">21</option>
 									<option value="22">22</option>
 									<option value="23">23</option>
@@ -258,44 +257,32 @@
 							<th>擅长舞种</th>
 							<td class="vm" colspan="2">
 								<span class="selectBox">
-								<select name="style">
-									<option value="0" selected="selected" tabindex="7">选择舞种</option>
-									<option value="1">Breakin</option>
-									<option value="2">Hiphop</option>
-									<option value="3">Jazz</option>
-									<option value="4">Lockin</option>
-									<option value="5">Lyrical</option>
-									<option value="6">Krump</option>
-									<option value="7">Poppin</option>
-									<option value="7">Raggae</option>
-									<option value="7">现代舞</option>
-									<option value="7">鬼步</option>
+								<select name="style" id="danceType">
+									<option selected="selected" value="0">选择舞种</option>
+									<option>Breakin</option>
+									<option>Hiphop</option>
+									<option>Jazz</option>
+									<option>Lockin</option>
+									<option>Lyrical</option>
+									<option>Krump</option>
+									<option>Poppin</option>
+									<option>Raggae</option>
+									<option>现代舞</option>
+									<option>鬼步</option>
 								</select></span>
-								<span><input type="submit" id="subutt" tabindex="3" value="添加" class="lBtn sBtn"></span>
-								<ul class="selectTags">
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">Hip-Hop<a href="#" class="delete">x</a></li>
-									<li style="margin-bottom:5px">鬼步<a href="#" class="delete">x</a></li>
+								<span><input type="button" id="addDanceType" tabindex="3" onclick="User.addDanceType()" value="添加" class="lBtn sBtn"></span>
+								<ul class="selectTags" id="danceTypeList">
+									<!-- <li style="margin-bottom:5px"><span name="selectedDanceType">Lyrical</span><a href="javascript:void(0)" onclick="User.delDanceType('Lyrical', this)" class="delete">x</a></li> -->
 								</ul>
 							</td>
 						</tr>
 						<tr>
 							<th>个人简介</th>
-							<td colspan="2"><textarea maxlength="2000" style="width:500px;height:100px;" name="desc" class="newArea w530 h150"></textarea><p class="f12 c999">还可以输入 <b class="cc20000 cf30 abc">2000</b> 字符</p></td>
+							<td colspan="2"><textarea id="description" value="${user.description }" onkeyup="User.checkDescriptionLength()" maxlength="200" style="width:500px;height:100px;" name="desc" class="newArea w530 h150"></textarea><p class="f12 c999">还可以输入 <b id="leftDescriptionLength" class="cc20000 cf30 abc">200</b> 字符</p></td>
 						</tr>
 						<tr>
 							<th></th>
-							<td colspan="2"><input type="submit" value="保 存" class="lBtn"></td>
+							<td colspan="2"><input type="button" onclick="User.save()" value="保 存" class="lBtn"></td>
 						</tr>
 					</tbody></table>
 					<div class="per_avatar">
@@ -309,6 +296,25 @@
 	</div>
 </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
-
+<script type="text/javascript">
+	var description = '${user.description}';
+	$("#description").val(description)
+	var danceTypeStr = '${user.danceType}';
+	var temp = danceTypeStr.split("/");
+	for (var i=0;i<temp.length;i++) {
+		User.appendDanceTypeLabel(temp[i]);
+		User.removeDaneTypeSelectNode(temp[i]);
+	}
+	var birthday = '${user.birthday}';
+	if (Common.isNotEmpty(birthday)) {
+		birthday = birthday.substring(0, 10);
+		temp = birthday.split("-");
+		$("#year").val(temp[0]);
+		$("#month").val(temp[1]);
+		$("#day").val(temp[2]);
+	}
+	User.checkSignLength();
+	User.checkDescriptionLength();
+</script>
 </body>
 </html>

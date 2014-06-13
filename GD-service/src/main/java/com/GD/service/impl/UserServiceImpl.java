@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public boolean add(User user) {
+	public int add(User user) {
 		long result = userDao.add(user);
 
 		if (result > 0) {
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 //				e.printStackTrace();
 //			}
 		}
-		return result > 0;
+		return (int) result;
 	}
 
 	@Override
@@ -103,6 +103,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User get(String username) {
 		return userDao.getByUsername(username);
+	}
+
+	@Override
+	public boolean update(User user) {
+		return userDao.update(user);
 	}
 
 }

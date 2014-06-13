@@ -1,3 +1,7 @@
+String.prototype.stringLength = function() {
+	return this.replace(/[^\x00-\xff]/g, "xx").length;
+}
+
 var Common = {
 	/*
 	 * 复制邀请码到粘贴板
@@ -19,9 +23,6 @@ var Common = {
 	 * 判断参数是否为空
 	 */
 	"isEmpty" : function(param) {
-// if (param == null || param == "" || typeof (param) == "undefined") {
-// return true;
-// }
 		if (param == null) {
 			return true;
 		}
@@ -32,7 +33,7 @@ var Common = {
 			return true;
 		}
 		if (typeof (param) == "undefined") {
-			return true; 
+			return true;
 		}
 		return false;
 	},
@@ -40,20 +41,7 @@ var Common = {
 	 * 判断参数是否不为空
 	 */
 	"isNotEmpty" : function(param) {
-// if (param == 0) {
-// return true;
-// }
-// if (param == null || param == "" || typeof (param) == "undefined") {
-// return false;
-// }
 		return !Common.isEmpty(param);
-	},
-	/*
-	 * 上报
-	 */
-	"dataReport" : function(pid, gameId) {
-		// alert(pid);
-		clickOnPid(pid, gameId);
 	},
 	/*
 	 * json字符串转换成对象
@@ -65,9 +53,6 @@ var Common = {
 	 * 是否选中checkbox
 	 */
 	"isSelected" : function(id) {
-		// var objId = "#" + id;
-		// var isSelect = $(objId).attr("checked");
-		// return typeof (isSelect) != "undefined"
 		return document.getElementById(id).checked;
 	},
 	/*
@@ -80,7 +65,7 @@ var Common = {
 			var values = obj[key];
 			if (values && values.constructor == Array) {// 数组
 				var queryValues = [];
-				for ( var i = 0, len = values.length, value; i < len; i++) {
+				for (var i = 0, len = values.length, value; i < len; i++) {
 					value = values[i];
 					queryValues.push(Common.toQueryPair(key, value));
 				}
@@ -95,33 +80,34 @@ var Common = {
 		if (typeof value == 'undefined') {
 			return key;
 		}
-		return key + '=' + encodeURIComponent(value === null ? '' : String(value));
+		return key + '='
+				+ encodeURIComponent(value === null ? '' : String(value));
 	},
 	/*
 	 * data对象转成字符串
 	 */
 	"date2Str" : function(date, pattern) {
 		var z = {
-			y:date.getFullYear(),
-			M:date.getMonth()+1,
-			d:date.getDate(),
-			h:date.getHours(),
-			m:date.getMinutes(),
-			s:date.getSeconds()
+			y : date.getFullYear(),
+			M : date.getMonth() + 1,
+			d : date.getDate(),
+			h : date.getHours(),
+			m : date.getMinutes(),
+			s : date.getSeconds()
 		};
 		if (Common.isEmpty(pattern)) {
 			pattern = "yyyy-MM-dd hh:mm:ss";
 		}
 		return pattern.replace(/(y+|M+|d+|h+|m+|s+)/g, function(v) {
-				var a = (v.length > 1 ? "00" : "");
-				var b = 'z.'+v.slice(-1);
-				var value = eval(b);
-				value = eval(b) < 10 ? "0" + value : value;
-				var c = a + value;
-				var d = v.length > 2 ? v.length : 2;
-				var result = c.slice(-d);
-				return result;
-			});
+			var a = (v.length > 1 ? "00" : "");
+			var b = 'z.' + v.slice(-1);
+			var value = eval(b);
+			value = eval(b) < 10 ? "0" + value : value;
+			var c = a + value;
+			var d = v.length > 2 ? v.length : 2;
+			var result = c.slice(-d);
+			return result;
+		});
 	},
 	"str2Date" : function(dateStr) {
 		var temp = dateStr.split(" ");
@@ -155,7 +141,7 @@ var Common = {
 		if (Common.isNotEmpty(day)) {
 			if (day < 1 || day > 31) {
 				alert("日期不合法：" + day);
-			} 
+			}
 			date.setDate(day);
 		}
 		if (Common.isNotEmpty(hour)) {
@@ -206,9 +192,9 @@ var Common = {
 	 */
 	"getMultiSelectedText" : function(id) {
 		var text = [];
-		$("#" + id + " option:selected").each(function(){
+		$("#" + id + " option:selected").each(function() {
 			text.push($(this).text());
-        });
+		});
 		return text;
 	},
 	"end" : null

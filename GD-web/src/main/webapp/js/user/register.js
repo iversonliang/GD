@@ -85,6 +85,11 @@ var Register = {
 	 * 检查用户名规则
 	 */
 	"checkUsernameReg" : function(username) {
+		if (Common.isEmpty(username)) {
+			$("#usernameTip").html("请输入用户名");
+			$("#usernameTip").show();
+			return false;
+		}
 		var pattern = "^[0-9A-Za-z]{6,16}$";
 		var reg = new RegExp(pattern);
 		if (!username.match(reg)) {
@@ -144,6 +149,11 @@ var Register = {
 	 */
 	"checkPassword" : function() {
 		var password = $("#password").val();
+		if (Common.isEmpty(password)) {
+			$("#passwordTip").html("请输入密码");
+			$("#passwordTip").show();
+			return false;
+		}
 		var pattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
 		var reg = new RegExp(pattern);
 		if (!password.match(reg)) {

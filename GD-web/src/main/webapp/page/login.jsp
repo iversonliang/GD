@@ -8,6 +8,17 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
 <script type="text/javascript"> 
+	document.onkeydown=keyDownSearch;  
+	
+	function keyDownSearch(e) {    
+	    // 兼容FF和IE和Opera    
+	    var theEvent = e || window.event;    
+	    var code = theEvent.keyCode || theEvent.which || theEvent.charCode;    
+	    if (code == 13) {    
+	        Login.login();
+	    }    
+	}  
+
     function changeImg() {
         var timestamp = (new Date()).valueOf(); 
         var url = "/user/getCode.do";
@@ -18,6 +29,7 @@
         }
         $("#imgObj").attr("src", url); 
     } 
+    
 </script>
 </head>
 <body>

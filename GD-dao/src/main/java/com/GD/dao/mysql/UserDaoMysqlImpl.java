@@ -3,7 +3,6 @@ package com.GD.dao.mysql;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,7 +50,27 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public boolean update(User user) {
-		throw new NotImplementedException();
+		String sql = "UPDATE user set username=?,password=?,nickname=?,email=?,question=?,answer=?,posttime=?,status=?,sex=?,role=?,city=?,province=?,real_name=?,birthday=?,dance_type=?,description=?,sign=? WHERE user_id=?;";
+		StatementParameter param = new StatementParameter();
+		param.setString(user.getUsername());
+		param.setString(user.getPassword());
+		param.setString(StringUtils.defaultIfEmpty(user.getNickname(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getEmail(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getQuestion(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getAnswer(), ""));
+		param.setDate(new Date());
+		param.setInt(user.getStatus());
+		param.setInt(user.getSex());
+		param.setInt(user.getRole());
+		param.setString(StringUtils.defaultIfEmpty(user.getCity(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getProvince(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getRealName(), ""));
+		param.setDate(user.getBirthday());
+		param.setString(StringUtils.defaultIfEmpty(user.getDanceType(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getDescription(), ""));
+		param.setString(StringUtils.defaultIfEmpty(user.getSign(), ""));
+		param.setInt(user.getUserId());
+		return jdbc.updateForBoolean(sql, param);
 	}
 
 	@Override

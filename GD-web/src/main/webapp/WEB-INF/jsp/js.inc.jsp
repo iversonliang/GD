@@ -12,3 +12,4 @@ String version = "1.0";
 
 <script type="text/javascript" src="/js/user/register.js?ver=<%=version%>"></script>
 <script type="text/javascript" src="/js/user/login.js?ver=<%=version%>"></script>
+<script type="text/javascript" src="/js/user/user.js?ver=<%=version%>"></script>

@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -112,10 +111,9 @@ public class UserController {
 			User user = userHandler.form2User(form);
 			CheckUtil.checkRegisterUser(user);
 			try {
-				userService.add(user);
-				user = userService.get(user.getUsername());
+				int userId = userService.add(user);
 				session.setAttribute("username", user.getUsername());
-				session.setAttribute("userId", user.getUserId());
+				session.setAttribute("userId", userId);
 				result = true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -157,6 +155,29 @@ public class UserController {
 	@RequestMapping(value = "/updatePersonalImg.do", method = RequestMethod.GET)
 	public ModelAndView updatePersonalImg(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		return ViewUtil.getView(DIR);
+	}
+	
+	@LoginRequired
+	@RequestMapping(value = "/updateUserInfo.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateUserInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session, UserForm form) {
+		int userId = (Integer) session.getAttribute("userId");
+		User user = userHandler.getUpdateUser(userId, form);
+		int errorCode = -1;
+		String message = "";
+		try {
+			CheckUtil.checkUpdateUserInfo(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = e.getMessage();
+			errorCode = ErrorTipsType.toType(message).getKey();
+		}
+		boolean result = userService.update(user);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("message", message);
+		map.put("errorCode", errorCode);
+		return map;
 	}
 	
 	@LoginRequired
