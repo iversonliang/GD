@@ -1,6 +1,5 @@
 package com.GD.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,24 +26,7 @@ public class VideoServiceImpl implements VideoService {
 	private UserService userService;
 
 	@Override
-	public boolean add(int userId, String name, String description, String label, String url, VideoType videoType) {
-		User user = userService.get(userId);
-		UserUtil.checkNull(user);
-		Video video = new Video();
-		video.setComments(0);
-		video.setDel(false);
-		video.setDescription(description);
-		video.setLabel(label);
-		video.setLove(0);
-		video.setName(name);
-		video.setNickname(user.getNickname());
-		video.setPlay(0);
-		video.setPosttime(new Date());
-		video.setStatus(StatusType.NORMAL.getKey());
-		video.setUrl(url);
-		video.setUserId(userId);
-		video.setVideoGradeType(VideoGradeType.COMMON.getKey());
-		video.setVideoType(videoType.getKey());
+	public boolean add(Video video) {
 		return videoDao.add(video);
 	}
 

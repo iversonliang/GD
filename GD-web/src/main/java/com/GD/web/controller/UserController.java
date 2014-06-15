@@ -2,7 +2,6 @@ package com.GD.web.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +43,7 @@ import com.GD.type.ErrorTipsType;
 import com.GD.util.AuthCodeUtil;
 import com.GD.util.CheckUtil;
 import com.GD.util.FileUtil;
+import com.GD.util.RegularUtil;
 import com.GD.util.RequestUtil;
 import com.GD.util.ViewUtil;
 import com.GD.web.form.LoginForm;
@@ -70,6 +70,12 @@ public class UserController {
 	 * 获取验证码
 	 * 
 	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
+	/**
 	 * @param response
 	 * @param session
 	 * @return
@@ -104,16 +110,19 @@ public class UserController {
 	public Map<String, Object> register(HttpSession session, UserForm form) throws UnsupportedEncodingException {
 		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
 		String message = "";
+		String headImg = "/images/defaultHead.jpg";
 		int errorCode = -1;
 		boolean result = false;
 		try {
 			CheckUtil.checkCode(form.getCode(), actualCode);
 			User user = userHandler.form2User(form);
+			user.setHeadImg(headImg);
 			CheckUtil.checkRegisterUser(user);
 			try {
 				int userId = userService.add(user);
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("userId", userId);
+				session.setAttribute("headImg", headImg);
 				result = true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -146,15 +155,65 @@ public class UserController {
 	public ModelAndView userInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");
 		User user = userService.get(userId);
+		request.setAttribute("headImg", user.getHeadImg());
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("user", user);
+		System.out.println(user.getHeadImg());
 		return model;
 	}
 	
 	@LoginRequired
-	@RequestMapping(value = "/updatePersonalImg.do", method = RequestMethod.GET)
-	public ModelAndView updatePersonalImg(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	@RequestMapping(value = "/headImg.do", method = RequestMethod.GET)
+	public ModelAndView headImg(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String url = (String) session.getAttribute("headImg");
+		request.setAttribute("headImg", url);
 		return ViewUtil.getView(DIR);
+	}
+
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value = "/resetPassword.do", method = RequestMethod.POST)
+	public Map<String, Object> resetPassword(HttpServletRequest request, HttpServletResponse response, HttpSession session, String password, String newPassword) {
+		int userId = (Integer) session.getAttribute("userId");
+		String message = "";
+		boolean result = false;
+		int errorCode = -1;
+		try {
+			RegularUtil.checkPassword(newPassword);
+			String username = (String) session.getAttribute("username");
+			User user = userService.get(username, password);
+			if (user == null) {
+				message = ErrorTipsType.RESET_PASSWORD_ERROR.getDesc();
+				errorCode = ErrorTipsType.RESET_PASSWORD_ERROR.getKey();
+			} else {
+				userService.updatePassword(userId, newPassword);
+				result = true;
+			}
+		} catch (Exception e) {
+			message = e.getMessage();
+			errorCode = ErrorTipsType.PASSWORD_ERROR.getKey();
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("message", message);
+		map.put("errorCode", errorCode);
+		return map;
+	}
+	
+	
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value = "/updateHeadImg.do", method = RequestMethod.GET)
+	public Map<String, Object> updateHeadImg(HttpServletRequest request, HttpServletResponse response, HttpSession session, String url) {
+		int userId = (Integer) session.getAttribute("userId");
+		boolean result = userService.updateHeadImg(userId, url);
+		if (result) {
+			request.setAttribute("headImg", url);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("message", result ? "" : ErrorTipsType.UPLOAD_ERROR.getDesc());
+		return map;
 	}
 	
 	@LoginRequired
@@ -183,6 +242,8 @@ public class UserController {
 	@LoginRequired
 	@RequestMapping(value = "/updatePassword.do", method = RequestMethod.GET)
 	public ModelAndView updatePassword(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String url = (String) session.getAttribute("headImg");
+		request.setAttribute("headImg", url);
 		return ViewUtil.getView(DIR);
 	}
 	
@@ -217,7 +278,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> login(HttpSession session, LoginForm form) {
+	public Map<String, Object> login(HttpServletRequest request, HttpSession session, LoginForm form) {
 		String username = form.getUsername();
 		String password = form.getPassword();
 		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
@@ -238,6 +299,9 @@ public class UserController {
 			if (user != null) {
 				session.setAttribute("username", username);
 				session.setAttribute("userId", user.getUserId());
+				session.setAttribute("headImg", user.getHeadImg());
+				request.setAttribute("headImg", user.getHeadImg());
+				
 				// 设置session过期时间（单位秒）
 				session.setMaxInactiveInterval(1800);
 				jumpUrl = (String) session.getAttribute(JUMP_PAGE);
@@ -259,7 +323,9 @@ public class UserController {
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		session.removeAttribute("userId");
-		session.removeAttribute("userName");
+		session.removeAttribute("username");
+		session.removeAttribute("headImg");
+		request.removeAttribute("isLogin");
 		response.sendRedirect("/index.do");
 	}
 
@@ -276,7 +342,6 @@ public class UserController {
 	public Map<String, Object> upload(HttpServletRequest request, HttpServletResponse response) {
 		String SAVE_PATH = "/data/wwwdata/img/";
 		FileUtil.checkFolderPath(SAVE_PATH);
-		List<String> urlList = new LinkedList<String>();
 		Collection<Part> parts = null;
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -286,6 +351,10 @@ public class UserController {
 		}
 		InputStream is = null;
 		FileOutputStream fos = null;
+		boolean result = false;
+		String message = "";
+		int errorCode = -1;
+		String url = "";
 		// 遍历所有的表单内容，将表单中的文件写入上传文件目录
 		for (Iterator<Part> iterator = parts.iterator(); iterator.hasNext();) {
 			Part part = iterator.next();
@@ -293,10 +362,9 @@ public class UserController {
 			String fileName = RequestUtil.getFileName(part);
 			if (StringUtils.isNotEmpty(fileName)) {
 				fileName = FileUtil.parseFileName(fileName);
-				String savePath = SAVE_PATH + File.separator + fileName;
+				String savePath = SAVE_PATH + fileName;
 				System.out.println("savePath:" + savePath);
-				urlList.add("www.goodancer.com/img/" + fileName);
-
+				url = "/img/" + fileName;
 				// inputStream转成outputStream并存储
 				try {
 					is = part.getInputStream();
@@ -307,24 +375,36 @@ public class UserController {
 						optS.write(c);
 					}
 					optS.flush();
+					result = true;
 				} catch (IOException e) {
 					e.printStackTrace();
+					message = ErrorTipsType.UPLOAD_ERROR.getDesc();
+					errorCode = ErrorTipsType.UPLOAD_ERROR.getKey();
 				}
 			}
 		}
 		IOUtils.closeQuietly(is);
 		IOUtils.closeQuietly(fos);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("fileNames", urlList);
+		map.put("url", url);
+		map.put("result", result);
+		map.put("message", message);
+		map.put("errorCode", errorCode);
 		// 显示上传的文件列表
 		return map;
 	}
 
-	@RequestMapping(value = "/listUser.do", method = RequestMethod.GET)
-	@ResponseBody
-	public List<User> listUser() {
+	@RequestMapping(value = "/userList.do", method = RequestMethod.GET)
+	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		List<User> list = userService.list(0, 10);
-		return list;
+		String headImg = (String) session.getAttribute("headImg");
+		if (StringUtils.isEmpty(headImg)) {
+			headImg = "/images/defaultHead.jpg";
+		}
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("list", list);
+		model.addObject("headImg", headImg);
+		return model;
 	}
 
 	@RequestMapping(value=" /async.do", method = RequestMethod.GET) 

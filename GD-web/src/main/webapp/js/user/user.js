@@ -88,5 +88,118 @@ var User = {
 			alert(data.result);
 		});
 	},
+	"upload" : function() {
+		$.ajaxFileUpload({
+			url : '/user/upload.do',
+			secureuri : false,
+			fileElementId : 'file',
+			dataType : 'json',
+			data : {
+				docType : 1
+			},
+			success : function(data, status) {
+				data = $.parseJSON(data);
+				if (data.result == true) {
+					$("#headImgUrl").val(data.url);
+					$("#headImg").attr("src", data.url);
+					$("#updateHeadBtn").show();
+				}
+			},
+			error : function(data, status, e) {
+				alert("上传失败!");
+				return;
+			}
+		});
+	},
+	"updateHeadImg" : function() {
+		var imgUrl = $("#headImgUrl").val();
+		var url = "/user/updateHeadImg.do?url=" + imgUrl;
+		AjaxJson.get(url).done(function(data) {
+			alert(data.result);
+		});
+	},
+	/**
+	 * 检查密码
+	 */
+	"checkPassword" : function() {
+		var password = $("#password").val();
+		if (Common.isEmpty(password)) {
+			$("#passwordTip").html("请输入密码");
+			$("#passwordTip").show();
+			return false;
+		}
+		var pattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
+		var reg = new RegExp(pattern);
+		if (!password.match(reg)) {
+			$("#passwordTip").html("用户密码必须是数字和字母组合，在6-16位以内");
+			$("#passwordTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 检查密码
+	 */
+	"checkNewPassword" : function() {
+		var newPassword = $("#newPassword").val();
+		if (Common.isEmpty(newPassword)) {
+			$("#newPasswordTip").html("请输入密码");
+			$("#newPasswordTip").show();
+			return false;
+		}
+		var pattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
+		var reg = new RegExp(pattern);
+		if (!newPassword.match(reg)) {
+			$("#newPasswordTip").html("用户密码必须是数字和字母组合，在6-16位以内");
+			$("#newPasswordTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 检查密码
+	 */
+	"checkReNewPassword" : function() {
+		var reNewPassword = $("#reNewPassword").val();
+		if (Common.isEmpty(reNewPassword)) {
+			$("#reNewPasswordTip").html("请输入密码");
+			$("#reNewPasswordTip").show();
+			return false;
+		}
+		var newPassword = $("#newPassword").val();
+		if (newPassword != reNewPassword) {
+			$("#reNewPasswordTip").html("两次输入的密码不一致");
+			$("#reNewPasswordTip").show();
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * 隐藏tips
+	 */
+	"hideTips" : function() {
+		$("span[name=tips]").each(function(index,element) {
+			$(this).hide();
+		});
+	},
+	"resetPassword" : function() {
+		if (!User.checkPassword()) {
+			return;
+		}
+		if (!User.checkNewPassword()) {
+			return;
+		}
+		if (!User.checkReNewPassword()) {
+			return;
+		}
+		var param = {
+			password : $("#password").val(),
+			newPassword : $("#newPassword").val()
+		}
+		var url = "/user/resetPassword.do";
+		AjaxJson.post(url, param).done(function(data) {
+			alert(data.result);
+		});
+	},
 	"end" : null
 }

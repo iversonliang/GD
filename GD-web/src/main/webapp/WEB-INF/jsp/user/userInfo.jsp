@@ -17,7 +17,7 @@
 	<div class="main">
 		<ul class="tab">
 			<li class="active"><a href="/user/userInfo.do">基本资料</a></li>
-			<li><a href="/user/updatePersonalImg.do">修改头像</a></li>
+			<li><a href="/user/headImg.do">修改头像</a></li>
 			<li><a href="/user/updatePassword.do">修改密码</a></li>
 		</ul>
 		<div class="content bg_w">
@@ -286,8 +286,8 @@
 						</tr>
 					</tbody></table>
 					<div class="per_avatar">
-						<a href="/user/updatePersonalImg.do"><img width="145" height="145" src="http://image.zcool.com.cn/avatar/43/84/1246341991846.jpg"></a>
-						<a class="change_avatar" href="/user/updatePersonalImg.do">修改头像</a>
+						<a href="/user/headImg.do"><img width="145" height="145" src="${user.headImg }"></a>
+						<a class="change_avatar" href="/user/headImg.do">修改头像</a>
 					</div>
 				</form>
 				<div class="clear"></div>
@@ -300,10 +300,12 @@
 	var description = '${user.description}';
 	$("#description").val(description)
 	var danceTypeStr = '${user.danceType}';
-	var temp = danceTypeStr.split("/");
-	for (var i=0;i<temp.length;i++) {
-		User.appendDanceTypeLabel(temp[i]);
-		User.removeDaneTypeSelectNode(temp[i]);
+	if (Common.isNotEmpty(danceTypeStr)) {
+		var temp = danceTypeStr.split("/");
+		for (var i=0;i<temp.length;i++) {
+			User.appendDanceTypeLabel(temp[i]);
+			User.removeDaneTypeSelectNode(temp[i]);
+		}
 	}
 	var birthday = '${user.birthday}';
 	if (Common.isNotEmpty(birthday)) {

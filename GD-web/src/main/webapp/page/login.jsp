@@ -93,8 +93,8 @@
 						<tr class="last">
 							<th></th>
 							<td class="vm"><input type="button" value="登 录" class="lBtn" tabindex="4" onclick="Login.login()"> 
-								<a class="ml10 c4095ce" href="/page/register.jsp">忘记密码</a> <span class="c999">|</span> 
-								<a class="c4095ce" href="/page/forget.jsp">注册</a>
+								<a class="ml10 c4095ce" href="/page/forget.jsp">忘记密码</a> <span class="c999">|</span> 
+								<a class="c4095ce" href="/page/register.jsp">注册</a>
 							</td>
 						</tr>
 					</tbody></table>

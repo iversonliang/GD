@@ -31,8 +31,18 @@ public class Video {
 	private int videoType;
 	/** 推荐类型 */
 	private int videoGradeType;
+	/** 来源类型 */
+	private int videoSourceType;
 	/** 标签 */
 	private String label;
+
+	public int getVideoSourceType() {
+		return videoSourceType;
+	}
+
+	public void setVideoSourceType(int videoSourceType) {
+		this.videoSourceType = videoSourceType;
+	}
 
 	public String getLabel() {
 		return label;

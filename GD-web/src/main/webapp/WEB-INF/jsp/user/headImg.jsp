@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>优舞网</title>
+
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
 </head>
@@ -26,16 +27,17 @@
 						<tbody>
 						<tr>
 							<td class="" width="240" align="center">
-								<img src="http://image.zcool.com.cn/avatar/43/84/1246341991846.jpg" width="145" height="145">
+								<img id="headImg" src="${headImg }" width="145" height="145">
 								<p class="c999 pt10">当前头像</p>
 							</td>
 							<td colspan="3" class="center vm">
 							   <input type="text" id="upTxt" disabled="disabled" value="" class="newTxt w336" width="360">
-							   <span class="uploadBtn small"><input onchange="$('#upTxt').val($(this).val())" type="file" name="file"><span>浏览...</span></span>
+							   <span class="uploadBtn small"><input id="file" type="file" name="file" onchange="User.upload();"><span>选择上传</span></span>
 							</td>
 						</tr>
 					</tbody></table>
-					<div class="sumit_avatar"><input type="submit" class="lBtn" value="提 交"></div>
+					<input type="hidden" id="headImgUrl" />
+					<div class="sumit_avatar"><input id="updateHeadBtn" onclick="User.updateHeadImg()" style="display:none" type="button" class="lBtn" value="提 交"></div>
 				</form>
 			</div>
 		</div>

@@ -6,7 +6,10 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 import com.GD.model.User;
+import com.GD.model.Video;
 import com.GD.type.ErrorTipsType;
+import com.GD.type.VideoSourceType;
+import com.GD.type.VideoType;
 
 public class CheckUtil {
 
@@ -92,6 +95,30 @@ public class CheckUtil {
 	public static void checkSex(int sex) {
 		if (!(sex == 0 || sex == 1)) {
 			throw new InvalidParameterException(ErrorTipsType.SEX_ERROR.getDesc());
+		}
+	}
+
+	/**
+	 * 用户发布时检查视频参数
+	 * 
+	 * @param video
+	 */
+	public static void checkVideo(Video video) {
+		if (StringUtils.isEmpty(video.getUrl())) {
+			throw new InvalidParameterException(ErrorTipsType.VIDEO_URL_ERROR.getDesc());
+		}
+		if (StringUtils.isEmpty(video.getName())) {
+			throw new InvalidParameterException(ErrorTipsType.VIDEO_NAME_ERROR.getDesc());
+		}
+		try {
+			VideoType.toType(video.getVideoType());
+		} catch (Exception e) {
+			throw new InvalidParameterException(ErrorTipsType.VIDEO_TYPE_ERROR.getDesc());
+		}
+		try {
+			VideoSourceType.toType(video.getVideoSourceType());
+		} catch (Exception e) {
+			throw new InvalidParameterException(ErrorTipsType.VIDEO_SOURCE_TYPE_ERROR.getDesc());
 		}
 	}
 }

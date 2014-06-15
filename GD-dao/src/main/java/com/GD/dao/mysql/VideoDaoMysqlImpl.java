@@ -19,7 +19,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 
 	@Override
 	public boolean add(Video video) {
-		String sql = "INSERT INTO video(name,description,url,play,commonts,love,user_id,nickname,posttime,del,status,video_type,video_grade_type,label) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO video(name,description,url,play,comments,love,user_id,nickname,posttime,del,status,video_type,video_grade_type,label,video_source_type) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		StatementParameter params = new StatementParameter();
 		params.setString(video.getName());
 		params.setString(video.getDescription());
@@ -35,6 +35,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		params.setInt(video.getVideoType());
 		params.setInt(video.getVideoGradeType());
 		params.setString(video.getLabel());
+		params.setInt(video.getVideoSourceType());
 		return jdbc.insertForBoolean(sql, params);
 	}
 

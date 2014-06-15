@@ -9,7 +9,7 @@ import com.GD.type.VideoType;
 
 public interface VideoService {
 
-	public boolean add(int userId, String name, String description, String label, String url, VideoType videoType);
+	public boolean add(Video video);
 
 	public int count(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, String name, String label);
 

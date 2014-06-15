@@ -60,9 +60,7 @@ public class UserHandlerImpl implements UserHandler {
 		if (StringUtils.isNotEmpty(form.getDescription())) {
 			user.setDescription(form.getDescription());
 		}
-		if (StringUtils.isNotEmpty(form.getDanceType())) {
-			user.setDanceType(form.getDanceType());
-		}
+		user.setDanceType(form.getDanceType());
 		if (form.getSex() == 0 || form.getSex() == 1) {
 			user.setSex(form.getSex());
 		}

@@ -38,6 +38,8 @@ public class User {
 	private String description;
 	/** 个性签名 */
 	private String sign;
+	/** 头像地址 */
+	private String headImg;
 
 	public int getSex() {
 		return sex;
@@ -181,6 +183,14 @@ public class User {
 
 	public void setSign(String sign) {
 		this.sign = sign;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 
 }

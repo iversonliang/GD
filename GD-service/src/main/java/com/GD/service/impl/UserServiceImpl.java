@@ -110,4 +110,14 @@ public class UserServiceImpl implements UserService {
 		return userDao.update(user);
 	}
 
+	@Override
+	public boolean updateHeadImg(int userId, String url) {
+		return userDao.updateHeadImg(userId, url);
+	}
+
+	@Override
+	public boolean updatePassword(int userId, String password) {
+		return userDao.updatePassword(userId, password);
+	}
+
 }

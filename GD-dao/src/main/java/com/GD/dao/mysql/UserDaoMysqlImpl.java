@@ -20,10 +20,11 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public long add(User user) {
-		String sql = "INSERT INTO user(username,password,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO user(username,password,head_img,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
+		param.setString(user.getHeadImg());
 		param.setString(StringUtils.defaultIfEmpty(user.getNickname(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getEmail(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getQuestion(), ""));
@@ -107,6 +108,18 @@ public class UserDaoMysqlImpl implements UserDao {
 	public User getByEmail(String email) {
 		String sql = "SELECT * FROM user WHERE email=?";
 		return jdbc.query(sql, User.class, email);
+	}
+
+	@Override
+	public boolean updateHeadImg(int userId, String url) {
+		String sql = "UPDATE user SET head_img=? WHERE user_id=?";
+		return jdbc.updateForBoolean(sql, url, userId);
+	}
+
+	@Override
+	public boolean updatePassword(int userId, String password) {
+		String sql = "UPDATE user SET password=? WHERE user_id=?";
+		return jdbc.updateForBoolean(sql, password, userId);
 	}
 
 }

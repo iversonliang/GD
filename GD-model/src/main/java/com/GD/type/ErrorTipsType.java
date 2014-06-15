@@ -13,7 +13,13 @@ public enum ErrorTipsType implements Inum{
 	LOGIN_FAIL(10, "注册失败，请稍后再试"),
 	SIGN_ERROR(11, "签名长度需要在1-38位以内"),
 	DESCRIPTION_ERROR(12, "个人简介长度需要在1-200位以内"),
-	BIRTHDAY_ERROR(13, "错误生日时间");
+	BIRTHDAY_ERROR(13, "错误生日时间"),
+	UPLOAD_ERROR(14, "上传失败"),
+	RESET_PASSWORD_ERROR(15, "密码错误"),
+	VIDEO_NAME_ERROR(16, "视频标题错误"),
+	VIDEO_URL_ERROR(17, "视频地址错误"),
+	VIDEO_TYPE_ERROR(18, "视频类型错误"),
+	VIDEO_SOURCE_TYPE_ERROR(19, "视频来源类型错误");
 
 	private int key;
 	private String desc;
