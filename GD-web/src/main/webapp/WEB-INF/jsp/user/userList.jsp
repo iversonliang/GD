@@ -19,7 +19,7 @@
 			<li><a href="#">活跃舞者</a></li>
 		</ul>
 		<div class="content bg_w">
-			<c:forEach items="${list}" var="user">
+			<c:forEach items="${userVoList}" var="user">
 				<div class="uitem" >
 					<div class="avatar"><a href="#"><img src="${user.headImg }" width="120" height="120" /></a></div>
 					<div class="userInfo">
@@ -32,19 +32,19 @@
 							<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> 欧洲 <span class="c999">/</span> 街舞　<br>
 							<div class="c999">
 								<p class="atPersonDes">${user.sign }</p>
-								粉丝：<a href="#" target="_blank">4787</a>&nbsp;&nbsp;&nbsp;&nbsp;
-								作品数：<a href="#" target="_blank">81</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<!-- 粉丝：<a href="#" target="_blank">4787</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+								作品数：<a href="#" target="_blank">${user.videoCount }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 								人气：<a href="#" target="_blank">545645</a>
 							</div>
-							<div class="userList_cz">
+							<!-- <div class="userList_cz">
 								<a href="#" class="btnfollow">加关注</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="atImg">
-						<a href="#" target="_blank"><img src="images/cover.jpg" width="120" height="75"></a>
-						<a href="#" target="_blank"><img src="images/cover.jpg" width="120" height="75"></a>
-						<a href="#" target="_blank"><img src="images/cover.jpg" width="120" height="75"></a>
+						<c:forEach items="${user.videoList}" var="video">
+							<a href="/video/video.do?vid=${video.videoId }&st=2" target="_blank"><img src="${video.imgUrl }" width="120" height="75"></a>
+						</c:forEach>
 						<a href="#" target="_blank" class="more">更多</a>
 					</div>
 					<div class="clear"></div>

@@ -23,6 +23,8 @@ public interface UserDao {
 	public boolean updateStatus(int userId, int status);
 
 	public boolean update(User user);
+	
+	public boolean incrVideo(int userId);
 
 	/**
 	 * 更新用户头像地址

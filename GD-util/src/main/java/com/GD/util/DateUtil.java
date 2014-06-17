@@ -120,8 +120,7 @@ public class DateUtil {
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_STRING);
 			return simpleDateFormat.parse(dateString);
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			throw new RuntimeException("时间转化格式错误!" + "[dateString=" + dateString + "]" + "[FORMAT_STRING=" + FORMAT_STRING + "]");
 		}
 	}
@@ -139,8 +138,7 @@ public class DateUtil {
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_STRING);
 			return simpleDateFormat.parse(dateString);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return defaultDate;
 		}
 
@@ -161,8 +159,7 @@ public class DateUtil {
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);
 			return simpleDateFormat.parse(dateString);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return defaultDate;
 		}
 
@@ -442,8 +439,7 @@ public class DateUtil {
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatString);
 			return simpleDateFormat.parse(dateString);
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			throw new RuntimeException("时间转化格式错误!" + "[dateString=" + dateString + "]" + "[FORMAT_STRING=" + formatString + "]");
 		}
 	}
@@ -575,24 +571,118 @@ public class DateUtil {
 		try {
 			date = myFormatter.parse(date1);
 			mydate = myFormatter.parse(date2);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
 		long day = (date.getTime() - mydate.getTime()) / (24 * 60 * 60 * 1000);
 		return (int) day;
 	}
 
-	// public static void main(String[] args) {
-	// // int s = 315532800;
-	// // int seconds =
-	// // DateUtil.getShortSeconds(DateUtil.toDate("2020-01-01 00:00:00"));
-	// // System.out.println("seconds:" + seconds);
-	// System.out.println(DateUtil.getSeconds());
-	// // int hour = (DateUtil.getSeconds()) % DAY_SECOND / HOUR_SECOND;
-	//
-	// int time = DateUtil.getHour(DateUtil.getSeconds());
-	// System.out.println("time:" + time);
-	// }
-}
+	/**
+	 * 获取一天开始时间
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getDayStart(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
 
+	/**
+	 * 获取一天结束时间
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date getDayEnd(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		return calendar.getTime();
+	}
+
+	/**
+	 * 获取两个日期的天数差
+	 * 
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static int getOnlyDays(Date date1, Date date2) {
+		date1 = DateUtil.getOnlyDate(date1);
+		date2 = DateUtil.getOnlyDate(date2);
+		int day = (int) ((date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000));
+		day = Math.abs(day);
+		return day > 0 ? day : -day;
+	}
+
+	/**
+	 * 获取两个时间相差分钟数
+	 * 
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static int getMinutes(Date date1, Date date2) {
+		int minutes = (int) ((date1.getTime() - date2.getTime()) / (60 * 1000));
+		minutes = Math.abs(minutes);
+		return minutes;
+	}
+
+	/**
+	 * 获取星期几（1-7表示周一到周日）
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static int getDayOfWeek(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+		if (dayOfWeek > 1) {
+			dayOfWeek--;
+		} else {
+			dayOfWeek = 7;
+		}
+		return dayOfWeek;
+	}
+
+	/**
+	 * 获取发布时间距离当前时间提示
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String getDeployTimeTips(Date date) {
+		Date now = new Date();
+		int days = DateUtil.getOnlyDays(date, now);
+		if (days == 0) {
+			int minutes = DateUtil.getMinutes(date, now);
+			if (minutes == 0) {
+				minutes = 1;
+			}
+			if (minutes < 60) {
+				return minutes + "分钟前";
+			} else {
+				return minutes / 60 + "小时前";
+			}
+		} else {
+			if (days < 30) {
+				return days + "日前";
+			} else if (days < 365) {
+				return days / 30 + "月前";
+			} else {
+				return days / 365 + "年前";
+			}
+		}
+	}
+
+}

@@ -1,29 +1,18 @@
-package com.GD.model;
+package com.GD.web.vo;
 
 import java.util.Date;
+import java.util.List;
 
-public class User {
+import com.GD.model.Video;
+
+public class UserVO {
 	private int userId;
 	/** 用户名 */
 	private String username;
-	/** 密码 */
-	private String password;
 	/** 昵称 */
 	private String nickname;
-	/** 邮箱 */
-	private String email;
-	/** 保密问题 */
-	private String question;
-	/** 保密答案 */
-	private String answer;
-	/** 用户状态 */
-	private int status;
 	/** 性别 */
 	private int sex;
-	/** 权限等级 */
-	private int role;
-	/** 注册时间 */
-	private Date posttime;
 	/** 城市 */
 	private String city;
 	/** 省份 */
@@ -42,22 +31,8 @@ public class User {
 	private String headImg;
 	/** 作品数量 */
 	private int videoCount;
-
-	public int getVideoCount() {
-		return videoCount;
-	}
-
-	public void setVideoCount(int videoCount) {
-		this.videoCount = videoCount;
-	}
-
-	public int getSex() {
-		return sex;
-	}
-
-	public void setSex(int sex) {
-		this.sex = sex;
-	}
+	/** 作品列表 */
+	private List<Video> videoList;
 
 	public int getUserId() {
 		return userId;
@@ -65,30 +40,6 @@ public class User {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
 	}
 
 	public String getUsername() {
@@ -99,14 +50,6 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getNickname() {
 		return nickname;
 	}
@@ -115,28 +58,12 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public Date getPosttime() {
-		return posttime;
+	public int getSex() {
+		return sex;
 	}
 
-	public void setPosttime(Date posttime) {
-		this.posttime = posttime;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
 
 	public String getCity() {
@@ -201,6 +128,22 @@ public class User {
 
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
+	}
+
+	public int getVideoCount() {
+		return videoCount;
+	}
+
+	public void setVideoCount(int videoCount) {
+		this.videoCount = videoCount;
+	}
+
+	public List<Video> getVideoList() {
+		return videoList;
+	}
+
+	public void setVideoList(List<Video> videoList) {
+		this.videoList = videoList;
 	}
 
 }

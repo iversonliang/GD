@@ -13,6 +13,7 @@ import com.GD.service.VideoService;
 import com.GD.type.RoleType;
 import com.GD.type.StatusType;
 import com.GD.type.VideoGradeType;
+import com.GD.type.VideoSourceType;
 import com.GD.type.VideoType;
 import com.GD.util.UserUtil;
 import com.GD.util.VideoUtil;
@@ -27,17 +28,21 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public boolean add(Video video) {
-		return videoDao.add(video);
+		boolean result = videoDao.add(video);
+		if (result) {
+			userService.incrVideo(video.getUserId());
+		}
+		return result;
 	}
 
 	@Override
-	public int count(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, String name, String label) {
-		return videoDao.count(statusType.getKey(), videoType.getKey(), videoGradeType.getKey(), name, label);
+	public int count(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, String name, String label) {
+		return videoDao.count(statusType.getKey(), videoType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), name, label);
 	}
 
 	@Override
-	public List<Video> list(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, String name, String label, int start, int size) {
-		return videoDao.list(statusType.getKey(), videoType.getKey(), videoGradeType.getKey(), name, label, start, size);
+	public List<Video> list(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, String name, String label, int start, int size) {
+		return videoDao.list(statusType.getKey(), videoType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), name, label, start, size);
 	}
 
 	@Override
@@ -74,6 +79,26 @@ public class VideoServiceImpl implements VideoService {
 			result = videoDao.del(videoId);
 		}
 		return result;
+	}
+
+	@Override
+	public int countAll() {
+		return this.count(StatusType.NORMAL, VideoType.ALL, VideoGradeType.ALL, VideoSourceType.ALL, null, null);
+	}
+
+	@Override
+	public List<Video> listAll(int start, int size) {
+		return this.list(StatusType.NORMAL, VideoType.ALL, VideoGradeType.ALL, VideoSourceType.ALL, null, null, start, size);
+	}
+
+	@Override
+	public Video get(int videoId) {
+		return videoDao.get(videoId);
+	}
+
+	@Override
+	public List<Video> list(int userId, int start, int size) {
+		return videoDao.list(userId, start, size);
 	}
 
 

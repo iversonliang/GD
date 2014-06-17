@@ -20,11 +20,12 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public long add(User user) {
-		String sql = "INSERT INTO user(username,password,head_img,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO user(username,password,head_img,video_count,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
 		param.setString(user.getHeadImg());
+		param.setInt(user.getVideoCount());
 		param.setString(StringUtils.defaultIfEmpty(user.getNickname(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getEmail(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getQuestion(), ""));
@@ -120,6 +121,12 @@ public class UserDaoMysqlImpl implements UserDao {
 	public boolean updatePassword(int userId, String password) {
 		String sql = "UPDATE user SET password=? WHERE user_id=?";
 		return jdbc.updateForBoolean(sql, password, userId);
+	}
+
+	@Override
+	public boolean incrVideo(int userId) {
+		String sql = "UPDATE user SET video_count=video_count+1 WHERE user_id=?";
+		return jdbc.updateForBoolean(sql, userId);
 	}
 
 }

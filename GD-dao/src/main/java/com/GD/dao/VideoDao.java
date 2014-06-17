@@ -12,9 +12,11 @@ public interface VideoDao {
 	
 	public boolean del(int videoId);
 
-	public int count(int status, int videoType, int videoGradeType, String name, String label);
+	public int count(int status, int videoType, int videoGradeType, int videoSourceType, String name, String label);
 
-	public List<Video> list(int status, int videoType, int videoGradeType, String name, String label, int start, int size);
+	public List<Video> list(int status, int videoType, int videoGradeType, int videoSourceType, String name, String label, int start, int size);
+	
+	public List<Video> list(int userId, int start, int size);
 
 	/**
 	 * 增加播放次数

@@ -1,23 +1,33 @@
 package com.GD.handler.impl;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.GD.handler.UserHandler;
 import com.GD.model.User;
+import com.GD.model.Video;
 import com.GD.service.UserService;
+import com.GD.service.VideoService;
 import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
 import com.GD.util.DateUtil;
 import com.GD.util.Static;
 import com.GD.web.form.UserForm;
+import com.GD.web.vo.UserVO;
 
 @Component
 public class UserHandlerImpl implements UserHandler {
 	
+
+	@Autowired
+	private VideoService videoService;
 	@Autowired
 	private UserService userService;
 
@@ -44,6 +54,7 @@ public class UserHandlerImpl implements UserHandler {
 		user.setSex(form.getSex());
 		user.setStatus(UserStatusType.UNACTIVATED.getKey());
 		user.setUsername(form.getUsername());
+		user.setVideoCount(0);
 		
 		return user;
 	}
@@ -70,6 +81,25 @@ public class UserHandlerImpl implements UserHandler {
 		}
 		user.setBirthday(birthday);
 		return user;
+	}
+
+	@Override
+	public List<UserVO> toVoList(List<User> list) {
+		List<UserVO> voList = new ArrayList<UserVO>();
+		for (User user : list) {
+			List<Video> videoList = videoService.list(user.getUserId(), 0, 3);
+			UserVO vo = new UserVO();
+			try {
+				BeanUtils.copyProperties(vo, user);
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			vo.setVideoList(videoList);
+			voList.add(vo);
+		}
+		return voList;
 	}
 
 }

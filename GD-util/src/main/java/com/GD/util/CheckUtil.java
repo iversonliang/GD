@@ -107,9 +107,6 @@ public class CheckUtil {
 		if (StringUtils.isEmpty(video.getUrl())) {
 			throw new InvalidParameterException(ErrorTipsType.VIDEO_URL_ERROR.getDesc());
 		}
-		if (StringUtils.isEmpty(video.getName())) {
-			throw new InvalidParameterException(ErrorTipsType.VIDEO_NAME_ERROR.getDesc());
-		}
 		try {
 			VideoType.toType(video.getVideoType());
 		} catch (Exception e) {

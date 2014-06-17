@@ -120,4 +120,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.updatePassword(userId, password);
 	}
 
+	@Override
+	public boolean incrVideo(int userId) {
+		return userDao.incrVideo(userId);
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.GD.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
+import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.util.ViewUtil;
@@ -30,6 +33,8 @@ public class VedioController {
 	
 	@Autowired
 	private VideoHandler videoHandler;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private VideoService videoService;
 	
@@ -51,12 +56,13 @@ public class VedioController {
 		int errorCode = -1;
 		try {
 			video = videoHandler.getVideo(userId, form);
+			result = videoService.add(video);
 		} catch (Exception e) {
 			e.printStackTrace();
 			message = e.getMessage();
 			errorCode = ErrorTipsType.toType(message).getKey();
 		}
-		result = videoService.add(video);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		map.put("message", message);
@@ -64,5 +70,17 @@ public class VedioController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/video.do", method = RequestMethod.GET)
+	public ModelAndView video(HttpServletRequest request, HttpServletResponse response, HttpSession session, int vid) {
+		videoService.play(vid);
+		Video video = videoService.get(vid);
+		User user = userService.get(video.getUserId());
+		List<Video> userVideoList = videoService.list(user.getUserId(), 0, 3);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("video", video);
+		model.addObject("user", user);
+		model.addObject("userVideoList", userVideoList);
+		return model;
+	}
 	
 }

@@ -22,6 +22,8 @@ public interface UserService {
 	public User get(int userId);
 
 	public boolean update(User user);
+	
+	public boolean incrVideo(int userId);
 
 	/**
 	 * 注册时检查用户名是否合法

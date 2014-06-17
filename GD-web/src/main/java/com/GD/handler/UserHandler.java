@@ -1,7 +1,10 @@
 package com.GD.handler;
 
+import java.util.List;
+
 import com.GD.model.User;
 import com.GD.web.form.UserForm;
+import com.GD.web.vo.UserVO;
 
 public interface UserHandler {
 	
@@ -9,4 +12,5 @@ public interface UserHandler {
 	
 	public User getUpdateUser(int userId, UserForm form);
 	
+	public List<UserVO> toVoList(List<User> list);
 }

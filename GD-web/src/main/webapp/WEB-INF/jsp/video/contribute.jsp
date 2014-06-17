@@ -52,13 +52,13 @@
 							<td>
 								<span class="selectBox">
 								<select name="classify" id="type">
-								<option value="-1" selected="selected">选择分类</option>
-								<option value="0">编舞</option>
-								<option value="1">Solo</option>
-								<option value="2">Battle</option>
-								<option value="3">教学</option>
-								<option value="4">专访</option>
-								<option value="5">电影</option>
+								<option value="0" selected="selected">选择分类</option>
+								<option value="1">编舞</option>
+								<option value="2">Solo</option>
+								<option value="3">Battle</option>
+								<option value="4">教学</option>
+								<option value="5">专访</option>
+								<option value="6">电影</option>
 								</select></span> <span id="provinceTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
 
 							</td>
@@ -68,9 +68,9 @@
 							<td>
 								<span class="selectBox">
 								<select name="type" id="sourceType">
-								<option value="-1" selected="selected">选择类型</option>
-								<option value="0">原创</option>
-								<option value="1">转载</option>
+								<option value="0" selected="selected">选择类型</option>
+								<option value="1">原创</option>
+								<option value="2">转载</option>
 								</select></span> <span id="provinceTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
 
 							</td>

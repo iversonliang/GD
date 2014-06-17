@@ -25,7 +25,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +48,7 @@ import com.GD.util.ViewUtil;
 import com.GD.web.form.LoginForm;
 import com.GD.web.form.UserForm;
 import com.GD.web.servlet.BusinessHandleThread;
+import com.GD.web.vo.UserVO;
 
 @Controller
 @RequestMapping(value = UserController.DIR)
@@ -337,6 +337,7 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
+	@LoginRequired
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> upload(HttpServletRequest request, HttpServletResponse response) {
@@ -397,12 +398,13 @@ public class UserController {
 	@RequestMapping(value = "/userList.do", method = RequestMethod.GET)
 	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		List<User> list = userService.list(0, 10);
+		List<UserVO> voList = userHandler.toVoList(list);
 		String headImg = (String) session.getAttribute("headImg");
 		if (StringUtils.isEmpty(headImg)) {
 			headImg = "/images/defaultHead.jpg";
 		}
 		ModelAndView model = ViewUtil.getView(DIR);
-		model.addObject("list", list);
+		model.addObject("userVoList", voList);
 		model.addObject("headImg", headImg);
 		return model;
 	}
@@ -429,5 +431,19 @@ public class UserController {
 		out.flush();
 	}
 	
+	@RequestMapping(value = "/personal.do", method = RequestMethod.GET)
+	public ModelAndView personal(HttpServletRequest request, HttpServletResponse response, HttpSession session, int userId) {
+		Object idObj = session.getAttribute("userId");
+		int myId = 0;
+		if (idObj != null) {
+			myId = (Integer) idObj;
+		}
+		boolean isMyPage = myId == userId;
+		User user = userService.get(userId);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("user", user);
+		model.addObject("isMyPage", isMyPage);
+		return model;
+	}
 	
 }

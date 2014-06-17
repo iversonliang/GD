@@ -19,9 +19,12 @@ public class VideoDaoMysqlImpl implements VideoDao {
 
 	@Override
 	public boolean add(Video video) {
-		String sql = "INSERT INTO video(name,description,url,play,comments,love,user_id,nickname,posttime,del,status,video_type,video_grade_type,label,video_source_type) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO video(name,img_url,play_url,source_site_type,description,url,play,comments,love,user_id,nickname,posttime,del,status,video_type,video_grade_type,label,video_source_type) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		StatementParameter params = new StatementParameter();
 		params.setString(video.getName());
+		params.setString(video.getImgUrl());
+		params.setString(video.getPlayUrl());
+		params.setInt(video.getSourceSiteType());
 		params.setString(video.getDescription());
 		params.setString(video.getUrl());
 		params.setInt(video.getPlay());
@@ -46,46 +49,51 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	}
 
 	@Override
-	public int count(int status, int videoType, int videoGradeType, String name, String label) {
+	public int count(int status, int videoType, int videoGradeType, int videoSourceType, String name, String label) {
 		String sql = "SELECT COUNT(*) FROM video WHERE 1=1";
 		StatementParameter params = new StatementParameter();
-		sql += this.getQuerySql(params, sql, videoType, videoGradeType, name, label, status);
+		sql += this.getQuerySql(params, videoType, videoGradeType, videoSourceType, name, label, status);
 		return jdbc.queryForInt(sql, params);
 	}
 
 	@Override
-	public List<Video> list(int status, int videoType, int videoGradeType, String name, String label, int start, int size) {
+	public List<Video> list(int status, int videoType, int videoGradeType, int videoSourceType, String name, String label, int start, int size) {
 		String sql = "SELECT * FROM video WHERE 1=1";
 		StatementParameter params = new StatementParameter();
-		sql += this.getQuerySql(params, sql, videoType, videoGradeType, name, label, status);
-		sql += " LIMIT ?,?";
+		sql += this.getQuerySql(params, videoType, videoGradeType, videoSourceType, name, label, status);
+		sql += " ORDER BY play DESC LIMIT ?,?";
 		params.setInt(start);
 		params.setInt(size);
-		return null;
+		return jdbc.queryForList(sql, Video.class, params);
 	}
 
-	private String getQuerySql(StatementParameter params, String sql, int videoType, int videoGradeType, String name, String label, int status) {
+	private String getQuerySql(StatementParameter params, int videoType, int videoGradeType, int videoSourceType, String name, String label, int status) {
+		String querySql = "";
 		if (status != 0) {
-			sql += " AND status=?";
+			querySql += " AND status=?";
 			params.setInt(status);
 		}
 		if (videoType != 0) {
-			sql += " AND video_type=?";
+			querySql += " AND video_type=?";
 			params.setInt(videoType);
 		}
 		if (videoGradeType != 0) {
-			sql += " AND video_grade_type=?";
+			querySql += " AND video_grade_type=?";
 			params.setInt(videoGradeType);
 		}
+		if (videoSourceType != 0) {
+			querySql += " AND video_source_type=?";
+			params.setInt(videoSourceType);
+		}
 		if (StringUtils.isNotEmpty(name)) {
-			sql += " AND name LIKE ?";
+			querySql += " AND name LIKE ?";
 			params.setString("%" + name + "%");
 		}
 		if (StringUtils.isNotEmpty(label)) {
-			sql += " AND label LIKE ?";
+			querySql += " AND label LIKE ?";
 			params.setString("%" + label + "%");
 		}
-		return sql;
+		return querySql;
 	}
 
 	@Override
@@ -110,6 +118,12 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	public boolean del(int videoId) {
 		String sql = "UPDATE video SET del=1 WHERE video_id=?";
 		return jdbc.updateForBoolean(sql, videoId);
+	}
+
+	@Override
+	public List<Video> list(int userId, int start, int size) {
+		String sql = "SELECT * FROM video WHERE user_id=? ORDER BY play DESC LIMIT ?,?";
+		return jdbc.queryForList(sql, Video.class, userId, start, size);
 	}
 	
 }

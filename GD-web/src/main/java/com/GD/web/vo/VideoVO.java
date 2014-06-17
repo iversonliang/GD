@@ -1,16 +1,15 @@
-package com.GD.model;
+package com.GD.web.vo;
 
 import java.util.Date;
 
-public class Video {
+
+public class VideoVO {
 
 	private int videoId;
 	/** 视频名称 */
 	private String name;
 	/** 描述 */
 	private String description;
-	/** 视频原地址 */
-	private String url;
 	/** 缩略图地址 */
 	private String imgUrl;
 	/** 播放地址 */
@@ -27,10 +26,6 @@ public class Video {
 	private String nickname;
 	/** 发表时间 */
 	private Date posttime;
-	/** 是否删除 */
-	private boolean del;
-	/** 状态 */
-	private int status;
 	/** 视频类型 */
 	private int videoType;
 	/** 推荐类型 */
@@ -39,72 +34,10 @@ public class Video {
 	private int videoSourceType;
 	/** 标签 */
 	private String label;
-	/** 视频来源网站 */
-	private int sourceSiteType;
-
-	public int getSourceSiteType() {
-		return sourceSiteType;
-	}
-
-	public void setSourceSiteType(int sourceSiteType) {
-		this.sourceSiteType = sourceSiteType;
-	}
-
-	public String getPlayUrl() {
-		return playUrl;
-	}
-
-	public void setPlayUrl(String playUrl) {
-		this.playUrl = playUrl;
-	}
-
-	public String getImgUrl() {
-		return imgUrl;
-	}
-
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
-
-	public int getVideoSourceType() {
-		return videoSourceType;
-	}
-
-	public void setVideoSourceType(int videoSourceType) {
-		this.videoSourceType = videoSourceType;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	public int getVideoType() {
-		return videoType;
-	}
-
-	public void setVideoType(int videoType) {
-		this.videoType = videoType;
-	}
-
-	public int getVideoGradeType() {
-		return videoGradeType;
-	}
-
-	public void setVideoGradeType(int videoGradeType) {
-		this.videoGradeType = videoGradeType;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
+	/** 发布时间距离提示 */
+	private String deployTimeTips;
+	/** 用户头像地址 */
+	private String headImg;
 
 	public int getVideoId() {
 		return videoId;
@@ -130,12 +63,20 @@ public class Video {
 		this.description = description;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getImgUrl() {
+		return imgUrl;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getPlayUrl() {
+		return playUrl;
+	}
+
+	public void setPlayUrl(String playUrl) {
+		this.playUrl = playUrl;
 	}
 
 	public int getPlay() {
@@ -186,12 +127,52 @@ public class Video {
 		this.posttime = posttime;
 	}
 
-	public boolean isDel() {
-		return del;
+	public int getVideoType() {
+		return videoType;
 	}
 
-	public void setDel(boolean del) {
-		this.del = del;
+	public void setVideoType(int videoType) {
+		this.videoType = videoType;
+	}
+
+	public int getVideoGradeType() {
+		return videoGradeType;
+	}
+
+	public void setVideoGradeType(int videoGradeType) {
+		this.videoGradeType = videoGradeType;
+	}
+
+	public int getVideoSourceType() {
+		return videoSourceType;
+	}
+
+	public void setVideoSourceType(int videoSourceType) {
+		this.videoSourceType = videoSourceType;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getDeployTimeTips() {
+		return deployTimeTips;
+	}
+
+	public void setDeployTimeTips(String deployTimeTips) {
+		this.deployTimeTips = deployTimeTips;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 
 }

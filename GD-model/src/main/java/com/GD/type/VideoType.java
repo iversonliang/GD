@@ -1,12 +1,13 @@
 package com.GD.type;
 
 public enum VideoType implements Inum{
-	CHOREOGRAPHY(0, "编舞"),
-	SOLO(1, "SOLO"),
-	BATTLE(2, "BATTLE"),
-	TEACH(3, "教学"),
-	INTERVIEW(4, "采访"),
-	VIDEO(5, "电影")
+	ALL(0, "全部"),
+	CHOREOGRAPHY(1, "编舞"),
+	SOLO(2, "SOLO"),
+	BATTLE(3, "BATTLE"),
+	TEACH(4, "教学"),
+	INTERVIEW(5, "采访"),
+	VIDEO(6, "电影")
 	;
 
 	private int key;
