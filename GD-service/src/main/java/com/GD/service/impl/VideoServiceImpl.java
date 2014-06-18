@@ -101,5 +101,10 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.list(userId, start, size);
 	}
 
+	@Override
+	public int count(int userId) {
+		return videoDao.count(userId);
+	}
+
 
 }

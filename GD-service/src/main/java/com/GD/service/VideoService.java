@@ -20,6 +20,8 @@ public interface VideoService {
 	
 	public List<Video> listAll(int start, int size);
 	
+	public int count(int userId);
+	
 	public List<Video> list(int userId, int start, int size);
 
 	public List<Video> list(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, String name, String label, int start, int size);

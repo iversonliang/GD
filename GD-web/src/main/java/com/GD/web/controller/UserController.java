@@ -35,13 +35,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.handler.UserHandler;
+import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
+import com.GD.model.Video;
 import com.GD.service.UserService;
+import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.util.AuthCodeUtil;
 import com.GD.util.CheckUtil;
 import com.GD.util.FileUtil;
+import com.GD.util.Pager;
 import com.GD.util.RegularUtil;
 import com.GD.util.RequestUtil;
 import com.GD.util.ViewUtil;
@@ -49,11 +53,16 @@ import com.GD.web.form.LoginForm;
 import com.GD.web.form.UserForm;
 import com.GD.web.servlet.BusinessHandleThread;
 import com.GD.web.vo.UserVO;
+import com.GD.web.vo.VideoVO;
 
 @Controller
 @RequestMapping(value = UserController.DIR)
 public class UserController {
 
+	@Autowired
+	private VideoHandler videoHandler;
+	@Autowired
+	private VideoService videoService;
 	@Autowired
 	private UserHandler userHandler;
 	@Autowired
@@ -396,7 +405,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/userList.do", method = RequestMethod.GET)
-	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page) {
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		int totalCount = userService.count();
+		Pager pager = new Pager(totalCount, page, 10, "/user/userList.do", null);
 		List<User> list = userService.list(0, 10);
 		List<UserVO> voList = userHandler.toVoList(list);
 		String headImg = (String) session.getAttribute("headImg");
@@ -406,6 +420,7 @@ public class UserController {
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("userVoList", voList);
 		model.addObject("headImg", headImg);
+		model.addObject("pager", pager);
 		return model;
 	}
 
@@ -432,17 +447,28 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/personal.do", method = RequestMethod.GET)
-	public ModelAndView personal(HttpServletRequest request, HttpServletResponse response, HttpSession session, int userId) {
+	public ModelAndView personal(HttpServletRequest request, HttpServletResponse response, HttpSession session, int userId, Integer page) {
 		Object idObj = session.getAttribute("userId");
+		if (page == null || page < 1) {
+			page = 1;
+		}
 		int myId = 0;
 		if (idObj != null) {
 			myId = (Integer) idObj;
 		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		int totalCount = videoService.count(userId);
+		Pager pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
 		boolean isMyPage = myId == userId;
 		User user = userService.get(userId);
+		List<Video> list = videoService.list(userId, pager.getFirst(), 16);
+		List<VideoVO> videoVoList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("user", user);
 		model.addObject("isMyPage", isMyPage);
+		model.addObject("videoVoList", videoVoList);
+		model.addObject("pager", pager);
 		return model;
 	}
 	

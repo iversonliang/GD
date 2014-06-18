@@ -125,5 +125,11 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		String sql = "SELECT * FROM video WHERE user_id=? ORDER BY play DESC LIMIT ?,?";
 		return jdbc.queryForList(sql, Video.class, userId, start, size);
 	}
+
+	@Override
+	public int count(int userId) {
+		String sql = "SELECT COUNT(*) FROM video WHERE user_id=?";
+		return jdbc.queryForInt(sql, userId);
+	}
 	
 }

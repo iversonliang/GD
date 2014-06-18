@@ -47,7 +47,7 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div id="pages">
+		<!-- <div id="pages">
 			<a href="#" id="pageactive">1</a>
 			<a href="#">2</a>
 			<a href="#">3</a>
@@ -56,7 +56,8 @@
 			<span>...</span>
 			<a href="#">87</a>
 			<a href="#" id="pagenext"><span class="yy-icon pagenext"></span></a></div>
-	</div>
+		</div> -->
+		<jsp:include page="/WEB-INF/jsp/include/pager.jsp"></jsp:include>
 </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 

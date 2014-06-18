@@ -51,16 +51,7 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div id="pages">
-			<a href="http://www.uehtml.com/?page=1" id="pageactive">1</a>
-			<a href="http://www.uehtml.com/?page=2">2</a>
-			<a href="http://www.uehtml.com/?page=3">3</a>
-			<a href="http://www.uehtml.com/?page=4">4</a>
-			<a href="http://www.uehtml.com/?page=5">5</a>
-			<span>...</span>
-			<a href="http://www.uehtml.com/?page=87">87</a>
-			<a href="http://www.uehtml.com/?page=2" id="pagenext"><span class="yy-icon pagenext"></span></a></div>
-	</div>
+		<jsp:include page="/WEB-INF/jsp/include/pager.jsp"></jsp:include>
 </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 

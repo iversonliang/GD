@@ -16,10 +16,10 @@
 	<div class="main">
 		<div class="articleInfo">
 			<div class="author">
-				<div class="avatar"><a href="#"><img src="${user.headImg }" width="50" height="50" /></a></div>
+				<div class="avatar"><a href="/user/personal.do?userId=${video.userId }" target="_blank"><img src="${user.headImg }" width="50" height="50" /></a></div>
 				<div class="userInfo">
 					<h2>${video.name }</h2>
-					<p><a href="#" target="_blank">${video.nickname }</a> <c:if test="${video.videoSourceType == 1 }">原创</c:if><c:if test="${video.videoSourceType == 2 }">转载</c:if>作品 上传于 <fmt:formatDate value="${video.posttime }" pattern="yyyy-MM-dd" /></p>
+					<p><a href="/user/personal.do?userId=${video.userId }" target="_blank">${video.nickname }</a> <c:if test="${video.videoSourceType == 1 }">原创</c:if><c:if test="${video.videoSourceType == 2 }">转载</c:if>作品 上传于 <fmt:formatDate value="${video.posttime }" pattern="yyyy-MM-dd" /></p>
 				</div>
 			</div>
 			<div class="articledata">
@@ -39,12 +39,12 @@
 		</div>
 		<div class="authorMore">
 			<div class="uitem">
-				<div class="avatar"><a href="#"><img src="${user.headImg }" width="120" height="120" /></a></div>
+				<div class="avatar"><a href="/user/personal.do?userId=${video.userId }" target="_blank"><img src="${user.headImg }" width="120" height="120" /></a></div>
 				<div class="userInfo">
 					<div class="atPerson">
 						<div class="vm">
 							<b>
-							<a href="http://shaozi.zcool.com.cn" class="c4095ce f14" target="_blank">${video.nickname }</a>
+							<a href="/user/personal.do?userId=${video.userId }" class="c4095ce f14" target="_blank">${video.nickname }</a>
 							</b>
 						</div>
 						<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> 欧洲 <span class="c999">/</span> 街舞　<br>
@@ -63,7 +63,7 @@
 					<c:forEach items="${userVideoList}" var="video">
 						<a href="/video/video.do?vid=${video.videoId }&st=2"><img src="${video.imgUrl }" width="120" height="75"></a>
 					</c:forEach>
-					<a href="#" target="_blank" class="more">更多</a>
+					<a href="/user/personal.do?userId=${video.userId }" target="_blank" class="more">更多</a>
 				</div>
 				<div class="clear"></div>
 			</div>

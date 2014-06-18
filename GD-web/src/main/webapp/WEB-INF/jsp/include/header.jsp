@@ -36,7 +36,7 @@
 						<a href="#"><img src="${headImg }" width="24" height="24"></a>
 						<div class="son">
 							<ul>
-								<li><a href="/user/personal.do?userId=${user.userId }">我的主页</a></li>
+								<li><a href="/user/personal.do?userId=${userId }">我的主页</a></li>
 								<!-- <li><a href="">我上传的</a></li>
 								<li><a href="">我分享的</a></li>
 								<li><a href="">我喜欢的</a></li> -->
