@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.GD</groupId>
@@ -20,6 +19,11 @@
 			<dependency>
 				<groupId>com.GD</groupId>
 				<artifactId>GD-service</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.GD</groupId>
+				<artifactId>GD-exception</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -45,7 +49,8 @@
 		<module>GD-util</module>
 		<module>GD-dao</module>
 		<module>GD-model</module>
-	</modules>
+    <module>GD-exception</module>
+  </modules>
 
 	<build>
 		<!-- 插件管理 -->
@@ -60,7 +65,7 @@
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
-				<!-- maven-compiler-plugin 用来编译src/main/java/目录下的主源码 -->
+				<!-- maven-compiler-plugin 用来编译src/main/java/目录下的主源�?-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>

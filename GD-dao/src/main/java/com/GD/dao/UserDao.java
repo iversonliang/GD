@@ -14,7 +14,7 @@ public interface UserDao {
 
 	public int count();
 
-	public List<User> list(int start, int size);
+	public List<User> listByPosttime(int start, int size);
 
 	public User get(String username, String password);
 

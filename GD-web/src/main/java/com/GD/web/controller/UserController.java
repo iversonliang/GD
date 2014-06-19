@@ -240,7 +240,8 @@ public class UserController {
 			message = e.getMessage();
 			errorCode = ErrorTipsType.toType(message).getKey();
 		}
-		boolean result = userService.update(user);
+		User oldUser = userService.get(userId);
+		boolean result = userService.update(user, oldUser);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		map.put("message", message);
@@ -405,13 +406,23 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/userList.do", method = RequestMethod.GET)
-	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page) {
+	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page, Integer type) {
 		if (page == null || page < 1) {
 			page = 1;
 		}
+		if (type == null || type > 1) {
+			type = 0;
+		}
 		int totalCount = userService.count();
-		Pager pager = new Pager(totalCount, page, 10, "/user/userList.do", null);
-		List<User> list = userService.list(0, 10);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("type", type);
+		Pager pager = new Pager(totalCount, page, 10, "/user/userList.do", param);
+		List<User> list;
+		if (type == 0) {
+			list = userService.listByPosttime(pager.getFirst(), 10);
+		} else {
+			list = userService.listActiveUser(pager.getFirst(), 10);
+		}
 		List<UserVO> voList = userHandler.toVoList(list);
 		String headImg = (String) session.getAttribute("headImg");
 		if (StringUtils.isEmpty(headImg)) {

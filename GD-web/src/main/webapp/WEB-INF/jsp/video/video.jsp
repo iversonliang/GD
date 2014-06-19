@@ -30,7 +30,8 @@
 		<div class="playerarea">
 			<div class="player">
 				<c:if test="${video.sourceSiteType == 1 }">
-					<embed src="${video.playUrl }" allowFullScreen="true" quality="high" width="940" height="588" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+					<%-- <embed src="${video.playUrl }" allowFullScreen="true" quality="high" width="940" height="588" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed> --%>
+					<embed src="${video.playUrl }" quality="high" width="940" height="588" align="middle" allowScriptAccess="never" allowNetworking="internal" allowfullscreen="true" autostart="0" type="application/x-shockwave-flash"></embed>
 				</c:if>
 			</div>
 			<div class="videoCont">

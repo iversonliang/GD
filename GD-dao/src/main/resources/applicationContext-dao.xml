@@ -41,6 +41,7 @@
 		<property name="port" value="${redis.port}" />
 		<property name="timeout" value="${redis.timeout}" />
 		<property name="maxActive" value="${redis.maxActive}" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
 		<property name="initialPoolSize" value="${redis.initialPoolSize}" />
 	</bean>
 

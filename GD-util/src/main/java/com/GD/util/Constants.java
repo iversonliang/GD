@@ -1,5 +1,7 @@
 package com.GD.util;
 
+import java.util.Date;
+
 public class Constants {
 	
 	public final static String VIDEO_DOMAIN_YOUKU = "v.youku.com";//优酷
@@ -23,4 +25,6 @@ public class Constants {
 	public final static String VIDEO_DOMAIN_NETEASE = "v.163.com/video";//网易  
 	  
 	public final static String VIDEO_DOMAIN_QQ = "v.qq.com/play";//QQ 
+	
+	public final static Date DEFAULT_DATE = DateUtil.str2Date("1970-01-01 00:00:00");
 }

@@ -9,7 +9,7 @@ public class RedisPool {
 	
 	private JedisPool pool;
 	
-	public RedisPool(String host, int port, int timeout, int maxActive) {
+	public RedisPool(String host, int port, int timeout, int maxActive, int maxTotal) {
 		if (maxActive <= 0) {
 			maxActive = 128;
 		}
@@ -19,15 +19,20 @@ public class RedisPool {
 
 		GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
 		poolConfig.setMaxIdle(maxActive);
+		poolConfig.setMaxTotal(maxTotal);
 		// poolConfig.setMinEvictableIdleTimeMillis(24 * 3600 * 1000);
-		poolConfig.setMinEvictableIdleTimeMillis(-1);// ahai 20131024 已建立的连接不回收，高并发时建立连接会很耗资源
+		poolConfig.setMinEvictableIdleTimeMillis(1 * 3600 * 1000);// ahai 20131024 已建立的连接不回收，高并发时建立连接会很耗资源
+//		poolConfig.setMinEvictableIdleTimeMillis(-1);// ahai 20131024 已建立的连接不回收，高并发时建立连接会很耗资源
 		// poolConfig.setTimeBetweenEvictionRunsMillis(-1);
 
 		this.pool = new JedisPool(poolConfig, host, port, timeout);
 	}
 	
 	public Jedis getResource() {
-		return pool.getResource();
+		System.out.println("--------start get resources----------");
+		Jedis jedis = pool.getResource();
+		System.out.println("--------end get resources----------");
+		return jedis;
 	}
 
 	public void returnBrokenResource(Jedis jedis) {

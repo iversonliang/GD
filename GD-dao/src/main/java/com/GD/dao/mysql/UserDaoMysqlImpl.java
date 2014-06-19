@@ -52,15 +52,17 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public boolean update(User user) {
-		String sql = "UPDATE user set username=?,password=?,nickname=?,email=?,question=?,answer=?,posttime=?,status=?,sex=?,role=?,city=?,province=?,real_name=?,birthday=?,dance_type=?,description=?,sign=? WHERE user_id=?;";
+		String sql = "UPDATE user set username=?,password=?,head_img=?,video_count=?,nickname=?,email=?,question=?,answer=?,posttime=?,status=?,sex=?,role=?,city=?,province=?,real_name=?,birthday=?,dance_type=?,description=?,sign=? WHERE user_id=?;";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
+		param.setString(user.getHeadImg());
+		param.setInt(user.getVideoCount());
 		param.setString(StringUtils.defaultIfEmpty(user.getNickname(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getEmail(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getQuestion(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getAnswer(), ""));
-		param.setDate(new Date());
+		param.setDate(user.getPosttime());
 		param.setInt(user.getStatus());
 		param.setInt(user.getSex());
 		param.setInt(user.getRole());
@@ -94,8 +96,8 @@ public class UserDaoMysqlImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> list(int start, int size) {
-		String sql = "SELECT * FROM user";
+	public List<User> listByPosttime(int start, int size) {
+		String sql = "SELECT * FROM user ORDER BY posttime DESC";
 		return jdbc.queryForList(sql, User.class, start, size);
 	}
 

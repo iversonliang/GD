@@ -97,14 +97,15 @@ public class CaptureVideoUtil {
 	 * @param url 视频URL
 	 */
 	public static CaptureVideo getYouKuCaptureVideo(String url) throws Exception {
-		Document doc = getURLContent(url);
+//		Document doc = getURLContent(url);
 		/**
 		 * 获取视频地址
 		 */
-		String flash = getElementAttrById(doc, "link2", "value");
+//		String flash = getElementAttrById(doc, "link2", "value");
 		
 		int no = url.indexOf("id_");
         String videoId = url.substring(no+3, url.indexOf(".html"));
+        String flash = "http://static.youku.com/v/swf/qplayer.swf?VideoIDS="+videoId+"=&isAutoPlay=true&isShowRelatedVideo=false&embedid=-&showAd=0";
         //获取视频信息数据的URL对象
         URL myurl = new URL("http://v.youku.com/player/getPlayList/VideoIDS/"+videoId+"/timezone/+08/version/5/source/out?password=&ran=2513&n=3");
         //从URL对象中获取输入流

@@ -21,8 +21,8 @@ public interface UserService {
 
 	public User get(int userId);
 
-	public boolean update(User user);
-	
+	public boolean update(User newUser, User oldUser);
+
 	public boolean incrVideo(int userId);
 
 	/**
@@ -45,7 +45,7 @@ public interface UserService {
 
 	public int count();
 
-	public List<User> list(int start, int size);
+	public List<User> listByPosttime(int start, int size);
 
 	/**
 	 * 更新头像
@@ -64,4 +64,13 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean updatePassword(int userId, String password);
+
+	/**
+	 * 列出活跃用户（按用户最后发表视频时间排序）
+	 * 
+	 * @param start
+	 * @param size
+	 * @return
+	 */
+	public List<User> listActiveUser(int start, int size);
 }

@@ -15,8 +15,8 @@
 <div id="wrapper">
 	<div class="main">
 		<ul class="tab">
-			<li class="active"><a href="#">推荐舞者</a></li>
-			<li><a href="#">活跃舞者</a></li>
+			<li <c:if test="${param.type == 0 || empty param.type}">class="active"</c:if> ><a href="/user/userList.do?type=0">推荐舞者</a></li>
+			<li <c:if test="${param.type == 1}">class="active"</c:if> ><a href="/user/userList.do?type=1">活跃舞者</a></li>
 		</ul>
 		<div class="content bg_w">
 			<c:forEach items="${userVoList}" var="user">
