@@ -67,11 +67,25 @@ public class RegularUtil {
 			throw new InvalidParameterException(ErrorTipsType.USERNAME_ERROR.getDesc());
 		}
 	}
-	
+
 	private static boolean match(String reg, String checkStr) {
 		Pattern pattern = Pattern.compile(reg);
 		Matcher matcher = pattern.matcher(checkStr);
 		return matcher.matches();
 	}
 
+	/**
+	 * 检查字符长度
+	 * 
+	 * @param str
+	 * @param length
+	 * @param type
+	 */
+	public static void checkStrLength(String str, int length, ErrorTipsType type) {
+		String reg = "[^\\x00-\\xff]";
+		int currLength = str.replaceAll(reg, "xx").length();
+		if (currLength > length) {
+			throw new InvalidParameterException(type.getDesc());
+		}
+	}
 }

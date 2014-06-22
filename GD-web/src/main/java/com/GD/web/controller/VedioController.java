@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.GD.handler.CommentHandler;
 import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
+import com.GD.model.Comment;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.CommentService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.util.ViewUtil;
 import com.GD.web.form.VideoForm;
+import com.GD.web.vo.CommentVO;
 
 @Controller
 @RequestMapping(value = VedioController.DIR)
@@ -32,9 +36,13 @@ public class VedioController {
 	public static final String DIR = "/video";
 	
 	@Autowired
+	private CommentHandler commentHandler;
+	@Autowired
 	private VideoHandler videoHandler;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CommentService commentService;
 	@Autowired
 	private VideoService videoService;
 	
@@ -76,10 +84,13 @@ public class VedioController {
 		Video video = videoService.get(vid);
 		User user = userService.get(video.getUserId());
 		List<Video> userVideoList = videoService.list(user.getUserId(), 0, 3);
+		List<Comment> commentList = commentService.list(vid, 0, 10);
+		List<CommentVO> commentVoList = commentHandler.toVoList(commentList);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("video", video);
 		model.addObject("user", user);
 		model.addObject("userVideoList", userVideoList);
+		model.addObject("commentList", commentVoList);
 		return model;
 	}
 	

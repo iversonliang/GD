@@ -6,10 +6,12 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.GD.dao.ActiveUserDao;
 import com.GD.dao.UserActivateDao;
 import com.GD.dao.UserDao;
+import com.GD.dao.UserHeadImgDao;
 import com.GD.email.MailInfo;
 import com.GD.model.User;
 import com.GD.service.UserService;
@@ -22,6 +24,8 @@ import com.GD.util.ListUtil;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private UserHeadImgDao userHeadImgDao;
 	@Autowired
 	private ActiveUserDao activeUserDao;
 	@Autowired
@@ -179,6 +183,17 @@ public class UserServiceImpl implements UserService {
 			list = activeUserDao.list(start, size);
 		}
 		return list;
+	}
+
+	@Override
+	public String getHeadImg(int userId) {
+		String headImg = userHeadImgDao.get(userId);
+		if (StringUtils.isEmpty(headImg)) {
+			User user = this.get(userId);
+			userHeadImgDao.add(userId, user.getHeadImg());
+			headImg = user.getHeadImg();
+		}
+		return headImg;
 	}
 
 }

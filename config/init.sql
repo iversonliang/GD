@@ -20,6 +20,21 @@ CREATE TABLE video (
   UNIQUE KEY uniq_url (url)
 );
 
+DROP TABLE IF EXISTS comment;
+CREATE TABLE comment (
+  comment_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  video_id int(10) NOT NULL default 0,
+  content varchar(200) NOT NULL DEFAULT '',
+  user_id int(10) NOT NULL default 0,
+  nickname varchar(20) NOT NULL DEFAULT '',
+  reply_user_id int(10) NOT NULL default 0,
+  reply_nickname varchar(20) NOT NULL DEFAULT '',
+  posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  del smallint(3) NOT NULL DEFAULT 0,
+  status smallint(3) NOT NULL DEFAULT 0,
+  PRIMARY KEY (comment_id)
+);
+
 
 CREATE TABLE `user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,

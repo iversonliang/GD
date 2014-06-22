@@ -1,13 +1,68 @@
 package com.GD.model;
 
+import java.util.Date;
+
 public class Comment {
 
 	private int commentId;
+	private int videoId;
 	private String content;
 	private int userId;
-	private String username;
+	private String nickname;
+	private int replyUserId;
+	private String replyNickname;
+	private String replyContent;
 	private boolean del;
 	private int status;
+	private Date posttime;
+
+	public String getReplyContent() {
+		return replyContent;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+
+	public Date getPosttime() {
+		return posttime;
+	}
+
+	public void setPosttime(Date posttime) {
+		this.posttime = posttime;
+	}
+
+	public int getVideoId() {
+		return videoId;
+	}
+
+	public void setVideoId(int videoId) {
+		this.videoId = videoId;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public int getReplyUserId() {
+		return replyUserId;
+	}
+
+	public void setReplyUserId(int replyUserId) {
+		this.replyUserId = replyUserId;
+	}
+
+	public String getReplyNickname() {
+		return replyNickname;
+	}
+
+	public void setReplyNickname(String replyNickname) {
+		this.replyNickname = replyNickname;
+	}
 
 	public int getCommentId() {
 		return commentId;
@@ -31,14 +86,6 @@ public class Comment {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public boolean isDel() {

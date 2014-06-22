@@ -45,7 +45,9 @@
 						<c:forEach items="${user.videoList}" var="video">
 							<a href="/video/video.do?vid=${video.videoId }&st=2" target="_blank"><img src="${video.imgUrl }" width="120" height="75"></a>
 						</c:forEach>
-						<a href="#" target="_blank" class="more">更多</a>
+						<c:if test="${!empty user.videoList }">
+							<a href="#" target="_blank" class="more">更多</a>
+						</c:if>
 					</div>
 					<div class="clear"></div>
 				</div>

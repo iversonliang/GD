@@ -73,4 +73,12 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> listActiveUser(int start, int size);
+
+	/**
+	 * 获取用户头像
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public String getHeadImg(int userId);
 }

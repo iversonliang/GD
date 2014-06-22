@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <div id="topBar">
+	<input type="hidden" value="${isLogin }" id="loginStatus">
 	<div class="topContent">
 		<div class="topLogo">
 			<a href="/index.do"><img src="/images/logo.gif" /></a>

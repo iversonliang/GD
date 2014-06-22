@@ -357,15 +357,23 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Long hset(String key, String field, String value) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Long hset(final String key, final String field, final String value) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.hset(key, field, value);
+			}
+		});
 	}
 
 	@Override
-	public String hget(String key, String field) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public String hget(final String key, final String field) {
+		return (String) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.hget(key, field);
+			}
+		});
 	}
 
 	@Override

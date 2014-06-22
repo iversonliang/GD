@@ -75,11 +75,14 @@
 				<div class="sc_textbox">
 					<form method="get">
 						<textarea class="normalArea" id="commentContent"></textarea>
-						<div class="applybtn"><a href="#" class="btnfollow">发 布</a></div>
+						<div class="applybtn"><a href="javascript:Comment.add(${video.videoId })" class="btnfollow">发 布</a></div>
 					</form>
 				</div>
 			</div>
 			<div class="sc_list">
+				<div id="commentArea">
+					<jsp:include page="/WEB-INF/jsp/comment/loadComment.jsp"></jsp:include>
+				</div>
 				<div class="uitem">
 					<div class="avatar"><a href="#"><img src="images/avatar.png" width="50" height="50"></a></div>
 					<div class="msgcont">

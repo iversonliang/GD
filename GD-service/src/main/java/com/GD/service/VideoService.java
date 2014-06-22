@@ -14,6 +14,8 @@ public interface VideoService {
 	
 	public Video get(int videoId);
 	
+	public void checkVideo(int videoId);
+	
 	public int countAll();
 
 	public int count(StatusType statusType, VideoType videoType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, String name, String label);

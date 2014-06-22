@@ -19,7 +19,9 @@ public enum ErrorTipsType implements Inum{
 	VIDEO_NAME_ERROR(16, "视频标题错误"),
 	VIDEO_URL_ERROR(17, "视频地址错误"),
 	VIDEO_TYPE_ERROR(18, "视频类型错误"),
-	VIDEO_SOURCE_TYPE_ERROR(19, "视频来源类型错误");
+	VIDEO_SOURCE_TYPE_ERROR(19, "视频来源类型错误"),
+	VIDEO_ID_ERROR(20, "视频ID错误"),
+	COMMENT_CONTENT_ERROR(21, "评论长度错误");
 
 	private int key;
 	private String desc;

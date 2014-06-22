@@ -10,6 +10,7 @@ import com.GD.model.User;
 import com.GD.model.Video;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
+import com.GD.type.ErrorTipsType;
 import com.GD.type.RoleType;
 import com.GD.type.StatusType;
 import com.GD.type.VideoGradeType;
@@ -104,6 +105,14 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public int count(int userId) {
 		return videoDao.count(userId);
+	}
+
+	@Override
+	public void checkVideo(int videoId) {
+		Video video = videoDao.get(videoId);
+		if (video == null) {
+			throw new RuntimeException(ErrorTipsType.VIDEO_ID_ERROR.getDesc());
+		}
 	}
 
 

@@ -66,22 +66,14 @@ public class CheckUtil {
 		if (StringUtils.isEmpty(sign)) {
 			throw new InvalidParameterException(ErrorTipsType.SIGN_ERROR.getDesc());
 		}
-		String reg = "[^\\x00-\\xff]";
-		int length = sign.replaceAll(reg, "xx").length();
-		if (length > 38) {
-			throw new InvalidParameterException(ErrorTipsType.SIGN_ERROR.getDesc());
-		}
+		RegularUtil.checkStrLength(sign, 38, ErrorTipsType.SIGN_ERROR);
 	}
 
 	public static void checkDescription(String description) {
 		if (StringUtils.isEmpty(description)) {
 			throw new InvalidParameterException(ErrorTipsType.DESCRIPTION_ERROR.getDesc());
 		}
-		String reg = "[^\\x00-\\xff]";
-		int length = description.replaceAll(reg, "xx").length();
-		if (length > 200) {
-			throw new InvalidParameterException(ErrorTipsType.DESCRIPTION_ERROR.getDesc());
-		}
+		RegularUtil.checkStrLength(description, 200, ErrorTipsType.DESCRIPTION_ERROR);
 	}
 
 	public static void checkBirthday(Date birthday) {
@@ -117,5 +109,12 @@ public class CheckUtil {
 		} catch (Exception e) {
 			throw new InvalidParameterException(ErrorTipsType.VIDEO_SOURCE_TYPE_ERROR.getDesc());
 		}
+	}
+	
+	public static void checkComment(String content) {
+		if (StringUtils.isEmpty(content)) {
+			throw new InvalidParameterException(ErrorTipsType.COMMENT_CONTENT_ERROR.getDesc());
+		}
+		RegularUtil.checkStrLength(content, 200, ErrorTipsType.COMMENT_CONTENT_ERROR);
 	}
 }

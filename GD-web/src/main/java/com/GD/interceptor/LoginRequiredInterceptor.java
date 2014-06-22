@@ -19,7 +19,8 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		System.out.println(DateUtil.date2String(new Date()) + "  methodName: " + invocation.getMethod().getName());
+		String methodName = invocation.getMethod().getName();
+		System.out.println(DateUtil.date2String(new Date()) + "  methodName: " + methodName);
 		boolean isInvoke = true;
 
 		Object[] args = invocation.getArguments();
@@ -51,7 +52,8 @@ public class LoginRequiredInterceptor implements MethodInterceptor {
 			session.setAttribute("jumpPage", url);
 			response.sendRedirect("/page/login.jsp");
 			isInvoke = false;
-		}
+		} 
+		
 		// 执行被拦截的方法，切记，如果此方法不调用，则被拦截的方法不会被执行。
 		if (isInvoke) {
 			return invocation.proceed();

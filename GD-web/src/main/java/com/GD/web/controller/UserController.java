@@ -74,6 +74,7 @@ public class UserController {
 	
 	private static final String ACTUAL_CODE = "actualCode";
 	private static final String JUMP_PAGE = "jumpPage";
+	private static final String REFERER = "referer";
 
 	/**
 	 * 获取验证码
@@ -91,7 +92,7 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getCode.do", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getCode(HttpServletResponse response, HttpSession session) throws IOException {
+	public ResponseEntity<byte[]> getCode(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		MediaType mtype = MediaType.valueOf(format);
 		responseHeaders.setContentType(mtype);
@@ -120,6 +121,7 @@ public class UserController {
 		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
 		String message = "";
 		String headImg = "/images/defaultHead.jpg";
+		String jumpUrl = "";
 		int errorCode = -1;
 		boolean result = false;
 		try {
@@ -132,6 +134,7 @@ public class UserController {
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("userId", userId);
 				session.setAttribute("headImg", headImg);
+				jumpUrl = this.getJumpUrl(session);
 				result = true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -156,6 +159,7 @@ public class UserController {
 		map.put("result", result);
 		map.put("message", message);
 		map.put("errorCode", errorCode);
+		map.put("redirect", jumpUrl);
 		return map;
 	}
 	
@@ -314,9 +318,7 @@ public class UserController {
 				
 				// 设置session过期时间（单位秒）
 				session.setMaxInactiveInterval(1800);
-				jumpUrl = (String) session.getAttribute(JUMP_PAGE);
-				session.removeAttribute(JUMP_PAGE);
-				jumpUrl = StringUtils.defaultIfEmpty(jumpUrl, "");
+				jumpUrl = this.getJumpUrl(session);
 				result = true;
 				session.removeAttribute(ACTUAL_CODE);
 			} else {
@@ -327,6 +329,15 @@ public class UserController {
 		map.put("redirect", jumpUrl);
 		map.put("result", result);
 		return map;
+	}
+	
+	private String getJumpUrl(HttpSession session) {
+		String jumpUrl = (String) session.getAttribute(JUMP_PAGE);
+		session.removeAttribute(JUMP_PAGE);
+		String referer = (String) session.getAttribute(REFERER);
+		referer = StringUtils.defaultIfEmpty(referer, "");
+		jumpUrl = StringUtils.defaultIfEmpty(jumpUrl, referer);
+		return jumpUrl;
 	}
 	
 	@LoginRequired

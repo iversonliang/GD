@@ -56,7 +56,11 @@ var Register = {
 		var url = "/user/register.do";
 		AjaxJson.post(url, param).done(function(data) {
 			if (data.result == true) {
-				window.location.href = "/user/userInfo.do";
+				var url = "/user/userInfo.do";
+				if (Common.isNotEmpty(data.redirect)) {
+					url = data.redirect;
+				}
+				window.location.href = url;
 			} else {
 				if (data.errorCode == 3) {
 					$("#codeTip").html(data.message);
