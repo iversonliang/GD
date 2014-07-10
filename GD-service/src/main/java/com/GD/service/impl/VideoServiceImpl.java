@@ -57,9 +57,8 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public boolean addCommont(int videoId, String comment) {
-		// TODO TO BE DONE
-		return false;
+	public boolean incrComment(int videoId) {
+		return videoDao.commont(videoId);
 	}
 
 	@Override

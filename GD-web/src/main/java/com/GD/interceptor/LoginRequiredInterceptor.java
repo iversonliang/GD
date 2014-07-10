@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 import com.GD.util.DateUtil;
@@ -17,10 +19,12 @@ import com.GD.util.RequestUtil;
 @Component
 public class LoginRequiredInterceptor implements MethodInterceptor {
 
+	private Log logger = LogFactory.getLog(this.getClass());
+	
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		String methodName = invocation.getMethod().getName();
-		System.out.println(DateUtil.date2String(new Date()) + "  methodName: " + methodName);
+		logger.info(DateUtil.date2String(new Date()) + "  methodName: " + methodName);
 		boolean isInvoke = true;
 
 		Object[] args = invocation.getArguments();

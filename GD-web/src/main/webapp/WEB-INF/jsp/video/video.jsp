@@ -71,7 +71,7 @@
 		</div>
 		<div class="s_comment">
 			<div class="sc_box">
-				<h3 class="sc_title">评论(0)</h3>
+				<h3 class="sc_title">评论(<span id="commentCount">${video.comments }</span>)</h3>
 				<div class="sc_textbox">
 					<form method="get">
 						<textarea class="normalArea" id="commentContent"></textarea>
@@ -82,34 +82,6 @@
 			<div class="sc_list">
 				<div id="commentArea">
 					<jsp:include page="/WEB-INF/jsp/comment/loadComment.jsp"></jsp:include>
-				</div>
-				<div class="uitem">
-					<div class="avatar"><a href="#"><img src="images/avatar.png" width="50" height="50"></a></div>
-					<div class="msgcont">
-						<div class="msg_title">
-							<h3><a href="#" target="_blank">张建鹏</a> 1小时前：</h3>
-							<div class="clear"></div>
-						</div>
-						<p>落地的时候可以试试坑碰一下，然后发动的节奏加快点。</p>
-						<div class="toMyCom">
-							<div class="toMyComTop"></div>
-							<div class="mblContent"><a href="#" target="_blank">GD郭团辉</a>：赞喔！</div>
-						</div>
-						<div class="msg_sub"><a href="#">回复</a></div>
-					</div>
-					<div class="clear"></div>
-				</div>
-				<div class="uitem">
-					<div class="avatar"><a href="#"><img src="images/avatar_other.jpg" width="50" height="50"></a></div>
-					<div class="msgcont">
-						<div class="msg_title">
-							<h3><a href="#" target="_blank">GD郭团辉</a> 1小时前：</h3>
-							<div class="clear"></div>
-						</div>
-						<p>赞喔！</p>
-						<div class="msg_sub"><a href="#">回复</a></div>
-					</div>
-					<div class="clear"></div>
 				</div>
 				<div class="more">
 					<a href="#">更多</a>

@@ -147,7 +147,6 @@ public class Redis implements JedisCommands {
 		try {
 			return this.pool.getResource();
 		}
-		// ahai 20131026 新版redis连接池的异常信息已经包含了IP和端口信息.
 		catch (JedisConnectionException e) {
 			String message = this.getErrorMessage(e);
 			throw new JedisConnectionException(message, e);
@@ -606,6 +605,7 @@ public class Redis implements JedisCommands {
 		throw new NotImplementedException();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Set<String> zrevrange(final String key, final long start, final long end) {
 		return (Set<String>) this.execute(new Invoker() {

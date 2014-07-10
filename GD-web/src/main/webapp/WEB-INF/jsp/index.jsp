@@ -28,16 +28,24 @@
 			<c:forEach items="${videoVoList}" var="video">
 				<div class="citem">
 					<div class="cover">
-						<a target="_blank" href="/video/video.do?vid=${video.videoId }&st=2">
+						<c:choose>
+							<c:when test="${video.videoSourceType == 1 }"><a target="_blank" href="/video/video.do?vid=${video.videoId }&st=2"></c:when>
+							<c:otherwise><a target="_blank" href="/video/video.do?vid=${video.videoId }&st=3"></c:otherwise>
+						</c:choose>
 						<img src="${video.imgUrl }" />
 						<div class="play_button"></div>
 						</a>
 					</div>
-					<div class="citemtxt"><a class="citemtitle" target="_blank" href="/video/video.do?vid=${video.videoId }" title="${video.name }">${video.name }</a></div>
+					<div class="citemtxt">
+						<c:choose>
+							<c:when test="${video.videoSourceType == 1 }"><a class="citemtitle" target="_blank" href="/video/video.do?vid=${video.videoId }&st=2" title="${video.name }">${video.name }</a></c:when>
+							<c:otherwise><a class="citemtitle" target="_blank" href="/video/video.do?vid=${video.videoId }&st=3" title="${video.name }">${video.name }</a></c:otherwise>
+						</c:choose>
+					</div>
 					<div class="itemInfo">
 						<span class="yy-icon time">${video.deployTimeTips }</span>
-						<a href="#" class="yy-icon comment"><span>${video.comments }</span></a>
-						<a href="#" class="yy-icon like"><span>${video.love }</span></a>
+						<a href="#" class="yy-icon comment"><span>${video.love }</span></a>
+						<a href="#" class="yy-icon like"><span>${video.comments }</span></a>
 						<a href="#" class="yy-icon views"><span>${video.play }</span></a>
 					</div>
 					<div class="user">

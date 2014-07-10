@@ -12,7 +12,7 @@
 			<a href="#" <c:if test="${ param.st == 2 }">class="selected"</c:if>>作品</a>
 			<a href="#" <c:if test="${ param.st == 3 }">class="selected"</c:if>>灵感</a>
 			<a href="#" <c:if test="${ param.st == 4 }">class="selected"</c:if>>专题</a>
-			<a href="/user/userList.do" <c:if test="${ param.st == 5 }">class="selected"</c:if>>舞者</a>
+			<a href="/user/userList.do?st=5" <c:if test="${ param.st == 5 }">class="selected"</c:if>>舞者</a>
 		</div>
 		<div class="topHeadeRight">
 			<!-- <div class="doLogBox" style="display:none;"><a href="#">登录</a>|<a href="#">注册</a></div>
@@ -57,8 +57,8 @@
 					<a href="#" class="tosms "></a>
 					<div class="son">
 						<ul>
-							<li><a href="msg-tocomments.html">给我的评论</a></li>
-							<li><a href="msg-torecomments.html" class="newone">给我的回复+1</a></li>
+							<li><a href="/comment/toMyComments.do">给我的评论</a></li>
+							<li><a href="/comment/replyToMe.do" class="newone">给我的回复+1</a></li>
 							<li><a href="msg-system.html">系统通知</a></li>
 							<li><a href="msg-announcement.html">优舞公告</a></li>
 						</ul>

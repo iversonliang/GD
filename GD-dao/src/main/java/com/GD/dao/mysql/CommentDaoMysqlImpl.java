@@ -42,7 +42,7 @@ public class CommentDaoMysqlImpl implements CommentDao{
 
 	@Override
 	public List<Comment> list(int videoId, int start, int size) {
-		String sql = "SELECT * FROM comment WHERE video_id=? AND del=0 LIMIT ?,?";
+		String sql = "SELECT * FROM comment WHERE video_id=? AND del=0 ORDER BY posttime DESC LIMIT ?,?";
 		return jdbc.queryForList(sql, Comment.class, videoId, start, size);
 	}
 
@@ -50,6 +50,30 @@ public class CommentDaoMysqlImpl implements CommentDao{
 	public int count(int videoId) {
 		String sql = "SELECT COUNT(*) FROM comment WHERE video_id=? AND del=0";
 		return jdbc.queryForInt(sql, videoId);
+	}
+
+	@Override
+	public List<Comment> listMyComments(int userId, int start, int size) {
+		String sql = "SELECT * FROM comment WHERE user_id=? ORDER BY posttime DESC LIMIT ?,?";
+		return jdbc.queryForList(sql, Comment.class, userId, start, size);
+	}
+
+	@Override
+	public List<Comment> listReplyToMe(int userId, int start, int size) {
+		String sql = "SELECT * FROM comment WHERE reply_user_id=? ORDER BY posttime DESC LIMIT ?,?";
+		return jdbc.queryForList(sql, Comment.class, userId, start, size);
+	}
+
+	@Override
+	public int countMyComments(int userId) {
+		String sql = "SELECT COUNT(*) FROM comment WHERE user_id=?";
+		return jdbc.queryForInt(sql, userId);
+	}
+
+	@Override
+	public int countReplyToMe(int userId) {
+		String sql = "SELECT COUNT(*) FROM comment WHERE reply_user_id=?";
+		return jdbc.queryForInt(sql, userId);
 	}
 
 	

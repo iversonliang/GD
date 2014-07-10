@@ -13,4 +13,12 @@ public interface CommentService {
 	public List<Comment> list(int videoId, int start, int size);
 
 	public int count(int videoId);
+	
+	public int countMyComments(int userId);
+	
+	public int countReplyToMe(int userId);
+	
+	public List<Comment> listMyComments(int userId, int start, int size);
+	
+	public List<Comment> listReplyToMe(int userId, int start, int size);
 }

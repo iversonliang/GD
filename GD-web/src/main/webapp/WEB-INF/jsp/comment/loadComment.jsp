@@ -19,12 +19,12 @@
 				<div class="toMyCom">
 					<div class="toMyComTop"></div>
 					<div class="mblContent">
-						<a href="#" target="_blank">GD郭团辉</a>：赞喔！
+						<a href="#" target="_blank">${comment.replyNickname }</a>：${comment.replyContent }
 					</div>
 				</div>
 			</c:if>
 			<div class="msg_sub">
-				<a href="#">回复</a>
+				<a href="javascript:Comment.setReply('${comment.userId }', '${comment.nickname }', '${comment.content }')">回复</a>
 			</div>
 		</div>
 		<div class="clear"></div>

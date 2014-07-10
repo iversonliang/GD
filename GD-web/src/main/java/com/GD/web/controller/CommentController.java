@@ -3,6 +3,7 @@ package com.GD.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +21,7 @@ import com.GD.model.Comment;
 import com.GD.service.CommentService;
 import com.GD.service.UserService;
 import com.GD.type.ErrorTipsType;
+import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 import com.GD.web.form.CommentForm;
 import com.GD.web.vo.CommentVO;
@@ -69,8 +71,51 @@ public class CommentController {
 		model.addObject("result", result);
 		model.addObject("message", message);
 		model.addObject("errorCode", errorCode);
-		System.out.println(commentVoList.size());
 		model.addObject("commentList", commentVoList);
+		return model;
+	}
+	
+	@LoginRequired
+	@RequestMapping( value = "/myComments.do", method = RequestMethod.GET)
+	public ModelAndView myComments(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page) {
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		int userId = (Integer) session.getAttribute("userId");
+		int count = commentService.countMyComments(userId);
+		Pager pager = new Pager(count, page, 10, "/comment/myComments.do", null);
+		List<Comment> list = commentService.listMyComments(userId, pager.getFirst(), 10);
+		List<CommentVO> voList = commentHandler.toVoList(list);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("commentVoList", voList);
+		model.addObject("pager", pager);
+		return model;
+	}
+	
+	@LoginRequired
+	@RequestMapping( value = "/replyToMe.do", method = RequestMethod.GET)
+	public ModelAndView replyToMe(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page) {
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		int userId = (Integer) session.getAttribute("userId");
+		int count = commentService.countReplyToMe(userId);
+		Pager pager = new Pager(count, page, 10, "/comment/replyToMe.do", null);
+		List<Comment> list = commentService.listReplyToMe(userId, pager.getFirst(), 10);
+		List<CommentVO> voList = commentHandler.toVoList(list);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("commentVoList", voList);
+		model.addObject("pager", pager);
+		return model;
+	}
+	
+	@LoginRequired
+	@RequestMapping( value = "/toMyComments.do", method = RequestMethod.GET)
+	public ModelAndView toMyComments(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page) {
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		ModelAndView model = ViewUtil.getView(DIR);
 		return model;
 	}
 }

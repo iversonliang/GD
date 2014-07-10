@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -34,7 +35,7 @@ public class HomeController {
 	private VideoService videoService;
 	
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
-	public ModelAndView index(HttpServletRequest request, HttpSession session, Integer page) throws UnsupportedEncodingException {
+	public ModelAndView index(HttpServletRequest request, HttpServletResponse response, HttpSession session, Integer page) throws UnsupportedEncodingException {
 		long start = System.currentTimeMillis();
 		if (page == null || page < 1) {
 			page = 1;

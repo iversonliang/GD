@@ -10,17 +10,17 @@ import org.springframework.stereotype.Component;
 
 import com.GD.handler.CommentHandler;
 import com.GD.model.Comment;
-import com.GD.service.UserService;
+import com.GD.model.Video;
 import com.GD.util.DateUtil;
+import com.GD.web.cache.LruCache;
 import com.GD.web.vo.CommentVO;
 
 @Component
 public class CommentHandlerImpl implements CommentHandler{
 	
 	@Autowired
-	private UserService userService;
+	private LruCache lruCache;
 	
-
 	@Override
 	public List<CommentVO> toVoList(List<Comment> list) {
 		List<CommentVO> voList = new ArrayList<CommentVO>();
@@ -34,11 +34,14 @@ public class CommentHandlerImpl implements CommentHandler{
 				e.printStackTrace();
 			}
 			vo.setDeployTimeTips(DateUtil.getDeployTimeTips(comment.getPosttime()));
-			String headImg = userService.getHeadImg(comment.getUserId());
+			String headImg = lruCache.getHeadImg(comment.getUserId());
 			vo.setHeadImg(headImg);
+			Video video = lruCache.getVideo(comment.getVideoId());
+			vo.setVideoName(video.getName());
+			vo.setVideoSourceType(video.getVideoSourceType());
 			voList.add(vo);
 		}
 		return voList;
 	}
-
+	
 }

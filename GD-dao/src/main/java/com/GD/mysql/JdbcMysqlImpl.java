@@ -436,7 +436,6 @@ public class JdbcMysqlImpl extends JdbcDaoSupport implements Jdbc {
 	 */
 	public Integer queryForInt(String sql) {
 		try {
-			System.out.println("template:----------------" + this.getJdbcTemplate());
 			@SuppressWarnings("deprecation")
 			int result = this.getJdbcTemplate().queryForInt(sql);
 			if (log) {

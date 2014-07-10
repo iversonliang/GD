@@ -110,7 +110,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 
 	@Override
 	public boolean commont(int videoId) {
-		String sql = "UPDATE video SET commont=commont+1 WHERE video_id=?";
+		String sql = "UPDATE video SET comments=comments+1 WHERE video_id=?";
 		return jdbc.updateForBoolean(sql, videoId);
 	}
 

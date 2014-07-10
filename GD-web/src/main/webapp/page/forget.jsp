@@ -7,6 +7,12 @@
 <title>优舞网</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
+<%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
+<c:if test="${!empty username}">
+<script type="text/javascript">
+	window.location.href = "/index.do";
+</script>
+</c:if>
 <script type="text/javascript"> 
     function changeImg() {
         var imgSrc = $("#imgObj"); 

@@ -1,9 +1,12 @@
 package com.GD.web.vo;
 
+import java.util.Date;
 
 public class CommentVO {
 	private int commentId;
 	private int videoId;
+	private String videoName;
+	private int videoSourceType;
 	private String content;
 	private int userId;
 	private String nickname;
@@ -12,6 +15,31 @@ public class CommentVO {
 	private String replyNickname;
 	private String replyContent;
 	private String deployTimeTips;
+	private Date posttime;
+
+	public int getVideoSourceType() {
+		return videoSourceType;
+	}
+
+	public void setVideoSourceType(int videoSourceType) {
+		this.videoSourceType = videoSourceType;
+	}
+
+	public Date getPosttime() {
+		return posttime;
+	}
+
+	public void setPosttime(Date posttime) {
+		this.posttime = posttime;
+	}
+
+	public String getVideoName() {
+		return videoName;
+	}
+
+	public void setVideoName(String videoName) {
+		this.videoName = videoName;
+	}
 
 	public int getCommentId() {
 		return commentId;

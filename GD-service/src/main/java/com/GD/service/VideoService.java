@@ -32,7 +32,7 @@ public interface VideoService {
 	
 	public boolean love(int videoId);
 	
-	public boolean addCommont(int videoId, String comment);
+	public boolean incrComment(int videoId);
 
 	public boolean del(int userId, int videoId);
 }

@@ -42,7 +42,9 @@ public class CommentServiceImpl implements CommentService{
 		comment.setUserId(userId);
 		comment.setVideoId(videoId);
 		comment.setReplyContent(replyContent);
-		return commentDao.add(comment) > 0;
+		int result = commentDao.add(comment);
+		videoService.incrComment(videoId);
+		return result > 0;
 	}
 
 	@Override
@@ -58,6 +60,26 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public int count(int videoId) {
 		return commentDao.count(videoId);
+	}
+
+	@Override
+	public int countMyComments(int userId) {
+		return commentDao.countMyComments(userId);
+	}
+
+	@Override
+	public int countReplyToMe(int userId) {
+		return commentDao.countReplyToMe(userId);
+	}
+
+	@Override
+	public List<Comment> listMyComments(int userId, int start, int size) {
+		return commentDao.listMyComments(userId, start, size);
+	}
+
+	@Override
+	public List<Comment> listReplyToMe(int userId, int start, int size) {
+		return commentDao.listReplyToMe(userId, start, size);
 	}
 
 }

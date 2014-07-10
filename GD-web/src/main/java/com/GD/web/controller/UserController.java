@@ -117,7 +117,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> register(HttpSession session, UserForm form) throws UnsupportedEncodingException {
+	public Map<String, Object> register(HttpServletRequest request, HttpSession session, UserForm form) throws UnsupportedEncodingException {
 		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
 		String message = "";
 		String headImg = "/images/defaultHead.jpg";
@@ -134,7 +134,7 @@ public class UserController {
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("userId", userId);
 				session.setAttribute("headImg", headImg);
-				jumpUrl = this.getJumpUrl(session);
+				jumpUrl = this.getJumpUrl(session, request.getRequestURI());
 				result = true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -318,7 +318,7 @@ public class UserController {
 				
 				// 设置session过期时间（单位秒）
 				session.setMaxInactiveInterval(1800);
-				jumpUrl = this.getJumpUrl(session);
+				jumpUrl = this.getJumpUrl(session, request.getRequestURI());
 				result = true;
 				session.removeAttribute(ACTUAL_CODE);
 			} else {
@@ -331,10 +331,17 @@ public class UserController {
 		return map;
 	}
 	
-	private String getJumpUrl(HttpSession session) {
+	private String getJumpUrl(HttpSession session, String uri) {
 		String jumpUrl = (String) session.getAttribute(JUMP_PAGE);
 		session.removeAttribute(JUMP_PAGE);
 		String referer = (String) session.getAttribute(REFERER);
+		if (referer != null && referer.contains("/page")) {
+			if (uri.contains("register")) {
+				referer = "/user/personal.do";
+			} else {
+				referer = "/index.do";
+			}
+		}
 		referer = StringUtils.defaultIfEmpty(referer, "");
 		jumpUrl = StringUtils.defaultIfEmpty(jumpUrl, referer);
 		return jumpUrl;
