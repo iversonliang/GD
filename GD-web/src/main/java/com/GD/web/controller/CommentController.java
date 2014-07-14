@@ -115,7 +115,14 @@ public class CommentController {
 		if (page == null || page < 1) {
 			page = 1;
 		}
+		int userId = (Integer) session.getAttribute("userId");
+		int count = commentService.countToMe(userId);
+		Pager pager = new Pager(count, page, 10, "/comment/toMyComments.do", null);
+		List<Comment> list = commentService.listToMe(userId, pager.getFirst(), 10);
+		List<CommentVO> voList = commentHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("commentVoList", voList);
+		model.addObject("pager", pager);
 		return model;
 	}
 }

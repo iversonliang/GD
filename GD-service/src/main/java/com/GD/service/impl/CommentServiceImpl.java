@@ -82,4 +82,14 @@ public class CommentServiceImpl implements CommentService{
 		return commentDao.listReplyToMe(userId, start, size);
 	}
 
+	@Override
+	public int countToMe(int userId) {
+		return commentDao.countToMe(userId);
+	}
+
+	@Override
+	public List<Comment> listToMe(int userId, int start, int size) {
+		return commentDao.listToMe(userId, start, size);
+	}
+
 }

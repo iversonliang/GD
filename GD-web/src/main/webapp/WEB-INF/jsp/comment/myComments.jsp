@@ -23,7 +23,7 @@
 			<div class="reg_title yy-icon">您发表过 <em>${pager.totalCount }</em> 条评论。</div>
 			<c:forEach items="${commentVoList}" var="comment">
 				<div class="uitem">
-					<div class="avatar"><a href="#"><img src="${comment.headImg }" width="50" height="50" /></a></div>
+					<div class="avatar"><a href="javascript:void(0);"><img src="${comment.headImg }" width="50" height="50" /></a></div>
 					<div class="msgcont">
 						<div class="msg_title">
 							<c:choose>

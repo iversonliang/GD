@@ -76,5 +76,17 @@ public class CommentDaoMysqlImpl implements CommentDao{
 		return jdbc.queryForInt(sql, userId);
 	}
 
+	@Override
+	public List<Comment> listToMe(int userId, int start, int size) {
+		String sql = "SELECT c.comment_id,c.video_id,c.content,c.user_id,c.nickname,c.reply_user_id,c.reply_nickname,c.posttime,c.del,c.status,c.reply_content FROM comment c, video v WHERE v.user_id=? AND v.video_id =c.video_id ORDER BY c.posttime DESC LIMIT ?,?";
+		return jdbc.queryForList(sql, Comment.class, userId, start, size);
+	}
+
+	@Override
+	public int countToMe(int userId) {
+		String sql = "SELECT COUNT(*) FROM comment c, video v WHERE v.video_id =c.video_id AND v.user_id=?";
+		return jdbc.queryForInt(sql, userId);
+	}
+
 	
 }

@@ -37,4 +37,8 @@ public interface CommentDao {
 	public List<Comment> listReplyToMe(int userId, int start, int size);
 
 	public int countReplyToMe(int userId);
+	
+	public List<Comment> listToMe(int userId, int start, int size);
+	
+	public int countToMe(int userId);
 }
