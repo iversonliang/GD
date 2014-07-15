@@ -315,3 +315,11 @@ a.tBtn{ text-decoration:none;}
 .submit_cover img {background:#ccc;}
 
 .noPointer {cursor:default}
+
+
+.crbBox {padding-top:10px;}
+.crbBox .commentArea{border: 1px solid #c2c2c2;background: #fff;width: 870px;height: 80px;margin-bottom: 5px;font-size: 14px;color: #333;padding: 5px;}
+.commentFunc {margin-bottom:5px;}
+.crbBox .commentConfirm {display: block;float: right;width: 100px;height: 30px;background: #690;color: #fff;text-align: center;line-height: 30px;border:0;border-radius: 3px;}
+.crbBox .commentConfirm:hover {background:#360;color:#fff;}
+.commentCancel {display: block;float: right;margin-right: 20px;margin-top:5px;}

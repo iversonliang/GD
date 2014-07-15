@@ -7,6 +7,7 @@
 <title>优舞网</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/media_queries.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
 </head>
 <body>
@@ -35,9 +36,20 @@
 							<div class="clear"></div>
 						</div>
 						<p>${comment.content }</p>
-						<div class="msg_sub"><a href="#">回复</a></div>
+						<div class="msg_sub"><a href="javascript:Comment.showToMyCommentsBox('${comment.commentId }')">回复</a></div>
 					</div>
 					<div class="clear"></div>
+					<div class="crbBox" style="display: none;" id="replyBox${comment.commentId }">
+						<textarea class="commentArea" id="content${comment.commentId }" onkeyup="Comment.updateLength('${comment.commentId }')"></textarea>
+						<div class="commentFunc">
+							<p class="f12">您还可以输入 <span class="cf30 abc" id="leftCount${comment.commentId }">200</span> 个字符</p>
+						</div>
+						<div class="">
+							<a href="javascript:Comment.replyToMyComments('${comment.commentId }', '${comment.userId }', '${comment.nickname }', '${comment.content }')" class="commentConfirm">确认回复</a>
+							<a href="javascript:Comment.hideToMyCommentsBox('${comment.commentId }')" class="commentCancel">取消回复</a>
+						</div>
+						<input type="hidden" id="comment${comment.commentId }videoId" value="${comment.videoId }"/>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
