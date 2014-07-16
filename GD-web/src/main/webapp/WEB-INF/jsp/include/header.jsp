@@ -60,7 +60,7 @@
 							<li><a href="/comment/toMyComments.do">给我的评论</a></li>
 							<li><a href="/comment/replyToMe.do" class="newone">给我的回复+1</a></li>
 							<li><a href="msg-system.html">系统通知</a></li>
-							<li><a href="msg-announcement.html">优舞公告</a></li>
+							<li><a href="/announcement/index.do">优舞公告</a></li>
 						</ul>
 					</div>
 				</div>

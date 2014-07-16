@@ -59,3 +59,13 @@ CREATE TABLE `user` (
   UNIQUE KEY `uniq_email` (`email`),
   UNIQUE KEY `uniq_username` (`username`)
 );
+
+DROP TABLE IF EXISTS announcement;
+CREATE TABLE announcement (
+  announcement_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  title varchar(100) NOT NULL DEFAULT '',
+  content varchar(500) NOT NULL DEFAULT '',
+  img_url varchar(200) NOT NULL DEFAULT '',
+  posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  PRIMARY KEY (announcement_id)
+);
