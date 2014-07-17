@@ -38,7 +38,7 @@
     
     <aop:config> 
     	<!-- 切入点  -->
-        <aop:pointcut id="loginPoint" expression="execution(* com.GD.web.controller.*.*(..)) "/>
+        <aop:pointcut id="loginPoint" expression="(execution(* com.GD.web.controller.*.*(..))) or (execution(* com.GD.web.controller.admin.*.*(..))) "/>
         <!-- 在该切入点使用自定义拦截器  -->
         <aop:advisor pointcut-ref="loginPoint" advice-ref="loginRequiredInterceptor"/>
     </aop:config> 

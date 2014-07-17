@@ -36,11 +36,12 @@ public class AnnouncementController {
 			page = 1;
 		}
 		int count = announcementService.count();
-		Pager pager = new Pager(count, page, 10, "/admin/announcement/index.do", null);
+		Pager pager = new Pager(count, page, 10, "/announcement/index.do", null);
 		List<Announcement> list = announcementService.list(pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("announcementList", list);
 		model.addObject("pager", pager);
 		return model;
 	}
+	
 }

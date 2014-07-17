@@ -36,7 +36,7 @@ public class AnnouncementDaoMysqlImpl implements AnnouncementDao {
 
 	@Override
 	public List<Announcement> list(int start, int size) {
-		String sql = "SELECT * FROM announcement";
+		String sql = "SELECT * FROM announcement ORDER BY posttime DESC";
 		return jdbc.queryForList(sql, Announcement.class, start, size);
 	}
 

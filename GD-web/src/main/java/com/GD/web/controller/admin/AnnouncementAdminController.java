@@ -1,5 +1,6 @@
 package com.GD.web.controller.admin;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,27 +46,35 @@ public class AnnouncementAdminController {
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("announcementList", list);
 		model.addObject("pager", pager);
+		model.addObject("type", "announcement");
 		return model;
 	}
 	
 	@LoginRequired
 	@ResponseBody
 	@RequestMapping(value="/add.do", method=RequestMethod.GET)
-	public Map<String, Object> add(HttpServletRequest request, HttpServletResponse response, HttpSession session, String title, String content, String imgUrl) {
-		boolean result = announcementService.add(title, content, imgUrl);
+	public void add(HttpServletRequest request, HttpServletResponse response, HttpSession session, String title, String content, String imgUrl) throws IOException {
+		imgUrl = "/images/avatar_system.jpg";
+		System.out.println("---------------这里没真的上传-------------");
+		announcementService.add(title, content, imgUrl);
+		response.sendRedirect("/admin/announcement/index.do");
+	}
+	
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	public Map<String, Object> delete(HttpServletRequest request, HttpServletResponse response, HttpSession session, int announcementId) {
+		boolean result = announcementService.delete(announcementId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;
 	}
 	
 	@LoginRequired
-	@ResponseBody
-	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
-	public Map<String, Object> add(HttpServletRequest request, HttpServletResponse response, HttpSession session, int announcementId) {
-		boolean result = announcementService.delete(announcementId);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", result);
-		return map;
+	@RequestMapping( value = "/addPage.do", method = RequestMethod.GET)
+	public ModelAndView addPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		ModelAndView model = ViewUtil.getView(DIR);
+		return model;
 	}
 	
 }
