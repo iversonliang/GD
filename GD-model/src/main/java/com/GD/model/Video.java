@@ -41,6 +41,26 @@ public class Video {
 	private String label;
 	/** 视频来源网站 */
 	private int sourceSiteType;
+	/** 首页类型 */
+	private int homeType;
+	/** 位置 */
+	private int indexNum;
+
+	public int getHomeType() {
+		return homeType;
+	}
+
+	public void setHomeType(int homeType) {
+		this.homeType = homeType;
+	}
+
+	public int getIndexNum() {
+		return indexNum;
+	}
+
+	public void setIndexNum(int indexNum) {
+		this.indexNum = indexNum;
+	}
 
 	public int getSourceSiteType() {
 		return sourceSiteType;

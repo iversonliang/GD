@@ -14,12 +14,7 @@
 	<h1>优舞网后台</h1>
 </div>
 <div id="container">
-	<div id="nav">
-		<ul>
-			<li class="selected"><a href="#">公告</a></li>
-			<li><a href="#">首页推荐</a></li>
-		</ul>
-	</div>
+	<jsp:include page="/WEB-INF/jsp/include/admin/menu.jsp"></jsp:include>
 	<div id="main">
 		<div class="form">
 			<div class="btns">

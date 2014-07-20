@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GD.handler.VideoHandler;
 import com.GD.model.Video;
 import com.GD.service.VideoService;
+import com.GD.type.HomeType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 import com.GD.web.vo.VideoVO;
@@ -42,9 +43,9 @@ public class HomeController {
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
 		boolean isLogin = userId != null;
-		int videoCount = videoService.countAll();
+		int videoCount = videoService.countAll(HomeType.RECOMMEND, false);
 		Pager pager = new Pager(videoCount, page, 16, "/index.do", null);
-		List<Video> list = videoService.listAll(pager.getFirst(), 16);
+		List<Video> list = videoService.listAll(HomeType.RECOMMEND, pager.getFirst(), 16, false);
 		List<VideoVO> voList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("isLogin", isLogin);

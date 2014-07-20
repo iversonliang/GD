@@ -9,15 +9,17 @@ public interface VideoDao {
 	public boolean add(Video video);
 
 	public Video get(int videoId);
-	
+
 	public boolean del(int videoId);
-
-	public int count(int userId);
 	
-	public int count(int status, int videoType, int videoGradeType, int videoSourceType, String name, String label);
+	public boolean unDel(int videoId);
 
-	public List<Video> list(int status, int videoType, int videoGradeType, int videoSourceType, String name, String label, int start, int size);
-	
+	public int countByUser(int userId);
+
+	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label);
+
+	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label, int start, int size);
+
 	public List<Video> list(int userId, int start, int size);
 
 	/**
@@ -43,4 +45,12 @@ public interface VideoDao {
 	 * @return
 	 */
 	public boolean commont(int videoId);
+
+	public int getMaxIndexNum(int homeType);
+
+	public Video getByIndexNum(int homeType, int indexNum);
+
+	public boolean updateIndexBetween(int homeType, int start, int end, boolean isIncr);
+	
+	public boolean updateHomeTypeIndex(int videoId, int homeType, int indexNum);
 }

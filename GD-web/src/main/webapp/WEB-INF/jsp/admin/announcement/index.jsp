@@ -21,7 +21,7 @@
 		<div class="form">
 			<div class="btns">
 				<span>操作按钮：</span>
-				<div class="btn"><input type="button" value="添加" onclick="window.location.href='/admin/announcement/addPage.do'"></div>
+				<div class="btn"><input type="button" value="添加" onclick="window.location.href='/admin/announcement/addPage.do?type=announcement'"></div>
 			</div>
 			<table cellspacing="1">
 				<tr>
