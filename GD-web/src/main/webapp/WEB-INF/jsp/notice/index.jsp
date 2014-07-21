@@ -15,21 +15,20 @@
 <div id="wrapper">
 	<div class="main">
 		<ul class="tab">
-			<li><a href="/notice/index.do">系统消息</a></li>
-			<li class="active"><a href="/announcement/index.do">优舞公告</a></li>
+			<li class="active"><a href="/notice/index.do">系统消息</a></li>
+			<li><a href="/announcement/index.do">优舞公告</a></li>
 		</ul>
 		<div class="content bg_w">
-			<div class="reg_title yy-icon">你共收到了 <em>${pager.totalCount }</em> 条优舞公告，请注意查看哦。如遇到问题，请 <a href="#">在线提交</a> 给我们。</div>
-			<c:forEach items="${announcementList}" var="announcement">
+			<div class="reg_title yy-icon">你共收到了 <em>${pager.totalCount }</em> 条系统通知，请注意查看。如遇到问题，请 <a href="#">在线提交</a> 给我们。</div>
+			<c:forEach items="${noticeList}" var="notice">
 				<div class="uitem">
-					<div class="avatar"><a href="#"><img src="${announcement.imgUrl }" width="50" height="50" /></a></div>
+					<div class="avatar"><img src="${notice.imgUrl }" width="50" height="50" /></div>
 					<div class="msgcont">
 						<div class="msg_title">
-							<h3>${announcement.title }</h3>
-							<span class="msg_time"><fmt:formatDate value="${announcement.posttime }" pattern="yyyy-MM-dd HH:mm"/></span>
+							<h3>${notice.content }</h3>
+							<span class="msg_time"><fmt:formatDate value="${notice.posttime }" pattern="yyyy-MM-dd HH:mm"/></span>
 							<div class="clear"></div>
 						</div>
-						<p class="fs_12">${announcement.content }</p>
 					</div>
 					<div class="clear"></div>
 				</div>

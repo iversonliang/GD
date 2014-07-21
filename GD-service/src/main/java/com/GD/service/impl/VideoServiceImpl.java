@@ -1,5 +1,6 @@
 package com.GD.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +8,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.GD.dao.VideoDao;
+import com.GD.model.Notice;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.NoticeService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.type.HomeType;
+import com.GD.type.NoticeType;
 import com.GD.type.RoleType;
 import com.GD.type.StatusType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
 import com.GD.type.VideoType;
+import com.GD.util.NoticeUtil;
 import com.GD.util.UserUtil;
 import com.GD.util.VideoUtil;
 
@@ -26,6 +31,8 @@ public class VideoServiceImpl implements VideoService {
 
 	@Autowired
 	private VideoDao videoDao;
+	@Autowired
+	private NoticeService noticeService;
 	@Autowired
 	private UserService userService;
 
@@ -124,7 +131,7 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public boolean setHomeType(int userId, int videoId, HomeType homeTyp, int indexNum) {
+	public boolean setHomeType(int userId, int videoId, HomeType homeType, int indexNum) {
 		User user = userService.get(userId);
 		UserUtil.checkNull(user);
 		UserUtil.checkAdminAuthority(user);
@@ -132,9 +139,18 @@ public class VideoServiceImpl implements VideoService {
 		VideoUtil.checkNull(video);
 		boolean result = false;
 		if (video.getHomeType() == HomeType.IGNORE.getKey()) {
-			result = this.addHomeType(video, homeTyp, indexNum);
+			result = this.addHomeType(video, homeType, indexNum);
+			Notice notice = new Notice();
+			notice.setContent(NoticeUtil.getVideoNoticeContent(video, NoticeType.HOME_RECOMMEND));
+			notice.setImgUrl("/images/avatar_system.jpg");
+			System.out.println("------------- 没有上传图片 ---------------");
+			notice.setOpUserId(userId);
+			notice.setPosttime(new Date());
+			notice.setUserId(video.getUserId());
+			notice.setVideoId(videoId);
+			noticeService.add(notice);
 		} else {
-			result = this.updateHomeType(video, homeTyp, indexNum);
+			result = this.updateHomeType(video, homeType, indexNum);
 		}
 		return result;
 	}
@@ -170,5 +186,18 @@ public class VideoServiceImpl implements VideoService {
 		UserUtil.checkNull(user);
 		UserUtil.checkAdminAuthority(user);
 		return videoDao.unDel(videoId);
+	}
+
+	@Override
+	public boolean delHomeType(int userId, int videoId) {
+		Video video = videoDao.get(videoId);
+		VideoUtil.checkNull(video);
+		this.checkDelAuthority(userId, video);
+		boolean result = false;
+		result = videoDao.updateHomeTypeIndex(videoId, HomeType.IGNORE.getKey(), 0);
+		if (result && video.getHomeType() != HomeType.IGNORE.getKey()) {
+			videoDao.updateIndexBetween(video.getHomeType(), video.getIndexNum(), Integer.MAX_VALUE, false);
+		}
+		return result;
 	}
 }

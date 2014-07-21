@@ -53,6 +53,9 @@
 									<c:if test="${video.homeType == 0}">
 										<div class="btn"><input type="button" value="设置首页推荐" onclick="Video.setHomeType('${video.videoId}')"></div>
 									</c:if>
+									<c:if test="${video.homeType > 0}">
+										<div class="btn"><input type="button" value="取消首页推荐" onclick="Video.delHomeType('${video.videoId}')"></div>
+									</c:if>
 									<div class="btn"><input type="button" value="删除" onclick="Video.delete('${video.videoId}')"></div>
 								</c:if>
 								<c:if test="${video.del == true}">

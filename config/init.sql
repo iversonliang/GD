@@ -69,3 +69,16 @@ CREATE TABLE announcement (
   posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   PRIMARY KEY (announcement_id)
 );
+
+DROP TABLE IF EXISTS notice;
+CREATE TABLE notice (
+  notice_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  user_id int(10) NOT NULL default 0,
+  img_url varchar(200) NOT NULL DEFAULT '',
+  comment_id int(10) NOT NULL default 0,
+  video_id int(10) NOT NULL default 0,
+  content varchar(200) NOT NULL DEFAULT '',
+  posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  op_user_id int(10) NOT NULL default 0,
+  PRIMARY KEY (notice_id)
+);

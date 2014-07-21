@@ -33,5 +33,16 @@ var Video = {
 			}
 		});
 	},
+	"delHomeType" : function(videoId) {
+		if (!confirm("确认要取消该视频为首页推荐吗？")) {
+			return;
+		}
+		var url = "/admin/video/delHomeType.do?videoId=" + videoId;
+		AjaxJson.get(url).done(function(data) {
+			if (data.result == true) {
+				window.location.reload();
+			}
+		});
+	},
 	"end" : null
 }

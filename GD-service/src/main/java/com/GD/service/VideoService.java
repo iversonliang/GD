@@ -39,5 +39,7 @@ public interface VideoService {
 	
 	public boolean unDel(int userId, int videoId);
 	
-	public boolean setHomeType(int userId, int videoId, HomeType homeTyp, int indexNum);
+	public boolean setHomeType(int userId, int videoId, HomeType homeType, int indexNum);
+	
+	public boolean delHomeType(int userId, int videoId);
 }

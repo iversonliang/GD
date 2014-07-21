@@ -88,4 +88,15 @@ public class VideoAdminController {
 		map.put("result", result);
 		return map;
 	}
+	
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value="/delHomeType.do", method=RequestMethod.GET)
+	public Map<String, Object> delHomeType(HttpServletRequest request, HttpServletResponse response, HttpSession session, int videoId) {
+		int userId = (Integer) session.getAttribute("userId");
+		boolean result = videoService.delHomeType(userId, videoId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
 }

@@ -3,7 +3,7 @@ package com.GD.type;
 public enum VideoSourceType implements Inum{
 	ALL(0, "全部"),
 	ORIGINAL(1, "原创"),
-	REPRINT(2, "装载")
+	REPRINT(2, "转载")
 	;
 
 	private int key;

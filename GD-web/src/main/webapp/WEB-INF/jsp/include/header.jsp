@@ -41,7 +41,7 @@
 								<!-- <li><a href="">我上传的</a></li>
 								<li><a href="">我分享的</a></li>
 								<li><a href="">我喜欢的</a></li> -->
-								<li><a href="">我的消息</a></li>
+								<li><a href="/comment/toMyComments.do">我的消息</a></li>
 								<li><a href="/user/userInfo.do">账号设置</a></li>
 								<li><a href="/user/logout.do">退出</a></li>
 							</ul>
@@ -59,7 +59,7 @@
 						<ul>
 							<li><a href="/comment/toMyComments.do">给我的评论</a></li>
 							<li><a href="/comment/replyToMe.do" class="newone">给我的回复+1</a></li>
-							<li><a href="msg-system.html">系统通知</a></li>
+							<li><a href="/notice/index.do">系统通知</a></li>
 							<li><a href="/announcement/index.do">优舞公告</a></li>
 						</ul>
 					</div>

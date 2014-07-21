@@ -30,7 +30,7 @@
 								<c:when test="${comment.videoSourceType == 1 }"><h3>我评论了原创作品《<a href="/video/video.do?vid=${comment.videoId }&st=2" target="_blank">${comment.videoName }</a>》：</h3></c:when>
 								<c:otherwise><h3>我评论了原创作品《<a href="/video/video.do?vid=${comment.videoId }&st=3" target="_blank">${comment.videoName }</a>》：</h3></c:otherwise>
 							</c:choose>
-							<span class="msg_time"><fmt:formatDate value="${comment.posttime }" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+							<span class="msg_time"><fmt:formatDate value="${comment.posttime }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 							<div class="clear"></div>
 						</div>
 						<p>${comment.content }</p>

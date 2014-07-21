@@ -33,7 +33,7 @@
 									<c:otherwise>评论了我的原创作品《<a href="/video/video.do?vid=${comment.videoId }&st=3" target="_blank">${comment.videoName }</a>》：</c:otherwise>
 								</c:choose>
 							</h3>
-							<span class="msg_time"><fmt:formatDate value="${comment.posttime }" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+							<span class="msg_time"><fmt:formatDate value="${comment.posttime }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 							<div class="clear"></div>
 						</div>
 						<p>${comment.content }</p>
