@@ -450,6 +450,7 @@ public class UserController {
 		model.addObject("userVoList", voList);
 		model.addObject("headImg", headImg);
 		model.addObject("pager", pager);
+		model.addObject("nav", "dancer");
 		return model;
 	}
 
@@ -487,7 +488,7 @@ public class UserController {
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
-		int totalCount = videoService.count(userId);
+		int totalCount = videoService.countByUser(userId);
 		Pager pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
 		boolean isMyPage = myId == userId;
 		User user = userService.get(userId);

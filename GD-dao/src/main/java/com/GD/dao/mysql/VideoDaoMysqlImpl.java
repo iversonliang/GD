@@ -67,7 +67,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		if (homeType != HomeType.IGNORE.getKey()) {
 			sql += " ORDER BY index_num LIMIT ?,?";
 		} else {
-			sql += " ORDER BY play DESC LIMIT ?,?";
+			sql += " ORDER BY posttime DESC LIMIT ?,?";
 		}
 		params.setInt(start);
 		params.setInt(size);

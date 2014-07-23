@@ -105,7 +105,10 @@ public class CheckUtil {
 			throw new InvalidParameterException(ErrorTipsType.VIDEO_TYPE_ERROR.getDesc());
 		}
 		try {
-			VideoSourceType.toType(video.getVideoSourceType());
+			VideoSourceType vst = VideoSourceType.toType(video.getVideoSourceType());
+			if (vst == VideoSourceType.ALL) {
+				throw new InvalidParameterException(ErrorTipsType.VIDEO_SOURCE_TYPE_ERROR.getDesc());
+			}
 		} catch (Exception e) {
 			throw new InvalidParameterException(ErrorTipsType.VIDEO_SOURCE_TYPE_ERROR.getDesc());
 		}

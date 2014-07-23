@@ -19,8 +19,13 @@ import com.GD.handler.VideoHandler;
 import com.GD.model.Video;
 import com.GD.service.VideoService;
 import com.GD.type.HomeType;
+import com.GD.type.StatusType;
+import com.GD.type.VideoGradeType;
+import com.GD.type.VideoSourceType;
+import com.GD.type.VideoType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
+import com.GD.web.form.VideoSearchForm;
 import com.GD.web.vo.VideoVO;
 
 @Controller
@@ -51,8 +56,49 @@ public class HomeController {
 		model.addObject("isLogin", isLogin);
 		model.addObject("pager", pager);
 		model.addObject("videoVoList", voList);
+		model.addObject("nav", "home");
 		long end = System.currentTimeMillis();
 		System.out.println("time:" + (end - start) + "ms");
+		return model;
+	}
+	
+	@RequestMapping(value = "opus.do", method = RequestMethod.GET)
+	public ModelAndView opus(HttpServletRequest request, HttpServletResponse response, HttpSession session, VideoSearchForm form, Integer page) throws UnsupportedEncodingException {
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		Integer userId = (Integer) session.getAttribute("userId");
+		boolean isLogin = userId != null;
+		VideoType videoType = form.getVideoType() == null ? VideoType.ALL : VideoType.toType(form.getVideoType());
+		int videoCount = videoService.count(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.ORIGINAL, form.getName(), form.getLabel(), false);
+		Pager pager = new Pager(videoCount, page, 16, "/opus.do", null);
+		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.ORIGINAL, false, form.getName(), form.getLabel(), pager.getFirst(), 16);
+		List<VideoVO> voList = videoHandler.toVoList(list);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("isLogin", isLogin);
+		model.addObject("pager", pager);
+		model.addObject("videoVoList", voList);
+		model.addObject("nav", "opus");
+		return model;
+	}
+
+	@RequestMapping(value = "inspiration.do", method = RequestMethod.GET)
+	public ModelAndView inspiration(HttpServletRequest request, HttpServletResponse response, HttpSession session, VideoSearchForm form, Integer page) throws UnsupportedEncodingException {
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		Integer userId = (Integer) session.getAttribute("userId");
+		boolean isLogin = userId != null;
+		VideoType videoType = form.getVideoType() == null ? VideoType.ALL : VideoType.toType(form.getVideoType());
+		int videoCount = videoService.count(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.REPRINT, form.getName(), form.getLabel(), false);
+		Pager pager = new Pager(videoCount, page, 16, "/inspiration.do", null);
+		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.REPRINT, false, form.getName(), form.getLabel(), pager.getFirst(), 16);
+		List<VideoVO> voList = videoHandler.toVoList(list);
+		ModelAndView model = ViewUtil.getView(DIR);
+		model.addObject("isLogin", isLogin);
+		model.addObject("pager", pager);
+		model.addObject("videoVoList", voList);
+		model.addObject("nav", "inspiration");
 		return model;
 	}
 }

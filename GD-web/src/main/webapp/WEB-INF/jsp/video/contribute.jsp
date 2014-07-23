@@ -34,18 +34,23 @@
 						<table width="100%" class="norTable register">
 						  <tbody>
 						  <tr>
-							<th width="100">标题</th>
-							<td><input type="text" class="newTxt w180" name="username" id="name" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> <span id="usernameTip" class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
-						  </tr>
-						  <tr>
-							<th width="100">视频地址</th>
-							<td><input type="text" class="newTxt w180" name="username" id="url" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> <span id="usernameTip" class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+							<th width="100">视频地址 </th>
+							<td>
+								<input type="text" class="newTxt w180" name="username" id="url" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> 
+								<span id="usernameTip" class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+								<span style="color:red">*</span>
 								<div class="clear"></div>
 								<p>支持： 
-									<a target="_blank" href="http://www.youku.com/">优酷网</a>、 <a target="_blank" href="http://www.tudou.com/">土豆网</a>、 
-									<a target="_blank" href="http://tv.sohu.com/">搜狐视频</a>、 <a target="_blank" href="http://v.qq.com/">腾讯视频</a>的视频播放页链接。
+									<a target="_blank" href="http://www.youku.com/">优酷网</a>
+									<!-- 、 <a target="_blank" href="http://www.tudou.com/">土豆网</a>、 
+									<a target="_blank" href="http://tv.sohu.com/">搜狐视频</a>、 <a target="_blank" href="http://v.qq.com/">腾讯视频</a> -->
+									的视频播放页链接。
 								</p>
 							</span></td>
+						  </tr>
+						  <tr>
+							<th width="100">标题</th>
+							<td><input type="text" class="newTxt w180" name="username" id="name" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> <span id="usernameTip" class="onError" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
 						  </tr>
 						  <tr>
 							<th>分类</th>
@@ -71,7 +76,7 @@
 								<option value="0" selected="selected">选择类型</option>
 								<option value="1">原创</option>
 								<option value="2">转载</option>
-								</select></span> <span id="provinceTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
+								</select></span> <span id="provinceTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span><span style="color:red">&nbsp;&nbsp;*</span></td>
 
 							</td>
 						  </tr>

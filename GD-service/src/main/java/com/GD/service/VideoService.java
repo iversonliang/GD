@@ -23,7 +23,7 @@ public interface VideoService {
 	
 	public List<Video> listAll(HomeType homeType, int start, int size, boolean showDel);
 	
-	public int count(int userId);
+	public int countByUser(int userId);
 	
 	public List<Video> list(int userId, int start, int size);
 

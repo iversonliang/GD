@@ -118,7 +118,7 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public int count(int userId) {
+	public int countByUser(int userId) {
 		return videoDao.countByUser(userId);
 	}
 
@@ -139,7 +139,6 @@ public class VideoServiceImpl implements VideoService {
 		VideoUtil.checkNull(video);
 		boolean result = false;
 		if (video.getHomeType() == HomeType.IGNORE.getKey()) {
-			result = this.addHomeType(video, homeType, indexNum);
 			Notice notice = new Notice();
 			notice.setContent(NoticeUtil.getVideoNoticeContent(video, NoticeType.HOME_RECOMMEND));
 			notice.setImgUrl("/images/avatar_system.jpg");
@@ -148,6 +147,7 @@ public class VideoServiceImpl implements VideoService {
 			notice.setPosttime(new Date());
 			notice.setUserId(video.getUserId());
 			notice.setVideoId(videoId);
+			result = this.addHomeType(video, homeType, indexNum);
 			noticeService.add(notice);
 		} else {
 			result = this.updateHomeType(video, homeType, indexNum);

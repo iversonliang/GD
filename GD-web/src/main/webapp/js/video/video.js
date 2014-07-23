@@ -22,7 +22,14 @@ var Video = {
 		}
 		var url = "/video/add.do";
 		AjaxJson.post(url, param).done(function (data) {
-			alert(data.result);
+			if (data.result == true) {
+				var sourceType = $("#sourceType").val();
+				if (sourceType == 1) {
+					window.location.href = "/opus.do";
+				} else {
+					window.location.href = "/inspiration.do";
+				}
+			}
 		});
 	},
 	"deployCheck" : function() {
@@ -34,6 +41,11 @@ var Video = {
 		var url = $("#url").val();
 		if (Common.isEmpty(url)) {
 			alert("请输入视频地址");
+			return false;
+		}
+		var sourceType = $("#sourceType").val();
+		if (sourceType == 0) {
+			alert("请选择类型");
 			return false;
 		}
 		return true;
