@@ -2,7 +2,9 @@ package com.GD.handler.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.GD.util.DateUtil;
 import com.GD.util.UserUtil;
 import com.GD.util.VideoUtil;
 import com.GD.web.form.VideoForm;
+import com.GD.web.form.VideoSearchForm;
 import com.GD.web.vo.VideoVO;
 
 @Component
@@ -82,6 +85,19 @@ public class VideoHandlerImpl implements VideoHandler {
 			voList.add(vo);
 		}
 		return voList;
+	}
+
+	@Override
+	public Map<String, Object> getVideoSearchForm(VideoSearchForm form) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("homeType", form.getHomeType());
+		map.put("label", form.getLabel());
+		map.put("name", form.getName());
+		map.put("statusType", form.getStatusType());
+		map.put("videoGradeType", form.getVideoGradeType());
+		map.put("sourceType", form.getVideoSourceType());
+		map.put("videoType", form.getVideoType());
+		return map;
 	}
 
 }

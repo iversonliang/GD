@@ -18,6 +18,7 @@ import com.GD.type.ErrorTipsType;
 import com.GD.type.HomeType;
 import com.GD.type.NoticeType;
 import com.GD.type.RoleType;
+import com.GD.type.SortType;
 import com.GD.type.StatusType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
@@ -51,9 +52,9 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, boolean showDel, String name, String label,
-			int start, int size) {
-		return videoDao.list(statusType.getKey(), videoType.getKey(), homeType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), showDel, name, label, start, size);
+	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, SortType sortType, boolean showDel, String name,
+			String label, int start, int size) {
+		return videoDao.list(statusType.getKey(), videoType.getKey(), homeType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), sortType.getKey(), showDel, name, label, start, size);
 	}
 
 	@Override
@@ -103,8 +104,8 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public List<Video> listAll(HomeType homeType, int start, int size, boolean showDel) {
-		return this.list(StatusType.NORMAL, VideoType.ALL, homeType, VideoGradeType.ALL, VideoSourceType.ALL, showDel, null, null, start, size);
+	public List<Video> listAll(HomeType homeType, SortType sortType, boolean showDel, int start, int size) {
+		return this.list(StatusType.NORMAL, VideoType.ALL, homeType, VideoGradeType.ALL, VideoSourceType.ALL, sortType, showDel, null, null, start, size);
 	}
 
 	@Override

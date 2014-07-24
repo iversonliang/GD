@@ -11,6 +11,7 @@ import com.GD.model.Video;
 import com.GD.mysql.Jdbc;
 import com.GD.mysql.StatementParameter;
 import com.GD.type.HomeType;
+import com.GD.type.SortType;
 
 @Repository
 public class VideoDaoMysqlImpl implements VideoDao {
@@ -60,15 +61,23 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	}
 
 	@Override
-	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label, int start, int size) {
-		String sql = "SELECT * FROM video WHERE 1=1";
+	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, boolean showDel, String name, String label, int start, int size) {
+		String sql = "SELECT * FROM video WHERE 1=1 ";
 		StatementParameter params = new StatementParameter();
 		sql += this.getQuerySql(params, videoType, homeType, videoGradeType, videoSourceType, name, label, status, showDel);
 		if (homeType != HomeType.IGNORE.getKey()) {
-			sql += " ORDER BY index_num LIMIT ?,?";
+			sql += " ORDER BY index_num";
+			if (sortType != SortType.ALL.getKey()) {
+				sql += "," + SortType.toType(sortType).toString().toLowerCase() + " DESC ";
+			}
 		} else {
-			sql += " ORDER BY posttime DESC LIMIT ?,?";
+			if (sortType != SortType.ALL.getKey()) {
+				sql += " ORDER BY " + SortType.toType(sortType).toString().toLowerCase() + " DESC ";
+			} else {
+				sql += " ORDER BY posttime DESC";
+			}
 		}
+		sql += " LIMIT ?,?";
 		params.setInt(start);
 		params.setInt(size);
 		return jdbc.queryForList(sql, Video.class, params);

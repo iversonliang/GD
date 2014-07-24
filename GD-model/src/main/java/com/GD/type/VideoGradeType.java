@@ -3,7 +3,7 @@ package com.GD.type;
 public enum VideoGradeType implements Inum{
 	ALL(0, "全部"),
 	RECOMMEND(1, "编辑推荐"),
-	COMMON(2, "普通")
+	COMMON(2, "普通推荐")
 	;
 
 	private int key;

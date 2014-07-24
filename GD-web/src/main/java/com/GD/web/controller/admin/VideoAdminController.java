@@ -21,6 +21,7 @@ import com.GD.interceptor.LoginRequired;
 import com.GD.model.Video;
 import com.GD.service.VideoService;
 import com.GD.type.HomeType;
+import com.GD.type.SortType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 
@@ -45,7 +46,7 @@ public class VideoAdminController {
 		}
 		int count = videoService.countAll(HomeType.toType(homeType), true);
 		Pager pager = new Pager(count, page, 10, "/admin/video/index.do", null);
-		List<Video> list = videoService.listAll(HomeType.toType(homeType), pager.getFirst(), 10, true);
+		List<Video> list = videoService.listAll(HomeType.toType(homeType), SortType.ALL, true, pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("videoList", list);
 		model.addObject("pager", pager);

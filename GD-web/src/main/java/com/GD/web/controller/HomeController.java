@@ -2,6 +2,7 @@ package com.GD.web.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.GD.handler.VideoHandler;
 import com.GD.model.Video;
 import com.GD.service.VideoService;
 import com.GD.type.HomeType;
+import com.GD.type.SortType;
 import com.GD.type.StatusType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
@@ -50,7 +52,7 @@ public class HomeController {
 		boolean isLogin = userId != null;
 		int videoCount = videoService.countAll(HomeType.RECOMMEND, false);
 		Pager pager = new Pager(videoCount, page, 16, "/index.do", null);
-		List<Video> list = videoService.listAll(HomeType.RECOMMEND, pager.getFirst(), 16, false);
+		List<Video> list = videoService.listAll(HomeType.RECOMMEND, SortType.ALL, false, pager.getFirst(), 16);
 		List<VideoVO> voList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("isLogin", isLogin);
@@ -70,9 +72,10 @@ public class HomeController {
 		Integer userId = (Integer) session.getAttribute("userId");
 		boolean isLogin = userId != null;
 		VideoType videoType = form.getVideoType() == null ? VideoType.ALL : VideoType.toType(form.getVideoType());
+		SortType sortType = form.getSortType() == null ? SortType.ALL : SortType.toType(form.getSortType());
 		int videoCount = videoService.count(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.ORIGINAL, form.getName(), form.getLabel(), false);
 		Pager pager = new Pager(videoCount, page, 16, "/opus.do", null);
-		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.ORIGINAL, false, form.getName(), form.getLabel(), pager.getFirst(), 16);
+		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.ORIGINAL, sortType, false, form.getName(), form.getLabel(), pager.getFirst(), 16);
 		List<VideoVO> voList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("isLogin", isLogin);
@@ -89,16 +92,21 @@ public class HomeController {
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
 		boolean isLogin = userId != null;
+		Map<String, Object> params = videoHandler.getVideoSearchForm(form);
 		VideoType videoType = form.getVideoType() == null ? VideoType.ALL : VideoType.toType(form.getVideoType());
+		SortType sortType = form.getSortType() == null ? SortType.ALL : SortType.toType(form.getSortType());
 		int videoCount = videoService.count(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.REPRINT, form.getName(), form.getLabel(), false);
-		Pager pager = new Pager(videoCount, page, 16, "/inspiration.do", null);
-		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.REPRINT, false, form.getName(), form.getLabel(), pager.getFirst(), 16);
+		Pager pager = new Pager(videoCount, page, 16, "/inspiration.do", params);
+		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, VideoGradeType.ALL, VideoSourceType.REPRINT, sortType, false, form.getName(), form.getLabel(), pager.getFirst(), 16);
 		List<VideoVO> voList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("isLogin", isLogin);
 		model.addObject("pager", pager);
 		model.addObject("videoVoList", voList);
 		model.addObject("nav", "inspiration");
+		model.addObject("videoTypeList", VideoType.values());
+		model.addObject("videoGradeTypeList", VideoGradeType.values());
+		model.addObject("sortTypeList", SortType.values());
 		return model;
 	}
 }

@@ -23,7 +23,43 @@
 </div>
 <div id="wrapper">
 	<div class="main">
-		<h2>推荐视频</h2>
+		<h2>灵感作品</h2>
+		<div class="camZpBoxC">
+			<dl>
+				<dt>类型：</dt>
+				<dd>
+					<c:forEach items="${videoTypeList}" var="videoType">
+						<a name="videoType" videoTypeId="${videoType.key }" href="javascript:Video.search('videoType', '${videoType.key }')" <c:if test="${param.videoType == videoType.key}">class="selected"</c:if> >${videoType.desc }</a>
+					</c:forEach>
+				</dd>
+			</dl>
+			<dl>
+				<dt>等级：</dt>
+				<dd>
+					<a href="javascript:void(0)" class="selected">全部</a>
+					<a href="javascript:void(0)">编辑精选</a>
+					<a href="javascript:void(0)">普通推荐</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>排序：</dt>
+				<dd>
+					<c:forEach items="${sortTypeList}" var="sortType">
+					<a name="sortType" sortTypeId="${sortType.key }" href="javascript:Video.search('sortType', '${sortType.key }')" <c:if test="${param.sortType == sortType.key}">class="selected"</c:if> >${sortType.desc }</a>
+					</c:forEach>
+				</dd>
+			</dl>
+			<dl>
+				<dt>时间：</dt>
+				<dd>
+					<a href="#" class="selected">不限</a>
+					<a href="#">三天内</a>
+					<a href="#">一周内</a>
+					<a href="#">一个月内</a>
+					<a href="#">一年个月内</a>
+				</dd>
+			</dl>
+		</div>
 		<div class="content">
 			<c:forEach items="${videoVoList}" var="video">
 				<div class="citem">

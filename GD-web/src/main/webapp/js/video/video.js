@@ -50,5 +50,36 @@ var Video = {
 		}
 		return true;
 	},
+	"search" : function(type, value) {
+		var url = "/inspiration.do";
+		var hasParam = false;
+		if (type == "videoType") {
+			url += "?videoType=" + value;
+			hasParam = true;
+		} else {
+			var videoType = $("a[name=videoType][class=selected]").attr("videoTypeId");
+			if (Common.isNotEmpty(videoType)) {
+				url += hasParam ? "&" : "?";
+				url += "videoType=" + videoType;
+				hasParam = true;
+			}
+		}
+		
+		if (type == "sortType") {
+			url += hasParam ? "&" : "?";
+			url += "sortType=" + value;
+			hasParam = true;
+		} else {
+			var sortType = $("a[name=sortType][class=selected]").attr("sortTypeId");
+			if (Common.isNotEmpty(sortType)) {
+				url += hasParam ? "&" : "?";
+				url += "sortType=" + sortType;
+				hasParam = true;
+			}
+		}
+		
+		
+		window.location.href = url;
+	},
 	"end" : null
 }

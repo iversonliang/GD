@@ -18,7 +18,7 @@ public interface VideoDao {
 
 	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label);
 
-	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label, int start, int size);
+	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, boolean showDel, String name, String label, int start, int size);
 
 	public List<Video> list(int userId, int start, int size);
 

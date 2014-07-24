@@ -7,8 +7,17 @@ public class VideoSearchForm {
 	private Integer homeType;
 	private Integer videoGradeType;
 	private Integer videoSourceType;
+	private Integer sortType;
 	private String name;
 	private String label;
+
+	public Integer getSortType() {
+		return sortType;
+	}
+
+	public void setSortType(Integer sortType) {
+		this.sortType = sortType;
+	}
 
 	public Integer getVideoType() {
 		return videoType;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.GD.model.Video;
 import com.GD.type.HomeType;
+import com.GD.type.SortType;
 import com.GD.type.StatusType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
@@ -21,13 +22,13 @@ public interface VideoService {
 
 	public int count(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, String name, String label, boolean showDel);
 	
-	public List<Video> listAll(HomeType homeType, int start, int size, boolean showDel);
+	public List<Video> listAll(HomeType homeType, SortType sortType, boolean showDel, int start, int size);
 	
 	public int countByUser(int userId);
 	
 	public List<Video> list(int userId, int start, int size);
 
-	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, boolean showDel, String name, String label, int start, int size);
+	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, SortType sortType, boolean showDel, String name, String label, int start, int size);
 	
 	public boolean play(int videoId);
 	
