@@ -75,17 +75,23 @@ var User = {
 				danceType += "/";
 			}
 		});
+		var province = $("#province").val();
+		province = province.indexOf("请选择") != -1 ? "" : province;
+		var city = $("#city").val();
+		city = city.indexOf("请选择") != -1 ? "" : city;
 		var param = {
 			sign : $("#sign").val().trim(),
 			description : $("#description").val().trim(),
 			sex : sex,
 			birthday : birthday,
 			realName : $("#realName").val(),
-			danceType : danceType
+			danceType : danceType,
+			province : province,
+			city : city
 		}
 		var url = "/user/updateUserInfo.do";
 		AjaxJson.post(url, param).done(function(data) {
-			alert(data.result);
+			window.location.reload();
 		});
 	},
 	"upload" : function() {

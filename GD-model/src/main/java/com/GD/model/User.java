@@ -2,7 +2,7 @@ package com.GD.model;
 
 import java.util.Date;
 
-public class User {
+public class User implements Cloneable {
 	private int userId;
 	/** 用户名 */
 	private String username;
@@ -203,4 +203,15 @@ public class User {
 		this.headImg = headImg;
 	}
 
+	@Override
+	public Object clone()// 重写clone方法
+	{
+		User user = null;
+		try {
+			user = (User) super.clone();// 注意要抛出CloneNotSupportedException
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

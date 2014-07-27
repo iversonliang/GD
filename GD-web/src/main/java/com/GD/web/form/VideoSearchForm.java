@@ -8,8 +8,16 @@ public class VideoSearchForm {
 	private Integer videoGradeType;
 	private Integer videoSourceType;
 	private Integer sortType;
-	private String name;
-	private String label;
+	private Integer timeLimitType;
+	private String keyword;
+
+	public Integer getTimeLimitType() {
+		return timeLimitType;
+	}
+
+	public void setTimeLimitType(Integer timeLimitType) {
+		this.timeLimitType = timeLimitType;
+	}
 
 	public Integer getSortType() {
 		return sortType;
@@ -59,20 +67,12 @@ public class VideoSearchForm {
 		this.videoSourceType = videoSourceType;
 	}
 
-	public String getName() {
-		return name;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

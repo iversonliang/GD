@@ -171,7 +171,6 @@ public class UserController {
 		request.setAttribute("headImg", user.getHeadImg());
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("user", user);
-		System.out.println(user.getHeadImg());
 		return model;
 	}
 	
@@ -234,18 +233,18 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> updateUserInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session, UserForm form) {
 		int userId = (Integer) session.getAttribute("userId");
-		User user = userHandler.getUpdateUser(userId, form);
+		User oldUser = userService.get(userId);
+		User newUser = userHandler.getUpdateUser(oldUser, form);
 		int errorCode = -1;
 		String message = "";
 		try {
-			CheckUtil.checkUpdateUserInfo(user);
+			CheckUtil.checkUpdateUserInfo(newUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 			message = e.getMessage();
 			errorCode = ErrorTipsType.toType(message).getKey();
 		}
-		User oldUser = userService.get(userId);
-		boolean result = userService.update(user, oldUser);
+		boolean result = userService.update(newUser, oldUser);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		map.put("message", message);

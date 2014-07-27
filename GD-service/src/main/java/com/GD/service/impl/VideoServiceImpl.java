@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.GD.dao.DefenseFlushDao;
 import com.GD.dao.VideoDao;
 import com.GD.model.Notice;
 import com.GD.model.User;
@@ -20,6 +21,7 @@ import com.GD.type.NoticeType;
 import com.GD.type.RoleType;
 import com.GD.type.SortType;
 import com.GD.type.StatusType;
+import com.GD.type.TimeLimitType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
 import com.GD.type.VideoType;
@@ -30,6 +32,8 @@ import com.GD.util.VideoUtil;
 @Service
 public class VideoServiceImpl implements VideoService {
 
+	@Autowired
+	private DefenseFlushDao defenseFlushDao;
 	@Autowired
 	private VideoDao videoDao;
 	@Autowired
@@ -47,18 +51,24 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public int count(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, String name, String label, boolean showDel) {
-		return videoDao.count(statusType.getKey(), videoType.getKey(), homeType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), showDel, name, label);
+	public int count(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, TimeLimitType timeLimitType, String keyword, boolean showDel) {
+		return videoDao.count(statusType.getKey(), videoType.getKey(), homeType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), timeLimitType.getKey(), keyword, showDel);
 	}
 
 	@Override
-	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, SortType sortType, boolean showDel, String name,
-			String label, int start, int size) {
-		return videoDao.list(statusType.getKey(), videoType.getKey(), homeType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), sortType.getKey(), showDel, name, label, start, size);
+	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, SortType sortType, TimeLimitType timeLimitType, boolean showDel,
+			String keyword, int start, int size) {
+		return videoDao.list(statusType.getKey(), videoType.getKey(), homeType.getKey(), videoGradeType.getKey(), videoSourceType.getKey(), sortType.getKey(), timeLimitType.getKey(), keyword, showDel, start, size);
 	}
 
 	@Override
-	public boolean play(int videoId) {
+	public boolean play(int videoId, String sessionId) {
+		boolean isView = defenseFlushDao.isExist(sessionId, videoId);
+		if (isView) {
+			return true;
+		} else {
+			defenseFlushDao.add(sessionId, videoId);
+		}
 		return videoDao.play(videoId);
 	}
 
@@ -99,13 +109,13 @@ public class VideoServiceImpl implements VideoService {
 	}
 	
 	@Override
-	public int countAll(HomeType homeType, boolean showDel) {
-		return this.count(StatusType.NORMAL, VideoType.ALL, homeType, VideoGradeType.ALL, VideoSourceType.ALL, null, null, showDel);
+	public int countAll(HomeType homeType, TimeLimitType timeLimitType, boolean showDel) {
+		return this.count(StatusType.NORMAL, VideoType.ALL, homeType, VideoGradeType.ALL, VideoSourceType.ALL, timeLimitType, null, showDel);
 	}
 
 	@Override
-	public List<Video> listAll(HomeType homeType, SortType sortType, boolean showDel, int start, int size) {
-		return this.list(StatusType.NORMAL, VideoType.ALL, homeType, VideoGradeType.ALL, VideoSourceType.ALL, sortType, showDel, null, null, start, size);
+	public List<Video> listAll(HomeType homeType, SortType sortType, TimeLimitType timeLimitType, boolean showDel, int start, int size) {
+		return this.list(StatusType.NORMAL, VideoType.ALL, homeType, VideoGradeType.ALL, VideoSourceType.ALL, sortType, timeLimitType, showDel, null, start, size);
 	}
 
 	@Override
@@ -200,5 +210,13 @@ public class VideoServiceImpl implements VideoService {
 			videoDao.updateIndexBetween(video.getHomeType(), video.getIndexNum(), Integer.MAX_VALUE, false);
 		}
 		return result;
+	}
+
+	@Override
+	public boolean updateGradeType(int userId, int videoId, VideoGradeType gradeType) {
+		User user = userService.get(userId);
+		UserUtil.checkNull(user);
+		UserUtil.checkAdminAuthority(user);
+		return videoDao.updateVideoGradeType(videoId, gradeType.getKey());
 	}
 }

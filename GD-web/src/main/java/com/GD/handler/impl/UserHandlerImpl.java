@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,32 +56,40 @@ public class UserHandlerImpl implements UserHandler {
 		user.setStatus(UserStatusType.UNACTIVATED.getKey());
 		user.setUsername(form.getUsername());
 		user.setVideoCount(0);
+		user.setProvince(StringUtils.defaultIfEmpty(form.getProvince(), ""));
+		user.setCity(StringUtils.defaultIfEmpty(form.getCity(), ""));
 		
 		return user;
 	}
 
 	@Override
-	public User getUpdateUser(int userId, UserForm form) {
-		User user = userService.get(userId);
+	public User getUpdateUser(User oldUser, UserForm form) {
+		User newUser = (User) ObjectUtils.clone(oldUser);
 		if (StringUtils.isNotEmpty(form.getSign())) {
-			user.setSign(form.getSign());
+			newUser.setSign(form.getSign());
 		}
 		if (StringUtils.isNotEmpty(form.getRealName())) {
-			user.setRealName(form.getRealName());
+			newUser.setRealName(form.getRealName());
 		}
 		if (StringUtils.isNotEmpty(form.getDescription())) {
-			user.setDescription(form.getDescription());
+			newUser.setDescription(form.getDescription());
 		}
-		user.setDanceType(form.getDanceType());
+		newUser.setDanceType(form.getDanceType());
 		if (form.getSex() == 0 || form.getSex() == 1) {
-			user.setSex(form.getSex());
+			newUser.setSex(form.getSex());
 		}
 		Date birthday = Static.DEFAULT_DATE;
 		if (StringUtils.isNotEmpty(form.getBirthday())) {
 			birthday = DateUtil.str2Date(form.getBirthday());
 		}
-		user.setBirthday(birthday);
-		return user;
+		if (StringUtils.isNotEmpty(form.getProvince())) {
+			newUser.setProvince(form.getProvince());
+		}
+		if (StringUtils.isNotEmpty(form.getCity())) {
+			newUser.setCity(form.getCity());
+		}
+		newUser.setBirthday(birthday);
+		return newUser;
 	}
 
 	@Override

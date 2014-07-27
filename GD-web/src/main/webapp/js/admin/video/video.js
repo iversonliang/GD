@@ -22,11 +22,26 @@ var Video = {
 			}
 		});
 	},
-	"setHomeType" : function(videoId) {
-		if (!confirm("确认要设置该视频为首页推荐吗？")) {
-			return;
-		}
-		var url = "/admin/video/setHomeType.do?videoId=" + videoId + "&homeType=1";
+	"showVideGradeTypePopUp" : function(videoId) {
+		$("#popUpVideoId").val(videoId);
+		$("#homeTypePopUp").show();
+	},
+	"hideVideGradeTypePopUp" : function() {
+		$("#popUpVideoId").val(0);
+		$("#homeTypePopUp").hide();
+	},
+	"showPopUp" : function(videoId) {
+		$("#popUpVideoId").val(videoId);
+		$("#homeTypePopUp").show();
+	},
+	"hidePopUp" : function() {
+		$("#popUpVideoId").val(0);
+		$("#homeTypePopUp").hide();
+	},
+	"setHomeType" : function() {
+		var videoId = $("#popUpVideoId").val();
+		var indexNum = $("#indexNum").val();
+		var url = "/admin/video/setHomeType.do?videoId=" + videoId + "&homeType=1&indexNum=" + indexNum;
 		AjaxJson.get(url).done(function(data) {
 			if (data.result == true) {
 				window.location.reload();
@@ -38,6 +53,16 @@ var Video = {
 			return;
 		}
 		var url = "/admin/video/delHomeType.do?videoId=" + videoId;
+		AjaxJson.get(url).done(function(data) {
+			if (data.result == true) {
+				window.location.reload();
+			}
+		});
+	},
+	"setGradeType" : function() {
+		var videoId = $("#popUpVideoId").val();
+		var videoGradeType = $('input[name="radiobutton"]:checked').val();
+		var url = "/admin/video/setVideoGradeType.do?videoId=" + videoId + "&videoGradeType=" + videoGradeType;
 		AjaxJson.get(url).done(function(data) {
 			if (data.result == true) {
 				window.location.reload();

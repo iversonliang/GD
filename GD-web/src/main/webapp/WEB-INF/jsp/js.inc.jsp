@@ -4,6 +4,7 @@ String version = "1.0";
 %>
 
 <!-- 开源类库 -->
+<!-- <script type="text/javascript" src="/js/lib/jquery.min.js"></script> -->
 <script type="text/javascript" src="/js/lib/jquery-1.6.4.js?ver=<%=version%>"></script>
 <script type="text/javascript" src="/js/lib/common.min-1.0.js?ver=<%=version%>"></script>
 <script type="text/javascript" src="/js/lib/ajaxfileupload.js?ver=<%=version%>"></script>

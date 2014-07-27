@@ -232,9 +232,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Boolean exists(String key) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Boolean exists(final String key) {
+		return (Boolean) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.exists(key);
+			}
+		});
 	}
 
 	@Override
@@ -308,9 +312,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Long setnx(String key, String value) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Long setnx(final String key, final String value) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.setnx(key, value);
+			}
+		});
 	}
 
 	@Override

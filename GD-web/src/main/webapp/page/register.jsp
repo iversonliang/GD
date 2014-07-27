@@ -13,7 +13,9 @@
 	window.location.href = "/index.do";
 </script>
 </c:if>
-<script type="text/javascript"> 
+<script type="text/javascript" src="/js/lib/comefrom.js"></script>
+<script type="text/javascript">
+	$(function() {init()})
     function changeImg() {
         var imgSrc = $("#imgObj"); 
         var src = imgSrc.attr("src");
@@ -132,60 +134,16 @@
                       <tr>
 	                	<th>现居</th>
 	                    <td>
-	                    	<span class="selectBox">
-	                    	<select name="province" id="province" tabindex="8" onchange="ChangeOption('regform','province','city')">
-	                    	<option value="0" selected="selected">选择省份</option>
-	                    	<option value="1">北京</option>
-							<option value="2">上海</option>
-							<option value="3">天津</option>
-							<option value="4">重庆</option>
-							<option value="5">黑龙江</option>
-							<option value="6">辽宁</option>
-							<option value="7">吉林</option>
-							<option value="8">河北</option>
-							<option value="9">内蒙古</option>
-							<option value="10">陕西</option>
-							<option value="11">山西</option>
-							<option value="12">甘肃</option>
-							<option value="13">宁夏</option>
-							<option value="14">新疆</option>
-							<option value="15">西藏</option>
-							<option value="16">青海</option>
-							<option value="17">四川</option>
-							<option value="18">云南</option>
-							<option value="19">贵州</option>
-							<option value="20">湖南</option>
-							<option value="21">湖北</option>
-							<option value="22">河南</option>
-							<option value="23">山东</option>
-							<option value="24">安徽</option>
-							<option value="25">江苏</option>
-							<option value="26">浙江</option>
-							<option value="27">台湾</option>
-							<option value="28">香港</option>
-							<option value="29">澳门</option>
-							<option value="30">广东</option>
-							<option value="31">广西</option>
-							<option value="32">江西</option>
-							<option value="33">福建</option>
-							<option value="34">海南</option>
-							<option value="35">其它</option>
-							<option value="36">美国</option>
-							<option value="37">欧洲</option>
-							<option value="38">日本</option>
-							<option value="39">韩国</option>
-							<option value="40">新加坡</option>
-							<option value="41">加拿大</option>
-							<option value="42">亚　洲</option>
-							<option value="43">非　洲</option>
-							<option value="44">澳　洲</option>
-							<option value="45">南美洲</option>
-							<option value="46">东南亚</option>
-	                    	</select></span>
-	                    	<span class="selectBox ml10">
-	                    	<select name="city" id="city">
-	                    	<option value="0" selected="selected">选择城市</option>
-	                    	</select></span> <span id="provinceTip" class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;"></span></td>
+							<span class="selectBox">
+								<select id="province" name="province" onChange = "select()"></select>
+							</span>
+							<span class="selectBox ml10">
+								<select id="city" name="city" onChange = "select()"></select>
+							</span>
+							<span style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow">
+	                    		<span id="locationTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">请选择居住地</span>
+	                    	</span>	
+						</td>
                       </tr>
                      
                       

@@ -46,6 +46,7 @@
 			</c:forEach>
 		</div>
 		<jsp:include page="/WEB-INF/jsp/include/pager.jsp"></jsp:include>
+	</div>
 </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 

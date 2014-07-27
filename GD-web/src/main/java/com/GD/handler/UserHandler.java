@@ -10,7 +10,7 @@ public interface UserHandler {
 	
 	public User form2User(UserForm form);
 	
-	public User getUpdateUser(int userId, UserForm form);
+	public User getUpdateUser(User oldUser, UserForm form);
 	
 	public List<UserVO> toVoList(List<User> list);
 }

@@ -22,13 +22,14 @@
 			<table cellspacing="1">
 				<tr>
 					<th style="width:220px">视频</th>
-					<th>标题</th>
+					<th style="width:180px">标题</th>
 					<th>作者</th>
 					<th>播放次数</th>
 					<th>评论数</th>
 					<th>喜爱数</th>
 					<th>首页类型</th>
 					<th>顺序</th>
+					<th>推荐等级</th>
 					<th>是否删除</th>
 					<th>操作</th>
 				</tr>
@@ -45,16 +46,18 @@
 							<c:if test="${video.homeType == 1}">推荐视频</c:if>
 						</td>
 						<td>${video.indexNum}</td>
+						<td><c:if test="${video.videoGradeType == 0 }">没有</c:if><c:if test="${video.videoGradeType == 1 }">编辑推荐</c:if><c:if test="${video.videoGradeType == 2 }">普通推荐</c:if></td>
 						<th><c:if test="${video.del == true}">是</c:if>
 							<c:if test="${video.del == false}">否</c:if></th>
 						<td>
 							<div class="btns">
+								<div class="btn"><input type="button" value="设置编辑推荐" onclick="Video.showVideGradeTypePopUp('${video.videoId}')"></div><br />
 								<c:if test="${video.del == false}">
 									<c:if test="${video.homeType == 0}">
-										<div class="btn"><input type="button" value="设置首页推荐" onclick="Video.setHomeType('${video.videoId}')"></div>
+										<div class="btn"><input type="button" value="设置首页推荐" onclick="Video.showPopUp('${video.videoId}')"></div><br />
 									</c:if>
 									<c:if test="${video.homeType > 0}">
-										<div class="btn"><input type="button" value="取消首页推荐" onclick="Video.delHomeType('${video.videoId}')"></div>
+										<div class="btn"><input type="button" value="取消首页推荐" onclick="Video.delHomeType('${video.videoId}')"></div><br />
 									</c:if>
 									<div class="btn"><input type="button" value="删除" onclick="Video.delete('${video.videoId}')"></div>
 								</c:if>
@@ -70,6 +73,26 @@
 		</div>
 	</div>
 </div>
+
+<input type="hidden" id="popUpVideoId" />
+<div id="homeTypePopUp" class="popup" style="display:none">
+		<div class="p_title"><h3>标题</h3><a href="javascript:Video.hidePopUp()" class="close">x</a></div>
+		<div class="p_cont">
+			编辑推荐等级：
+				<input type="radio" name="radiobutton" value="0">没有 
+				<input type="radio" name="radiobutton" value="1">编辑推荐 
+				<input type="radio" name="radiobutton" value="2">普通推荐
+				&nbsp;&nbsp;<input onclick="Video.setGradeType()" type="button" value="确定">
+		</div>
+	</div>
+	
+<div id="videoGradeTypePopUp" class="popup" style="display:none">
+		<div class="p_title"><h3>标题</h3><a href="javascript:Video.hidePopUp()" class="close">x</a></div>
+		<div class="p_cont">
+			首页推荐位置：<input type="text" class="w180" name="" id="indexNum" autocomplete="off" style="color: rgb(153, 153, 153);">&nbsp;&nbsp;<input onclick="Video.setHomeType()" type="button" value="确定">
+		</div>
+	</div>
+
 </body>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 

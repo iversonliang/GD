@@ -1,6 +1,5 @@
 package com.GD.web.form;
 
-import java.util.Date;
 
 public class UserForm {
 

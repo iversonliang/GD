@@ -2,7 +2,9 @@ package com.GD.type;
 
 public enum HomeType implements Inum{
 	IGNORE(0, "忽略"),
-	RECOMMEND(1, "首页推荐")
+	RECOMMEND(1, "首页推荐"),
+	SLIDE(2, "幻灯片"),
+	SLIDE_BEHIND(3, "幻灯片后面")
 	;
 
 	private int key;

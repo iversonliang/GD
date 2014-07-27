@@ -57,3 +57,11 @@ body {background:#f0f0f0;}
 #pageprev span{position:relative; top:8px;}
 #pagenext span{position:relative; top:8px;}
 .pagenext {width:38px;height:38px; background-position:-53px -9px;}
+
+
+.popup {position:fixed;top:30%;left:40%;border:1px solid #690;}
+.popup .p_title {height:30px;line-height:30px;color:#fff;background:#690;}
+.popup .p_title h3 {float:left;width:75%;text-indent:10px;font-size:16px;}
+.popup .p_title .close {float:right;display:block;width:25%;height:30px;font-size:16px;color:#690;text-align:center;background:#360;}
+.popup .p_title .close:hover {color:#fff;}
+.popup .p_cont {padding:20px;background:#fff;}

@@ -1,5 +1,6 @@
 package com.GD.dao.mysql;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +13,8 @@ import com.GD.mysql.Jdbc;
 import com.GD.mysql.StatementParameter;
 import com.GD.type.HomeType;
 import com.GD.type.SortType;
+import com.GD.type.TimeLimitType;
+import com.GD.util.DateUtil;
 
 @Repository
 public class VideoDaoMysqlImpl implements VideoDao {
@@ -53,18 +56,18 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	}
 
 	@Override
-	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label) {
+	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int timeLimitType, String keyword, boolean showDel) {
 		String sql = "SELECT COUNT(*) FROM video WHERE del=0";
 		StatementParameter params = new StatementParameter();
-		sql += this.getQuerySql(params, videoType, homeType, videoGradeType, videoSourceType, name, label, status, showDel);
+		sql += this.getQuerySql(params, videoType, homeType, videoGradeType, videoSourceType, timeLimitType, keyword, status, showDel);
 		return jdbc.queryForInt(sql, params);
 	}
 
 	@Override
-	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, boolean showDel, String name, String label, int start, int size) {
+	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, int timeLimitType, String keyword, boolean showDel, int start, int size) {
 		String sql = "SELECT * FROM video WHERE 1=1 ";
 		StatementParameter params = new StatementParameter();
-		sql += this.getQuerySql(params, videoType, homeType, videoGradeType, videoSourceType, name, label, status, showDel);
+		sql += this.getQuerySql(params, videoType, homeType, videoGradeType, videoSourceType, timeLimitType, keyword, status, showDel);
 		if (homeType != HomeType.IGNORE.getKey()) {
 			sql += " ORDER BY index_num";
 			if (sortType != SortType.ALL.getKey()) {
@@ -83,7 +86,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		return jdbc.queryForList(sql, Video.class, params);
 	}
 
-	private String getQuerySql(StatementParameter params, int videoType, int homeType, int videoGradeType, int videoSourceType, String name, String label, int status, boolean showDel) {
+	private String getQuerySql(StatementParameter params, int videoType, int homeType, int videoGradeType, int videoSourceType, int timeLimitType, String keyword, int status, boolean showDel) {
 		String querySql = "";
 		if (!showDel) {
 			querySql += " AND del=0";
@@ -108,15 +111,33 @@ public class VideoDaoMysqlImpl implements VideoDao {
 			querySql += " AND video_source_type=?";
 			params.setInt(videoSourceType);
 		}
-		if (StringUtils.isNotEmpty(name)) {
-			querySql += " AND name LIKE ?";
-			params.setString("%" + name + "%");
+		if (timeLimitType != 0) {
+			querySql += " AND posttime>? ";
+			params.setDate(this.getTimeLimitDate(timeLimitType));
 		}
-		if (StringUtils.isNotEmpty(label)) {
-			querySql += " AND label LIKE ?";
-			params.setString("%" + label + "%");
+		if (StringUtils.isNotEmpty(keyword)) {
+			querySql += " AND (name LIKE ? or label LIKE ?)";
+			params.setString("%" + keyword + "%");
+			params.setString("%" + keyword + "%");
 		}
 		return querySql;
+	}
+	
+	private Date getTimeLimitDate(int timeLimitType) {
+		Date result = null;
+		if (timeLimitType == TimeLimitType.MONTH.getKey()) {
+			result = DateUtil.addDate(DateUtil.getOnlyDate(new Date()), -30);
+		}
+		if (timeLimitType == TimeLimitType.THREE_DAY.getKey()) {
+			result = DateUtil.addDate(DateUtil.getOnlyDate(new Date()), -3);
+		}
+		if (timeLimitType == TimeLimitType.WEEK.getKey()) {
+			result = DateUtil.addDate(DateUtil.getOnlyDate(new Date()), -7);
+		}
+		if (timeLimitType == TimeLimitType.YEAR.getKey()) {
+			result = DateUtil.addDate(DateUtil.getOnlyDate(new Date()), -365);
+		}
+		return result;
 	}
 
 	@Override
@@ -191,6 +212,15 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	public boolean unDel(int videoId) {
 		String sql = "UPDATE video SET del=0 WHERE video_id=?";
 		return jdbc.updateForBoolean(sql, videoId);
+	}
+
+	@Override
+	public boolean updateVideoGradeType(int videoId, int videoGradeType) {
+		String sql = "UPDATE video set video_grade_type=? WHERE video_id=?";
+		StatementParameter params = new StatementParameter();
+		params.setInt(videoGradeType);
+		params.setInt(videoId);
+		return jdbc.updateForBoolean(sql, params);
 	}
 	
 }

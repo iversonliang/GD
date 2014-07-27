@@ -8,7 +8,10 @@
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
-
+<script type="text/javascript" src="/js/lib/comefrom.js"></script>
+<script type="text/javascript">
+	$(function() {init()})
+</script>
 </head>
 
 <body>
@@ -173,83 +176,12 @@
 						</tr>
 						<tr>
 							<th>所在地区</th>
-							<td class="vm" colspan="2"><span class="selectBox">
-								<select id="now_provice" name="now_provice" class="ml10" onchange="changeOption11(this)">
-									<option value="1">北京</option>
-									<option value="2">上海</option>
-									<option value="3">天津</option>
-									<option value="4">重庆</option>
-									<option value="5">黑龙江</option>
-									<option value="6">辽宁</option>
-									<option value="7">吉林</option>
-									<option value="8">河北</option>
-									<option value="9">内蒙古</option>
-									<option value="10">陕西</option>
-									<option value="11">山西</option>
-									<option value="12">甘肃</option>
-									<option value="13">宁夏</option>
-									<option value="14">新疆</option>
-									<option value="15">西藏</option>
-									<option value="16">青海</option>
-									<option value="17">四川</option>
-									<option value="18">云南</option>
-									<option value="19">贵州</option>
-									<option value="20">湖南</option>
-									<option value="21">湖北</option>
-									<option value="22">河南</option>
-									<option value="23">山东</option>
-									<option value="24">安徽</option>
-									<option value="25">江苏</option>
-									<option value="26">浙江</option>
-									<option value="27">台湾</option>
-									<option value="28">香港</option>
-									<option value="29">澳门</option>
-									<option value="30" selected="selected">广东</option>
-									<option value="31">广西</option>
-									<option value="32">江西</option>
-									<option value="33">福建</option>
-									<option value="34">海南</option>
-									<option value="35">其它</option>
-									<option value="36">美国</option>
-									<option value="37">欧洲</option>
-									<option value="38">日本</option>
-									<option value="39">韩国</option>
-									<option value="40">新加坡</option>
-									<option value="41">加拿大</option>
-									<option value="42">亚　洲</option>
-									<option value="43">非　洲</option>
-									<option value="44">澳　洲</option>
-									<option value="45">南美洲</option>
-									<option value="46">东南亚</option>
-								</select>
+							<td>
+								<span class="selectBox">
+									<select id="province" name="province" onChange = "select()"></select>
 								</span>
 								<span class="selectBox ml10">
-								<select name="now_city" id="now_city" class="ml10">
-									<option value="452">广州</option>
-									<option value="453">韶关</option>
-									<option value="454">深圳</option>
-									<option value="455" selected="selected">珠海</option>
-									<option value="456">汕头</option>
-									<option value="457">佛山</option>
-									<option value="458">江门</option>
-									<option value="459">湛江</option>
-									<option value="460">茂名</option>
-									<option value="461">海口</option>
-									<option value="462">肇庆</option>
-									<option value="463">惠州</option>
-									<option value="464">梅州</option>
-									<option value="465">汕尾</option>
-									<option value="466">河源</option>
-									<option value="467">阳江</option>
-									<option value="468">清远</option>
-									<option value="469">东莞</option>
-									<option value="470">中山</option>
-									<option value="471">梅县</option>
-									<option value="472">惠阳</option>
-									<option value="473">潮州</option>
-									<option value="474">揭阳</option>
-									<option value="475">云浮</option>
-								</select>
+									<select id="city" name="city" onChange = "select()"></select>
 								</span>
 							</td>
 						</tr>
@@ -317,6 +249,11 @@
 	}
 	User.checkSignLength();
 	User.checkDescriptionLength();
+	$(function(){
+		$("#province").val('${user.province}');
+		select();
+		$("#city").val('${user.city}');
+	})
 </script>
 </body>
 </html>

@@ -16,9 +16,9 @@ public interface VideoDao {
 
 	public int countByUser(int userId);
 
-	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, boolean showDel, String name, String label);
+	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int timeLimitType, String keyword, boolean showDel);
 
-	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, boolean showDel, String name, String label, int start, int size);
+	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, int timeLimitType, String keyword, boolean showDel, int start, int size);
 
 	public List<Video> list(int userId, int start, int size);
 
@@ -53,4 +53,6 @@ public interface VideoDao {
 	public boolean updateIndexBetween(int homeType, int start, int end, boolean isIncr);
 	
 	public boolean updateHomeTypeIndex(int videoId, int homeType, int indexNum);
+	
+	public boolean updateVideoGradeType(int videoId, int videoGradeType);
 }

@@ -22,6 +22,8 @@ import com.GD.model.Video;
 import com.GD.service.VideoService;
 import com.GD.type.HomeType;
 import com.GD.type.SortType;
+import com.GD.type.TimeLimitType;
+import com.GD.type.VideoGradeType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 
@@ -44,9 +46,9 @@ public class VideoAdminController {
 		if (homeType == null) {
 			homeType = 0;
 		}
-		int count = videoService.countAll(HomeType.toType(homeType), true);
+		int count = videoService.countAll(HomeType.toType(homeType), TimeLimitType.ALL, true);
 		Pager pager = new Pager(count, page, 10, "/admin/video/index.do", null);
-		List<Video> list = videoService.listAll(HomeType.toType(homeType), SortType.ALL, true, pager.getFirst(), 10);
+		List<Video> list = videoService.listAll(HomeType.toType(homeType), SortType.ALL, TimeLimitType.ALL, true, pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("videoList", list);
 		model.addObject("pager", pager);
@@ -81,7 +83,7 @@ public class VideoAdminController {
 	@RequestMapping(value="/setHomeType.do", method=RequestMethod.GET)
 	public Map<String, Object> setHomeType(HttpServletRequest request, HttpServletResponse response, HttpSession session, int videoId, int homeType, Integer indexNum) {
 		if (indexNum == null || indexNum < 0) {
-			indexNum = 0;
+			indexNum = 1;
 		}
 		int userId = (Integer) session.getAttribute("userId");
 		boolean result = videoService.setHomeType(userId, videoId, HomeType.toType(homeType), indexNum);
@@ -96,6 +98,17 @@ public class VideoAdminController {
 	public Map<String, Object> delHomeType(HttpServletRequest request, HttpServletResponse response, HttpSession session, int videoId) {
 		int userId = (Integer) session.getAttribute("userId");
 		boolean result = videoService.delHomeType(userId, videoId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
+	
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value="/setVideoGradeType.do", method=RequestMethod.GET)
+	public Map<String, Object> setVideoGradeType(HttpServletRequest request, HttpServletResponse response, HttpSession session, int videoId, int videoGradeType) {
+		int userId = (Integer) session.getAttribute("userId");
+		boolean result = videoService.updateGradeType(userId, videoId, VideoGradeType.toType(videoGradeType));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;

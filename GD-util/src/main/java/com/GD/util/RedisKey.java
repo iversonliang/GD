@@ -29,4 +29,15 @@ public class RedisKey {
 	public static String getUserHeadImg() {
 		return "h_user_head_img";
 	}
+
+	/**
+	 * 防刷视频人气
+	 * 
+	 * @param sessionId
+	 * @param videoId
+	 * @return
+	 */
+	public static String getDefenseFlush(String sessionId, int videoId) {
+		return "k_" + sessionId + "_" + videoId;
+	}
 }

@@ -11,7 +11,7 @@
 			<a href="/index.do" <c:if test="${nav == 'home' }">class="selected"</c:if>>首页</a>
 			<a href="/opus.do" <c:if test="${ nav == 'opus' }">class="selected"</c:if>>作品</a>
 			<a href="/inspiration.do" <c:if test="${ nav == 'inspiration' }">class="selected"</c:if>>灵感</a>
-			<a href="#" <c:if test="${ param.st == 4 }">class="selected"</c:if>>专题</a>
+			<%-- <a href="#" <c:if test="${ param.st == 4 }">class="selected"</c:if>>专题</a> --%>
 			<a href="/user/userList.do" <c:if test="${  nav == 'dancer' }">class="selected"</c:if>>舞者</a>
 		</div>
 		<div class="topHeadeRight">
@@ -69,9 +69,9 @@
 				</div>
 			</c:if>
 			<div class="searchBar">
-				<form action="" method="get">
-					<input name="search" type="text" value="" placeholder="关键字查找" autocomplete="off">
-					<input type="submit" value="" class="yy-icon yy-so">
+				<form method="get">
+					<input id="keyword" name="search" type="text" value='<c:if test="${not empty keyword }">${keyword }</c:if>' placeholder="关键字查找" autocomplete="off" class="searchInput">
+					<input type="input" value="" class="yy-icon yy-so" onclick="Video.keywordSearch()">
 				</form>
 			</div>
 		</div>

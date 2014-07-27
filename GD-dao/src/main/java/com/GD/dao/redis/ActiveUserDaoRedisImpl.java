@@ -57,7 +57,10 @@ public class ActiveUserDaoRedisImpl implements ActiveUserDao {
 	@Override
 	public boolean update(User newUser, User oldUser) {
 		String key = RedisKey.getActiveUser();
-		long score = this.redis.zrank(key, Json.toJson(oldUser));
+		Long score = this.redis.zrank(key, Json.toJson(oldUser));
+		if (score == null) {
+			return true;
+		}
 		this.redis.zrem(key, Json.toJson(oldUser));
 		this.redis.zadd(key, score, Json.toJson(newUser));
 		return true;

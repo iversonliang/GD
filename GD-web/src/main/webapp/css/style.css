@@ -20,22 +20,21 @@ body {background:#f0f0f0;}
 .cf90{color:#ffb900;}a.cf90:link,a.cf90:visited{color:#ffb900;}a.cf90:hover,a.cf90:active{color:#ffb900;}
 .c000{color:#000;}.c333{color:#333;}.c666{color:#666;}.c999{color:#999;}.cccc{color:#ccc;}.caaa{color:#aaa;}
 
-#topBar { height: 50px; background: #333; }
-#topBar .topContent { margin: 0 auto; padding: 0 20px; width: 980px; }
-#topBar .topLogo { float: left; margin-right: 24px; height: 50px; }
+#topBar { height: 50px; background: #333}
+#topBar .topContent { margin: 0 auto; padding: 0 20px; width: 980px;}
+#topBar .topLogo { float: left; margin-right: 24px; height: 50px;width:100px; }
 #topBar .topLogo a {display:block;height:50px;}
 #topBar .topNav { float: left; }
 .topNav a { display: inline-block; float: left; overflow: hidden; width: 80px; height: 50px; color: #fff; text-align: center; text-decoration: none; font-size: 14px; line-height: 50px; }
 .topNav a:hover { background: #555; color: #fff; }
 .topNav a.selected { background: #690; color: #fff; }
 .topHeadeRight {float:right;}
-.searchBar { float: right; margin-top:10px;margin-right:10px;border-radius:3px;overflow:hidden; }
+.searchBar { float:right; margin-top:10px;margin-right:10px;border-radius:3px;overflow:hidden; }
 .searchBar form {width: 170px;height: 32px;background: #434649;}
-.searchBar form input {float:left; padding: 9px; width: 122px; height: 14px; outline: none;border: none;background-color:#666; color: #8b8d90;line-height: 14px;}
-.searchBar form input[type=submit]{ width:30px; height:32px; cursor:pointer; transition:background-color ease-out .3s;}
-.searchBar form input[type=submit]:hover{ background-color:#2a2c2e;}
+.searchBar form .searchInput {float:left; padding: 9px; width: 122px; height: 14px; outline: none;border: none;background-color:#666; color: #8b8d90;line-height: 14px;}
 .yy-icon {display: inline-block;background-image: url(/images/spirit.png);background-repeat: no-repeat;}
-.yy-so {width:30px; height:32px; background-position: -4px -3px;}
+.yy-so {float:right;width:30px; height:32px;border:0; background-color:#666;background-position: -4px -3px;width:30px; height:32px; cursor:pointer; transition:background-color ease-out .3s;}
+.yy-so:hover {background-color:#434649;}
 .doLogBox {float:right;color:#999; line-height:50px;}
 .doLogBox a { margin:0 5px;color:#fff;font-size:14px;}
 .logedin {float:right;position:relative;}
@@ -329,3 +328,30 @@ a.tBtn{ text-decoration:none;}
 .crbBox .commentConfirm {display: block;float: right;width: 100px;height: 30px;background: #690;color: #fff;text-align: center;line-height: 30px;border:0;border-radius: 3px;}
 .crbBox .commentConfirm:hover {background:#360;color:#fff;}
 .commentCancel {display: block;float: right;margin-right: 20px;margin-top:5px;}
+
+
+.popup {position:absolute;top:30%;left:40%;border:1px solid #690;}
+.popup .p_title {height:30px;line-height:30px;color:#fff;background:#690;}
+.popup .p_title h3 {float:left;width:75%;text-indent:10px;font-size:16px;}
+.popup .p_title .close {float:right;display:block;width:25%;height:30px;font-size:16px;color:#690;text-align:center;background:#360;}
+.popup .p_title .close:hover {color:#fff;}
+.popup .p_cont {padding:20px;background:#fff;}
+
+.recommend {width:980px;margin:30px auto 0;overflow:auto;}
+#focus {float:left;width:730px; height:310px; overflow:hidden; position:relative;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
+#focus ul {height:380px; position:absolute;}
+#focus ul li {float:left; width:730px; height:310px; overflow:hidden; position:relative; background:#f0f0f0;}
+#focus ul li img {height:310px;}
+#focus ul li div {position:absolute; overflow:hidden;}
+#focus .btnBg {position:absolute; width:730px; height:20px; left:0; bottom:0; background:#000;}
+#focus .btn {position:absolute; width:160px; height:14px; padding:0 10px; right:50%; bottom:5px; text-align:right;margin-right:-82px;}
+#focus .btn span {display:inline-block; _display:inline; _zoom:1; width:25px; height:10px; _font-size:0; margin-left:5px; cursor:pointer; background:#fff;}
+#focus .btn span.on {background:#fff;}
+#focus .preNext {width:45px; height:100px; position:absolute; top:90px; background:url(/images/sprite.png) no-repeat 0 0; cursor:pointer;}
+#focus .pre {left:0;}
+#focus .next {right:0; background-position:right top;}
+.r_side {float:left;width:230px;height:110px;margin-left:20px;}
+.r_ad {width:230px;height:110px;margin-bottom:10px;overflow:hidden;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
+.r_ad img {width:230px;height:110px;}
+.r_links {width:198px;height:48px;line-height:24px;background:#fff;padding:10px 15px;border:1px solid #dedede;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
+.r_links span {display:block;}

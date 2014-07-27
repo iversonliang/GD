@@ -44,7 +44,7 @@ public class VideoHandlerImpl implements VideoHandler {
 		video.setStatus(StatusType.NORMAL.getKey());
 		video.setUrl(form.getUrl().trim());
 		video.setUserId(userId);
-		video.setVideoGradeType(VideoGradeType.COMMON.getKey());
+		video.setVideoGradeType(VideoGradeType.ALL.getKey());
 		video.setVideoSourceType(form.getSourceType());
 		video.setVideoType(form.getType());
 		video.setImgUrl("");
@@ -91,8 +91,7 @@ public class VideoHandlerImpl implements VideoHandler {
 	public Map<String, Object> getVideoSearchForm(VideoSearchForm form) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("homeType", form.getHomeType());
-		map.put("label", form.getLabel());
-		map.put("name", form.getName());
+		map.put("keyword", form.getKeyword());
 		map.put("statusType", form.getStatusType());
 		map.put("videoGradeType", form.getVideoGradeType());
 		map.put("sourceType", form.getVideoSourceType());

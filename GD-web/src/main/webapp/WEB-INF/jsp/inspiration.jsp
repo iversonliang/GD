@@ -12,18 +12,8 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
-<div id="header">
-	<div class="bannar">
-		<div class="bannar_pic">
-			<c:if test="${requestScope.isLogin == null || isLogin == false }">
-				<a href="/page/register.jsp" class="btn">立即注册</a>
-			</c:if>
-		</div>
-	</div>
-</div>
 <div id="wrapper">
 	<div class="main">
-		<h2>灵感作品</h2>
 		<div class="camZpBoxC">
 			<dl>
 				<dt>类型：</dt>
@@ -36,27 +26,25 @@
 			<dl>
 				<dt>等级：</dt>
 				<dd>
-					<a href="javascript:void(0)" class="selected">全部</a>
-					<a href="javascript:void(0)">编辑精选</a>
-					<a href="javascript:void(0)">普通推荐</a>
+					<c:forEach items="${videoGradeTypeList}" var="videoGradeType">
+						<a name="videoGradeType" videoGradeTypeId="${videoGradeType.key }" href="javascript:Video.search('videoGradeType', '${videoGradeType.key }')" <c:if test="${param.videoGradeType == videoGradeType.key}">class="selected"</c:if> >${videoGradeType.desc }</a>
+					</c:forEach>
 				</dd>
 			</dl>
 			<dl>
 				<dt>排序：</dt>
 				<dd>
 					<c:forEach items="${sortTypeList}" var="sortType">
-					<a name="sortType" sortTypeId="${sortType.key }" href="javascript:Video.search('sortType', '${sortType.key }')" <c:if test="${param.sortType == sortType.key}">class="selected"</c:if> >${sortType.desc }</a>
+						<a name="sortType" sortTypeId="${sortType.key }" href="javascript:Video.search('sortType', '${sortType.key }')" <c:if test="${param.sortType == sortType.key}">class="selected"</c:if> >${sortType.desc }</a>
 					</c:forEach>
 				</dd>
 			</dl>
 			<dl>
 				<dt>时间：</dt>
 				<dd>
-					<a href="#" class="selected">不限</a>
-					<a href="#">三天内</a>
-					<a href="#">一周内</a>
-					<a href="#">一个月内</a>
-					<a href="#">一年个月内</a>
+					<c:forEach items="${timeLimitTypeList}" var="timeLimitType">
+						<a name="timeLimitType" timeLimitTypeId="${timeLimitType.key }" href="javascript:Video.search('timeLimitType', '${timeLimitType.key }')" <c:if test="${param.timeLimitType == timeLimitType.key}">class="selected"</c:if> >${timeLimitType.desc }</a>
+					</c:forEach>
 				</dd>
 			</dl>
 		</div>
@@ -102,6 +90,7 @@
 			<a href="#" id="pagenext"><span class="yy-icon pagenext"></span></a></div>
 		</div> -->
 		<jsp:include page="/WEB-INF/jsp/include/pager.jsp"></jsp:include>
+	</div>
 </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 

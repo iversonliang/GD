@@ -50,8 +50,15 @@ var Video = {
 		}
 		return true;
 	},
+	"keywordSearch" : function() {
+		var url = "/video/search.do";
+		window.location.href = Video.getSearchParam(url);
+	},
 	"search" : function(type, value) {
-		var url = "/inspiration.do";
+		var url = window.location.pathname;
+		window.location.href = Video.getSearchParam(url, type, value);
+	},
+	"getSearchParam" : function(url, type, value) {
 		var hasParam = false;
 		if (type == "videoType") {
 			url += "?videoType=" + value;
@@ -78,8 +85,38 @@ var Video = {
 			}
 		}
 		
+		if (type == "videoGradeType") {
+			url += hasParam ? "&" : "?";
+			url += "videoGradeType=" + value;
+			hasParam = true;
+		} else {
+			var videoGradeType = $("a[name=videoGradeType][class=selected]").attr("videoGradeTypeId");
+			if (Common.isNotEmpty(videoGradeType)) {
+				url += hasParam ? "&" : "?";
+				url += "videoGradeType=" + videoGradeType;
+				hasParam = true;
+			}
+		}
 		
-		window.location.href = url;
+		if (type == "timeLimitType") {
+			url += hasParam ? "&" : "?";
+			url += "timeLimitType=" + value;
+			hasParam = true;
+		} else {
+			var timeLimitType = $("a[name=timeLimitType][class=selected]").attr("timeLimitTypeId");
+			if (Common.isNotEmpty(timeLimitType)) {
+				url += hasParam ? "&" : "?";
+				url += "timeLimitType=" + timeLimitType;
+				hasParam = true;
+			}
+		}
+		
+		var keyword = $("#keyword").val();
+		if (Common.isNotEmpty(keyword)) {
+			url += hasParam ? "&" : "?";
+			url += "keyword=" + keyword;
+		}
+		return url;
 	},
 	"end" : null
 }

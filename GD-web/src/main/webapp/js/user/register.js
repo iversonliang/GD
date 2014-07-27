@@ -32,6 +32,9 @@ var Register = {
 		if (!Register.checkCode()) {
 			return false;
 		}
+		if (!Register.checkComefrom()) {
+			return false;
+		}
 		return true;
 	},
 	/**
@@ -51,7 +54,9 @@ var Register = {
 			password : $("#password").val(),
 			email : $("#email").val(),
 			code : $("#code").val(),
-			sex : sex
+			sex : sex,
+			province : $("#province").val(),
+			city : $("#city").val()
 		}
 		var url = "/user/register.do";
 		AjaxJson.post(url, param).done(function(data) {
@@ -84,6 +89,24 @@ var Register = {
 		$("span[name=tips]").each(function(index,element) {
 			$(this).hide();
 		});
+	},
+	/**
+	 * 检查用户名居住地
+	 */
+	"checkComefrom" : function() {
+		var province = $("#province").val();
+		if (province.indexOf("请选择") != -1) {
+			$("#locationTip").html("请输入省份或城市");
+			$("#locationTip").show();
+			return false;
+		}
+		var city = $("#city").val();
+		if (city.indexOf("请选择") != -1) {
+			$("#locationTip").html("请输入城市或区域");
+			$("#locationTip").show();
+			return false;
+		}
+		return true;
 	},
 	/**
 	 * 检查用户名规则
