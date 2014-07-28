@@ -1,6 +1,7 @@
 package com.GD.web.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.handler.VideoHandler;
+import com.GD.model.Ad;
 import com.GD.model.Video;
+import com.GD.service.AdService;
 import com.GD.service.VideoService;
+import com.GD.type.AdAreaType;
 import com.GD.type.HomeType;
 import com.GD.type.SortType;
 import com.GD.type.StatusType;
@@ -39,6 +43,8 @@ public class HomeController {
 	protected Log logger = LogFactory.getLog(this.getClass());
 
 	@Autowired
+	private AdService adService;
+	@Autowired
 	private VideoHandler videoHandler;
 	@Autowired
 	private VideoService videoService;
@@ -55,11 +61,21 @@ public class HomeController {
 		Pager pager = new Pager(videoCount, page, 16, "/index.do", null);
 		List<Video> list = videoService.listAll(HomeType.RECOMMEND, SortType.ALL, TimeLimitType.ALL, false, pager.getFirst(), 16);
 		List<VideoVO> voList = videoHandler.toVoList(list);
+		
+		List<Ad> adList = adService.list(AdAreaType.IGNORE, 0, Integer.MAX_VALUE);
+		List<Ad> slideList = new ArrayList<Ad>();
+		for (Ad ad : adList) {
+			if (ad.getAdAreaType() == AdAreaType.SLIDE.getKey()) {
+				slideList.add(ad);
+			}
+		}
+		
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("isLogin", isLogin);
 		model.addObject("pager", pager);
 		model.addObject("videoVoList", voList);
 		model.addObject("nav", "home");
+		model.addObject("slideList", slideList);
 		long end = System.currentTimeMillis();
 		System.out.println("time:" + (end - start) + "ms");
 		return model;

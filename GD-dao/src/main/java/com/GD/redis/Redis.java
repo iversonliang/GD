@@ -673,9 +673,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Set<String> zrangeByScore(String key, double min, double max) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Set<String> zrangeByScore(final String key, final double min, final double max) {
+		return (Set<String>) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.zrangeByScore(key, min, max);
+			}
+		});
 	}
 
 	@Override
@@ -685,9 +689,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Set<String> zrevrangeByScore(String key, double max, double min) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Set<String> zrevrangeByScore(final String key, final double max, final double min) {
+		return (Set<String>) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.zrevrangeByScore(key, min, max);
+			}
+		});
 	}
 
 	@Override
@@ -697,9 +705,13 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Set<String> zrevrangeByScore(String key, String max, String min) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Set<String> zrevrangeByScore(final String key, final String max, final String min) {
+		return (Set<String>) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.zrevrangeByScore(key, max, min);
+			}
+		});
 	}
 
 	@Override

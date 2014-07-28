@@ -12,3 +12,4 @@ String version = "1.0";
 
 <script type="text/javascript" src="/js/admin/announcement/announcement.js?ver=<%=version%>"></script>
 <script type="text/javascript" src="/js/admin/video/video.js?ver=<%=version%>"></script>
+<script type="text/javascript" src="/js/admin/ad/ad.js?ver=<%=version%>"></script>

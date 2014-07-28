@@ -16,7 +16,7 @@
 	<div class="main">
 		<ul class="tab">
 			<li><a href="/user/userInfo.do">基本资料</a></li>
-			<li class="active"><a href="/user/updatePersonalImg.do">修改头像</a></li>
+			<li class="active"><a href="/user/headImg.do">修改头像</a></li>
 			<li><a href="/user/updatePassword.do">修改密码</a></li>
 		</ul>
 		<div class="content bg_w">

@@ -17,7 +17,6 @@ import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.type.HomeType;
-import com.GD.type.NoticeType;
 import com.GD.type.RoleType;
 import com.GD.type.SortType;
 import com.GD.type.StatusType;
@@ -143,15 +142,12 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public boolean setHomeType(int userId, int videoId, HomeType homeType, int indexNum) {
-		User user = userService.get(userId);
-		UserUtil.checkNull(user);
-		UserUtil.checkAdminAuthority(user);
 		Video video = videoDao.get(videoId);
 		VideoUtil.checkNull(video);
 		boolean result = false;
 		if (video.getHomeType() == HomeType.IGNORE.getKey()) {
 			Notice notice = new Notice();
-			notice.setContent(NoticeUtil.getVideoNoticeContent(video, NoticeType.HOME_RECOMMEND));
+			notice.setContent(NoticeUtil.getVideoNoticeContent(video, HomeType.RECOMMEND));
 			notice.setImgUrl("/images/avatar_system.jpg");
 			System.out.println("------------- 没有上传图片 ---------------");
 			notice.setOpUserId(userId);

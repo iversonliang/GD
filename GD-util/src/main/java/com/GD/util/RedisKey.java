@@ -40,4 +40,14 @@ public class RedisKey {
 	public static String getDefenseFlush(String sessionId, int videoId) {
 		return "k_" + sessionId + "_" + videoId;
 	}
+
+	/**
+	 * 临时上传文件
+	 * 
+	 * @param imgType
+	 * @return
+	 */
+	public static String getTempImg(String imgType) {
+		return "z_" + imgType;
+	}
 }

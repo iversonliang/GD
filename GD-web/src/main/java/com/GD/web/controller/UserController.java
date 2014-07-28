@@ -39,6 +39,7 @@ import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.TempImgService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
@@ -65,6 +66,8 @@ public class UserController {
 	private VideoService videoService;
 	@Autowired
 	private UserHandler userHandler;
+	@Autowired
+	private TempImgService tempImgService;
 	@Autowired
 	private UserService userService;
 
@@ -367,8 +370,9 @@ public class UserController {
 	@LoginRequired
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> upload(HttpServletRequest request, HttpServletResponse response) {
-		String SAVE_PATH = "/data/wwwdata/img/";
+	public Map<String, Object> upload(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String uploadType = "headImg";
+		String SAVE_PATH = "/data/wwwdata/img/" + uploadType + "/";
 		FileUtil.checkFolderPath(SAVE_PATH);
 		Collection<Part> parts = null;
 		try {
@@ -392,7 +396,7 @@ public class UserController {
 				fileName = FileUtil.parseFileName(fileName);
 				String savePath = SAVE_PATH + fileName;
 				System.out.println("savePath:" + savePath);
-				url = "/img/" + fileName;
+				url = "/img/" + uploadType + "/" + fileName;
 				// inputStream转成outputStream并存储
 				try {
 					is = part.getInputStream();
@@ -403,6 +407,7 @@ public class UserController {
 						optS.write(c);
 					}
 					optS.flush();
+					tempImgService.add(uploadType, fileName);
 					result = true;
 				} catch (IOException e) {
 					e.printStackTrace();

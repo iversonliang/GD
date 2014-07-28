@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.interceptor.LoginRequired;
+import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.HomeType;
 import com.GD.type.SortType;
 import com.GD.type.TimeLimitType;
 import com.GD.type.VideoGradeType;
 import com.GD.util.Pager;
+import com.GD.util.UserUtil;
 import com.GD.util.ViewUtil;
 
 @Controller
@@ -34,6 +37,8 @@ public class VideoAdminController {
 	public static final String DIR = "/admin/video";
 	protected Log logger = LogFactory.getLog(this.getClass());
 	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private VideoService videoService;
 	
@@ -86,6 +91,9 @@ public class VideoAdminController {
 			indexNum = 1;
 		}
 		int userId = (Integer) session.getAttribute("userId");
+		User user = userService.get(userId);
+		UserUtil.checkNull(user);
+		UserUtil.checkAdminAuthority(user);
 		boolean result = videoService.setHomeType(userId, videoId, HomeType.toType(homeType), indexNum);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);

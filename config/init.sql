@@ -82,3 +82,15 @@ CREATE TABLE notice (
   op_user_id int(10) NOT NULL default 0,
   PRIMARY KEY (notice_id)
 );
+
+DROP TABLE IF EXISTS ad;
+CREATE TABLE ad (
+  ad_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  ad_area_type int(10) NOT NULL default 0,
+  index_num int(10) NOT NULL default 0,
+  url varchar(200) NOT NULL DEFAULT '',
+  img_url varchar(200) NOT NULL DEFAULT '',
+  posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  del smallint(3) NOT NULL DEFAULT 0,
+  PRIMARY KEY (ad_id)
+);
