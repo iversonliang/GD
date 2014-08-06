@@ -6,5 +6,6 @@
 		<li <c:if test="${type == 'video' || param.type == 'video' }">class="selected"</c:if>><a href="/admin/video/index.do">首页推荐</a></li>
 		<li <c:if test="${type == 'ad' || param.type == 'ad' }">class="selected"</c:if>><a href="/admin/ad/index.do">首页广告</a></li>
 		<li <c:if test="${type == 'announcement' || param.type == 'announcement' }">class="selected"</c:if>><a href="/admin/announcement/index.do">公告</a></li>
+		<li <c:if test="${type == 'inviteCode' || param.type == 'inviteCode' }">class="selected"</c:if>><a href="/admin/inviteCode/index.do">邀请码</a></li>
 	</ul>
 </div>

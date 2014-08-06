@@ -36,6 +36,15 @@ CREATE TABLE comment (
 );
 
 
+DROP TABLE IF EXISTS invite_code;
+CREATE TABLE invite_code (
+  invite_code_id varchar(20) NOT NULL,
+  use_user_id int(10) NOT NULL default 0,
+  posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  use_time datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  PRIMARY KEY (invite_code_id)
+);
+
 CREATE TABLE `user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL DEFAULT '',
