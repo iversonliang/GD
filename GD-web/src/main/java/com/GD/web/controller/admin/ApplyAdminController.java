@@ -18,23 +18,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.interceptor.LoginRequired;
-import com.GD.model.InviteCode;
-import com.GD.service.InviteCodeService;
-import com.GD.service.UserService;
+import com.GD.model.Apply;
+import com.GD.service.ApplyService;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 
 @Controller
-@RequestMapping(value = InviteCodeAdminController.DIR)
-public class InviteCodeAdminController {
+@RequestMapping(value = ApplyAdminController.DIR)
+public class ApplyAdminController {
 
-	public static final String DIR = "/admin/inviteCode";
+	public static final String DIR = "/admin/apply";
 	protected Log logger = LogFactory.getLog(this.getClass());
 	
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private InviteCodeService inviteCodeService;
+	private ApplyService applyService;
 	
 	@LoginRequired
 	@RequestMapping( value = "/index.do", method = RequestMethod.GET)
@@ -42,37 +39,25 @@ public class InviteCodeAdminController {
 		if (page == null || page < 1) {
 			page = 1;
 		}
-		int count = inviteCodeService.count();
+		int count = applyService.count();
 		Pager pager = new Pager(count, page, 10, "/admin/inviteCode/index.do", null);
-		List<InviteCode> list = inviteCodeService.list(pager.getFirst(), 10);
+		List<Apply> list = applyService.list(pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);
-		model.addObject("inviteCodeList", list);
+		model.addObject("list", list);
 		model.addObject("pager", pager);
-		model.addObject("type", "inviteCode");
+		model.addObject("type", "apply");
 		return model;
 	}
 	
-	@ResponseBody
 	@LoginRequired
-	@RequestMapping( value = "/create.do", method = RequestMethod.GET)
-	public Map<String, Object> create(HttpServletRequest request, HttpServletResponse response, HttpSession session, int num) {
-		int userId = (Integer) session.getAttribute("userId");
-		userService.checkAdmin(userId);
-		inviteCodeService.create(num);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", true);
-		return map;
-	}
-	
+	@RequestMapping( value = "/pass.do", method = RequestMethod.GET)
 	@ResponseBody
-	@LoginRequired
-	@RequestMapping( value = "/send.do", method = RequestMethod.GET)
-	public Map<String, Object> send(HttpServletRequest request, HttpServletResponse response, HttpSession session, String inviteCodeId) {
-		int userId = (Integer) session.getAttribute("userId");
-		userService.checkAdmin(userId);
-		boolean result = inviteCodeService.send(inviteCodeId);
+	public Map<String, Object> pass(HttpServletRequest request, HttpServletResponse response, HttpSession session, int applyId) {
+		int userId = (Integer)session.getAttribute("userId");
+		boolean result = applyService.pass(userId, applyId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;
 	}
+	
 }

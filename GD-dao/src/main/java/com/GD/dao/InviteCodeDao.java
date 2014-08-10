@@ -10,7 +10,11 @@ public interface InviteCodeDao {
 
 	public InviteCode get(String inviteCodeId);
 	
+	public InviteCode random();
+	
 	public boolean use(int userId, String inviteCodeId);
+	
+	public boolean send(String inviteCodeId);
 	
 	public int count();
 	

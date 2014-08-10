@@ -8,6 +8,15 @@ public class InviteCode {
 	private int useUserId;
 	private Date posttime;
 	private Date useTime;
+	private int status;
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	public String getInviteCodeId() {
 		return inviteCodeId;

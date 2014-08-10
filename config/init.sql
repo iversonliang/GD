@@ -103,3 +103,18 @@ CREATE TABLE ad (
   del smallint(3) NOT NULL DEFAULT 0,
   PRIMARY KEY (ad_id)
 );
+
+DROP TABLE IF EXISTS apply;
+CREATE TABLE apply (
+  apply_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  user_id int(10) not null,
+  name varchar(20) NOT NULL DEFAULT '',
+  email varchar(200) NOT NULL DEFAULT '',
+  location varchar(20) NOT NULL DEFAULT '',
+  crew varchar(20) NOT NULL DEFAULT '',
+  oups_url varchar(200) NOT NULL DEFAULT '',
+  posttime datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  pass smallint(3) NOT NULL DEFAULT 0,
+  PRIMARY KEY (apply_id),
+  INDEX index_user(user_id)
+);

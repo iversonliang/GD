@@ -123,13 +123,13 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public List<Video> list(int userId, int start, int size) {
-		return videoDao.list(userId, start, size);
+	public List<Video> list(int userId, VideoSourceType videoSourceType, int start, int size) {
+		return videoDao.list(userId, videoSourceType.getKey(), start, size);
 	}
 
 	@Override
-	public int countByUser(int userId) {
-		return videoDao.countByUser(userId);
+	public int countByUser(int userId, VideoSourceType videoSourceType) {
+		return videoDao.countByUser(userId, videoSourceType.getKey());
 	}
 
 	@Override

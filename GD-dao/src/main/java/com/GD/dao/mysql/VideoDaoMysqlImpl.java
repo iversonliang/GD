@@ -165,15 +165,30 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	}
 
 	@Override
-	public List<Video> list(int userId, int start, int size) {
-		String sql = "SELECT * FROM video WHERE user_id=? AND del=0 ORDER BY play DESC LIMIT ?,?";
-		return jdbc.queryForList(sql, Video.class, userId, start, size);
+	public List<Video> list(int userId, int videoSourceType, int start, int size) {
+		String sql = "SELECT * FROM video WHERE user_id=?";
+		StatementParameter param = new StatementParameter();
+		param.setInt(userId);
+		if (videoSourceType > 0) {
+			sql += " AND video_source_type=?";
+			param.setInt(videoSourceType);
+		}
+		sql += " AND del=0 ORDER BY play DESC LIMIT ?,?";
+		param.setInt(start);
+		param.setInt(size);
+		return jdbc.queryForList(sql, Video.class, param);
 	}
 
 	@Override
-	public int countByUser(int userId) {
+	public int countByUser(int userId, int videoSourceType) {
 		String sql = "SELECT COUNT(*) FROM video WHERE user_id=? AND del=0";
-		return jdbc.queryForInt(sql, userId);
+		StatementParameter param = new StatementParameter();
+		param.setInt(userId);
+		if (videoSourceType > 0) {
+			sql += " AND video_source_type=?";
+			param.setInt(videoSourceType);
+		}
+		return jdbc.queryForInt(sql, param);
 	}
 
 	@Override

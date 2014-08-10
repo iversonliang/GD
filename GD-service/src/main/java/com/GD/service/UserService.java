@@ -8,6 +8,8 @@ import com.GD.type.UserStatusType;
 public interface UserService {
 
 	public int add(User user);
+	
+	public void checkAdmin(int userId);
 
 	public boolean waitActivate(int userId, String code);
 

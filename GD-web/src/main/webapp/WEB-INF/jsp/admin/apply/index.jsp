@@ -25,33 +25,28 @@
 			</div>
 			<table cellspacing="1">
 				<tr>
-					<th style="width:320px">邀请码</th>
-					<th>使用用户ID</th>
-					<th>生成时间</th>
-					<th>使用时间</th>
-					<th>使用状态</th>
+					<th style="width:120px">名称</th>
+					<th>邮箱地址</th>
+					<th>来自哪里</th>
+					<th>舞团</th>
+					<th>作品地址</th>
+					<th>申请时间</th>
+					<th>分配邀请码</th>
 					<th>操作</th>
 				</tr>
-				<c:forEach items="${inviteCodeList}" var="code">
+				<c:forEach items="${list}" var="apply">
 					<tr>
-						<td>${code.inviteCodeId }</td>
-						<td>${code.useUserId}</td>
-						<td><fmt:formatDate value="${code.posttime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-						<td>
-							<c:if test="${code.useTime != '1970-01-01 00:00:00.0' }">
-								<fmt:formatDate value="${code.useTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
-							</c:if>
-						</td>
-						<td>
-							<c:if test="${code.status == 0 }">未使用</c:if>
-							<c:if test="${code.status == 1 }">已发送</c:if>
-							<c:if test="${code.status == 2 }">已使用</c:if>
-						</td>
+						<td>${apply.name }</td>
+						<td>${apply.email}</td>
+						<td>${apply.location}</td>
+						<td>${apply.crew}</td>
+						<td>${apply.oupsUrl}</td>
+						<td><fmt:formatDate value="${apply.posttime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td>${apply.inviteCodeId}</td>
 						<td>
 							<div class="btns">
-								<div class="btn"><input type="button" value="删除" onclick=""></div>
-								<c:if test="${code.status == 0 }">
-									<div class="btn"><input type="button" value="发放" onclick="InviteCode.send('${code.inviteCodeId }')"></div>
+								<c:if test="${apply.pass == false}">
+									<div class="btn"><input type="button" value="通过" onclick="Apply.pass('${apply.applyId }')"></div>
 								</c:if>
 							</div>
 						</td>	

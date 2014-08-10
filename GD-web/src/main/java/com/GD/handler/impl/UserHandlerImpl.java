@@ -18,6 +18,7 @@ import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
+import com.GD.type.VideoSourceType;
 import com.GD.util.DateUtil;
 import com.GD.util.Static;
 import com.GD.web.form.UserForm;
@@ -93,10 +94,10 @@ public class UserHandlerImpl implements UserHandler {
 	}
 
 	@Override
-	public List<UserVO> toVoList(List<User> list) {
+	public List<UserVO> toVoList(List<User> list, VideoSourceType videoSourceType) {
 		List<UserVO> voList = new ArrayList<UserVO>();
 		for (User user : list) {
-			List<Video> videoList = videoService.list(user.getUserId(), 0, 3);
+			List<Video> videoList = videoService.list(user.getUserId(), videoSourceType, 0, 3);
 			UserVO vo = new UserVO();
 			try {
 				BeanUtils.copyProperties(vo, user);

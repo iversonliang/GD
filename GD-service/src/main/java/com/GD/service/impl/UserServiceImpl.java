@@ -15,6 +15,7 @@ import com.GD.dao.UserHeadImgDao;
 import com.GD.email.MailInfo;
 import com.GD.model.User;
 import com.GD.service.UserService;
+import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
 import com.GD.util.CodeUtil;
 import com.GD.util.Constants;
@@ -194,6 +195,14 @@ public class UserServiceImpl implements UserService {
 			headImg = user.getHeadImg();
 		}
 		return headImg;
+	}
+
+	@Override
+	public void checkAdmin(int userId) {
+		User user = this.get(userId);
+		if (user == null || user.getRole() != RoleType.ADMIN.getKey()) {
+			throw new RuntimeException("不是管理员");
+		}
 	}
 
 }

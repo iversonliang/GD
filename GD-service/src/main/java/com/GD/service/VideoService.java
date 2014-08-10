@@ -25,9 +25,9 @@ public interface VideoService {
 	
 	public List<Video> listAll(HomeType homeType, SortType sortType, TimeLimitType timeLimitType, boolean showDel, int start, int size);
 	
-	public int countByUser(int userId);
+	public int countByUser(int userId, VideoSourceType videoSourceType);
 	
-	public List<Video> list(int userId, int start, int size);
+	public List<Video> list(int userId, VideoSourceType videoSourceType, int start, int size);
 
 	public List<Video> list(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, SortType sortType, TimeLimitType timeLimitType, boolean showDel, String keyword, int start, int size);
 	

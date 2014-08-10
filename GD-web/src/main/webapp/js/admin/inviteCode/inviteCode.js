@@ -18,5 +18,13 @@ var InviteCode = {
 			}
 		});
 	},
+	"send" : function(inviteCodeId) {
+		var url = "/admin/inviteCode/send.do?inviteCodeId=" + inviteCodeId;
+		AjaxJson.get(url).done(function(data) {
+			if (data.result == true) {
+				window.location.reload();
+			}
+		});
+	},
 	"end" : null
 }

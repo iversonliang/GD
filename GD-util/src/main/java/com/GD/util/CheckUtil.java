@@ -4,7 +4,9 @@ import java.security.InvalidParameterException;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
 
+import com.GD.model.Apply;
 import com.GD.model.User;
 import com.GD.model.Video;
 import com.GD.type.ErrorTipsType;
@@ -119,5 +121,11 @@ public class CheckUtil {
 			throw new InvalidParameterException(ErrorTipsType.COMMENT_CONTENT_ERROR.getDesc());
 		}
 		RegularUtil.checkStrLength(content, 200, ErrorTipsType.COMMENT_CONTENT_ERROR);
+	}
+	
+	public static void checkApply(Apply apply) {
+		RegularUtil.checkEmail(apply.getEmail());
+		Assert.isTrue(StringUtils.isNotEmpty(apply.getName()), "激活码申请用户名不能为空");
+		Assert.isTrue(StringUtils.isNotEmpty(apply.getLocation()), "激活码申请来自哪里不能为空");
 	}
 }

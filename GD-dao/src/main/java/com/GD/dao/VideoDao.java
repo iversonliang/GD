@@ -14,13 +14,13 @@ public interface VideoDao {
 	
 	public boolean unDel(int videoId);
 
-	public int countByUser(int userId);
+	public int countByUser(int userId, int videoSourceType);
 
 	public int count(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int timeLimitType, String keyword, boolean showDel);
 
 	public List<Video> list(int status, int videoType, int homeType, int videoGradeType, int videoSourceType, int sortType, int timeLimitType, String keyword, boolean showDel, int start, int size);
 
-	public List<Video> list(int userId, int start, int size);
+	public List<Video> list(int userId, int videoSourceType, int start, int size);
 
 	/**
 	 * 增加播放次数

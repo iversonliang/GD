@@ -21,6 +21,7 @@ import com.GD.interceptor.LoginRequired;
 import com.GD.model.Comment;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.ApplyService;
 import com.GD.service.CommentService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
@@ -46,6 +47,8 @@ public class VedioController {
 	public static final String DIR = "/video";
 	
 	@Autowired
+	private ApplyService applyService;
+	@Autowired
 	private CommentHandler commentHandler;
 	@Autowired
 	private VideoHandler videoHandler;
@@ -60,7 +63,13 @@ public class VedioController {
 	@LoginRequired
 	@RequestMapping(value = "/contribute.do", method = RequestMethod.GET)
 	public ModelAndView contribute(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		return ViewUtil.getView(DIR);
+		int userId = (Integer) session.getAttribute("userId");
+		boolean isActivate = applyService.isActivate(userId);
+		ModelAndView model = ViewUtil.getView(DIR);
+		if (!isActivate) {
+			model = new ModelAndView("redirect:/inviteCode/index.do");
+		}
+		return model;
 	}
 
 	@LoginRequired
@@ -93,7 +102,7 @@ public class VedioController {
 		videoService.play(vid, session.getId());
 		Video video = videoService.get(vid);
 		User user = userService.get(video.getUserId());
-		List<Video> userVideoList = videoService.list(user.getUserId(), 0, 3);
+		List<Video> userVideoList = videoService.list(user.getUserId(), VideoSourceType.ALL, 0, 3);
 		List<Comment> commentList = commentService.list(vid, 0, 10);
 		List<CommentVO> commentVoList = commentHandler.toVoList(commentList);
 		ModelAndView model = ViewUtil.getView(DIR);

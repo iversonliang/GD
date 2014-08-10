@@ -43,6 +43,7 @@ import com.GD.service.TempImgService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
+import com.GD.type.VideoSourceType;
 import com.GD.util.AuthCodeUtil;
 import com.GD.util.CheckUtil;
 import com.GD.util.FileUtil;
@@ -445,7 +446,7 @@ public class UserController {
 		} else {
 			list = userService.listActiveUser(pager.getFirst(), 10);
 		}
-		List<UserVO> voList = userHandler.toVoList(list);
+		List<UserVO> voList = userHandler.toVoList(list, VideoSourceType.ALL);
 		String headImg = (String) session.getAttribute("headImg");
 		if (StringUtils.isEmpty(headImg)) {
 			headImg = "/images/defaultHead.jpg";
@@ -481,10 +482,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/personal.do", method = RequestMethod.GET)
-	public ModelAndView personal(HttpServletRequest request, HttpServletResponse response, HttpSession session, int userId, Integer page) {
+	public ModelAndView personal(HttpServletRequest request, HttpServletResponse response, HttpSession session, int userId, Integer page, Integer type) {
 		Object idObj = session.getAttribute("userId");
 		if (page == null || page < 1) {
 			page = 1;
+		}
+		if (type == null || type < 1) {
+			type = 1;
 		}
 		int myId = 0;
 		if (idObj != null) {
@@ -492,17 +496,20 @@ public class UserController {
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
-		int totalCount = videoService.countByUser(userId);
+		params.put("type", type);
+		VideoSourceType videoSourceType = VideoSourceType.toType(type);
+		int totalCount = videoService.countByUser(userId, videoSourceType);
 		Pager pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
 		boolean isMyPage = myId == userId;
 		User user = userService.get(userId);
-		List<Video> list = videoService.list(userId, pager.getFirst(), 16);
+		List<Video> list = videoService.list(userId, videoSourceType, pager.getFirst(), 16);
 		List<VideoVO> videoVoList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("user", user);
 		model.addObject("isMyPage", isMyPage);
 		model.addObject("videoVoList", videoVoList);
 		model.addObject("pager", pager);
+		model.addObject("type", type);
 		return model;
 	}
 	
