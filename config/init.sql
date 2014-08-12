@@ -20,6 +20,15 @@ CREATE TABLE video (
   UNIQUE KEY uniq_url (url)
 );
 
+DROP TABLE IF EXISTS like_video;
+CREATE TABLE like_video (
+  like_video_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  video_id int(10) NOT NULL default 0,
+  user_id int(10) NOT NULL default 0,
+  PRIMARY KEY (like_video_id),
+  UNIQUE KEY uniq_like (video_id,user_id)
+);
+
 DROP TABLE IF EXISTS comment;
 CREATE TABLE comment (
   comment_id int(10) unsigned NOT NULL AUTO_INCREMENT,

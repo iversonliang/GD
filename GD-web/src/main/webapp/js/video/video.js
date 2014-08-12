@@ -118,5 +118,16 @@ var Video = {
 		}
 		return url;
 	},
+	"love" : function(vid) {
+		var url = "/video/love.do?vid=" + vid;
+		AjaxJson.get(url).done(function(data) {
+			if (data.isLogin == false) {
+				window.location.href = "/page/login.jsp";
+			}
+			if (data.result == true) {
+				$("#likeButton").hide()
+			}
+		});
+	},
 	"end" : null
 }

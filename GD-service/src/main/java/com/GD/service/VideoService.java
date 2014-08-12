@@ -33,7 +33,7 @@ public interface VideoService {
 	
 	public boolean play(int videoId, String sessionId);
 	
-	public boolean love(int videoId);
+	public boolean love(int userId, int videoId);
 	
 	public boolean incrComment(int videoId);
 

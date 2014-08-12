@@ -23,6 +23,7 @@ import com.GD.model.User;
 import com.GD.model.Video;
 import com.GD.service.ApplyService;
 import com.GD.service.CommentService;
+import com.GD.service.LikeVideoService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
@@ -41,8 +42,8 @@ import com.GD.web.vo.CommentVO;
 import com.GD.web.vo.VideoVO;
 
 @Controller
-@RequestMapping(value = VedioController.DIR)
-public class VedioController {
+@RequestMapping(value = VideoController.DIR)
+public class VideoController {
 	
 	public static final String DIR = "/video";
 	
@@ -56,6 +57,8 @@ public class VedioController {
 	private UserService userService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private LikeVideoService likeVideoService;
 	@Autowired
 	private VideoService videoService;
 	
@@ -105,11 +108,17 @@ public class VedioController {
 		List<Video> userVideoList = videoService.list(user.getUserId(), VideoSourceType.ALL, 0, 3);
 		List<Comment> commentList = commentService.list(vid, 0, 10);
 		List<CommentVO> commentVoList = commentHandler.toVoList(commentList);
+		boolean isLiked = false;
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId != null) {
+			isLiked = likeVideoService.isLiked(userId, vid);
+		}
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("video", video);
 		model.addObject("user", user);
 		model.addObject("userVideoList", userVideoList);
 		model.addObject("commentList", commentVoList);
+		model.addObject("isLiked", isLiked);
 		return model;
 	}
 	
@@ -143,4 +152,20 @@ public class VedioController {
 		return model;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/love.do", method = RequestMethod.GET)
+	public Map<String, Object> love(HttpServletRequest request, HttpServletResponse response, HttpSession session, int vid) {
+		boolean isLogin = false;
+		boolean result = false;
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId != null) {
+			isLogin = true;
+			videoService.checkVideo(vid);
+			result = videoService.love(userId, vid);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("isLogin", isLogin);
+		return map;
+	}
 }

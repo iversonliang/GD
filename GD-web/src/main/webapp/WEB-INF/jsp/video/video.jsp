@@ -37,6 +37,11 @@
 			<div class="videoCont">
 				<p>${video.description }</p>
 			</div>
+			<c:if test="${!isLiked }">
+				<div class="plike" id="likeButton">
+					<a href="javascript:Video.love(${video.videoId })"><span class="plikew"></span>喜欢(0)</a>
+				</div>
+			</c:if>
 		</div>
 		<div class="authorMore">
 			<div class="uitem">

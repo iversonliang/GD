@@ -12,6 +12,7 @@ import com.GD.dao.VideoDao;
 import com.GD.model.Notice;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.LikeVideoService;
 import com.GD.service.NoticeService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
@@ -31,6 +32,8 @@ import com.GD.util.VideoUtil;
 @Service
 public class VideoServiceImpl implements VideoService {
 
+	@Autowired
+	private LikeVideoService likeVideoService;
 	@Autowired
 	private DefenseFlushDao defenseFlushDao;
 	@Autowired
@@ -72,8 +75,16 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public boolean love(int videoId) {
-		return videoDao.love(videoId);
+	public boolean love(int userId, int videoId) {
+		boolean isLiked = likeVideoService.isLiked(userId, videoId);
+		if (isLiked) {
+			return false;
+		}
+		boolean result = videoDao.love(videoId);
+		if (result) {
+			likeVideoService.add(userId, videoId);
+		}
+		return result;
 	}
 
 	@Override

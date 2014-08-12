@@ -50,4 +50,14 @@ public class RedisKey {
 	public static String getTempImg(String imgType) {
 		return "z_" + imgType;
 	}
+
+	/**
+	 * 喜欢视频
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public static String getLikeVideo(int userId) {
+		return "s_like_video_" + userId;
+	}
 }

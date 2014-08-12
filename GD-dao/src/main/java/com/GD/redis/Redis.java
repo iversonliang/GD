@@ -504,15 +504,24 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Long sadd(String key, String... member) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Long sadd(final String key, final String... member) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.sadd(key, member);
+			}
+		});
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Set<String> smembers(String key) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Set<String> smembers(final String key) {
+		return (Set<String>) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.smembers(key);
+			}
+		});
 	}
 
 	@Override
