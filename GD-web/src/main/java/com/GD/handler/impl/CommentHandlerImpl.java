@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.GD.handler.CommentHandler;
 import com.GD.model.Comment;
 import com.GD.model.Video;
+import com.GD.service.VideoService;
 import com.GD.util.DateUtil;
 import com.GD.web.cache.LruCache;
 import com.GD.web.vo.CommentVO;
@@ -18,6 +19,8 @@ import com.GD.web.vo.CommentVO;
 @Component
 public class CommentHandlerImpl implements CommentHandler{
 	
+	@Autowired
+	private VideoService videoService;
 	@Autowired
 	private LruCache lruCache;
 	
@@ -36,7 +39,7 @@ public class CommentHandlerImpl implements CommentHandler{
 			vo.setDeployTimeTips(DateUtil.getDeployTimeTips(comment.getPosttime()));
 			String headImg = lruCache.getHeadImg(comment.getUserId());
 			vo.setHeadImg(headImg);
-			Video video = lruCache.getVideo(comment.getVideoId());
+			Video video = videoService.get(comment.getVideoId());
 			vo.setVideoName(video.getName());
 			vo.setVideoSourceType(video.getVideoSourceType());
 			voList.add(vo);

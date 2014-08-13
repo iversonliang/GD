@@ -8,6 +8,8 @@ public interface LikeVideoDao {
 	
 	public boolean add(LikeVideo likeVideo);
 	
-	public List<LikeVideo> listByUser(int userId);
-
+	public List<LikeVideo> listByUser(int userId, int start, int size);
+	
+	public int count(int userId);
+	
 }

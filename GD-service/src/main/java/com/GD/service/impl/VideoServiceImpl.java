@@ -1,5 +1,6 @@
 package com.GD.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -225,5 +226,15 @@ public class VideoServiceImpl implements VideoService {
 		UserUtil.checkNull(user);
 		UserUtil.checkAdminAuthority(user);
 		return videoDao.updateVideoGradeType(videoId, gradeType.getKey());
+	}
+
+	@Override
+	public List<Video> listLike(int userId, int start, int size) {
+		List<Integer> videoIdList = likeVideoService.listLikeVideoId(userId, start, size);
+		List<Video> list = new ArrayList<Video>();
+		for (Integer videoId : videoIdList) {
+			list.add(this.get(videoId));
+		}
+		return list;
 	}
 }

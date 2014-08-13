@@ -39,6 +39,7 @@ import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.LikeVideoService;
 import com.GD.service.TempImgService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
@@ -69,6 +70,8 @@ public class UserController {
 	private UserHandler userHandler;
 	@Autowired
 	private TempImgService tempImgService;
+	@Autowired
+	private LikeVideoService likeVideoService;
 	@Autowired
 	private UserService userService;
 
@@ -497,12 +500,23 @@ public class UserController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
 		params.put("type", type);
-		VideoSourceType videoSourceType = VideoSourceType.toType(type);
-		int totalCount = videoService.countByUser(userId, videoSourceType);
-		Pager pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
+		
+		int totalCount;
+		List<Video> list;
+		Pager pager;
+		if (type == 3) {
+			totalCount = likeVideoService.count(userId);
+			pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
+			list = videoService.listLike(userId,  pager.getFirst(), 16);
+		} else {
+			VideoSourceType videoSourceType = VideoSourceType.toType(type);
+			totalCount  = videoService.countByUser(userId, videoSourceType);
+			pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
+			list = videoService.list(userId, videoSourceType, pager.getFirst(), 16);
+		}
+		
 		boolean isMyPage = myId == userId;
 		User user = userService.get(userId);
-		List<Video> list = videoService.list(userId, videoSourceType, pager.getFirst(), 16);
 		List<VideoVO> videoVoList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("user", user);

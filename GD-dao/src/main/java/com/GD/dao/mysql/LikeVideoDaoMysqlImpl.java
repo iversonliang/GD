@@ -27,9 +27,15 @@ public class LikeVideoDaoMysqlImpl implements LikeVideoDao{
 	}
 
 	@Override
-	public List<LikeVideo> listByUser(int userId) {
-		String sql = "SELECT * FROM like_video WHERE user_id=?";
-		return jdbc.queryForList(sql, LikeVideo.class, userId);
+	public List<LikeVideo> listByUser(int userId, int start, int size) {
+		String sql = "SELECT * FROM like_video WHERE user_id=? LIMIT ?,?";
+		return jdbc.queryForList(sql, LikeVideo.class, userId, start, size);
+	}
+
+	@Override
+	public int count(int userId) {
+		String sql = "SELECT COUNT(*) FROM like_video WHERE user_id=?";
+		return jdbc.queryForInt(sql, userId);
 	}
 
 }

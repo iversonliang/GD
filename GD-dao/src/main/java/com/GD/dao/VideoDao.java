@@ -11,7 +11,7 @@ public interface VideoDao {
 	public Video get(int videoId);
 
 	public boolean del(int videoId);
-	
+
 	public boolean unDel(int videoId);
 
 	public int countByUser(int userId, int videoSourceType);
@@ -51,8 +51,15 @@ public interface VideoDao {
 	public Video getByIndexNum(int homeType, int indexNum);
 
 	public boolean updateIndexBetween(int homeType, int start, int end, boolean isIncr);
-	
+
 	public boolean updateHomeTypeIndex(int videoId, int homeType, int indexNum);
-	
+
 	public boolean updateVideoGradeType(int videoId, int videoGradeType);
+
+	/**
+	 * 删除缓存
+	 * 
+	 * @return
+	 */
+	public boolean removeAll();
 }

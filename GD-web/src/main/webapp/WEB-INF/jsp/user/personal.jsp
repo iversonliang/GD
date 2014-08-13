@@ -42,7 +42,7 @@
 			<ul class="tab">
 				<li <c:if test="${type == 1 }">class="active"</c:if>><a href="/user/personal.do?userId=${user.userId }&type=1">作品</a></li>
 				<li <c:if test="${type == 2 }">class="active"</c:if>><a href="/user/personal.do?userId=${user.userId }&type=2">分享</a></li>
-				<li <c:if test="${type == 3 }">class="active"</c:if>><a href="#">喜欢</a></li>
+				<li <c:if test="${type == 3 }">class="active"</c:if>><a href="/user/personal.do?userId=${user.userId }&type=3">喜欢</a></li>
 			</ul>
 		</div>
 	</div>

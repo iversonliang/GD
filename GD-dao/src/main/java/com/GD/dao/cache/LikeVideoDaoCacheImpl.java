@@ -29,12 +29,17 @@ public class LikeVideoDaoCacheImpl implements LikeVideoDao {
 	}
 
 	@Override
-	public List<LikeVideo> listByUser(int userId) {
-		List<LikeVideo> list = likeVideoDaoRedisImpl.listByUser(userId);
+	public List<LikeVideo> listByUser(int userId, int start, int size) {
+		List<LikeVideo> list = likeVideoDaoRedisImpl.listByUser(userId, start, size);
 		if (ListUtil.isEmpty(list)) {
-			list = likeVideoDaoMysqlImpl.listByUser(userId);
+			list = likeVideoDaoMysqlImpl.listByUser(userId, start, size);
 		}
 		return list;
+	}
+
+	@Override
+	public int count(int userId) {
+		return likeVideoDaoMysqlImpl.count(userId);
 	}
 
 }

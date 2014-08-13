@@ -46,4 +46,7 @@ public interface VideoService {
 	public boolean delHomeType(int userId, int videoId);
 	
 	public boolean updateGradeType(int userId, int videoId, VideoGradeType gradeType);
+	
+	public List<Video> listLike(int userId, int start, int size);
+	
 }

@@ -3,6 +3,7 @@ package com.GD.dao.mysql;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -236,6 +237,11 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		params.setInt(videoGradeType);
 		params.setInt(videoId);
 		return jdbc.updateForBoolean(sql, params);
+	}
+
+	@Override
+	public boolean removeAll() {
+		throw new NotImplementedException();
 	}
 	
 }

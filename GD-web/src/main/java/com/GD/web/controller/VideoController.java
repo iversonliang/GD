@@ -1,5 +1,6 @@
 package com.GD.web.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +20,13 @@ import com.GD.handler.CommentHandler;
 import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.Comment;
+import com.GD.model.Notice;
 import com.GD.model.User;
 import com.GD.model.Video;
 import com.GD.service.ApplyService;
 import com.GD.service.CommentService;
 import com.GD.service.LikeVideoService;
+import com.GD.service.NoticeService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
@@ -34,6 +37,7 @@ import com.GD.type.TimeLimitType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
 import com.GD.type.VideoType;
+import com.GD.util.Constants;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 import com.GD.web.form.VideoForm;
@@ -59,6 +63,8 @@ public class VideoController {
 	private CommentService commentService;
 	@Autowired
 	private LikeVideoService likeVideoService;
+	@Autowired
+	private NoticeService noticeService;
 	@Autowired
 	private VideoService videoService;
 	
@@ -162,6 +168,15 @@ public class VideoController {
 			isLogin = true;
 			videoService.checkVideo(vid);
 			result = videoService.love(userId, vid);
+			Video video = videoService.get(vid);
+			String username = (String) session.getAttribute("username");
+			Notice notice = new Notice();
+			notice.setImgUrl(Constants.SYS_DEFAULT_IMG);
+			notice.setPosttime(new Date());
+			String content = "你的视频《<a target=\"_blank\" href=\"/video/video.do?vid=" + vid + "\">" + video.getName() + "</a>》被" + username + "点赞喔";
+			notice.setContent(content);
+			notice.setUserId(userId);
+			noticeService.add(notice);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);

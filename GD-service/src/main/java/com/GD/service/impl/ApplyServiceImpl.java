@@ -13,6 +13,7 @@ import com.GD.model.Notice;
 import com.GD.service.ApplyService;
 import com.GD.service.InviteCodeService;
 import com.GD.service.NoticeService;
+import com.GD.util.Constants;
 
 @Service
 public class ApplyServiceImpl implements ApplyService {
@@ -39,7 +40,7 @@ public class ApplyServiceImpl implements ApplyService {
 		notice.setContent("你的激活码：" + inviteCode);
 		notice.setPosttime(new Date());
 		notice.setUserId(userId);
-		notice.setImgUrl("/images/avatar_system.jpg");
+		notice.setImgUrl(Constants.SYS_DEFAULT_IMG);
 		boolean result = noticeService.add(notice);
 		applyDao.pass(applyId, inviteCode);
 		return result;

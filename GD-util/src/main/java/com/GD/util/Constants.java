@@ -27,4 +27,6 @@ public class Constants {
 	public final static String VIDEO_DOMAIN_QQ = "v.qq.com/play";//QQ 
 	
 	public final static Date DEFAULT_DATE = DateUtil.str2Date("1970-01-01 00:00:00");
+	
+	public final static String SYS_DEFAULT_IMG = "/images/avatar_system.jpg";
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,7 @@ public class LikeVideoDaoRedisImpl implements LikeVideoDao{
 	}
 
 	@Override
-	public List<LikeVideo> listByUser(int userId) {
+	public List<LikeVideo> listByUser(int userId, int start, int size) {
 		String key = RedisKey.getLikeVideo(userId);
 		Set<String> set = this.redis.smembers(key);
 		if (set == null || set.size() == 0) {
@@ -40,6 +41,11 @@ public class LikeVideoDaoRedisImpl implements LikeVideoDao{
 			list.add(likeVideo);
 		}
 		return list;
+	}
+
+	@Override
+	public int count(int userId) {
+		throw new NotImplementedException();
 	}
 
 }

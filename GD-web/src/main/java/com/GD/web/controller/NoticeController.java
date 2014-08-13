@@ -37,7 +37,7 @@ public class NoticeController {
 		}
 		int userId = (Integer)session.getAttribute("userId");
 		int count = noticeService.count(userId);
-		Pager pager = new Pager(count, page, 10, "/announcement/index.do", null);
+		Pager pager = new Pager(count, page, 10, "/notice/index.do", null);
 		List<Notice> list = noticeService.list(userId, pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);
 		model.addObject("noticeList", list);
