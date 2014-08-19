@@ -19,6 +19,8 @@ public interface VideoService {
 	
 	public void checkVideo(int videoId);
 	
+	public void checkAuthor(int userId, int videoId);
+	
 	public int countAll(HomeType homeType, TimeLimitType timeLimitType, boolean showDel);
 
 	public int count(StatusType statusType, VideoType videoType, HomeType homeType, VideoGradeType videoGradeType, VideoSourceType videoSourceType, TimeLimitType timeLimitType, String keyword, boolean showDel);

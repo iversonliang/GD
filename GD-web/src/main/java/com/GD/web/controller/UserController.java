@@ -343,7 +343,7 @@ public class UserController {
 		String referer = (String) session.getAttribute(REFERER);
 		if (referer != null && referer.contains("/page")) {
 			if (uri.contains("register")) {
-				referer = "/user/personal.do";
+				referer = "/video/personal.do";
 			} else {
 				referer = "/index.do";
 			}
@@ -482,49 +482,6 @@ public class UserController {
 		out.println("Servlet end <br>");
 		System.out.println("servlet done");
 		out.flush();
-	}
-	
-	@RequestMapping(value = "/personal.do", method = RequestMethod.GET)
-	public ModelAndView personal(HttpServletRequest request, HttpServletResponse response, HttpSession session, int userId, Integer page, Integer type) {
-		Object idObj = session.getAttribute("userId");
-		if (page == null || page < 1) {
-			page = 1;
-		}
-		if (type == null || type < 1) {
-			type = 1;
-		}
-		int myId = 0;
-		if (idObj != null) {
-			myId = (Integer) idObj;
-		}
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", userId);
-		params.put("type", type);
-		
-		int totalCount;
-		List<Video> list;
-		Pager pager;
-		if (type == 3) {
-			totalCount = likeVideoService.count(userId);
-			pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
-			list = videoService.listLike(userId,  pager.getFirst(), 16);
-		} else {
-			VideoSourceType videoSourceType = VideoSourceType.toType(type);
-			totalCount  = videoService.countByUser(userId, videoSourceType);
-			pager = new Pager(totalCount, page, 16, "/user/personal.do", params);
-			list = videoService.list(userId, videoSourceType, pager.getFirst(), 16);
-		}
-		
-		boolean isMyPage = myId == userId;
-		User user = userService.get(userId);
-		List<VideoVO> videoVoList = videoHandler.toVoList(list);
-		ModelAndView model = ViewUtil.getView(DIR);
-		model.addObject("user", user);
-		model.addObject("isMyPage", isMyPage);
-		model.addObject("videoVoList", videoVoList);
-		model.addObject("pager", pager);
-		model.addObject("type", type);
-		return model;
 	}
 	
 }

@@ -39,7 +39,25 @@ public class LikeVideoDaoCacheImpl implements LikeVideoDao {
 
 	@Override
 	public int count(int userId) {
-		return likeVideoDaoMysqlImpl.count(userId);
+		int count = likeVideoDaoRedisImpl.count(userId);
+		if (count == 0) {
+			count = likeVideoDaoMysqlImpl.count(userId);
+		}
+		return count;
+	}
+
+	@Override
+	public boolean isLike(int userId, int videoId) {
+		return likeVideoDaoRedisImpl.isLike(userId, videoId);
+	}
+
+	@Override
+	public boolean delete(int userId, int videoId) {
+		boolean result = likeVideoDaoMysqlImpl.delete(userId, videoId);
+		if (result) {
+			likeVideoDaoRedisImpl.delete(userId, videoId);
+		}
+		return result;
 	}
 
 }

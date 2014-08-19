@@ -646,15 +646,23 @@ public class Redis implements JedisCommands {
 	}
 
 	@Override
-	public Long zcard(String key) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Long zcard(final String key) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.zcard(key);
+			}
+		});
 	}
 
 	@Override
-	public Double zscore(String key, String member) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Double zscore(final String key, final String member) {
+		return (Double) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.zscore(key, member);
+			}
+		});
 	}
 
 	@Override

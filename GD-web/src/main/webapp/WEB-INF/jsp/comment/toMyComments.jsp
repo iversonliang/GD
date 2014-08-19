@@ -23,10 +23,10 @@
 			<div class="reg_title yy-icon">您已经收到 <em>${pager.totalCount }</em> 条评论了，要记得及时回复他们哦。</div>
 			<c:forEach items="${commentVoList}" var="comment">
 				<div class="uitem">
-					<div class="avatar"><a target="_blank" href="/user/personal.do?userId=${comment.userId }"><img src="${comment.headImg }" width="50" height="50" /></a></div>
+					<div class="avatar"><a target="_blank" href="/video/personal.do?userId=${comment.userId }"><img src="${comment.headImg }" width="50" height="50" /></a></div>
 					<div class="msgcont">
 						<div class="msg_title">
-							<h3><a href="/user/personal.do?userId=${comment.userId }" target="_blank">${comment.nickname }</a>
+							<h3><a href="/video/personal.do?userId=${comment.userId }" target="_blank">${comment.nickname }</a>
 							<c:choose>
 								<c:when test="${comment.videoSourceType == 1 }">评论了我的原创作品《<a href="/video/video.do?vid=${comment.videoId }&st=2" target="_blank">${comment.videoName }</a>》：</c:when>
 								<c:otherwise>评论了我的原创作品《<a href="/video/video.do?vid=${comment.videoId }&st=3" target="_blank">${comment.videoName }</a>》：</c:otherwise>

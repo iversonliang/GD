@@ -5,12 +5,12 @@
 <c:forEach items="${commentList}" var="comment">
 	<div class="uitem">
 		<div class="avatar">
-			<a href="/user/personal.do?userId=${comment.userId }" target="_blank"><img src="${comment.headImg }" width="50" height="50"></a>
+			<a href="/video/personal.do?userId=${comment.userId }" target="_blank"><img src="${comment.headImg }" width="50" height="50"></a>
 		</div>
 		<div class="msgcont">
 			<div class="msg_title">
 				<h3>
-					<a href="/user/personal.do?userId=${comment.userId }" target="_blank">${comment.nickname }</a> ${comment.deployTimeTips }：
+					<a href="/video/personal.do?userId=${comment.userId }" target="_blank">${comment.nickname }</a> ${comment.deployTimeTips }：
 				</h3>
 				<div class="clear"></div>
 			</div>

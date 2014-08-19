@@ -73,7 +73,7 @@
 						<a href="#" class="yy-icon views"><span>${video.play }</span></a>
 					</div>
 					<div class="user">
-						<div class="avatar"><a href="/user/personal.do?userId=${video.userId }"><img src="${video.headImg }" width="32" height="32" />${video.nickname }</a></div>
+						<div class="avatar"><a href="/video/personal.do?userId=${video.userId }"><img src="${video.headImg }" width="32" height="32" />${video.nickname }</a></div>
 						<span>( <a href="#">作品</a> )</span>
 					</div>
 				</div>

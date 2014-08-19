@@ -233,8 +233,21 @@ public class VideoServiceImpl implements VideoService {
 		List<Integer> videoIdList = likeVideoService.listLikeVideoId(userId, start, size);
 		List<Video> list = new ArrayList<Video>();
 		for (Integer videoId : videoIdList) {
-			list.add(this.get(videoId));
+			Video video = this.get(videoId);
+//			if (video == null || video.isDel()) {
+//				likeVideoService.delete(userId, videoId);
+//				continue;
+//			}
+			list.add(video);
 		}
 		return list;
 	}
+
+	@Override
+	public void checkAuthor(int userId, int videoId) {
+		Video video = this.get(videoId);
+		Assert.notNull(video, "视频为空[ " + videoId + " ]");
+		Assert.isTrue(userId == video.getUserId(), "用户[ " + userId + " ]不是视频[ " + videoId + " ]作者");
+	}
+	
 }

@@ -8,6 +8,8 @@ public interface LikeVideoService {
 	
 	public boolean isLiked(int userId, int videoId);
 	
+	public boolean delete(int userId, int videoId);
+	
 	public int count(int userId);
 	
 	public List<Integer> listLikeVideoId(int userId, int start, int size);

@@ -58,6 +58,6 @@ public class RedisKey {
 	 * @return
 	 */
 	public static String getLikeVideo(int userId) {
-		return "s_like_video_" + userId;
+		return "z_like_video_" + userId;
 	}
 }

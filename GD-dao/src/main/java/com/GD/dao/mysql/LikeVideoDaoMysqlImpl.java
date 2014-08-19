@@ -18,7 +18,7 @@ public class LikeVideoDaoMysqlImpl implements LikeVideoDao{
 
 	@Override
 	public boolean add(LikeVideo likeVideo) {
-		String sql = "INSERT INTO like_video(like_video_id,video_id,user_id) VALUES(?,?,?)";
+		String sql = "INSERT IGNORE INTO like_video(like_video_id,video_id,user_id) VALUES(?,?,?)";
 		StatementParameter param = new StatementParameter();
 		param.setInt(likeVideo.getLikeVideoId());
 		param.setInt(likeVideo.getVideoId());
@@ -36,6 +36,24 @@ public class LikeVideoDaoMysqlImpl implements LikeVideoDao{
 	public int count(int userId) {
 		String sql = "SELECT COUNT(*) FROM like_video WHERE user_id=?";
 		return jdbc.queryForInt(sql, userId);
+	}
+
+	@Override
+	public boolean isLike(int userId, int videoId) {
+		String sql = "SELECT * FROM like_video_id WHERE video_id=? AND user_id=?";
+		StatementParameter param = new StatementParameter();
+		param.setInt(videoId);
+		param.setInt(userId);
+		return jdbc.query(sql, LikeVideo.class, param) != null;
+	}
+
+	@Override
+	public boolean delete(int userId, int videoId) {
+		String sql = "DELETE FROM like_video WHERE video_id=? AND user_id=?";
+		StatementParameter param = new StatementParameter();
+		param.setInt(videoId);
+		param.setInt(userId);
+		return jdbc.updateForBoolean(sql, param);
 	}
 
 }

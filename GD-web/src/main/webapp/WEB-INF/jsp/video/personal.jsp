@@ -40,9 +40,9 @@
 				<div class="clear"></div>
 			</div>	
 			<ul class="tab">
-				<li <c:if test="${type == 1 }">class="active"</c:if>><a href="/user/personal.do?userId=${user.userId }&type=1">作品</a></li>
-				<li <c:if test="${type == 2 }">class="active"</c:if>><a href="/user/personal.do?userId=${user.userId }&type=2">分享</a></li>
-				<li <c:if test="${type == 3 }">class="active"</c:if>><a href="/user/personal.do?userId=${user.userId }&type=3">喜欢</a></li>
+				<li <c:if test="${type == 1 }">class="active"</c:if>><a href="/video/personal.do?userId=${user.userId }&type=1">作品</a></li>
+				<li <c:if test="${type == 2 }">class="active"</c:if>><a href="/video/personal.do?userId=${user.userId }&type=2">分享</a></li>
+				<li <c:if test="${type == 3 }">class="active"</c:if>><a href="/video/personal.do?userId=${user.userId }&type=3">喜欢</a></li>
 			</ul>
 		</div>
 	</div>
@@ -63,6 +63,19 @@
 						<a href="javasrcipt:vodi(0)" class="yy-icon like noPointer"><span>${video.love }</span></a>
 						<a href="javasrcipt:vodi(0)" class="yy-icon views noPointer"><span>${video.play }</span></a>
 					</div>
+					<c:if test="${isMyPage == true }">
+						<div class="edit">
+							<table cellpadding="0" cellspacing="0">
+								<tbody><tr>
+									<c:if test="${param.type < 3 }">
+										<td><a href="#">编辑</a></td>
+									</c:if>
+									<td><a href="/video/delete.do?type=${param.type }&vid=${video.videoId }" class="delete">删除</a></td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</c:if>
 				</div>
 			</c:forEach>
 		</div>

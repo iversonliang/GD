@@ -27,15 +27,7 @@ public class LikeVideoServiceImpl implements LikeVideoService {
 
 	@Override
 	public boolean isLiked(int userId, int videoId) {
-		List<LikeVideo> list = likeVideoDao.listByUser(userId, 0, Integer.MAX_VALUE);
-		boolean result = false;
-		for (LikeVideo likeVideo : list) {
-			if (likeVideo.getVideoId() == videoId) {
-				result = true;
-				break;
-			}
-		}
-		return result;
+		return likeVideoDao.isLike(userId, videoId);
 	}
 
 	@Override
@@ -52,6 +44,11 @@ public class LikeVideoServiceImpl implements LikeVideoService {
 			result.add(likeVideo.getVideoId());
 		}
 		return result;
+	}
+
+	@Override
+	public boolean delete(int userId, int videoId) {
+		return likeVideoDao.delete(userId, videoId);
 	}
 
 }
