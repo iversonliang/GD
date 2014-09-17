@@ -145,4 +145,13 @@ public class VideoDaoCacheImpl implements VideoDao {
 		return videoDaoMemoryImpl.removeAll();
 	}
 
+	@Override
+	public boolean update(Video video) {
+		boolean result = videoDaoMysqlImpl.update(video);
+		if (result) {
+			videoDaoMemoryImpl.update(video);
+		}
+		return result;
+	}
+
 }

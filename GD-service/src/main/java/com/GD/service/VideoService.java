@@ -19,7 +19,7 @@ public interface VideoService {
 	
 	public void checkVideo(int videoId);
 	
-	public void checkAuthor(int userId, int videoId);
+	public Video checkAuthor(int userId, int videoId);
 	
 	public int countAll(HomeType homeType, TimeLimitType timeLimitType, boolean showDel);
 
@@ -50,5 +50,7 @@ public interface VideoService {
 	public boolean updateGradeType(int userId, int videoId, VideoGradeType gradeType);
 	
 	public List<Video> listLike(int userId, int start, int size);
+	
+	public boolean update(Video video);
 	
 }

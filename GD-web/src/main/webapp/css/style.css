@@ -91,10 +91,10 @@ border-bottom: #dedede 1px solid;}
 .citem {float:left; margin:0 20px 20px 0;width:230px;-webkit-box-shadow: 0px 1px 1px #dedede;-moz-box-shadow: 0px 1px 1px #dedede;box-shadow: 0px 1px 1px #dedede;overflow:hidden;border-radius:3px;background:#fff;}
 .cover {width:230px; height:148px;overflow:hidden;position:relative;}
 .cover a {display:block;}
-.cover a img {width:230px;height:148px;}
-/* .cover a .play_button {position: absolute;background:#690 url(/images/play.png) 50% 50% no-repeat;width: 100%;height: 100%;filter:alpha(opacity=0);opacity:0;display: inline;z-index: 4;overflow: hidden;top:0;left: 0;_display:none;transition: All 0.1s linear;-webkit-transition: All 0.1s linear;-moz-transition: All 0.1s linear;-o-transition: All 0.1s linear;} */
-.cover a .play_button {position: absolute;background:#690 url(/images/play.png) 50% 50% no-repeat;width: 100%;height: 100%;filter:alpha(opacity=0);opacity:0;display: inline;z-index: 4;overflow: hidden;top:0;left: 0;_display:none;transition: All 0.1s linear;-webkit-transition: All 0.1s linear;-moz-transition: All 0.1s linear;-o-transition: All 0.1s linear;}
-.cover a:hover .play_button {cursor:pointer;	filter:alpha(opacity=70);	opacity:0.7;_display:block;}
+.cover a img {width:230px;height:148px;-webkit-transform: rotate(0deg) scale(1);  -ms-transform: rotate(0deg) scale(1);  transform: rotate(0deg) scale(1);  -webkit-transition: -webkit-transform .7s;  transition: transform .7s;}
+.cover a .play_button {position: absolute;background:#000 url(/images/play.png) 50% 50% no-repeat;width: 100%;height: 100%;filter:alpha(opacity=0);opacity:0;display: inline;z-index: 4;overflow: hidden;top:0;left: 0;_display:none;transition: All 0.1s linear;-webkit-transition: All 0.1s linear;-moz-transition: All 0.1s linear;-o-transition: All 0.1s linear;}
+.cover a:hover .play_button {cursor:pointer;	filter:alpha(opacity=70);opacity:0.7;_display:block;}
+.cover a:hover img {-webkit-transform: rotate(-7deg) scale(1.2);-ms-transform:rotate(-7deg) scale(1.2);transform:rotate(-7deg) scale(1.2);-webkit-transition:-webkit-transform .7s;transition: transform .7s;}
 
 .citemtxt {padding:10px 10px 0;width:210px;font-size:12px;}
 .citemtxt .citemtitle {display:block;width:210px;height:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -217,8 +217,10 @@ a.doChangeHead:hover{ background:#000; text-decoration:none;}
 .uploadBtn.blue{border:1px solid #2494cb;background:url(/images/upBlue.jpg) repeat-x left top;color:#fff; }
 
 .uitem {padding:20px;width:940px;border-bottom:1px solid #e5e5e5;}
-.uitem .avatar {float:left;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;overflow:hidden;}
-.uitem .avatar img {display:block;}
+.uitem .avatar {float:left;}
+.uitem .avatar a {display:block;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;overflow:hidden;}
+.uitem .avatar a img {display:block;-webkit-transform: rotate(0deg) scale(1);  -ms-transform: rotate(0deg) scale(1);  transform: rotate(0deg) scale(1);  -webkit-transition: -webkit-transform .7s;  transition: transform .7s;}
+.uitem .avatar a:hover img {display:block;-webkit-transform: rotate(0deg) scale(1.1);  -ms-transform: rotate(0deg) scale(1.1);  transform: rotate(0deg) scale(1.1);  -webkit-transition: -webkit-transform .7s;  transition: transform .7s;}
 .userInfo {float:left;}
 .uploadBtn.noLong{padding:0 10px;width:auto;}
 .newType{visibility:hidden;}
@@ -227,10 +229,13 @@ a.doChangeHead:hover{ background:#000; text-decoration:none;}
 .sumit_avatar {margin-top:40px;margin-left:55px;}
 
 .atPerson{float:left;padding:0;width:310px;line-height:21px;}
+.atPerson a {font-size:14px;}
 .atPersonDes{ overflow:hidden;width:350px; text-overflow:ellipsis;white-space:nowrap;}
 
 .atImg{float:right;padding-top:25px;}
 .atImg a{float:left;height:75px;margin:0 0 0 15px;border-radius:3px;overflow:hidden;}
+.atImg a img {display:block;-webkit-transform: rotate(0deg) scale(1);  -ms-transform: rotate(0deg) scale(1);  transform: rotate(0deg) scale(1);  -webkit-transition: -webkit-transform .7s;  transition: transform .7s;}
+.atImg a:hover img {display:block;-webkit-transform: rotate(0deg) scale(1.1);  -ms-transform: rotate(0deg) scale(1.1);  transform: rotate(0deg) scale(1.1);  -webkit-transition: -webkit-transform .7s;  transition: transform .7s;}
 .atImg .more {display:inline-block;padding-top:30px;width:30px;height:45px;background:#690;color:#fff;text-align:center;line-height:15px;border-radius:3px;}
 .atImg .more:hover {background-color:#360;}
 .atList .apBtn{ position:absolute;top:20px;right:20px;}
@@ -256,8 +261,8 @@ a.tBtn{ text-decoration:none;}
 .main {overflow:hidden;width:980px;}
 .pwrapper .main {margin:0 auto;}
 .pwrapper .userBox { width:100%; margin-bottom:30px;}
-.pwrapper .userarea {width:980px;margin:0 auto;padding-top:200px;background:url(/images/profile_bannar_bg.png);}
-.pwrapper .userarea .uitem {width:980px;height:130px;border:0;padding:0;background:#fff;position:relative;}
+.pwrapper .userarea {width:980px;margin:0 auto;padding-top:100px;background:none;}
+.pwrapper .userarea .uitem {width:980px;height:130px;border:0;padding:0;background:#fff;position:relative;border-radius:3px 3px 0 0;}
 .pwrapper .userarea .uitem .avatar {width:150px;border:3px solid #fff;border-radius:3px;position:absolute;top:-50px;left:20px; box-shadow:0 1px 2px #bbb;}
 .pwrapper .userarea .uitem .avatar img {width:150px;height:150px;}
 .pwrapper .userarea .uitem .userInfo {margin-left:190px;padding-top:10px;}
@@ -328,6 +333,7 @@ a.tBtn{ text-decoration:none;}
 .plike a{color: #FFFFFF;display: block;font-size: 14px;height: 50px;line-height: 50px;text-align: center;width: 100%;background-color: #FF8A00;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
 .plike a:hover {background-color:#ff9900;}
 .plike .plikew {top: 6px;position: relative;right: 5px;display: inline-block;overflow: hidden;background: url(/images/spirit.png) -90px -10px no-repeat;width: 14px;height: 20px;}
+.plike p{color:#FFFFFF;display: block;font-size: 14px;height: 50px;line-height: 50px;text-align: center;width: 100%;background-color: #690;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
 .authorMore {background:#fff;margin-top:20px;-webkit-box-shadow: 0px 1px 1px #dedede;-moz-box-shadow: 0px 1px 1px #dedede;box-shadow: 0px 1px 1px #dedede;border-radius:3px;}
 .authorMore .uitem {border:0;}
 
@@ -373,3 +379,18 @@ a.tBtn{ text-decoration:none;}
 .r_ad img {width:230px;height:110px;}
 .r_links {width:198px;height:48px;line-height:24px;background:#fff;padding:10px 15px;border:1px solid #dedede;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
 .r_links span {display:block;}
+
+.popup {position:fixed;top:30%;left:50%;width:360px;margin-left:-180px;border:1px solid #ccc;z-index:999;box-shadow:0px 1px 3px #ccc;}
+.popup .p_title {height:30px;line-height:30px;color:#fff;background:#690;}
+.popup .p_title h3 {float:left;width:75%;text-indent:10px;font-size:16px;}
+.popup .p_title .close {float:right;display:block;width:25%;height:30px;font-size:16px;color:#690;text-align:center;background:#360;}
+.popup .p_title .close:hover {color:#fff;}
+.popup .p_cont {padding:30px;background:#fff;}
+#wrapper .popup .p_cont h2 {color: #333;font-size: 18px;line-height: 24px;margin-top:0;margin-bottom: 10px;height: 24px;border-bottom:0;}
+#wrapper .popup .p_cont p {margin-bottom:20px;}
+.p_func {width:100%;width:100%;overflow:auto;padding-left:45px;}
+.popup .p_cont .btnconfirm, .btncancel {display: block;float: left;margin-right: 10px;width: 100px;height: 30px;background: #690;color: #fff;text-align: center;line-height: 30px;border-radius:3px;}
+.popup .p_cont .btnconfirm:hover {background:#360;}
+.popup .p_cont .btncancel {background:#525252;color:#fff;}
+.popup .p_cont .btncancel:hover {background:#333;}
+.popup_cover {width:100%;background:#000;padding:100px;}

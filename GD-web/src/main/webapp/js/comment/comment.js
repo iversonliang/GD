@@ -9,13 +9,16 @@ var Comment = {
 		Comment.replyUserId = Comment.DEFAULT_VALUE;
 		Comment.replyContent = Comment.DEFAULT_VALUE;
 	},
-	"add" : function(videoId) {
+	"add" : function(videoId, commentId) {
 		var isLogin = $("#loginStatus").val();
 		if (isLogin == "false") {
 			window.location.href = "/page/login.jsp";
 			return;
 		}
 		var content = $("#commentContent").val();
+		if (Common.isEmpty(content)) {
+			content = $("#content" + commentId).val();
+		}
 		var param = {
 			content : content,
 			replyUserId : Comment.replyUserId,
@@ -34,10 +37,17 @@ var Comment = {
 			Comment.defaultParam();
 		});
 	},
-	"setReply" : function(replyUserId, replyNickname, replyContent) {
-		Comment.replyNickname = replyNickname;
-		Comment.replyUserId = replyUserId;
-		Comment.replyContent = replyContent;
+	"showReplyCommentBox" : function(commentId, userId, nickname, content, replyUserId, replyNickname, replyContent) {
+		$("#replyBox" + commentId).show();
+		if (Common.isEmpty(replyNickname)) {
+			Comment.replyNickname = nickname;
+			Comment.replyUserId = userId;
+			Comment.replyContent = content;
+		} else {
+			Comment.replyNickname = replyNickname;
+			Comment.replyUserId = replyUserId;
+			Comment.replyContent = replyContent;
+		}
 	},
 	/**
 	 * 计算评论长度
@@ -58,7 +68,7 @@ var Comment = {
 	"replyToMyComments" : function(commentId, replyUserId, replyNickname, replyContent) {
 		var contentLength = $("#leftCount" + commentId).html();
 		if (contentLength < 0) {
-			alert("回复内容超长，请删除超出部分内容");
+			alert("回复内容超长，请删除部分内容");
 			return;
 		}
 		var videoId = $("#comment" + commentId + "videoId").val();

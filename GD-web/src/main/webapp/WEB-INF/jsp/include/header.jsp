@@ -54,13 +54,13 @@
 			</c:choose>
 			<c:if test="${!empty isLogin && isLogin == true }">
 				<div class="msg_count">
-					<a href="#" class="tosms "></a>
+					<a href="#" class="tosms <c:if test="${toMyComments > 0 || toMyReply > 0 || notice > 0 || announcement > 0 }">newmsg</c:if> "></a>
 					<div class="son">
 						<ul>
-							<li><a href="/comment/toMyComments.do">给我的评论</a></li>
-							<li><a href="/comment/replyToMe.do" class="newone">给我的回复+1</a></li>
-							<li><a href="/notice/index.do">系统通知</a></li>
-							<li><a href="/announcement/index.do">优舞公告</a></li>
+							<li><a href="/comment/toMyComments.do" <c:if test="${ toMyComments > 0 }">class="newone"</c:if> >给我的评论<c:if test="${toMyComments > 0 }">+${toMyComments}</c:if></a></li>
+							<li><a href="/comment/replyToMe.do" <c:if test="${ toMyReply > 0 }">class="newone"</c:if> >给我的回复<c:if test="${toMyReply > 0 }">+${toMyReply}</c:if></a></li>
+							<li><a href="/notice/index.do" <c:if test="${ notice > 0 }">class="newone"</c:if> >系统通知<c:if test="${notice > 0 }">+${notice}</c:if></a></li>
+							<li><a href="/announcement/index.do" <c:if test="${ announcement > 0 }">class="newone"</c:if>>优舞公告<c:if test="${announcement > 0 }">+${announcement}</c:if></a></li>
 						</ul>
 					</div>
 				</div>

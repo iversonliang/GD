@@ -19,7 +19,7 @@
 				<dt>类型：</dt>
 				<dd>
 					<c:forEach items="${videoTypeList}" var="videoType">
-						<a name="videoType" videoTypeId="${videoType.key }" href="javascript:Video.search('videoType', '${videoType.key }')" <c:if test="${param.videoType == videoType.key}">class="selected"</c:if> >${videoType.desc }</a>
+						<a name="videoType" videoTypeId="${videoType.key }" href="javascript:Video.search('videoType', '${videoType.key }')" <c:if test="${param.videoType == videoType.key || (empty param.videoType && videoType.key == 0)}">class="selected"</c:if> >${videoType.desc }</a>
 					</c:forEach>
 				</dd>
 			</dl>
@@ -27,7 +27,7 @@
 				<dt>等级：</dt>
 				<dd>
 					<c:forEach items="${videoGradeTypeList}" var="videoGradeType">
-						<a name="videoGradeType" videoGradeTypeId="${videoGradeType.key }" href="javascript:Video.search('videoGradeType', '${videoGradeType.key }')" <c:if test="${param.videoGradeType == videoGradeType.key}">class="selected"</c:if> >${videoGradeType.desc }</a>
+						<a name="videoGradeType" videoGradeTypeId="${videoGradeType.key }" href="javascript:Video.search('videoGradeType', '${videoGradeType.key }')" <c:if test="${param.videoGradeType == videoGradeType.key  || (empty param.videoType && videoGradeType.key == 0)}">class="selected"</c:if> >${videoGradeType.desc }</a>
 					</c:forEach>
 				</dd>
 			</dl>
@@ -35,7 +35,7 @@
 				<dt>排序：</dt>
 				<dd>
 					<c:forEach items="${sortTypeList}" var="sortType">
-						<a name="sortType" sortTypeId="${sortType.key }" href="javascript:Video.search('sortType', '${sortType.key }')" <c:if test="${param.sortType == sortType.key}">class="selected"</c:if> >${sortType.desc }</a>
+						<a name="sortType" sortTypeId="${sortType.key }" href="javascript:Video.search('sortType', '${sortType.key }')" <c:if test="${param.sortType == sortType.key  || (empty param.videoType && sortType.key == 0) }">class="selected"</c:if> >${sortType.desc }</a>
 					</c:forEach>
 				</dd>
 			</dl>
@@ -43,7 +43,7 @@
 				<dt>时间：</dt>
 				<dd>
 					<c:forEach items="${timeLimitTypeList}" var="timeLimitType">
-						<a name="timeLimitType" timeLimitTypeId="${timeLimitType.key }" href="javascript:Video.search('timeLimitType', '${timeLimitType.key }')" <c:if test="${param.timeLimitType == timeLimitType.key}">class="selected"</c:if> >${timeLimitType.desc }</a>
+						<a name="timeLimitType" timeLimitTypeId="${timeLimitType.key }" href="javascript:Video.search('timeLimitType', '${timeLimitType.key }')" <c:if test="${param.timeLimitType == timeLimitType.key || (empty param.videoType && timeLimitType.key == 0)}">class="selected"</c:if> >${timeLimitType.desc }</a>
 					</c:forEach>
 				</dd>
 			</dl>
@@ -75,7 +75,12 @@
 					</div>
 					<div class="user">
 						<div class="avatar"><a href="/video/personal.do?userId=${video.userId }"><img src="${video.headImg }" width="32" height="32" />${video.nickname }</a></div>
-						<span>( <a href="#">作品</a> )</span>
+						<c:if test="${video.videoSourceType == 1 }">
+							<span>[<a href="/opus.do?videoType=${video.videoType }&sortType=0&videoGradeType=${video.videoGradeType }&timeLimitType=0">作品</a>]</span>
+						</c:if>
+						<c:if test="${video.videoSourceType == 2 }">
+							<span>[<a href="/inspiration.do?videoType=${video.videoType }&sortType=0&videoGradeType=${video.videoGradeType }&timeLimitType=0">灵感</a>]</span>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>

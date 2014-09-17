@@ -49,7 +49,7 @@ public class VideoHandlerImpl implements VideoHandler {
 		video.setVideoType(form.getType());
 		video.setImgUrl("");
 		
-		CheckUtil.checkVideo(video);
+		CheckUtil.checkDeployVideo(video);
 		User user = userService.get(userId);
 		UserUtil.checkNull(user);
 		String nickname = user.getNickname();

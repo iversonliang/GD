@@ -79,7 +79,12 @@ $(function() {
 					</div>
 					<div class="user">
 						<div class="avatar"><a href="/video/personal.do?userId=${video.userId }"><img src="${video.headImg }" width="32" height="32" />${video.nickname }</a></div>
-						<span>( <a href="#">作品</a> )</span>
+						<c:if test="${video.videoSourceType == 1 }">
+							<span>[<a href="/opus.do?videoType=${video.videoType }&sortType=0&videoGradeType=${video.videoGradeType }&timeLimitType=0">作品</a>]</span>
+						</c:if>
+						<c:if test="${video.videoSourceType == 2 }">
+							<span>[<a href="/inspiration.do?videoType=${video.videoType }&sortType=0&videoGradeType=${video.videoGradeType }&timeLimitType=0">灵感</a>]</span>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>

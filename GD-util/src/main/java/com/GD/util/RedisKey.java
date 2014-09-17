@@ -38,7 +38,7 @@ public class RedisKey {
 	 * @return
 	 */
 	public static String getDefenseFlush(String sessionId, int videoId) {
-		return "k_" + sessionId + "_" + videoId;
+		return "k_" + sessionId + ":" + videoId;
 	}
 
 	/**
@@ -58,6 +58,16 @@ public class RedisKey {
 	 * @return
 	 */
 	public static String getLikeVideo(int userId) {
-		return "z_like_video_" + userId;
+		return "z_like_video:" + userId;
+	}
+
+	/**
+	 * 获取用户消息提示数量
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public static String getUserLastReadMessage(int userId) {
+		return "h_message:" + userId;
 	}
 }

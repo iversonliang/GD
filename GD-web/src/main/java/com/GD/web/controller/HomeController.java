@@ -19,8 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.handler.VideoHandler;
 import com.GD.model.Ad;
+import com.GD.model.LastReadMessage;
 import com.GD.model.Video;
 import com.GD.service.AdService;
+import com.GD.service.AnnouncementService;
+import com.GD.service.CommentService;
+import com.GD.service.LastReadMessageService;
+import com.GD.service.NoticeService;
 import com.GD.service.VideoService;
 import com.GD.type.AdAreaType;
 import com.GD.type.HomeType;
@@ -42,6 +47,14 @@ public class HomeController {
 	public static final String DIR = "/";
 	protected Log logger = LogFactory.getLog(this.getClass());
 
+	@Autowired
+	private LastReadMessageService lastReadMessageService;
+	@Autowired
+	private CommentService commentService;
+	@Autowired
+	private NoticeService noticeService;
+	@Autowired
+	private AnnouncementService announcementService;
 	@Autowired
 	private AdService adService;
 	@Autowired

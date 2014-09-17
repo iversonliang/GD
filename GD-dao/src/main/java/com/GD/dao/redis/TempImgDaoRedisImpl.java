@@ -36,4 +36,11 @@ public class TempImgDaoRedisImpl implements TempImgDao{
 		return new ArrayList<String>(set);
 	}
 
+	@Override
+	public boolean remove(String imgType, String filename) {
+		String key = RedisKey.getTempImg(imgType);
+		long result = this.redis.zrem(key, filename);
+		return result > 0;
+	}
+
 }

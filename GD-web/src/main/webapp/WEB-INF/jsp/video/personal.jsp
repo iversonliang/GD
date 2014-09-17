@@ -67,8 +67,8 @@
 						<div class="edit">
 							<table cellpadding="0" cellspacing="0">
 								<tbody><tr>
-									<c:if test="${param.type < 3 }">
-										<td><a href="#">编辑</a></td>
+									<c:if test="${param.type < 3 || empty param.type }">
+										<td><a href="/video/edit.do?vid=${video.videoId }">编辑</a></td>
 									</c:if>
 									<td><a href="/video/delete.do?type=${param.type }&vid=${video.videoId }" class="delete">删除</a></td>
 								</tr>

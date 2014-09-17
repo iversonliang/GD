@@ -1,6 +1,6 @@
 package com.GD.model;
 
-public class Message {
+public class LastReadMessage {
 
 	private int userId;
 	private int toMyComments;

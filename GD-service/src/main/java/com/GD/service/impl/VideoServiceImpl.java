@@ -244,10 +244,16 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public void checkAuthor(int userId, int videoId) {
+	public Video checkAuthor(int userId, int videoId) {
 		Video video = this.get(videoId);
 		Assert.notNull(video, "视频为空[ " + videoId + " ]");
 		Assert.isTrue(userId == video.getUserId(), "用户[ " + userId + " ]不是视频[ " + videoId + " ]作者");
+		return video;
+	}
+
+	@Override
+	public boolean update(Video video) {
+		return videoDao.update(video);
 	}
 	
 }

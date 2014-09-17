@@ -19,7 +19,7 @@
 			<li><a href="/announcement/index.do">优舞公告</a></li>
 		</ul>
 		<div class="content bg_w">
-			<div class="reg_title yy-icon">你共收到了 <em>${pager.totalCount }</em> 条系统通知，请注意查看。如遇到问题，请 <a href="#">在线提交</a> 给我们。</div>
+			<div class="reg_title yy-icon">你共收到了 <em>${pager.totalCount }</em> 条系统通知，请注意查看。<!-- 如遇到问题，请 <a href="#">在线提交</a> 给我们。 --></div>
 			<c:forEach items="${noticeList}" var="notice">
 				<div class="uitem">
 					<div class="avatar"><img src="${notice.imgUrl }" width="50" height="50" /></div>

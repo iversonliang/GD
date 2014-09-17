@@ -437,10 +437,15 @@ public class Redis implements JedisCommands {
 		throw new NotImplementedException();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, String> hgetAll(String key) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+	public Map<String, String> hgetAll(final String key) {
+		return (Map<String, String>) this.execute(new Invoker() {
+			@Override
+			public Object doOperate(Jedis jedis) {
+				return jedis.hgetAll(key);
+			}
+		});
 	}
 
 	@Override

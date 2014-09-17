@@ -55,6 +55,8 @@ public interface VideoDao {
 	public boolean updateHomeTypeIndex(int videoId, int homeType, int indexNum);
 
 	public boolean updateVideoGradeType(int videoId, int videoGradeType);
+	
+	public boolean update(Video video);
 
 	/**
 	 * 删除缓存

@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.Announcement;
 import com.GD.service.AnnouncementService;
+import com.GD.service.LastReadMessageService;
+import com.GD.type.MessageType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 @Controller
@@ -28,6 +30,8 @@ public class AnnouncementController {
 	
 	@Autowired
 	private AnnouncementService announcementService;
+	@Autowired
+	private LastReadMessageService lastReadMessageService;
 	
 	@LoginRequired
 	@RequestMapping( value = "/index.do", method = RequestMethod.GET)
@@ -35,7 +39,9 @@ public class AnnouncementController {
 		if (page == null || page < 1) {
 			page = 1;
 		}
+		int userId = (Integer)session.getAttribute("userId");
 		int count = announcementService.count();
+		lastReadMessageService.add(userId, count, MessageType.ANNOUNCEMENT);
 		Pager pager = new Pager(count, page, 10, "/announcement/index.do", null);
 		List<Announcement> list = announcementService.list(pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);

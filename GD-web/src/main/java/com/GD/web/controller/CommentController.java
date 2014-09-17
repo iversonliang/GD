@@ -19,8 +19,10 @@ import com.GD.handler.CommentHandler;
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.Comment;
 import com.GD.service.CommentService;
+import com.GD.service.LastReadMessageService;
 import com.GD.service.UserService;
 import com.GD.type.ErrorTipsType;
+import com.GD.type.MessageType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 import com.GD.web.form.CommentForm;
@@ -37,6 +39,8 @@ public class CommentController {
 	private CommentHandler commentHandler;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LastReadMessageService lastReadMessageService;
 	@Autowired
 	private CommentService commentService;
 	
@@ -69,6 +73,7 @@ public class CommentController {
 		List<CommentVO> commentVoList = commentHandler.toVoList(commentList);
 		ModelAndView model = ViewUtil.getSpecifiedView(DIR, "loadComment");
 		model.addObject("result", result);
+		model.addObject("videoId", form.getVideoId());
 		model.addObject("message", message);
 		model.addObject("errorCode", errorCode);
 		model.addObject("commentList", commentVoList);
@@ -100,6 +105,7 @@ public class CommentController {
 		}
 		int userId = (Integer) session.getAttribute("userId");
 		int count = commentService.countReplyToMe(userId);
+		lastReadMessageService.add(userId, count, MessageType.REPLY_TO_ME);
 		Pager pager = new Pager(count, page, 10, "/comment/replyToMe.do", null);
 		List<Comment> list = commentService.listReplyToMe(userId, pager.getFirst(), 10);
 		List<CommentVO> voList = commentHandler.toVoList(list);
@@ -117,6 +123,7 @@ public class CommentController {
 		}
 		int userId = (Integer) session.getAttribute("userId");
 		int count = commentService.countToMe(userId);
+		lastReadMessageService.add(userId, count, MessageType.TO_MY_COMMENT);
 		Pager pager = new Pager(count, page, 10, "/comment/toMyComments.do", null);
 		List<Comment> list = commentService.listToMe(userId, pager.getFirst(), 10);
 		List<CommentVO> voList = commentHandler.toVoList(list);

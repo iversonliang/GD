@@ -55,7 +55,6 @@ public class AnnouncementAdminController {
 	@RequestMapping(value="/add.do", method=RequestMethod.GET)
 	public void add(HttpServletRequest request, HttpServletResponse response, HttpSession session, String title, String content, String imgUrl) throws IOException {
 		imgUrl = "/images/avatar_system.jpg";
-		System.out.println("---------------这里没真的上传-------------");
 		announcementService.add(title, content, imgUrl);
 		response.sendRedirect("/admin/announcement/index.do");
 	}

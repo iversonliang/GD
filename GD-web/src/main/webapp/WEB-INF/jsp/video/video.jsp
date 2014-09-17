@@ -37,11 +37,10 @@
 			<div class="videoCont">
 				<p>${video.description }</p>
 			</div>
-			<c:if test="${!isLiked }">
-				<div class="plike" id="likeButton">
-					<a href="javascript:Video.love(${video.videoId })"><span class="plikew"></span>喜欢(0)</a>
-				</div>
-			</c:if>
+			<div class="plike">
+				<a id="notLove" href="javascript:Video.love(${video.videoId })" <c:if test="${isLiked }">style="display:none"</c:if> ><span class="plikew"></span>赞(${video.love })</a>
+				<p id="love" class="visited noPointer" <c:if test="${!isLiked }">style="display:none"</c:if> ><span class="plikew"></span>已赞(<span id="loveNum">${video.love }</span>)</p>
+			</div>
 		</div>
 		<div class="authorMore">
 			<div class="uitem">
@@ -88,9 +87,11 @@
 				<div id="commentArea">
 					<jsp:include page="/WEB-INF/jsp/comment/loadComment.jsp"></jsp:include>
 				</div>
-				<div class="more">
-					<a href="#">更多</a>
-				</div>
+				<c:if test="${hasMore }">
+					<div class="more" id="moreCommentDiv">
+						<a href="javascript:Video.loadComment(${video.videoId })">更多</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

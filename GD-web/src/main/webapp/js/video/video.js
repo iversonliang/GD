@@ -1,5 +1,13 @@
 
 var Video = {
+	"currCommentPage" : 1,
+	"loadComment" : function (vid) {
+		var url = "/video/loadComment.do?vid=" + vid + "&page=" + (Video.currCommentPage + 1);
+		AjaxHtml.get(url).done(function (data) {
+			$("#commentArea").append(data);
+			Video.currCommentPage++;
+		});
+	},
 	/**
 	 * 计算简介长度
 	 */
@@ -125,9 +133,79 @@ var Video = {
 				window.location.href = "/page/login.jsp";
 			}
 			if (data.result == true) {
-				$("#likeButton").hide()
+				$("#notLove").hide();
+				$("#loveNum").html(data.loveNum);
+				$("#love").show();
 			}
 		});
 	},
+	"checkUpdate" : function() {
+		var sourceType = $("#sourceType").val();
+		if (sourceType == 0) {
+			alert("请选择类型");
+			return false;
+		}
+		var videoType = $("#videoType").val();
+		if (videoType == -1) {
+			alert("请选择分类");
+			return false;
+		}
+		return true;
+	},
+	"update" : function() {
+		if (!Video.checkUpdate()) {
+			return;
+		}
+		var videoSourceType = $("#sourceType").val();
+		var name = $("#name").val();
+		var videoType = $("#videoType").val();
+		var label = $("#label").val();
+		var description = $("#description").val();
+		var param = {
+			vid : Common.getUrlParam("vid"),
+			videoSourceType : videoSourceType,
+			name : name,
+			videoType : videoType,
+			label : label,
+			description : description
+		}
+		var url = "/video/update.do"
+		AjaxJson.post(url, param).done(function(data) {
+			if (data.result == true) {
+				alert("修改成功");
+			}
+		});
+	},
+	"upload" : function() {
+		$.ajaxFileUpload({
+			url : '/video/upload.do',
+			secureuri : false,
+			fileElementId : 'file',
+			dataType : 'json',
+			data : {
+				docType : 1
+			},
+			success : function(data, status) {
+				data = $.parseJSON(data);
+				if (data.result == true) {
+					$("#coverImgUrl").val(data.url);
+					$("#coverImg").attr("src", data.url);
+					$("#updateCoverBtn").show();
+				}
+			},
+			error : function(data, status, e) {
+				alert("上传失败!");
+				return;
+			}
+		});
+	},
+//	"updateCoverImg" : function(vid) {
+//		var imgUrl = $("#coverImgUrl").val();
+//		var url = "/video/updateCoverImg.do?vid=" + vid + "&url=" + imgUrl;
+//		alert(url);
+//		AjaxJson.get(url).done(function(data) {
+//			window.location.reload();
+//		});
+//	},
 	"end" : null
 }

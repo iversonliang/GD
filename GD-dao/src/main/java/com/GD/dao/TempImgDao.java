@@ -7,5 +7,7 @@ public interface TempImgDao {
 
 	public boolean add(String imgType, String filename);
 	
+	public boolean remove(String imgType, String filename);
+	
 	public List<String> listBefore(String imgType, Date date);
 }

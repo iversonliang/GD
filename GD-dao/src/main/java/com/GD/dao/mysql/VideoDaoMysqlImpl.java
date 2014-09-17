@@ -243,5 +243,19 @@ public class VideoDaoMysqlImpl implements VideoDao {
 	public boolean removeAll() {
 		throw new NotImplementedException();
 	}
+
+	@Override
+	public boolean update(Video video) {
+		String sql = "UPDATE video SET name=?,label=?,description=?,video_source_type=?,video_type=?,img_url=? WHERE video_id=?";
+		StatementParameter params = new StatementParameter();
+		params.setString(video.getName());
+		params.setString(video.getLabel());
+		params.setString(video.getDescription());
+		params.setInt(video.getVideoSourceType());
+		params.setInt(video.getVideoType());
+		params.setString(video.getImgUrl());
+		params.setInt(video.getVideoId());
+		return jdbc.updateForBoolean(sql, params);
+	}
 	
 }

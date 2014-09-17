@@ -37,9 +37,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GD.handler.UserHandler;
 import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
+import com.GD.model.LastReadMessage;
 import com.GD.model.User;
-import com.GD.model.Video;
+import com.GD.service.AnnouncementService;
+import com.GD.service.CommentService;
+import com.GD.service.LastReadMessageService;
 import com.GD.service.LikeVideoService;
+import com.GD.service.NoticeService;
 import com.GD.service.TempImgService;
 import com.GD.service.UserService;
 import com.GD.service.VideoService;
@@ -56,7 +60,6 @@ import com.GD.web.form.LoginForm;
 import com.GD.web.form.UserForm;
 import com.GD.web.servlet.BusinessHandleThread;
 import com.GD.web.vo.UserVO;
-import com.GD.web.vo.VideoVO;
 
 @Controller
 @RequestMapping(value = UserController.DIR)
@@ -74,7 +77,15 @@ public class UserController {
 	private LikeVideoService likeVideoService;
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private CommentService commentService;
+	@Autowired
+	private LastReadMessageService lastReadMessageService;
+	@Autowired
+	private NoticeService noticeService;
+	@Autowired
+	private AnnouncementService announcementService;
+	
 	public static final String DIR = "/user";
 
 	final private String format = "image/png";

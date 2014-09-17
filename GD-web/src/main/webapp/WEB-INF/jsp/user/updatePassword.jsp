@@ -19,7 +19,7 @@
 			<li  class="active"><a href="/user/updatePassword.do">修改密码</a></li>
 		</ul>
 		<div class="content bg_w">
-			<div class="reg_title yy-icon">密码要注意保管哦。如遇到困难，请 <a href="#" target="_blank">联系我们</a></div>
+			<div class="reg_title yy-icon">密码要注意保管哦<!-- 如遇到困难，请 <a href="#" target="_blank">联系我们</a> --></div>
 			<div class="contBody">
 				<form method="post">
 					<table width="100%" cellspacing="0" cellpadding="0" class="norTable">

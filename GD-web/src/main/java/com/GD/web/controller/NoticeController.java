@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.GD.interceptor.LoginRequired;
 import com.GD.model.Notice;
+import com.GD.service.LastReadMessageService;
 import com.GD.service.NoticeService;
+import com.GD.type.MessageType;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 @Controller
@@ -26,6 +28,8 @@ public class NoticeController {
 	public static final String DIR = "/notice";
 	protected Log logger = LogFactory.getLog(this.getClass());
 	
+	@Autowired
+	private LastReadMessageService lastReadMessageService;
 	@Autowired
 	private NoticeService noticeService;
 	
@@ -37,6 +41,7 @@ public class NoticeController {
 		}
 		int userId = (Integer)session.getAttribute("userId");
 		int count = noticeService.count(userId);
+		lastReadMessageService.add(userId, count, MessageType.NOTICE);
 		Pager pager = new Pager(count, page, 10, "/notice/index.do", null);
 		List<Notice> list = noticeService.list(userId, pager.getFirst(), 10);
 		ModelAndView model = ViewUtil.getView(DIR);

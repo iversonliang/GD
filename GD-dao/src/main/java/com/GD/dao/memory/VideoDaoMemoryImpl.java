@@ -103,4 +103,10 @@ public class VideoDaoMemoryImpl implements VideoDao {
 		return true;
 	}
 
+	@Override
+	public boolean update(Video video) {
+		VIDEO_MAP.put(video.getVideoId(), video);
+		return true;
+	}
+
 }

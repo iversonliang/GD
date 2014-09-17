@@ -97,10 +97,19 @@ public class CheckUtil {
 	 * 
 	 * @param video
 	 */
-	public static void checkVideo(Video video) {
+	public static void checkDeployVideo(Video video) {
 		if (StringUtils.isEmpty(video.getUrl())) {
 			throw new InvalidParameterException(ErrorTipsType.VIDEO_URL_ERROR.getDesc());
 		}
+		CheckUtil.checkUpdateVideo(video);
+	}
+
+	/**
+	 * 检查更新的视频参数
+	 * 
+	 * @param video
+	 */
+	public static void checkUpdateVideo(Video video) {
 		try {
 			VideoType.toType(video.getVideoType());
 		} catch (Exception e) {
@@ -115,14 +124,14 @@ public class CheckUtil {
 			throw new InvalidParameterException(ErrorTipsType.VIDEO_SOURCE_TYPE_ERROR.getDesc());
 		}
 	}
-	
+
 	public static void checkComment(String content) {
 		if (StringUtils.isEmpty(content)) {
 			throw new InvalidParameterException(ErrorTipsType.COMMENT_CONTENT_ERROR.getDesc());
 		}
 		RegularUtil.checkStrLength(content, 200, ErrorTipsType.COMMENT_CONTENT_ERROR);
 	}
-	
+
 	public static void checkApply(Apply apply) {
 		RegularUtil.checkEmail(apply.getEmail());
 		Assert.isTrue(StringUtils.isNotEmpty(apply.getName()), "激活码申请用户名不能为空");
