@@ -1,9 +1,12 @@
 package com.GD.web.controller;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +36,7 @@ import com.GD.dao.VideoInfoDao;
 import com.GD.handler.CommentHandler;
 import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
+import com.GD.model.CaptureVideo;
 import com.GD.model.Comment;
 import com.GD.model.Notice;
 import com.GD.model.User;
@@ -47,13 +53,16 @@ import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.type.HomeType;
 import com.GD.type.SortType;
+import com.GD.type.SourceSiteType;
 import com.GD.type.StatusType;
 import com.GD.type.TimeLimitType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
 import com.GD.type.VideoType;
+import com.GD.util.CaptureVideoUtil;
 import com.GD.util.CheckUtil;
 import com.GD.util.Constants;
+import com.GD.util.DateUtil;
 import com.GD.util.FileUtil;
 import com.GD.util.Json;
 import com.GD.util.Pager;
@@ -420,9 +429,15 @@ public class VideoController {
 	@ResponseBody
 	@RequestMapping(value = "/export.do", method = RequestMethod.GET)
 	public Map<String, Object> export() {
-		List<WPPosts> list = videoInfoDao.list();
-		list = list.subList(0, 5);
+		List<WPPosts> list = videoInfoDao.listWPPosts();
+		int total = 0;
+		int htmlCount = 0;
 		for (WPPosts post : list) {
+			if (post.getPostContent().contains("yinyuetai")) {
+				continue;
+			}
+			total++;
+			System.out.println("total:" + total + "  " + DateUtil.date2String(new Date()));
 			List<String> labelList = videoInfoDao.listLabel(post.getId());
 			Set<String> set = new HashSet<String>();
 			String videoLabel = "";
@@ -432,17 +447,152 @@ public class VideoController {
 					videoLabel += label + "//";
 				}
 			}
-			
+			VideoInfo obj = videoInfoDao.get(post.getId());
+			if (obj != null) {
+				continue;
+			}
 			VideoInfo info = new VideoInfo();
 			info.setId(post.getId());
 			info.setLabel(videoLabel);
 			info.setPostDate(post.getPostDate());
 			info.setPostName(post.getPostName());
 			info.setPostTitle(post.getPostTitle());
-			System.out.println(Json.toJson(info));
+			
+			String youkuId = null;
+			if (post.getPostContent().contains("iframe")) {
+				youkuId = this.getYoukuIdByStr(post.getPostContent());
+			} else {
+				htmlCount++;
+				try {
+					youkuId = this.getYoukuIdByHtml(post.getPostName());
+				} catch (Exception e) {
+					System.out.println("抓取页面出错:" + post.getPostName());
+					continue;
+				}
+			}
+			System.out.println(youkuId);
+			info.setYoukuId(youkuId);
+			
+			videoInfoDao.add(info);
+			if (total % 100 == 0) {
+//				System.out.println(Json.toJson(info));
+//				System.out.println(Json.toJson(post));
+				System.out.println("total:" + total + " htmlCount:" + htmlCount);
+			}
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", list.size());
 		return map;
+	}
+	
+	public static String getYoukuIdByStr(String str) {
+		Pattern pattern = Pattern.compile("(VideoIDS=[a-z0-9A-Z]+)");
+		Matcher m = pattern.matcher(str);
+		String youkuId = null;
+		if (m.find()) {
+			String[] temp = m.group().split("=");
+			youkuId = temp[1];
+		}
+		return youkuId;
+	}
+	
+	public static  String getYoukuIdByHtml(String postName) throws Exception {
+		URL myurl = new URL("http://www.goodancer.com/" + postName);
+		// 从URL对象中获取输入流
+		InputStreamReader isr = new InputStreamReader(myurl.openStream());
+		// 封装
+		BufferedReader br = new BufferedReader(isr);
+		// readLine获取文本
+		String line = br.readLine();
+		String html = null;
+		while (line != null) {
+			html += line + "\r\n";
+			line = br.readLine();
+		}
+		// 关闭流
+		br.close();
+		String result = getYoukuIdByStr(html);
+		if (StringUtils.isEmpty(result)) {
+			result = getYoukuIdByHtmlObject(html);
+		}
+		return result;
+	}
+	
+	public static String  getYoukuIdByHtmlObject(String html) {
+		Pattern pattern = Pattern.compile("<iframe .+ src=\"http://player.youku.com/embed/[a-z0-9A-Z]+\" .+>");
+		Matcher m = pattern.matcher(html);
+		String youkuId = null;
+		if (m.find()) {
+			String iframe = m.group();
+			pattern = Pattern.compile("src=\"http://player.youku.com/embed/[a-z0-9A-Z]+\"");
+			m = pattern.matcher(iframe);
+			if (m.find()) {
+				String str = m.group().replaceAll("\"", "");
+				youkuId = str.split("/")[4];
+			}
+		}
+		return youkuId;
+	}
+	
+	@RequestMapping(value = "/importVideo.do", method = RequestMethod.GET)
+	public void importVideo() throws Exception {
+		List<VideoInfo> list = videoInfoDao.listVideoInfo();
+		for (VideoInfo videoInfo : list) {
+			if (StringUtils.isEmpty(videoInfo.getYoukuId())) {
+				continue;
+			}
+			try {
+				Video video = new Video();
+				video.setDel(false);
+				video.setDescription("");
+				video.setHomeType(HomeType.RECOMMEND.getKey());
+				CaptureVideo captureVideo = CaptureVideoUtil.getYouKuCaptureVideoById(videoInfo.getYoukuId(), "");
+				video.setImgUrl(captureVideo.getThumbnail());
+				video.setSourceSiteType(SourceSiteType.YOUKU.getKey());
+				if (StringUtils.isEmpty(video.getName())) {
+					video.setName(captureVideo.getTitle());
+				}
+				video.setPlayUrl(captureVideo.getFlashUrl());
+				video.setIndexNum(0);
+				video.setLabel(videoInfo.getLabel().replaceAll("//", " "));
+				video.setName(videoInfo.getPostTitle());
+				video.setNickname("iverson");
+				video.setPosttime(videoInfo.getPostDate());
+				video.setSourceSiteType(SourceSiteType.YOUKU.getKey());
+				video.setStatus(StatusType.NORMAL.getKey());
+				video.setUrl("http://v.youku.com/v_show/id_" + videoInfo.getYoukuId() + ".html?from=y1.1-2.20001-0.1-1");
+				video.setUserId(5);
+				video.setVideoGradeType(VideoGradeType.ALL.getKey());
+				VideoSourceType videoSourceType = videoInfo.getLabel().contains("国内") ? VideoSourceType.ORIGINAL : VideoSourceType.REPRINT;
+				video.setVideoSourceType(videoSourceType.getKey());
+				VideoType videoType = VideoType.ALL;
+				if (videoInfo.getLabel().contains(VideoType.AD_VIDEO.getDesc())) {
+					videoType = VideoType.AD_VIDEO;
+				} else if (videoInfo.getLabel().toLowerCase().contains(VideoType.BATTLE.getDesc().toLowerCase())) {
+					videoType = VideoType.BATTLE;
+				} else if (videoInfo.getLabel().contains(VideoType.CHOREOGRAPHY.getDesc())) {
+					videoType = VideoType.CHOREOGRAPHY;
+				} else if (videoInfo.getLabel().contains(VideoType.INTERVIEW.getDesc())) {
+					videoType = VideoType.INTERVIEW;
+				} else if (videoInfo.getLabel().toLowerCase().contains(VideoType.SOLO.getDesc().toLowerCase())) {
+					videoType = VideoType.SOLO;
+				} else if (videoInfo.getLabel().contains(VideoType.TEACH.getDesc())) {
+					videoType = VideoType.TEACH;
+				} else if (videoInfo.getLabel().contains(VideoType.VIDEO.getDesc())) {
+					videoType = VideoType.VIDEO;
+				} 
+				video.setVideoType(videoType.getKey());
+				videoService.add(video);
+			} catch (Exception e) {
+				System.out.println("插入视频出错:" + Json.toJson(videoInfo));
+				continue;
+			}
+			
+			
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		System.out.println("编舞//Storm//Shine//Mannequin//国内作品//个人舞//".contains("国内"));
 	}
 }
