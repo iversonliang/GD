@@ -20,7 +20,7 @@ public class UserDaoMysqlImpl implements UserDao {
 
 	@Override
 	public long add(User user) {
-		String sql = "INSERT INTO user(username,password,head_img,video_count,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO user(username,password,head_img,video_count,nickname,email,question,answer,posttime,status,sex,role,city,province,real_name,birthday,dance_type,description,sign,group_type) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		StatementParameter param = new StatementParameter();
 		param.setString(user.getUsername());
 		param.setString(user.getPassword());
@@ -41,6 +41,7 @@ public class UserDaoMysqlImpl implements UserDao {
 		param.setString(StringUtils.defaultIfEmpty(user.getDanceType(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getDescription(), ""));
 		param.setString(StringUtils.defaultIfEmpty(user.getSign(), ""));
+		param.setInt(user.getGroupType());
 		return jdbc.insertForLastId(sql, param);
 	}
 

@@ -49,6 +49,10 @@ var Register = {
 		if (Common.isSelected("male")) {
 			sex = 1;
 		}
+		var groupType = 1;
+		if (Common.isSelected("crew")) {
+			groupType = 2;
+		}
 		var param = {
 			username : $("#username").val(),
 			password : $("#password").val(),
@@ -56,7 +60,8 @@ var Register = {
 			code : $("#code").val(),
 			sex : sex,
 			province : $("#province").val(),
-			city : $("#city").val()
+			city : $("#city").val(),
+			groupType : groupType
 		}
 		var url = "/user/register.do";
 		AjaxJson.post(url, param).done(function(data) {

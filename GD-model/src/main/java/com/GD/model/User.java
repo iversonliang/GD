@@ -42,6 +42,16 @@ public class User implements Cloneable {
 	private String headImg;
 	/** 作品数量 */
 	private int videoCount;
+	/** 团队类型 */
+	private int groupType;
+
+	public int getGroupType() {
+		return groupType;
+	}
+
+	public void setGroupType(int groupType) {
+		this.groupType = groupType;
+	}
 
 	public int getVideoCount() {
 		return videoCount;

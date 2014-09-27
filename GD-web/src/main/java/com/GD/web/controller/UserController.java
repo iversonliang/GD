@@ -37,7 +37,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GD.handler.UserHandler;
 import com.GD.handler.VideoHandler;
 import com.GD.interceptor.LoginRequired;
-import com.GD.model.LastReadMessage;
 import com.GD.model.User;
 import com.GD.service.AnnouncementService;
 import com.GD.service.CommentService;

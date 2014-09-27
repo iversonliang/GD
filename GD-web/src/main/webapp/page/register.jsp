@@ -110,6 +110,13 @@
 	                    <span class="labelBox"><label><input type="radio" value="1" id="male" tabindex="5" name="maleChoose" checked=""> 男</label></span>
 	                    <span class="labelBox ml10"><label><input type="radio" value="2" id="female" tabindex="6" name="maleChoose"> 女</label></span> </td>
                       </tr>
+                      
+                      <tr>
+	                	<th>性质</th>
+	                    <td>
+	                    <span class="labelBox"><label><input type="radio" value="1" id="single" tabindex="5" name="groupChoose" checked=""> 个人</label></span>
+	                    <span class="labelBox ml10"><label><input type="radio" value="2" id="crew" tabindex="6" name="groupChoose"> 团体</label></span> </td>
+                      </tr>
 					 
 					 <!--<tr>
 	                	<th>舞种</th>

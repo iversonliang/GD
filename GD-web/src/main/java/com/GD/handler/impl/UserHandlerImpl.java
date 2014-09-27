@@ -59,6 +59,7 @@ public class UserHandlerImpl implements UserHandler {
 		user.setVideoCount(0);
 		user.setProvince(StringUtils.defaultIfEmpty(form.getProvince(), ""));
 		user.setCity(StringUtils.defaultIfEmpty(form.getCity(), ""));
+		user.setGroupType(form.getGroupType());
 		
 		return user;
 	}

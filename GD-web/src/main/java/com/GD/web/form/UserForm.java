@@ -1,6 +1,5 @@
 package com.GD.web.form;
 
-
 public class UserForm {
 
 	private String username;
@@ -32,6 +31,16 @@ public class UserForm {
 	private String sign;
 	/** 验证码 */
 	private String code;
+	/** 团队类型 */
+	private int groupType;
+
+	public int getGroupType() {
+		return groupType;
+	}
+
+	public void setGroupType(int groupType) {
+		this.groupType = groupType;
+	}
 
 	public String getCode() {
 		return code;
