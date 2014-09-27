@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
 			String code = CodeUtil.generateString(50);
 			userActivateDao.add((int)result, code);
-			MailInfo mailInfo = EmailUtil.getMailInfo(user.getEmail(), code);
+			MailInfo mailInfo = EmailUtil.getRegistMailInfo(user.getEmail(), code);
 			
 //			try {
 //				MailSender.sendTextMail(mailInfo);
