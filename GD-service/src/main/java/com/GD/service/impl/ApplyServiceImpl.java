@@ -1,5 +1,6 @@
 package com.GD.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.util.Assert;
 
 import com.GD.dao.ApplyDao;
 import com.GD.email.MailInfo;
+import com.GD.email.MailSender;
 import com.GD.model.Apply;
 import com.GD.model.Notice;
 import com.GD.model.User;
@@ -30,7 +32,7 @@ public class ApplyServiceImpl implements ApplyService {
 	private NoticeService noticeService;
 	@Autowired
 	private ApplyDao applyDao;
-	
+
 	@Override
 	public boolean add(Apply apply) {
 		Apply check = applyDao.getByUserId(apply.getUserId());
@@ -39,25 +41,27 @@ public class ApplyServiceImpl implements ApplyService {
 	}
 
 	@Override
-	public boolean pass(int userId, int applyId) {
+	public boolean pass(int applyId) {
+		Apply apply = applyDao.get(applyId);
+		Assert.notNull(apply, "没有对应的申请ID[ " + applyId + " ]");
 		String inviteCode = inviteCodeService.random();
 		inviteCodeService.send(inviteCode);
 		Notice notice = new Notice();
-		notice.setContent("你的激活码：" + inviteCode);
+		notice.setContent("恭喜你获得激活码：" + inviteCode + "，<a href=\"/inviteCode/index.do\"/>立即激活</a>");
 		notice.setPosttime(new Date());
-		notice.setUserId(userId);
+		notice.setUserId(apply.getUserId());
 		notice.setImgUrl(Constants.SYS_DEFAULT_IMG);
 		boolean result = noticeService.add(notice);
 		applyDao.pass(applyId, inviteCode);
-		User user = userService.get(userId);
+		User user = userService.get(apply.getUserId());
 		MailInfo mailInfo = EmailUtil.getInviteCodeMailInfo(user.getEmail(), inviteCode);
-		
-//		try {
-//		MailSender.sendTextMail(mailInfo);
-//	} catch (UnsupportedEncodingException e) {
-//		e.printStackTrace();
-//	}
-		
+
+		try {
+			MailSender.sendTextMail(mailInfo);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		return result;
 	}
 
@@ -84,6 +88,11 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public boolean activate(int userId) {
 		return applyDao.activate(userId);
+	}
+
+	@Override
+	public Apply getByUser(int userId) {
+		return applyDao.getByUserId(userId);
 	}
 
 }

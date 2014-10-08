@@ -60,5 +60,13 @@ var Ad = {
 			}
 		});
 	},
+	"delete" : function(adId) {
+		var url = "/admin/ad/delete.do?adId=" + adId;
+		AjaxJson.get(url).done(function(data) {
+			if (data.result == true) {
+				window.location.reload();
+			}
+		});
+	},
 	"end" : null
 }

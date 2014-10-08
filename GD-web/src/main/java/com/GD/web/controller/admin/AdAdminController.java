@@ -81,4 +81,18 @@ public class AdAdminController {
 		map.put("result", result);
 		return map;
 	}
+	
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	public Map<String, Object> delete(HttpServletRequest request, HttpServletResponse response, HttpSession session, int adId) {
+		int userId = (Integer) session.getAttribute("userId");
+		User user = userService.get(userId);
+		UserUtil.checkNull(user);
+		UserUtil.checkAdminAuthority(user);
+		boolean result = adService.delete(adId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
 }

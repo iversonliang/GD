@@ -174,7 +174,7 @@ public class VideoDaoMysqlImpl implements VideoDao {
 			sql += " AND video_source_type=?";
 			param.setInt(videoSourceType);
 		}
-		sql += " AND del=0 ORDER BY play DESC LIMIT ?,?";
+		sql += " AND del=0 ORDER BY posttime DESC LIMIT ?,?";
 		param.setInt(start);
 		param.setInt(size);
 		return jdbc.queryForList(sql, Video.class, param);
@@ -256,6 +256,21 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		params.setString(video.getImgUrl());
 		params.setInt(video.getVideoId());
 		return jdbc.updateForBoolean(sql, params);
+	}
+
+	@Override
+	public List<Video> listAllHomeType() {
+		String sql = "SELECT * FROM video where home_type=1 and del=0 order by posttime desc";
+		return jdbc.queryForList(sql, Video.class);
+	}
+
+	@Override
+	public boolean updateHomeTypeIndex(int videoId, int index) {
+		String sql = "update video set index_num=? where video_id=?";
+		StatementParameter param = new StatementParameter();
+		param.setInt(index);
+		param.setInt(videoId);
+		return jdbc.updateForBoolean(sql, index, videoId);
 	}
 	
 }

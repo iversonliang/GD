@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>邀请码资料填写 - 优舞网</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/invitation.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -16,7 +16,7 @@
 	<div class="main">
 		<div class="content">
 			<h2>申请激活码</h2>
-			<p>填写以下基本信息，我们会尽快审核，以邮件的形式发送。</p>
+			<p>填写以下基本信息，我们会尽快审核，以留意网站系统通知。</p>
 			<p style="display:none;color:red">请输入正确的邮箱地址</p>
 			<form id="form" method="get" action="/inviteCode/add.do">
 				<input id="name" name="name" type="text" value="" placeholder="姓名（必填）" autocomplete="off" class="activeInput">

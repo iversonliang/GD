@@ -8,6 +8,8 @@ public interface ApplyDao {
 	
 	public boolean add(Apply apply);
 	
+	public Apply get(int applyId);
+	
 	public boolean pass(int applyId, String inviteCodeId);
 	
 	public boolean activate(int userId);

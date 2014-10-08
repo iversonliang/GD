@@ -16,7 +16,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class MailSender {
+	
+	private static Log logger = LogFactory.getLog(MailSender.class);
+	
 	/**
 	 * 以文本格式发送邮件
 	 * 
@@ -53,6 +59,7 @@ public class MailSender {
 			mailMessage.setText(mailContent);
 			// 发送邮件
 			Transport.send(mailMessage);
+			logger.info("发送邮件成功！  邮件地址[" + mailInfo.getToAddress() + "] 邮件主题[" + mailInfo.getSubject() + "]");
 			return true;
 		} catch (MessagingException ex) {
 			ex.printStackTrace();

@@ -83,4 +83,6 @@ public interface UserService {
 	 * @return
 	 */
 	public String getHeadImg(int userId);
+	
+	public boolean updateActiveTime(int userId);
 }

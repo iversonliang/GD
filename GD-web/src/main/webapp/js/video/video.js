@@ -33,8 +33,10 @@ var Video = {
 			if (data.result == true) {
 				var sourceType = $("#sourceType").val();
 				if (sourceType == 1) {
+					alert("发布成功！");
 					window.location.href = "/opus.do";
 				} else {
+					alert("发布成功！");
 					window.location.href = "/inspiration.do";
 				}
 			}
@@ -207,5 +209,19 @@ var Video = {
 //			window.location.reload();
 //		});
 //	},
+	"showDel" : function(type, videoId) {
+		$("#deleteType").val(type);
+		$("#deleteVideoId").val(videoId);
+		$("#deleteDiv").show();
+	},
+	"hideDel" : function() {
+		$("#deleteDiv").hide();
+	},
+	"delete" : function() {
+		var type = $("#deleteType").val();
+		var videoId = $("#deleteVideoId").val();
+		var url = "/video/delete.do?type=" + type + "&vid=" + videoId;
+		window.location.href = url;
+	},
 	"end" : null
 }

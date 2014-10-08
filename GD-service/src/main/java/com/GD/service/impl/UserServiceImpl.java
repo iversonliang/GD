@@ -1,11 +1,14 @@
 package com.GD.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.GD.dao.ActiveUserDao;
@@ -13,6 +16,7 @@ import com.GD.dao.UserActivateDao;
 import com.GD.dao.UserDao;
 import com.GD.dao.UserHeadImgDao;
 import com.GD.email.MailInfo;
+import com.GD.email.MailSender;
 import com.GD.model.User;
 import com.GD.service.UserService;
 import com.GD.type.RoleType;
@@ -44,11 +48,11 @@ public class UserServiceImpl implements UserService {
 			userActivateDao.add((int)result, code);
 			MailInfo mailInfo = EmailUtil.getRegistMailInfo(user.getEmail(), code);
 			
-//			try {
-//				MailSender.sendTextMail(mailInfo);
-//			} catch (UnsupportedEncodingException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				MailSender.sendTextMail(mailInfo);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 		return (int) result;
 	}
@@ -203,6 +207,13 @@ public class UserServiceImpl implements UserService {
 		if (user == null || user.getRole() != RoleType.ADMIN.getKey()) {
 			throw new RuntimeException("不是管理员");
 		}
+	}
+
+	@Override
+	public boolean updateActiveTime(int userId) {
+		User user = this.get(userId);
+		Assert.notNull(user, "没有对应的用户[" + userId + "]");
+		return activeUserDao.add(user, new Date());
 	}
 
 }

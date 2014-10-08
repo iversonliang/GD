@@ -368,15 +368,17 @@ a.tBtn{ text-decoration:none;}
 #focus ul li img {height:310px;}
 #focus ul li div {position:absolute; overflow:hidden;}
 #focus .btnBg {position:absolute; width:730px; height:20px; left:0; bottom:0; background:#000;}
-#focus .btn {position:absolute; width:160px; height:14px; padding:0 10px; right:50%; bottom:5px; text-align:right;margin-right:-82px;}
+#focus .btn {position:absolute; width:160px; height:10px; padding:0 10px; right:50%; bottom:5px; text-align:right;margin-right:-82px;oveflow:hidden;}
+#focus .btn span {display:inline-block; _display:inline; _zoom:1; width:25px; height:10px; _font-size:0; margin-left:5px; cursor:pointer; background:#fff;-moz-border-radius: 2px;border-radius:2px;-webkit-border-radius:2px;}
+#focus .btn span.on {background:#fff;}
 #focus .btn span {display:inline-block; _display:inline; _zoom:1; width:25px; height:10px; _font-size:0; margin-left:5px; cursor:pointer; background:#fff;}
 #focus .btn span.on {background:#fff;}
-#focus .preNext {width:45px; height:100px; position:absolute; top:90px; background:url(/images/sprite.png) no-repeat 0 0; cursor:pointer;}
+#focus .preNext {width:45px; height:100px; position:absolute; top:90px; background:url(images/sprite.png) no-repeat 0 0; cursor:pointer;}
 #focus .pre {left:0;}
 #focus .next {right:0; background-position:right top;}
-.r_side {float:left;width:230px;height:110px;margin-left:20px;}
-.r_ad {width:230px;height:110px;margin-bottom:10px;overflow:hidden;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
-.r_ad img {width:230px;height:110px;}
+.r_side {float:left;width:230px;height:310px;margin-left:20px;overflow:hidden;}
+.r_ad {width:230px;height:145px;margin-bottom:20px;overflow:hidden;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
+.r_ad img {width:230px;height:150px;}
 .r_links {width:198px;height:48px;line-height:24px;background:#fff;padding:10px 15px;border:1px solid #dedede;-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;}
 .r_links span {display:block;}
 

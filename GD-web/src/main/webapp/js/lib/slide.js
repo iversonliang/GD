@@ -13,7 +13,7 @@ var Slide = {
 		}
 		btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
 		$("#focus").append(btn);
-		$("#focus .btnBg").css("opacity",0.5);
+		$("#focus .btnBg").css("opacity",0.2);
 
 		//为小按钮添加鼠标滑入事件，以显示相应的内容
 		$("#focus .btn span").css("opacity",0.4).mouseenter(function() {

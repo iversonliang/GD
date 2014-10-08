@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>个人信息 - 优舞网</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -37,8 +37,8 @@
 							<th>邮箱</th>
 							<td class="vm" id="emailArea">
 							${user.email }
-							<span style="color:red;margin-left:20px;"><c:if test="${user.status == 1 }"> 邮箱已验证</c:if><c:if test="${user.status == 0 }"> 邮箱未验证</c:if></span>
-							<span class="ml10 f12"><a class="grayBtn" href="#">修改邮箱</a></span>
+							<%-- <span style="color:red;margin-left:20px;"><c:if test="${user.status == 1 }"> 邮箱已验证</c:if><c:if test="${user.status == 0 }"> 邮箱未验证</c:if></span>
+							<span class="ml10 f12"><a class="grayBtn" href="#">修改邮箱</a></span> --%>
 							</td>
 						</tr>					
 						<tr>
@@ -185,7 +185,7 @@
 								</span>
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<th>擅长舞种</th>
 							<td class="vm" colspan="2">
 								<span class="selectBox">
@@ -204,10 +204,10 @@
 								</select></span>
 								<span><input type="button" id="addDanceType" tabindex="3" onclick="User.addDanceType()" value="添加" class="lBtn sBtn"></span>
 								<ul class="selectTags" id="danceTypeList">
-									<!-- <li style="margin-bottom:5px"><span name="selectedDanceType">Lyrical</span><a href="javascript:void(0)" onclick="User.delDanceType('Lyrical', this)" class="delete">x</a></li> -->
+									<li style="margin-bottom:5px"><span name="selectedDanceType">Lyrical</span><a href="javascript:void(0)" onclick="User.delDanceType('Lyrical', this)" class="delete">x</a></li>
 								</ul>
 							</td>
-						</tr>
+						</tr> -->
 						<tr>
 							<th>个人简介</th>
 							<td colspan="2"><textarea id="description" value="${user.description }" onkeyup="User.checkDescriptionLength()" maxlength="200" style="width:500px;height:100px;" name="desc" class="newArea w530 h150"></textarea><p class="f12 c999">还可以输入 <b id="leftDescriptionLength" class="cc20000 cf30 abc">200</b> 字符</p></td>

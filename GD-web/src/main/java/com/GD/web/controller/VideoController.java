@@ -27,6 +27,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -228,6 +229,7 @@ public class VideoController {
 			notice.setImgUrl(Constants.SYS_DEFAULT_IMG);
 			notice.setPosttime(new Date());
 			User loveUser = userService.get(username);
+			Assert.notNull(loveUser, "没有找到对应的用户[" + username + "]");
 			String content = "你的视频《<a target=\"_blank\" href=\"/video/video.do?vid=" + vid + "\">" + video.getName() + "</a>》被<a target=\"_blank\" href=\"/video/personal.do?userId=" + loveUser.getUserId() + "\">" + username + "</a>点赞喔";
 			notice.setContent(content);
 			notice.setUserId(userId);

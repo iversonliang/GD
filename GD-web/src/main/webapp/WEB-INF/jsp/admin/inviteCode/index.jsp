@@ -27,6 +27,7 @@
 				<tr>
 					<th style="width:320px">邀请码</th>
 					<th>使用用户ID</th>
+					<th>使用用户用户名</th>
 					<th>生成时间</th>
 					<th>使用时间</th>
 					<th>使用状态</th>
@@ -36,6 +37,7 @@
 					<tr>
 						<td>${code.inviteCodeId }</td>
 						<td>${code.useUserId}</td>
+						<td>${code.useUsername}</td>
 						<td><fmt:formatDate value="${code.posttime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>
 							<c:if test="${code.useTime != '1970-01-01 00:00:00.0' }">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>${user.username }的个人主页 - 优舞网</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -20,7 +20,7 @@
 				<div class="userInfo">
 					<div class="atPerson">
 						<div class="vm">${user.username }</div>
-						<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span>/</span> 欧洲 <span >/</span> 街舞　<br>
+						<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span>/</span> ${user.province} - ${user.city}　<br>
 						<!--<div>
 							<p class="atPersonDes">个人签名个人签名个人签名个人签名</p>
 						</div>-->
@@ -35,7 +35,7 @@
 				<div class="userPdata">
 					<p class="hbzl-s4">人气：<span class="hbzl-s4t hbzl-s4tb">281</span></p>
 					作品数：<a href="javascript:void(0)" class="noPointer">${user.videoCount }</a>&nbsp;&nbsp;&nbsp;&nbsp;
-					人气：<a href="javascript:void(0)" class="noPointer">545645</a>
+					<!-- 人气：<a href="javascript:void(0)" class="noPointer">545645</a> -->
 				</div>
 				<div class="clear"></div>
 			</div>	
@@ -70,7 +70,7 @@
 									<c:if test="${param.type < 3 || empty param.type }">
 										<td><a href="/video/edit.do?vid=${video.videoId }">编辑</a></td>
 									</c:if>
-									<td><a href="/video/delete.do?type=${param.type }&vid=${video.videoId }" class="delete">删除</a></td>
+									<td><a href="javascript:Video.showDel(${param.type }, ${video.videoId })" class="delete">删除</a></td>
 								</tr>
 							</tbody>
 							</table>
@@ -81,6 +81,19 @@
 		</div>
 		<jsp:include page="/WEB-INF/jsp/include/pager.jsp"></jsp:include>
 </div>
+
+<div id="deleteDiv" class="popup" style="display:none">
+			<input type="hidden" id="deleteType"/>
+			<input type="hidden" id="deleteVideoId"/>
+			<div class="p_cont">
+				<p>确定要删除该视频吗？</p>
+				<div class="p_func">
+					<a href="javascript:Video.delete()" class="btnconfirm">确定</a>
+					<a href="javascript:Video.hideDel()" class="btncancel">取消</a>
+				</div>
+			</div>
+		</div>
+		
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 
 </body>

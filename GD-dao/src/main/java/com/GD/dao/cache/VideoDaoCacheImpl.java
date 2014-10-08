@@ -32,7 +32,9 @@ public class VideoDaoCacheImpl implements VideoDao {
 		Video video = videoDaoMemoryImpl.get(videoId);
 		if (video == null) {
 			video = videoDaoMysqlImpl.get(videoId);
-			videoDaoMemoryImpl.add(video);
+			if (video != null) {
+				videoDaoMemoryImpl.add(video);
+			}
 		}
 		return video;
 	}
@@ -152,6 +154,16 @@ public class VideoDaoCacheImpl implements VideoDao {
 			videoDaoMemoryImpl.update(video);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Video> listAllHomeType() {
+		return videoDaoMysqlImpl.listAllHomeType();
+	}
+
+	@Override
+	public boolean updateHomeTypeIndex(int videoId, int index) {
+		return videoDaoMysqlImpl.updateHomeTypeIndex(videoId, index);
 	}
 
 }

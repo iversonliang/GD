@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>优舞网 - 你的第一个舞蹈名片</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -41,12 +41,9 @@ $(function() {
 		</ul>
 	</div>
 	<div class="r_side">
-		<div class="r_ad"><a href="#" target="_blank"><img src="/images/ad/310-110.jpg" /></a></div>
-		<div class="r_ad"><a href="#" target="_blank"><img src="/images/ad/ad01.jpg" /></a></div>
-		<div class="r_links">
-			<span><a href="#" target="_blank"><b>·</b> 第三季的《中国好声音》开播了。</a></span>
-			<span><a href="#" target="_blank"><b>·</b> 那些好听的英文歌</a></span>
-		</div>
+		<c:forEach items="${slideBehindList}" var="ad">
+			<div class="r_ad"><a href="${ad.url }" target="_blank"><img src="${ad.imgUrl }" /></a></div>
+		</c:forEach>
 	</div>
 </div>
 

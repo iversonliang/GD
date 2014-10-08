@@ -92,4 +92,9 @@ public class CommentServiceImpl implements CommentService{
 		return commentDao.listToMe(userId, start, size);
 	}
 
+	@Override
+	public boolean delByVideo(int videoId) {
+		return commentDao.delByVideo(videoId);
+	}
+
 }

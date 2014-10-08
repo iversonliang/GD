@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>舞者 - 优舞网</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -21,20 +21,20 @@
 		<div class="content bg_w">
 			<c:forEach items="${userVoList}" var="user">
 				<div class="uitem" >
-					<div class="avatar"><a href="#"><img src="${user.headImg }" width="120" height="120" /></a></div>
+					<div class="avatar"><a href="/video/personal.do?userId=${user.userId }"><img src="${user.headImg }" width="120" height="120" /></a></div>
 					<div class="userInfo">
 						<div class="atPerson">
 							<div class="vm">
 								<b>
-								<a href="http://shaozi.zcool.com.cn" class="c4095ce f14" target="_blank">${user.username }</a>
+								<a href="/video/personal.do?userId=${user.userId }" class="c4095ce f14" target="_blank">${user.username }</a>
 								</b>
 							</div>
-							<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> 欧洲 <span class="c999">/</span> 街舞　<br>
+							<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> ${user.province} - ${user.city}<br>
 							<div class="c999">
 								<p class="atPersonDes">${user.sign }</p>
 								<!-- 粉丝：<a href="#" target="_blank">4787</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
-								作品数：<a href="#" target="_blank">${user.videoCount }</a>&nbsp;&nbsp;&nbsp;&nbsp;
-								人气：<a href="#" target="_blank">545645</a>
+								作品数：<a href="/video/personal.do?userId=${user.userId }" target="_blank">${user.videoCount }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<%-- 人气：<a href="/video/personal.do?userId=${user.userId }" target="_blank">545645</a> --%>
 							</div>
 							<!-- <div class="userList_cz">
 								<a href="#" class="btnfollow">加关注</a>

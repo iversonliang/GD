@@ -121,4 +121,14 @@ public class VideoAdminController {
 		map.put("result", result);
 		return map;
 	}
+	
+	@LoginRequired
+	@ResponseBody
+	@RequestMapping(value="/fixHomeType.do", method=RequestMethod.GET)
+	public Map<String, Object> fixHomeType(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		videoService.fixHomeType();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", true);
+		return map;
+	}
 }

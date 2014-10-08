@@ -25,17 +25,19 @@
 			</div>
 			<table cellspacing="1">
 				<tr>
+					<th style="width:80px">用户名</th>
 					<th style="width:120px">名称</th>
-					<th>邮箱地址</th>
-					<th>来自哪里</th>
+					<th style="width:140px">邮箱地址</th>
+					<th style="width:80px">来自哪里</th>
 					<th>舞团</th>
-					<th>作品地址</th>
-					<th>申请时间</th>
+					<th style="width:150px">作品地址</th>
+					<th style="width:140px">申请时间</th>
 					<th>分配邀请码</th>
 					<th>操作</th>
 				</tr>
 				<c:forEach items="${list}" var="apply">
 					<tr>
+						<td>${apply.username }</td>
 						<td>${apply.name }</td>
 						<td>${apply.email}</td>
 						<td>${apply.location}</td>

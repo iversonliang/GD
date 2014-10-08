@@ -9,6 +9,8 @@ public interface CommentDao {
 	public int add(Comment comment);
 
 	public boolean del(int commentId);
+	
+	public boolean delByVideo(int videoId);
 
 	public int count(int videoId);
 

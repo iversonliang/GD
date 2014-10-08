@@ -28,7 +28,7 @@
 					<th style="width:220px">图片</th>
 					<th>广告区域</th>
 					<th>顺序</th>
-					<th>是否删除</th>
+					<th>连接地址</th>
 					<th>操作</th>
 				</tr>
 				<c:forEach items="${adList}" var="ad">
@@ -39,16 +39,10 @@
 							<c:if test="${ad.adAreaType == 2}">幻灯片后面</c:if>
 						</td>
 						<td>${ad.indexNum}</td>
-						<th><c:if test="${ad.del == true}">是</c:if>
-							<c:if test="${ad.del == false}">否</c:if></th>
+						<td>${ad.url}</td>
 						<td>
 							<div class="btns">
-								<c:if test="${ad.del == false}">
-									<div class="btn"><input type="button" value="删除" onclick="Video.delete('${video.videoId}')"></div>
-								</c:if>
-								<c:if test="${ad.del == true}">
-									<div class="btn"><input type="button" value="取消删除" onclick="Video.unDelete('${video.videoId}')"></div>
-								</c:if>
+								<div class="btn"><input type="button" value="删除" onclick="Ad.delete('${ad.adId}')"></div>
 							</div>
 						</td>	
 						</tr>

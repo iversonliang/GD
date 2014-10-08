@@ -121,7 +121,7 @@ var User = {
 		var imgUrl = $("#headImgUrl").val();
 		var url = "/user/updateHeadImg.do?url=" + imgUrl;
 		AjaxJson.get(url).done(function(data) {
-			alert(data.result);
+			window.location.reload();
 		});
 	},
 	/**
@@ -204,7 +204,7 @@ var User = {
 		}
 		var url = "/user/resetPassword.do";
 		AjaxJson.post(url, param).done(function(data) {
-			alert(data.result);
+			window.location.reload();
 		});
 	},
 	"end" : null

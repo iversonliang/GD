@@ -53,4 +53,5 @@ public interface VideoService {
 	
 	public boolean update(Video video);
 	
+	public void fixHomeType();
 }

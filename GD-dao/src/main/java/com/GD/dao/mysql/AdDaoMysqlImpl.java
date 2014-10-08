@@ -33,7 +33,7 @@ public class AdDaoMysqlImpl implements AdDao {
 
 	@Override
 	public boolean delete(int adId) {
-		String sql = "UPDATE ad SET del=1 WHERE ad_id=?";
+		String sql = "DELETE FROM ad WHERE ad_id=?";
 		return jdbc.updateForBoolean(sql, adId);
 	}
 

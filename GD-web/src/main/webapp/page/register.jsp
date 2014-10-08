@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>注册 - 优舞网</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
@@ -48,7 +48,14 @@
 			<div class="contBody">
 				<form method="post">
 					<table width="100%" class="norTable register">
-					  <tbody><tr>
+					  <tbody>
+					  <tr>
+	                	<th>性质</th>
+	                    <td>
+	                    <span class="labelBox"><label><input type="radio" value="1" id="single" tabindex="5" name="groupChoose" checked=""> 个人</label></span>
+	                    <span class="labelBox ml10"><label><input type="radio" value="2" id="crew" tabindex="6" name="groupChoose"> 团体</label></span> </td>
+                      </tr>
+					  <tr>
 						<th width="100">用户名</th>
 					    <td>
 					    	<input type="text" onblur="Register.checkUsername()" onfocus="Register.hideTips()" class="newTxt w180" name="username" id="username" tabindex="1" autocomplete="off" style="color: rgb(153, 153, 153);"> 
@@ -87,23 +94,8 @@
 	                    	</span>	
 	                    </td>
                       </tr>
-                     <tr>
-						<th>验证码</th>
-						<td>
-								<input type="code" onblur="Register.checkCode()" onfocus="Register.hideTips()" id="code" name="code" class="newTxt w250" tabindex="2"> 
-								<span style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow">
-	                    			<span id="codeTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">请输入验证码</span>
-	                    		</span>	
-						</td>
-					</tr>
-                      <tr>
-							<th></th>
-							<td>
-								<div class="relative loginRx">
-									<img id="imgObj" src="/user/getCode.do" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="changeImg()">看不清，换一张</a>				
-								</div>
-							</td>
-					  </tr>
+                     
+                      
                       <tr>
 	                	<th>性别</th>
 	                    <td>
@@ -111,13 +103,6 @@
 	                    <span class="labelBox ml10"><label><input type="radio" value="2" id="female" tabindex="6" name="maleChoose"> 女</label></span> </td>
                       </tr>
                       
-                      <tr>
-	                	<th>性质</th>
-	                    <td>
-	                    <span class="labelBox"><label><input type="radio" value="1" id="single" tabindex="5" name="groupChoose" checked=""> 个人</label></span>
-	                    <span class="labelBox ml10"><label><input type="radio" value="2" id="crew" tabindex="6" name="groupChoose"> 团体</label></span> </td>
-                      </tr>
-					 
 					 <!--<tr>
 	                	<th>舞种</th>
 	                    <td><span class="selectBox">
@@ -152,6 +137,24 @@
 	                    	</span>	
 						</td>
                       </tr>
+                      <tr>
+						<th>验证码</th>
+						<td>
+								<input type="code" onblur="Register.checkCode()" onfocus="Register.hideTips()" id="code" name="code" class="newTxt w250" tabindex="2"> 
+								<span style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;" class="onShow">
+	                    			<span id="codeTip" name="tips" style="display:none" class="txtMsg alert f12 ml1">请输入验证码</span>
+	                    		</span>	
+						</td>
+					</tr>
+                     <tr>
+							<th></th>
+							<td>
+								<div class="relative loginRx">
+									<img id="imgObj" src="/user/getCode.do" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="changeImg()">看不清，换一张</a>				
+								</div>
+							</td>
+					  </tr>
+                      
                      
                       
                       <tr>
@@ -168,6 +171,7 @@
                         	<span class="caaa">已注册请</span> <a href="/page/login.jsp" class="c009cff">登录</a>
                         </td>
                       </tr>
+                      
                     </tbody></table>
 				</form>
 			</div>

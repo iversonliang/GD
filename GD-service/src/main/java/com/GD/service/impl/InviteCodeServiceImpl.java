@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.GD.dao.InviteCodeDao;
+import com.GD.model.Apply;
 import com.GD.model.InviteCode;
 import com.GD.service.ApplyService;
 import com.GD.service.InviteCodeService;
@@ -70,7 +71,18 @@ public class InviteCodeServiceImpl implements InviteCodeService {
 		Assert.notNull(inviteCode, "没有对应的邀请码记录");
 		InviteCodeStatusType type = InviteCodeStatusType.toType(inviteCode.getStatus());
 		Assert.isTrue(type != InviteCodeStatusType.USE, "改邀请码已经使用[ " + userId + " ][ " + inviteCodeId + " ]");
-		return applyService.activate(userId);
+		inviteCodeDao.use(userId, inviteCodeId);
+		Apply apply = applyService.getByUser(userId);
+		if (apply == null) {
+			apply = new Apply();
+			apply.setUserId(userId);
+			apply.setPass(true);
+			apply.setPosttime(new Date());
+			apply.setInviteCodeId(inviteCodeId);
+			return applyService.add(apply);
+		} else {
+			return applyService.activate(userId);
+		}
 	}
 
 }

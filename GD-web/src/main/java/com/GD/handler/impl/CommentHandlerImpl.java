@@ -40,6 +40,10 @@ public class CommentHandlerImpl implements CommentHandler{
 			String headImg = lruCache.getHeadImg(comment.getUserId());
 			vo.setHeadImg(headImg);
 			Video video = videoService.get(comment.getVideoId());
+			if (video == null) {
+				System.out.println("评论[" + comment.getCommentId() + "]所属视频不存在[" + comment.getVideoId() + "]");
+				continue;
+			}
 			vo.setVideoName(video.getName());
 			vo.setVideoSourceType(video.getVideoSourceType());
 			voList.add(vo);

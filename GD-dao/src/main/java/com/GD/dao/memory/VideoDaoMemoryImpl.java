@@ -109,4 +109,14 @@ public class VideoDaoMemoryImpl implements VideoDao {
 		return true;
 	}
 
+	@Override
+	public List<Video> listAllHomeType() {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public boolean updateHomeTypeIndex(int videoId, int index) {
+		throw new NotImplementedException();
+	}
+
 }

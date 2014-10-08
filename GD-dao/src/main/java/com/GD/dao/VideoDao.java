@@ -64,4 +64,8 @@ public interface VideoDao {
 	 * @return
 	 */
 	public boolean removeAll();
+	
+	public List<Video> listAllHomeType();
+	
+	public boolean updateHomeTypeIndex(int videoId, int index);
 }

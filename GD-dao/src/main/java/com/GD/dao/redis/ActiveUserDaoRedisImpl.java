@@ -31,10 +31,11 @@ public class ActiveUserDaoRedisImpl implements ActiveUserDao {
 	public boolean add(User user, Date date) {
 		String key = RedisKey.getActiveUser();
 		int score = DateUtil.getSecond(date);
+		System.out.println("更新活跃用户[" + user.getUserId() + "] score[" + score + "]");
 		this.redis.zadd(key, score, Json.toJson(user));
 		return true;
 	}
-
+	
 	@Override
 	public boolean remove(User user) {
 		String key = RedisKey.getActiveUser();

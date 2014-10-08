@@ -15,17 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.GD.email.MailInfo;
+import com.GD.email.MailSender;
 import com.GD.handler.VideoHandler;
+import com.GD.interceptor.LoginRequired;
 import com.GD.model.Ad;
-import com.GD.model.LastReadMessage;
+import com.GD.model.User;
 import com.GD.model.Video;
 import com.GD.service.AdService;
 import com.GD.service.AnnouncementService;
 import com.GD.service.CommentService;
 import com.GD.service.LastReadMessageService;
 import com.GD.service.NoticeService;
+import com.GD.service.UserService;
 import com.GD.service.VideoService;
 import com.GD.type.AdAreaType;
 import com.GD.type.HomeType;
@@ -35,6 +40,7 @@ import com.GD.type.TimeLimitType;
 import com.GD.type.VideoGradeType;
 import com.GD.type.VideoSourceType;
 import com.GD.type.VideoType;
+import com.GD.util.EmailUtil;
 import com.GD.util.Pager;
 import com.GD.util.ViewUtil;
 import com.GD.web.form.VideoSearchForm;
@@ -60,6 +66,8 @@ public class HomeController {
 	@Autowired
 	private VideoHandler videoHandler;
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private VideoService videoService;
 	
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
@@ -77,9 +85,13 @@ public class HomeController {
 		
 		List<Ad> adList = adService.list(AdAreaType.IGNORE, 0, Integer.MAX_VALUE);
 		List<Ad> slideList = new ArrayList<Ad>();
+		List<Ad> slideBehindList = new ArrayList<Ad>();
 		for (Ad ad : adList) {
 			if (ad.getAdAreaType() == AdAreaType.SLIDE.getKey()) {
 				slideList.add(ad);
+			}
+			if (ad.getAdAreaType() == AdAreaType.SLIDE_BEHIND.getKey()) {
+				slideBehindList.add(ad);
 			}
 		}
 		
@@ -89,6 +101,7 @@ public class HomeController {
 		model.addObject("videoVoList", voList);
 		model.addObject("nav", "home");
 		model.addObject("slideList", slideList);
+		model.addObject("slideBehindList", slideBehindList);
 		long end = System.currentTimeMillis();
 		System.out.println("time:" + (end - start) + "ms");
 		return model;
@@ -151,5 +164,19 @@ public class HomeController {
 		model.addObject("sortTypeList", SortType.values());
 		model.addObject("timeLimitTypeList", TimeLimitType.values());
 		return model;
+	}
+	
+	@RequestMapping(value = "sendEmail.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String sendEmail(HttpServletRequest request, HttpServletResponse response, HttpSession session, String to) {
+		MailInfo mailInfo = EmailUtil.getRegistMailInfo(to, "test");
+		
+		try {
+			MailSender.sendTextMail(mailInfo);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "success";
+		
 	}
 }

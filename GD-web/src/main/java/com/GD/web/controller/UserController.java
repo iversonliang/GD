@@ -238,6 +238,7 @@ public class UserController {
 		boolean result = userService.updateHeadImg(userId, url);
 		if (result) {
 			request.setAttribute("headImg", url);
+			session.setAttribute("headImg", url);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
@@ -333,7 +334,7 @@ public class UserController {
 				request.setAttribute("headImg", user.getHeadImg());
 				
 				// 设置session过期时间（单位秒）
-				session.setMaxInactiveInterval(1800);
+				session.setMaxInactiveInterval(7200);
 				jumpUrl = this.getJumpUrl(session, request.getRequestURI());
 				result = true;
 				session.removeAttribute(ACTUAL_CODE);
@@ -353,7 +354,8 @@ public class UserController {
 		String referer = (String) session.getAttribute(REFERER);
 		if (referer != null && referer.contains("/page")) {
 			if (uri.contains("register")) {
-				referer = "/video/personal.do";
+				int userId = (Integer) session.getAttribute("userId");
+				referer = "/video/personal.do?userId=" + userId;
 			} else {
 				referer = "/index.do";
 			}

@@ -75,8 +75,8 @@
 </div>
 
 <input type="hidden" id="popUpVideoId" />
-<div id="homeTypePopUp" class="popup" style="display:none">
-		<div class="p_title"><h3>标题</h3><a href="javascript:Video.hidePopUp()" class="close">x</a></div>
+<div id="videoGradeTypePopUp" class="popup" style="display:none">
+		<div class="p_title"><h3>标题</h3><a href="javascript:Video.hideVideGradeTypePopUp()" class="close">x</a></div>
 		<div class="p_cont">
 			编辑推荐等级：
 				<input type="radio" name="radiobutton" value="0">没有 
@@ -86,7 +86,7 @@
 		</div>
 	</div>
 	
-<div id="videoGradeTypePopUp" class="popup" style="display:none">
+<div id="homeTypePopUp" class="popup" style="display:none">
 		<div class="p_title"><h3>标题</h3><a href="javascript:Video.hidePopUp()" class="close">x</a></div>
 		<div class="p_cont">
 			首页推荐位置：<input type="text" class="w180" name="" id="indexNum" autocomplete="off" style="color: rgb(153, 153, 153);">&nbsp;&nbsp;<input onclick="Video.setHomeType()" type="button" value="确定">

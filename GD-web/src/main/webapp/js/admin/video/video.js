@@ -24,11 +24,11 @@ var Video = {
 	},
 	"showVideGradeTypePopUp" : function(videoId) {
 		$("#popUpVideoId").val(videoId);
-		$("#homeTypePopUp").show();
+		$("#videoGradeTypePopUp").show();
 	},
 	"hideVideGradeTypePopUp" : function() {
 		$("#popUpVideoId").val(0);
-		$("#homeTypePopUp").hide();
+		$("#videoGradeTypePopUp").hide();
 	},
 	"showPopUp" : function(videoId) {
 		$("#popUpVideoId").val(videoId);

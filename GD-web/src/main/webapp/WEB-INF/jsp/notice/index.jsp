@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>系统通知 - 优舞网</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -22,7 +22,7 @@
 			<div class="reg_title yy-icon">你共收到了 <em>${pager.totalCount }</em> 条系统通知，请注意查看。<!-- 如遇到问题，请 <a href="#">在线提交</a> 给我们。 --></div>
 			<c:forEach items="${noticeList}" var="notice">
 				<div class="uitem">
-					<div class="avatar"><img src="${notice.imgUrl }" width="50" height="50" /></div>
+					<div class="avatar"><a href="#"><img src="${notice.imgUrl }" width="50" height="50" /></a></div>
 					<div class="msgcont">
 						<div class="msg_title">
 							<h3>${notice.content }</h3>

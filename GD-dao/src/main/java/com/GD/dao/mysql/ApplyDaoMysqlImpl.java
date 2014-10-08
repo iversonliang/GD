@@ -2,6 +2,7 @@ package com.GD.dao.mysql;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,11 +22,11 @@ public class ApplyDaoMysqlImpl implements ApplyDao {
 		String sql = "INSERT INTO apply(apply_id,name,email,location,crew,oups_url,posttime,pass,user_id,invite_code_id) values(?,?,?,?,?,?,?,?,?,?)";
 		StatementParameter param = new StatementParameter();
 		param.setInt(apply.getApplyId());
-		param.setString(apply.getName());
-		param.setString(apply.getEmail());
-		param.setString(apply.getLocation());
-		param.setString(apply.getCrew());
-		param.setString(apply.getOupsUrl());
+		param.setString(StringUtils.defaultIfEmpty(apply.getName(), ""));
+		param.setString(StringUtils.defaultIfEmpty(apply.getEmail(), ""));
+		param.setString(StringUtils.defaultIfEmpty(apply.getLocation(), ""));
+		param.setString(StringUtils.defaultIfEmpty(apply.getCrew(), ""));
+		param.setString(StringUtils.defaultIfEmpty(apply.getOupsUrl(), ""));
 		param.setDate(apply.getPosttime());
 		param.setBool(apply.isPass());
 		param.setInt(apply.getUserId());
@@ -47,7 +48,7 @@ public class ApplyDaoMysqlImpl implements ApplyDao {
 
 	@Override
 	public List<Apply> list(int start, int size) {
-		String sql = "SELECT * FROM apply ORDER BY posttime";
+		String sql = "SELECT * FROM apply ORDER BY posttime desc";
 		return jdbc.queryForList(sql, Apply.class, start, size);
 	}
 
@@ -62,6 +63,11 @@ public class ApplyDaoMysqlImpl implements ApplyDao {
 		String sql = "UPDATE apply SET pass=1 WHERE user_id=?";
 		return jdbc.updateForBoolean(sql, userId);
 	}
-	
+
+	@Override
+	public Apply get(int applyId) {
+		String sql = "SELECT * FROM apply where apply_id=?";
+		return jdbc.query(sql, Apply.class, applyId);
+	}
 	
 }

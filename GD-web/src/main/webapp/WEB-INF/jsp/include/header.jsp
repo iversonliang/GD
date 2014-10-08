@@ -34,7 +34,7 @@
 			<c:choose>
 				<c:when test="${!empty isLogin && isLogin == true }">
 					<div class="logedin">
-						<a href="#"><img src="${headImg }" width="24" height="24"></a>
+						<a href="/video/personal.do?userId=${userId }"><img src="${headImg }" width="24" height="24"></a>
 						<div class="son">
 							<ul>
 								<li><a href="/video/personal.do?userId=${userId }">我的主页</a></li>
@@ -54,7 +54,7 @@
 			</c:choose>
 			<c:if test="${!empty isLogin && isLogin == true }">
 				<div class="msg_count">
-					<a href="#" class="tosms <c:if test="${toMyComments > 0 || toMyReply > 0 || notice > 0 || announcement > 0 }">newmsg</c:if> "></a>
+					<a href="/comment/toMyComments.do" class="tosms <c:if test="${toMyComments > 0 || toMyReply > 0 || notice > 0 || announcement > 0 }">newmsg</c:if> "></a>
 					<div class="son">
 						<ul>
 							<li><a href="/comment/toMyComments.do" <c:if test="${ toMyComments > 0 }">class="newone"</c:if> >给我的评论<c:if test="${toMyComments > 0 }">+${toMyComments}</c:if></a></li>
@@ -64,8 +64,8 @@
 						</ul>
 					</div>
 				</div>
-				<div class="top_sumit">
-					<a href="/video/contribute.do" class="tosms"></a>
+				<div class="top_sumit" title="发布作品">
+					<a href="/video/contribute.do" class="tosms" ></a>
 				</div>
 			</c:if>
 			<div class="searchBar">

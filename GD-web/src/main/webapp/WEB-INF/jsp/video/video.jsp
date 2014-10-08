@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>优舞网</title>
+<title>${video.name } - 优舞网</title>
 <%@include file="/WEB-INF/jsp/taglib.inc.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <%@include file="/WEB-INF/jsp/js.inc.jsp"%>
@@ -52,12 +52,12 @@
 							<a href="/video/personal.do?userId=${video.userId }" class="c4095ce f14" target="_blank">${video.nickname }</a>
 							</b>
 						</div>
-						<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> 欧洲 <span class="c999">/</span> 街舞　<br>
+						<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> ${user.province} - ${user.city} <br>
 						<div class="c999">
 							<p class="atPersonDes">${user.sign }</p>
 							<!-- 粉丝：<a href="#" target="_blank">4787</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 							作品数：<a href="javascript:void(0)" style="cursor:default">${user.videoCount }</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							人气：<a href="javascript:void(0)" style="cursor:default">545645</a>
+							<!-- 人气：<a href="javascript:void(0)" style="cursor:default">545645</a> -->
 						</div>
 						<!-- <div class="userList_cz">
 							<a href="#" class="btnfollow">加关注</a>

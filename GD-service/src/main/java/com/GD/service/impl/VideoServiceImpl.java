@@ -13,6 +13,7 @@ import com.GD.dao.VideoDao;
 import com.GD.model.Notice;
 import com.GD.model.User;
 import com.GD.model.Video;
+import com.GD.service.CommentService;
 import com.GD.service.LikeVideoService;
 import com.GD.service.NoticeService;
 import com.GD.service.UserService;
@@ -34,6 +35,8 @@ import com.GD.util.VideoUtil;
 public class VideoServiceImpl implements VideoService {
 
 	@Autowired
+	private CommentService commentService;
+	@Autowired
 	private LikeVideoService likeVideoService;
 	@Autowired
 	private DefenseFlushDao defenseFlushDao;
@@ -48,6 +51,7 @@ public class VideoServiceImpl implements VideoService {
 	public boolean add(Video video) {
 		boolean result = videoDao.add(video);
 		if (result) {
+			userService.updateActiveTime(video.getUserId());
 			userService.incrVideo(video.getUserId());
 		}
 		return result;
@@ -100,6 +104,7 @@ public class VideoServiceImpl implements VideoService {
 		this.checkDelAuthority(userId, video);
 		boolean result = false;
 		result = videoDao.del(videoId);
+		commentService.delByVideo(videoId);
 		if (result && video.getHomeType() != HomeType.IGNORE.getKey()) {
 			videoDao.updateIndexBetween(video.getHomeType(), video.getIndexNum(), Integer.MAX_VALUE, false);
 		}
@@ -254,6 +259,15 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public boolean update(Video video) {
 		return videoDao.update(video);
+	}
+
+	@Override
+	public void fixHomeType() {
+		List<Video> list = videoDao.listAllHomeType();
+		for (int i=1;i<=list.size();i++) {
+			Video video = list.get(i - 1); 
+			videoDao.updateHomeTypeIndex(video.getVideoId(), i);
+		}
 	}
 	
 }
