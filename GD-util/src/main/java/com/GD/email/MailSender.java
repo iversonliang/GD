@@ -109,6 +109,7 @@ public class MailSender {
 			mailMessage.setContent(mainPart);
 			// 发送邮件
 			Transport.send(mailMessage);
+			logger.info("发送邮件成功！  邮件地址[" + mailInfo.getToAddress() + "] 邮件主题[" + mailInfo.getSubject() + "]");
 			return true;
 		} catch (MessagingException ex) {
 			ex.printStackTrace();

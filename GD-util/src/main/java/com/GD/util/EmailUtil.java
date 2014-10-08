@@ -8,7 +8,7 @@ public class EmailUtil {
 		MailInfo mailInfo = EmailUtil.getMailAccount();
 		mailInfo.setToAddress(address);
 		mailInfo.setSubject("账户注册验证");
-		mailInfo.setContent("http://goodancer.com/activate.do?code=" + code);
+		mailInfo.setContent("http://www.goodancer.com/user/activate.do?code=" + code);
 		return mailInfo;
 	}
 	
@@ -16,7 +16,7 @@ public class EmailUtil {
 		MailInfo mailInfo = EmailUtil.getMailAccount();
 		mailInfo.setToAddress(address);
 		mailInfo.setSubject("优舞网激活码");
-		mailInfo.setContent("您的激活码为：" + code);
+		mailInfo.setContent("<html><body><p>您的激活码为：" + code + "， <a href='http://www.goodancer.com/inviteCode/index.do'>立即激活</a></p></body></html>");
 		return mailInfo;
 	}
 	

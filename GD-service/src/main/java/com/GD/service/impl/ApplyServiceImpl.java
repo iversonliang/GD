@@ -55,13 +55,7 @@ public class ApplyServiceImpl implements ApplyService {
 		applyDao.pass(applyId, inviteCode);
 		User user = userService.get(apply.getUserId());
 		MailInfo mailInfo = EmailUtil.getInviteCodeMailInfo(user.getEmail(), inviteCode);
-
-		try {
-			MailSender.sendTextMail(mailInfo);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
+		MailSender.sendHtmlMail(mailInfo);
 		return result;
 	}
 

@@ -1,6 +1,5 @@
 package com.GD.service.impl;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
@@ -15,15 +14,11 @@ import com.GD.dao.ActiveUserDao;
 import com.GD.dao.UserActivateDao;
 import com.GD.dao.UserDao;
 import com.GD.dao.UserHeadImgDao;
-import com.GD.email.MailInfo;
-import com.GD.email.MailSender;
 import com.GD.model.User;
 import com.GD.service.UserService;
 import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
-import com.GD.util.CodeUtil;
 import com.GD.util.Constants;
-import com.GD.util.EmailUtil;
 import com.GD.util.ListUtil;
 
 @Service
@@ -42,18 +37,13 @@ public class UserServiceImpl implements UserService {
 	public int add(User user) {
 		long result = userDao.add(user);
 
-		if (result > 0) {
-
-			String code = CodeUtil.generateString(50);
-			userActivateDao.add((int)result, code);
-			MailInfo mailInfo = EmailUtil.getRegistMailInfo(user.getEmail(), code);
-			
-			try {
-				MailSender.sendTextMail(mailInfo);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-		}
+//		if (result > 0) {
+//
+//			String code = CodeUtil.generateString(50);
+//			userActivateDao.add((int)result, code);
+//			MailInfo mailInfo = EmailUtil.getRegistMailInfo(user.getEmail(), code);
+//			MailSender.sendHtmlMail(mailInfo);// 发送html格式
+//		}
 		return (int) result;
 	}
 

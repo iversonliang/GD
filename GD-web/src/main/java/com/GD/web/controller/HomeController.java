@@ -169,13 +169,8 @@ public class HomeController {
 	@RequestMapping(value = "sendEmail.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String sendEmail(HttpServletRequest request, HttpServletResponse response, HttpSession session, String to) {
-		MailInfo mailInfo = EmailUtil.getRegistMailInfo(to, "test");
-		
-		try {
-			MailSender.sendTextMail(mailInfo);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		MailInfo mailInfo = EmailUtil.getInviteCodeMailInfo(to, "test");
+		MailSender.sendHtmlMail(mailInfo);
 		return "success";
 		
 	}
