@@ -8,8 +8,18 @@ public class RedisKey {
 	 * @param code
 	 * @return
 	 */
-	public static String getUserActivate(String code) {
+	public static String getUserActive(String code) {
 		return "user_activate:" + code;
+	}
+	
+	/**
+	 * 用户重置密码Key
+	 * 
+	 * @param code
+	 * @return
+	 */
+	public static String getUserReset(String code) {
+		return "user_reset:" + code;
 	}
 
 	/**

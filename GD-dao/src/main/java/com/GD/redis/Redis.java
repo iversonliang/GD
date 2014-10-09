@@ -937,4 +937,46 @@ public class Redis implements JedisCommands {
 		// TODO Auto-generated method stub
 		throw new NotImplementedException();
 	}
+//
+//	@Override
+//	public List<String> blpop(int arg0, String arg1) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
+//
+//	@Override
+//	public List<String> brpop(int arg0, String arg1) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
+//
+//	@Override
+//	public List<String> srandmember(String arg0, int arg1) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
+//
+//	@Override
+//	public Long zlexcount(String arg0, String arg1, String arg2) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
+//
+//	@Override
+//	public Set<String> zrangeByLex(String arg0, String arg1, String arg2) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
+//
+//	@Override
+//	public Set<String> zrangeByLex(String arg0, String arg1, String arg2, int arg3, int arg4) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
+//
+//	@Override
+//	public Long zremrangeByLex(String arg0, String arg1, String arg2) {
+//		// TODO Auto-generated method stub
+//		throw new NotImplementedException();
+//	}
 }

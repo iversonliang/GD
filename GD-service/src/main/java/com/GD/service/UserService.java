@@ -11,11 +11,13 @@ public interface UserService {
 	
 	public void checkAdmin(int userId);
 
-	public boolean waitActivate(int userId, String code);
-
 	public boolean updateStatus(int userId, UserStatusType type);
 
 	public boolean activate(String code);
+	
+	public boolean applyReset(String email);
+	
+	public boolean reset(String code, String password);
 
 	public User get(String username, String password);
 

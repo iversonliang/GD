@@ -20,6 +20,14 @@ public class EmailUtil {
 		return mailInfo;
 	}
 	
+	public static MailInfo getPasswordResetMailInfo(String address, String code) {
+		MailInfo mailInfo = EmailUtil.getMailAccount();
+		mailInfo.setToAddress(address);
+		mailInfo.setSubject("优舞网密码重置");
+		mailInfo.setContent("<html><body><p>请点击以下地址重置您的密码：<a href='http://www.goodancer.com/page/reset.jsp?code=" + code + "'>http://www.goodancer.com/page/reset.jsp?code=" + code + "</a></p></body></html>");
+		return mailInfo;
+	}
+	
 	public static MailInfo getMailAccount() {
 		MailInfo mailInfo = new MailInfo();
 		mailInfo.setUserName("mail");

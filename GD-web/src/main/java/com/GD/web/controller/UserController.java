@@ -496,4 +496,45 @@ public class UserController {
 		out.flush();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/resetForgetPassword.do", method = RequestMethod.GET)
+	public Map<String, Object> resetForgetPassword(HttpServletRequest request, HttpServletResponse response, HttpSession session, String code, String password) {
+		String message = "";
+		boolean result = false;
+		int errorCode = -1;
+		try {
+			RegularUtil.checkPassword(password);
+			userService.reset(code, password);
+			result = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if (e.getMessage().contains(ErrorTipsType.PASSWORD_ERROR.getDesc())) {
+				errorCode = ErrorTipsType.PASSWORD_ERROR.getKey();
+				message = ErrorTipsType.PASSWORD_ERROR.getDesc();
+			} else if (e.getMessage().contains(ErrorTipsType.RESET_URL_ERROR.getDesc())) {
+				errorCode = ErrorTipsType.RESET_URL_ERROR.getKey();
+				message = ErrorTipsType.RESET_URL_ERROR.getDesc();
+			} else {
+				new RuntimeException("未知错误");
+			}
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("message", message);
+		map.put("errorCode", errorCode);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/applyResetPassword.do", method = RequestMethod.GET)
+	public Map<String, Object> applyResetPassword(HttpServletRequest request, HttpServletResponse response, HttpSession session, String email) {
+		boolean result = userService.applyReset(email);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("message", "");
+		map.put("errorCode", -1);
+		return map;
+	}
+	
+	
 }

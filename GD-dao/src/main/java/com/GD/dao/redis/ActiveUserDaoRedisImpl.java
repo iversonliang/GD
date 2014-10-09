@@ -26,12 +26,11 @@ public class ActiveUserDaoRedisImpl implements ActiveUserDao {
 
 	@Autowired
 	private Redis redis;
-
+	
 	@Override
 	public boolean add(User user, Date date) {
 		String key = RedisKey.getActiveUser();
-		int score = DateUtil.getSecond(date);
-		System.out.println("更新活跃用户[" + user.getUserId() + "] score[" + score + "]");
+		double score = DateUtil.getShortSeconds();
 		this.redis.zadd(key, score, Json.toJson(user));
 		return true;
 	}
@@ -58,7 +57,7 @@ public class ActiveUserDaoRedisImpl implements ActiveUserDao {
 	@Override
 	public boolean update(User newUser, User oldUser) {
 		String key = RedisKey.getActiveUser();
-		Long score = this.redis.zrank(key, Json.toJson(oldUser));
+		Double score = this.redis.zscore(key, Json.toJson(oldUser));
 		if (score == null) {
 			return true;
 		}

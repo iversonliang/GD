@@ -14,11 +14,17 @@ import com.GD.dao.ActiveUserDao;
 import com.GD.dao.UserActivateDao;
 import com.GD.dao.UserDao;
 import com.GD.dao.UserHeadImgDao;
+import com.GD.dao.UserResetDao;
+import com.GD.email.MailInfo;
+import com.GD.email.MailSender;
 import com.GD.model.User;
 import com.GD.service.UserService;
+import com.GD.type.ErrorTipsType;
 import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
+import com.GD.util.CodeUtil;
 import com.GD.util.Constants;
+import com.GD.util.EmailUtil;
 import com.GD.util.ListUtil;
 
 @Service
@@ -28,6 +34,8 @@ public class UserServiceImpl implements UserService {
 	private UserHeadImgDao userHeadImgDao;
 	@Autowired
 	private ActiveUserDao activeUserDao;
+	@Autowired
+	private UserResetDao userResetDao;
 	@Autowired
 	private UserActivateDao userActivateDao;
 	@Autowired
@@ -86,11 +94,6 @@ public class UserServiceImpl implements UserService {
 //		userDao.updateStatus(userId, UserStatusType.ACTIVATED.getKey());
 		userActivateDao.del(code);
 		return true;
-	}
-
-	@Override
-	public boolean waitActivate(int userId, String code) {
-		return userActivateDao.add(userId, code);
 	}
 
 	@Override
@@ -204,6 +207,33 @@ public class UserServiceImpl implements UserService {
 		User user = this.get(userId);
 		Assert.notNull(user, "没有对应的用户[" + userId + "]");
 		return activeUserDao.add(user, new Date());
+	}
+
+	@Override
+	public boolean applyReset(String email) {
+		String code = CodeUtil.generateString(50);
+		User user = userDao.getByEmail(email);
+		if (user == null) {
+			return false;
+		}
+		userResetDao.add(user.getUserId(), code);
+		MailInfo mailInfo = EmailUtil.getPasswordResetMailInfo(user.getEmail(), code);
+		MailSender.sendHtmlMail(mailInfo);// 发送html格式
+		return true;
+	}
+
+	@Override
+	public boolean reset(String code, String password) {
+		int userId = userResetDao.get(code);
+		if (userId == 0) {
+			throw new RuntimeException(ErrorTipsType.RESET_URL_ERROR.getDesc());
+		}
+		User oldUser = this.get(userId);
+		User newUser = this.copyUser(oldUser);
+		newUser.setPassword(password);
+		this.update(newUser, oldUser);
+		userResetDao.del(code);
+		return true;
 	}
 
 }

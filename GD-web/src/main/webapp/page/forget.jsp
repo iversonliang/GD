@@ -14,22 +14,25 @@
 </script>
 </c:if>
 <script type="text/javascript"> 
-    function changeImg() {
-        var imgSrc = $("#imgObj"); 
-        var src = imgSrc.attr("src");
-        imgSrc.attr("src", chgUrl(src)); 
-    } 
-      
-    function chgUrl(url) {
-        var timestamp = (new Date()).valueOf(); 
-        url = url.substring(0, 17); 
-        if ((url.indexOf("&") >= 0)) { 
-            url = url + "&tamp=" + timestamp; 
-        } else { 
-            url = url + "?timestamp=" + timestamp; 
+    function checkEmail() {
+        var email = $("#email").val();
+        if (Common.isEmpty(email)) {
+			alert("请输入邮箱地址");
+			return;
         }
-        return url; 
-    } 
+        var reemail = $("#reemail").val();
+        if (Common.isEmpty(reemail)) {
+			alert("请重复输入邮箱地址");
+			return;
+        }
+        if (email != reemail) {
+			alert("两次输入邮箱不一致，请重新输入");
+			return;
+        }
+        var url = "/user/applyResetPassword.do?email=" + email;
+        AjaxJson.get(url);
+        alert("重置密码邮件已经发送，请进入注册邮箱进行下一步操作");
+    }
 </script>
 </head>
 <body>
@@ -44,7 +47,6 @@
 		<div class="content bg_w">
 			<div class="reg_title yy-icon">请使用注册邮箱找回密码，如遇到困难，请 联系我们 :)</div>
 			<div class="contBody">
-				<form method="get">
 					<table width="100%" cellspacing="0" cellpadding="0" class="norTable">
 						<tbody>
 						<tr>
@@ -57,10 +59,9 @@
 						</tr>
 						<tr>
 							<th></th>
-							<td class="vm"><input type="submit" id="subutt" tabindex="3" value="找回密码" class="lBtn"></td>
+							<td class="vm"><input type="input" id="subutt" tabindex="3" value="找回密码" class="lBtn" onclick="checkEmail()"></td>
 						</tr>
 					</tbody></table>
-				</form>
 			</div>
 		</div>
 	</div>

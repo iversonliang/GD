@@ -393,7 +393,7 @@ public class DateUtil {
 	 *            日期Date
 	 * @return 秒数
 	 */
-	public static int getSecond(final Date date) {
+	public static long getSecond(final Date date) {
 		long time = date.getTime();
 		return (int) (time / 1000);
 	}
