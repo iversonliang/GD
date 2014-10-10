@@ -33,6 +33,7 @@ public class EmailUtil {
 		mailInfo.setUserName("mail");
 		mailInfo.setPassword("goodancer_mail");// 您的邮箱密码
 		mailInfo.setFromAddress("mail@goodancer.com");
+		mailInfo.setPersonal("优舞网");
 		return mailInfo;
 	}
 }
