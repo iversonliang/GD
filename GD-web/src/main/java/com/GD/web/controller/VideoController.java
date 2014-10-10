@@ -195,7 +195,9 @@ public class VideoController {
 		TimeLimitType timeLimitType = form.getTimeLimitType() == null ? TimeLimitType.ALL : TimeLimitType.toType(form.getTimeLimitType());
 		
 		int count = videoService.count(StatusType.NORMAL, videoType, HomeType.IGNORE, videoGradeType, VideoSourceType.ALL, timeLimitType, form.getKeyword(), false);
-		Pager pager = new Pager(count, page, 16, "/video/search.do", null);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("keyword", form.getKeyword());
+		Pager pager = new Pager(count, page, 16, "/video/search.do", param);
 		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, videoGradeType, VideoSourceType.ALL, sortType, timeLimitType, false, form.getKeyword(), pager.getFirst(), 16);
 		List<VideoVO> voList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
@@ -595,6 +597,8 @@ public class VideoController {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println("编舞//Storm//Shine//Mannequin//国内作品//个人舞//".contains("国内"));
+		Pattern pattern = Pattern.compile("^/[a-zA-Z0-9]+-.+(/)+");
+		Matcher matcher = pattern.matcher("/lyle-beniga-like-a-g6/");
+		System.out.println(matcher.matches());
 	}
 }
