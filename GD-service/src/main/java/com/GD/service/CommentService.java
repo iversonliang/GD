@@ -27,4 +27,7 @@ public interface CommentService {
 	public List<Comment> listReplyToMe(int userId, int start, int size);
 	
 	public List<Comment> listToMe(int userId, int start, int size);
+
+	public boolean updateNickname(int userId, String nickname);
 }
+

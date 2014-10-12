@@ -84,6 +84,16 @@
 	                    	</span>
 	                    </td>
                       </tr>
+                      
+                      <tr>
+	                	<th>昵称</th>
+	                    <td>
+	                    	<input type="input" class="newTxt w180" name="nickname" id="nickname" tabindex="3"> 
+	                    	<span class="onShow" style="margin: 0px; padding: 0px; background-color: transparent; background-position: initial initial; background-repeat: initial initial;">
+	                    		<span id="repasswordTip" name="tips" style="display:none" class="txtMsg alert f12 ml1"></span>
+	                    	</span>
+	                    </td>
+                      </tr>
                     
                       <tr>
 	                	<th>电子邮箱</th>

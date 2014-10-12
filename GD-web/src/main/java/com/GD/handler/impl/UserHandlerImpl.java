@@ -60,7 +60,6 @@ public class UserHandlerImpl implements UserHandler {
 		user.setProvince(StringUtils.defaultIfEmpty(form.getProvince(), ""));
 		user.setCity(StringUtils.defaultIfEmpty(form.getCity(), ""));
 		user.setGroupType(form.getGroupType());
-		
 		return user;
 	}
 
@@ -89,6 +88,9 @@ public class UserHandlerImpl implements UserHandler {
 		}
 		if (StringUtils.isNotEmpty(form.getCity())) {
 			newUser.setCity(form.getCity());
+		}
+		if (StringUtils.isNotEmpty(form.getNickname())) {
+			newUser.setNickname(form.getNickname());
 		}
 		newUser.setBirthday(birthday);
 		return newUser;

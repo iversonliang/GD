@@ -12,14 +12,14 @@
 <c:if test="${pager.currentPage<=5}" >
 	<c:forEach var="index" varStatus="varStatus" begin="1" end="${pager.totalPage}" step="1">
 		<c:if test="${index<=10}">
-			<a href="${pager.urlExceptPage }&page=${index}" <c:if test="${index == pager.currentPage }" >class='pageactive'</c:if>>${index}</a>
+			<a href="${pager.urlExceptPage }page=${index}" <c:if test="${index == pager.currentPage }" >class='pageactive'</c:if>>${index}</a>
 		</c:if>
 	</c:forEach> 
 </c:if>
 <c:if test="${pager.currentPage>5}" >
 	<c:forEach var="index" varStatus="varStatus" begin="${pager.currentPage - 5}" end="${pager.currentPage + 4}" step="1">
 		<c:if test="${index<=pager.totalPage}">
-			<a href="${pager.urlExceptPage }&page=${index}" <c:if test="${index == pager.currentPage }" >class='pageactive'</c:if>>${index}</a>
+			<a href="${pager.urlExceptPage }page=${index}" <c:if test="${index == pager.currentPage }" >class='pageactive'</c:if>>${index}</a>
 		</c:if>
 	</c:forEach> 
 </c:if>

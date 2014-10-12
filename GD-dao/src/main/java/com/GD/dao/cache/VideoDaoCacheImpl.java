@@ -166,4 +166,13 @@ public class VideoDaoCacheImpl implements VideoDao {
 		return videoDaoMysqlImpl.updateHomeTypeIndex(videoId, index);
 	}
 
+	@Override
+	public boolean updateNicknameByUser(int userId, String nickname) {
+		boolean result = videoDaoMysqlImpl.updateNicknameByUser(userId, nickname);
+		if (result) {
+			videoDaoMemoryImpl.updateNicknameByUser(userId, nickname);
+		}
+		return result;
+	}
+
 }

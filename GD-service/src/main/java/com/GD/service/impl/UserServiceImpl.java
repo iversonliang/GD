@@ -18,7 +18,9 @@ import com.GD.dao.UserResetDao;
 import com.GD.email.MailInfo;
 import com.GD.email.MailSender;
 import com.GD.model.User;
+import com.GD.service.CommentService;
 import com.GD.service.UserService;
+import com.GD.service.VideoService;
 import com.GD.type.ErrorTipsType;
 import com.GD.type.RoleType;
 import com.GD.type.UserStatusType;
@@ -39,19 +41,24 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserActivateDao userActivateDao;
 	@Autowired
+	private CommentService commentService;
+	@Autowired
+	private VideoService videoService;
+	@Autowired
 	private UserDao userDao;
 
 	@Override
 	public int add(User user) {
 		long result = userDao.add(user);
 
-//		if (result > 0) {
-//
+		if (result > 0) {
+
 //			String code = CodeUtil.generateString(50);
 //			userActivateDao.add((int)result, code);
 //			MailInfo mailInfo = EmailUtil.getRegistMailInfo(user.getEmail(), code);
-//			MailSender.sendHtmlMail(mailInfo);// 发送html格式
-//		}
+			MailInfo mailInfo = EmailUtil.getRegistMailInfo(user.getEmail(), user.getUsername());
+			MailSender.sendHtmlMail(mailInfo);// 发送html格式
+		}
 		return (int) result;
 	}
 
@@ -139,6 +146,10 @@ public class UserServiceImpl implements UserService {
 		boolean result = userDao.update(newUser);
 		if (result) {
 			activeUserDao.update(newUser, oldUser);
+			if (!newUser.getNickname().equals(oldUser.getNickname())) {
+				videoService.updateNicknameByUser(newUser.getUserId(), newUser.getNickname());
+				commentService.updateNickname(newUser.getUserId(), newUser.getNickname());
+			}
 		}
 		return result;
 	}

@@ -96,6 +96,8 @@ public class VideoHandlerImpl implements VideoHandler {
 		map.put("videoGradeType", form.getVideoGradeType());
 		map.put("sourceType", form.getVideoSourceType());
 		map.put("videoType", form.getVideoType());
+		map.put("timeLimitType", form.getTimeLimitType());
+		map.put("sortType", form.getSortType());
 		return map;
 	}
 

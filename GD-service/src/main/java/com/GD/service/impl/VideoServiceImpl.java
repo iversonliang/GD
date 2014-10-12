@@ -269,5 +269,10 @@ public class VideoServiceImpl implements VideoService {
 			videoDao.updateHomeTypeIndex(video.getVideoId(), i);
 		}
 	}
+
+	@Override
+	public boolean updateNicknameByUser(int userId, String nickname) {
+		return videoDao.updateNicknameByUser(userId, nickname);
+	}
 	
 }

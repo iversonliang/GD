@@ -35,17 +35,17 @@ var Login = {
 			$("#errorTips").show();
 			return false;
 		}
-		var code = $("#code").val();
-		if (Common.isEmpty(code)) {
-			$("#tips").html("请输入验证码");
-			$("#errorTips").show();
-			return false;
-		}
-		if (code.length != 4) {
-			$("#tips").html("验证码长度为4位，请检查");
-			$("#errorTips").show();
-			return false;
-		}
+//		var code = $("#code").val();
+//		if (Common.isEmpty(code)) {
+//			$("#tips").html("请输入验证码");
+//			$("#errorTips").show();
+//			return false;
+//		}
+//		if (code.length != 4) {
+//			$("#tips").html("验证码长度为4位，请检查");
+//			$("#errorTips").show();
+//			return false;
+//		}
 		return true;
 	},
 	"end" : null

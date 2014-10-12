@@ -26,7 +26,7 @@
 						<div class="atPerson">
 							<div class="vm">
 								<b>
-								<a href="/video/personal.do?userId=${user.userId }" class="c4095ce f14" target="_blank">${user.username }</a>
+								<a href="/video/personal.do?userId=${user.userId }" class="c4095ce f14" target="_blank"><c:if test="${empty user.nickname}">${user.username }</c:if><c:if test="${!empty user.nickname}">${user.nickname }</c:if></a>
 								</b>
 							</div>
 							<c:if test="${user.sex == 0 }">女</c:if><c:if test="${user.sex == 1 }">男</c:if> <span class="c999">/</span> ${user.province} - ${user.city}<br>

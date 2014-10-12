@@ -61,7 +61,8 @@ var Register = {
 			sex : sex,
 			province : $("#province").val(),
 			city : $("#city").val(),
-			groupType : groupType
+			groupType : groupType,
+			nickname : $("#nickname").val()
 		}
 		var url = "/user/register.do";
 		AjaxJson.post(url, param).done(function(data) {

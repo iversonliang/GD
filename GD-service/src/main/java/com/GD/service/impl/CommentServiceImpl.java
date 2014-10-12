@@ -97,4 +97,9 @@ public class CommentServiceImpl implements CommentService{
 		return commentDao.delByVideo(videoId);
 	}
 
+	@Override
+	public boolean updateNickname(int userId, String nickname) {
+		return commentDao.updateNickname(userId, nickname);
+	}
+
 }

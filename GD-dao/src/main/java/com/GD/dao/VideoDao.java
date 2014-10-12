@@ -68,4 +68,6 @@ public interface VideoDao {
 	public List<Video> listAllHomeType();
 	
 	public boolean updateHomeTypeIndex(int videoId, int index);
+	
+	public boolean updateNicknameByUser(int userId, String nickname);
 }

@@ -45,6 +45,14 @@ var User = {
 		$("#leftSignLength").html(length);
 	},
 	/**
+	 * 计算签名长度
+	 */
+	"checkNicknameLength" : function() {
+		var sign = $("#nickname").val().trim();
+		var length = 10 - sign.stringLength();
+		$("#leftNicknameLength").html(length);
+	},
+	/**
 	 * 计算个人简介长度
 	 */
 	"checkDescriptionLength" : function() {
@@ -87,7 +95,8 @@ var User = {
 			realName : $("#realName").val(),
 			danceType : danceType,
 			province : province,
-			city : city
+			city : city,
+			nickname : $("#nickname").val()
 		}
 		var url = "/user/updateUserInfo.do";
 		AjaxJson.post(url, param).done(function(data) {

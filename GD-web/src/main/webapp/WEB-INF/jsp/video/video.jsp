@@ -31,7 +31,17 @@
 			<div class="player">
 				<c:if test="${video.sourceSiteType == 1 }">
 					<%-- <embed src="${video.playUrl }" allowFullScreen="true" quality="high" width="940" height="588" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed> --%>
-					<embed src="${video.playUrl }" quality="high" width="940" height="588" align="middle" allowScriptAccess="never" allowNetworking="internal" allowfullscreen="true" autostart="0" type="application/x-shockwave-flash"></embed>
+					<%-- <embed src="${video.playUrl }" quality="high" width="940" height="588" align="middle" allowScriptAccess="never" allowNetworking="internal" allowfullscreen="true" autostart="0" type="application/x-shockwave-flash"></embed> --%>
+					<%-- <iframe height="588" width="940" src="${video.playUrl }" frameborder=0 allowfullscreen></iframe> --%>
+					<div id="youkuplayer" style="width:940px;height:588px"></div>
+					<script type="text/javascript" src="http://player.youku.com/jsapi">
+						player = new YKU.Player('youkuplayer',{
+							styleid: '0',
+							client_id: '0ebb1b8b59ba87b8',
+							vid: '${youkuId}',
+							autoplay: true
+							});
+					</script>
 				</c:if>
 			</div>
 			<div class="videoCont">

@@ -272,5 +272,11 @@ public class VideoDaoMysqlImpl implements VideoDao {
 		param.setInt(videoId);
 		return jdbc.updateForBoolean(sql, index, videoId);
 	}
+
+	@Override
+	public boolean updateNicknameByUser(int userId, String nickname) {
+		String sql = "UPDATE video SET nickname=? WHERE user_id=?";
+		return jdbc.updateForBoolean(sql, nickname, userId);
+	}
 	
 }

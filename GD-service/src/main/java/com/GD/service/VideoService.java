@@ -53,5 +53,7 @@ public interface VideoService {
 	
 	public boolean update(Video video);
 	
+	public boolean updateNicknameByUser(int userId, String nickname);
+	
 	public void fixHomeType();
 }

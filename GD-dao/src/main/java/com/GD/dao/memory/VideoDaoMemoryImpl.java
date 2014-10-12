@@ -1,6 +1,9 @@
 package com.GD.dao.memory;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.lang.NotImplementedException;
@@ -119,4 +122,20 @@ public class VideoDaoMemoryImpl implements VideoDao {
 		throw new NotImplementedException();
 	}
 
+	@Override
+	public boolean updateNicknameByUser(int userId, String nickname) {
+		@SuppressWarnings("unchecked")
+		Set<Entry<Integer, Video>> set = VIDEO_MAP.entrySet();
+		List<Integer> list = new ArrayList<Integer>();
+		for (Entry<Integer, Video> entry : set) {
+			if (userId == entry.getValue().getUserId()) {
+				list.add(entry.getKey());
+			}
+		}
+		for (Integer key : list) {
+			VIDEO_MAP.remove(key);
+		}
+		return true;
+	}
+	
 }

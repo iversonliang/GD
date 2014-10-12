@@ -312,20 +312,20 @@ public class UserController {
 	public Map<String, Object> login(HttpServletRequest request, HttpSession session, LoginForm form) {
 		String username = form.getUsername();
 		String password = form.getPassword();
-		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
+//		String actualCode = (String) session.getAttribute(ACTUAL_CODE);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String message = "";
 		String jumpUrl = "";
 		boolean result = false;
-		boolean isCodeValid;
-		try {
-			CheckUtil.checkCode(form.getCode(), actualCode);
-			isCodeValid = true;
-		} catch (Exception e) {
-			isCodeValid = false;
-			message = ErrorTipsType.CODE_ERROR.getDesc();
-		}
-		if (isCodeValid) {
+//		boolean isCodeValid;
+//		try {
+//			CheckUtil.checkCode(form.getCode(), actualCode);
+//			isCodeValid = true;
+//		} catch (Exception e) {
+//			isCodeValid = false;
+//			message = ErrorTipsType.CODE_ERROR.getDesc();
+//		}
+//		if (isCodeValid) {
 			User user = userService.get(username, password);
 			if (user != null) {
 				session.setAttribute("username", username);
@@ -341,7 +341,7 @@ public class UserController {
 			} else {
 				message = ErrorTipsType.LOGIN_ERROR.getDesc();
 			}
-		}
+//		}
 		map.put("message", message);
 		map.put("redirect", jumpUrl);
 		map.put("result", result);

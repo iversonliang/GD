@@ -46,6 +46,10 @@
 							<td><input maxlength="500" id="sign" onkeyup="User.checkSignLength()" name="signature" type="text" value="${user.sign }" class="newTxt w530"><p class="f12 c999">还可以输入 <b id="leftSignLength" class="cc20000 cf30 abc">38</b> 字符</p></td>
 						</tr>
 						<tr>
+							<th>昵称</th>
+							<td><input maxlength="500" id="nickname" onkeyup="User.checkNicknameLength()" name="signature" type="text" value="${user.nickname }" class="newTxt w530"><p class="f12 c999">还可以输入 <b id="leftNicknameLength" class="cc20000 cf30 abc">10</b> 字符</p></td>
+						</tr>
+						<tr>
 							<th>真实姓名</th>
 							<td class="vm" colspan="2">
 								<input id="realName" name="realName" type="text" value="${user.realName }" class="newTxt w350">

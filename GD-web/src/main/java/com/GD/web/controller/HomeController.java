@@ -121,7 +121,8 @@ public class HomeController {
 		TimeLimitType timeLimitType = form.getTimeLimitType() == null ? TimeLimitType.ALL : TimeLimitType.toType(form.getTimeLimitType());
 		
 		int videoCount = videoService.count(StatusType.NORMAL, videoType, HomeType.IGNORE, videoGradeType, VideoSourceType.ORIGINAL, timeLimitType, form.getKeyword(), false);
-		Pager pager = new Pager(videoCount, page, 16, "/opus.do", null);
+		Map<String, Object> params = videoHandler.getVideoSearchForm(form);
+		Pager pager = new Pager(videoCount, page, 16, "/opus.do", params);
 		List<Video> list = videoService.list(StatusType.NORMAL, videoType, HomeType.IGNORE, videoGradeType, VideoSourceType.ORIGINAL, sortType, timeLimitType, false, form.getKeyword(), pager.getFirst(), 16);
 		List<VideoVO> voList = videoHandler.toVoList(list);
 		ModelAndView model = ViewUtil.getView(DIR);
@@ -168,8 +169,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "sendEmail.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String sendEmail(HttpServletRequest request, HttpServletResponse response, HttpSession session, String to) {
-		MailInfo mailInfo = EmailUtil.getInviteCodeMailInfo(to, "test");
+	public String sendRegisterEmail(HttpServletRequest request, HttpServletResponse response, HttpSession session, String to, String username) {
+		MailInfo mailInfo = EmailUtil.getRegistMailInfo(to, username);
 		MailSender.sendHtmlMail(mailInfo);
 		return "success";
 		

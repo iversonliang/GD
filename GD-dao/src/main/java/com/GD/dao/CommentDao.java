@@ -43,4 +43,6 @@ public interface CommentDao {
 	public List<Comment> listToMe(int userId, int start, int size);
 	
 	public int countToMe(int userId);
+	
+	public boolean updateNickname(int userId, String nickname);
 }

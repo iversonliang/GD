@@ -94,5 +94,14 @@ public class CommentDaoMysqlImpl implements CommentDao{
 		return jdbc.updateForBoolean(sql, videoId);
 	}
 
+	@Override
+	public boolean updateNickname(int userId, String nickname) {
+		String sql = "UPDATE comment SET nickname=? WHERE user_id=?";
+		jdbc.updateForBoolean(sql, nickname, userId);
+		sql = "UPDATE comment SET reply_nickname=? WHERE reply_user_id=?";
+		jdbc.updateForBoolean(sql, nickname, userId);
+		return true;
+	}
+
 	
 }

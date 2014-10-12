@@ -65,14 +65,14 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<th>验证码</th>
 							<td>
 								<div class="relative loginRx">
 									<input type="code" id="code" name="code" class="newTxt w250" tabindex="2"> 
 								</div>
 							</td>
-						</tr>
+						</tr> -->
 						<tr id="errorTips" style="display:none">
 							<th></th>
 							<td>
@@ -83,7 +83,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<th></th>
 							<td>
 								<div class="relative loginRx">
@@ -91,7 +91,7 @@
 								</div>
 							</td>
 						</tr>
-						
+						 -->
 						<!-- <tr>
 							<th></th>
 							<td><label><input name="autolog" type="checkbox" value="1" id="autolog" tabindex="3"> 下次自动登录</label></td>
